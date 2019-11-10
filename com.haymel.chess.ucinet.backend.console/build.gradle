@@ -1,0 +1,19 @@
+//
+// com.haymel.chess.ucinet.backend.console 
+//
+plugins {
+	id 'application'
+}
+
+application {
+    mainClassName = 'com.haymel.chess.ucinet.backend.console.UciSocketBackendConsole'
+}
+
+dependencies {
+    compile project(':com.haymel.chess.ucinet') 
+
+	testImplementation group: 'junit', name: 'junit', version: '4.12'
+	testCompile group: 'org.hamcrest', name: 'hamcrest-all', version: '1.3'
+}
+
+ 
