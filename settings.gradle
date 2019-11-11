@@ -3,5 +3,6 @@ rootProject.name = 'chess'
 include 'com.haymel.chess.ucinet'
 include 'com.haymel.chess.ucinet.frontend'
 include 'com.haymel.chess.ucinet.backend.console'
+include 'com.haymel.chess.uci'
 
 

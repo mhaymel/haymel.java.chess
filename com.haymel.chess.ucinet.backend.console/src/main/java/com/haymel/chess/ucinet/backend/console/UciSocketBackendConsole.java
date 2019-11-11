@@ -1,3 +1,10 @@
+/***************************************************
+ * (c) Markus Heumel
+ *
+ * @date 11.11.2019
+ * @author: Markus.Heumel
+ *
+ */
 package com.haymel.chess.ucinet.backend.console;
 
 import java.io.IOException;
