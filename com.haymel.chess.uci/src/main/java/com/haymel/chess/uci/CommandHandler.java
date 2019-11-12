@@ -71,7 +71,7 @@ import java.util.List;
 		
 		These are all the command the engine gets from the interface.	 
 */
-public interface UciGuiToEngine {
+public interface CommandHandler {
 	
 	/* 
 		uci
@@ -214,5 +214,8 @@ public interface UciGuiToEngine {
 				search until the "stop" command. Do not exit the search without being told so in this mode!
 	 */
 	void go(int wtime, int btime);
+	
+	
+	void unknown(String[] command);
 	
 }
