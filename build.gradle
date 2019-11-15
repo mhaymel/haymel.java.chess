@@ -1,5 +1,9 @@
 allprojects {
     repositories {
+        flatDir {
+            dirs "$rootProject.projectDir/lib"
+        }
+	
         jcenter() 
     }
 }

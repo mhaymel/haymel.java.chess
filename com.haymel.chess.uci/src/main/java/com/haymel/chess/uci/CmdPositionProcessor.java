@@ -1,12 +1,15 @@
 package com.haymel.chess.uci;
 
+import static com.haymel.util.Require.nonNull;
 import static java.util.Objects.requireNonNull;
 
-public class CommandProcessor {
+import com.haymel.util.Require;
+
+public class CmdPositionProcessor {
 
 	public void execute(String line, CommandHandler handler) {
-		requireNonNull(line);
-		requireNonNull(handler);
+		nonNull(line,  "line");
+		nonNull(handler,  "handler");
 		
 		if (line.trim().length() == 0)
 			return;
@@ -14,7 +17,8 @@ public class CommandProcessor {
 		doExecute(line.trim().split("\\s+"), handler);
 	}
 
-	private void doExecute(String[] command, CommandHandler handler) {
+	public void execute(String[] command, CommandHandler handler) {
+		Require.arrayOrNull(array, name)
 		if (command.length == 0)
 			return;
 		

@@ -91,4 +91,13 @@ public class CommandProcessorTest {
 		verifyNoMoreInteractions(handler);
 	}
 	
+	@Test 
+	public void stringWithUciNewgameCallsUci() {
+		processor.execute("ucinewgame", handler);
+		verify(handler, times(1)).ucinewgame();
+		verifyNoMoreInteractions(handler);
+	}
+	
+	
+	
 }
