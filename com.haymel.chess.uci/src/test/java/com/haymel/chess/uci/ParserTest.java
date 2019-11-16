@@ -56,6 +56,43 @@ public class ParserTest {
 	}
 	
 	@Test
+	public void isCmdUci() {
+		assertThat(new Parser("uci").isCmdUci(), is(true));
+		assertThat(new Parser("UCI").isCmdUci(), is(true));
+		assertThat(new Parser("ucinewgame").isCmdUci(), is(false));
+	}
+
+	@Test
+	public void isCmdDebug() {
+		assertThat(new Parser("debug on").isCmdDebug(), is(true));
+		assertThat(new Parser("debug off").isCmdDebug(), is(true));
+		assertThat(new Parser("DEBUG on").isCmdDebug(), is(true));
+		assertThat(new Parser("ucinewgame").isCmdDebug(), is(false));
+	}
+
+	@Test
+	public void isCmdIsready() {
+		assertThat(new Parser("isready").isCmdIsready(), is(true));
+		assertThat(new Parser("ISREADY").isCmdIsready(), is(true));
+		assertThat(new Parser("DEBUG on").isCmdIsready(), is(false));
+		assertThat(new Parser("ucinewgame").isCmdIsready(), is(false));
+	}
+
+	@Test
+	public void isCmdUcinewgame() {
+		assertThat(new Parser("ucinewgame").isCmdUcinewgame(), is(true));
+		assertThat(new Parser("UCINEWGAME").isCmdUcinewgame(), is(true));
+		assertThat(new Parser("DEBUG on").isCmdUcinewgame(), is(false));
+	}
+
+	@Test
+	public void isCmdPosition() {
+		assertThat(new Parser("position").isCmdPosition(), is(true));
+		assertThat(new Parser("POSITION").isCmdPosition(), is(true));
+		assertThat(new Parser("DEBUG on").isCmdPosition(), is(false));
+	}
+	
+	@Test
 	public void test() {
 		test("      ", new String[] { } );
 		test("", new String[] { } );
