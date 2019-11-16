@@ -83,7 +83,9 @@ public interface CommandHandler {
 			After that the engine should send "uciok" to acknowledge the uci mode.
 			If no uciok is sent within a certain time period, the engine task will be killed by the GUI.
 	*/
+	String uci = "uci";
 	void uci();
+
 
 	/*
 		debug [ on | off ]
@@ -93,8 +95,12 @@ public interface CommandHandler {
 			This mode should be switched off by default and this command can be sent
 			any time, also when the engine is thinking.
 	*/
+	String debug = "debug";
+	String on = "on";
+	String off = "off";
 	void debugOn();
 	void debugOff();
+	
 	
 	/*
 		isready
@@ -108,7 +114,9 @@ public interface CommandHandler {
 			This command must always be answered with "readyok" and can be sent also when the engine is calculating
 			in which case the engine should also immediately answer with "readyok" without stopping the search.
 	 */
+	String isready = "isready";
 	void isReady();
+	
 	
 	/*
 		setoption name <id> [value <x>]
@@ -128,6 +136,7 @@ public interface CommandHandler {
 	void setoption(String id);
 	void setoption(String id, String value);
 
+	
 	/*
 		register
 			this is the command to try to register an engine or to tell the engine that registration
@@ -147,6 +156,7 @@ public interface CommandHandler {
 	void registerLater();
 	void register(String name, String code);
 	
+	
 	/*
 		ucinewgame
 		   this is sent to the engine when the next search (started with "position" and "go") will be from
@@ -158,8 +168,10 @@ public interface CommandHandler {
 		   As the engine's reaction to "ucinewgame" can take some time the GUI should always send "isready"
 		   after "ucinewgame" to wait for the engine to finish its operation.
 	*/
+	String ucinewgame = "ucinewgame";
 	void ucinewgame();
 
+	
 	/*
 		position [fen <fenstring> | startpos ]  moves <move1> .... <movei>
 			set up the position described in fenstring on the internal board and
@@ -168,8 +180,10 @@ public interface CommandHandler {
 			Note: no "new" command is needed. However, if this position is from a different game than
 			the last position sent to the engine, the GUI should have sent a "ucinewgame" inbetween.
 	*/
+	String position = "position";
 	void positionStart(List<String> moves);
 	void positionFen(String fen, List<String> moves);
+	
 	
 	/*
 		go

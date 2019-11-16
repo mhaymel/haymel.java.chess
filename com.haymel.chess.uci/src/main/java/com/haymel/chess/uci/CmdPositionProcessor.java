@@ -1,22 +1,25 @@
 /***************************************************
  * (c) Markus Heumel
  *
- * @date: 	26.11.2019
+ * @date: 	16.11.2019
  * @author: Markus.Heumel
  *
  */
 package com.haymel.chess.uci;
 
-import static com.haymel.util.Require.nonEmpty;
 import static com.haymel.util.Require.nonNull;
 
 public class CmdPositionProcessor {
 
-	public void execute(String[] command, CommandHandler handler) {
-		
-		nonEmpty(command, "command");
-		nonNull(handler, "handler");
-		
+	private final Parser parser;
+	private final CommandHandler handler;
+	
+	public CmdPositionProcessor(Parser parser, CommandHandler handler) {
+		this.parser = nonNull(parser, "parser");
+		this.handler = nonNull(handler, "handler");
+	}
+
+	public void execute() {
 	}
 	
 }
