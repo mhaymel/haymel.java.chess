@@ -20,7 +20,7 @@ public class CommandProcessor {
 	}
 	
 	public void execute() {
-		if (parser.count() == 0 || command().isEmpty())
+		if (parser.empty())
 			return;
 
 		if (isCmd("uci"))
