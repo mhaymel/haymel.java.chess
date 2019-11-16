@@ -7,11 +7,6 @@
  */
 package com.haymel.chess.uci;
 
-import static com.haymel.chess.uci.CommandHandler.debug;
-import static com.haymel.chess.uci.CommandHandler.isready;
-import static com.haymel.chess.uci.CommandHandler.position;
-import static com.haymel.chess.uci.CommandHandler.uci;
-import static com.haymel.chess.uci.CommandHandler.ucinewgame;
 import static com.haymel.util.Require.nonNull;
 
 public class CommandProcessor {
@@ -28,19 +23,19 @@ public class CommandProcessor {
 		if (parser.empty())
 			return;
 
-		if (isCmd(uci))
+		if (parser.isCmdUci())
 			handler.uci();
 
-		else if (isCmd(debug))
+		else if (parser.isCmdDebug())
 			handleDebug();
 
-		else if(isCmd(isready))
+		else if (parser.isCmdIsready())
 			handler.isReady();
 	
-		else if(isCmd(ucinewgame))
+		else if (parser.isCmdUcinewgame())
 			handler.ucinewgame();
 		
-		else if(isCmd(position))
+		else if (parser.isCmdUcinewgame())
 			handlePosition();
 		
 		else
@@ -48,14 +43,6 @@ public class CommandProcessor {
 
 	}
 	
-	private boolean isCmd(String cmd) {
-		return cmd.contentEquals(command());
-	}
-
-	private String command() {
-		return parser.first().toLowerCase();
-	}
-
 	private void handleDebug() {
 		if (firstParamIs("on"))
 			handler.debugOn();

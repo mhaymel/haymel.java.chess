@@ -7,6 +7,11 @@
  */
 package com.haymel.chess.uci;
 
+import static com.haymel.chess.uci.CommandHandler.debug;
+import static com.haymel.chess.uci.CommandHandler.isready;
+import static com.haymel.chess.uci.CommandHandler.position;
+import static com.haymel.chess.uci.CommandHandler.uci;
+import static com.haymel.chess.uci.CommandHandler.ucinewgame;
 import static com.haymel.util.Require.greaterEqualZero;
 import static com.haymel.util.Require.greaterThanZero;
 import static com.haymel.util.Require.lessThan;
@@ -45,10 +50,38 @@ public class Parser {
 		return line;
 	}
 	
+	public boolean isCmdUci() {
+		return isCmd(uci);
+	}
+	
+	public boolean isCmdDebug() {
+		return isCmd(debug);
+	}
+	
+	public boolean isCmdIsready() {
+		return isCmd(isready);
+	}
+	
+	public boolean isCmdUcinewgame() {
+		return isCmd(ucinewgame);
+	}
+	
+	public boolean isCmdPosition() {
+		return isCmd(position);
+	}
+	
 	private static String[] extracted(String line) {
 		String trimmed = line.trim();
 		
 		return  trimmed.isEmpty() ? empty : trimmed.split("\\s+");
+	}
+	
+	private boolean isCmd(String cmd) {
+		return cmd.equals(command());
+	}
+
+	private String command() {
+		return first().toLowerCase();
 	}
 	
 }
