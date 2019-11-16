@@ -1,72 +1,78 @@
+/***************************************************
+ * (c) Markus Heumel
+ *
+ * @date:	16.11.2019
+ * @author: Markus.Heumel
+ *
+ */
 package com.haymel.chess.uci;
 
-import static java.util.Objects.requireNonNull;
+import static com.haymel.util.Require.nonNull;
 
 public class CommandProcessor {
 
-	public void execute(String line, CommandHandler handler) {
-		requireNonNull(line);
-		requireNonNull(handler);
-		
-		if (line.trim().length() == 0)
-			return;
-		
-		doExecute(line.trim().split("\\s+"), handler);
+	private final Parser parser;
+	private final CommandHandler handler;
+	
+	public CommandProcessor(String line, CommandHandler handler) {
+		this.parser = new Parser(nonNull(line, "line"));
+		this.handler = nonNull(handler, "handler");
 	}
-
-	private void doExecute(String[] command, CommandHandler handler) {
-		if (command.length == 0)
+	
+	public void execute() {
+		if (parser.count() == 0 || command().isEmpty())
 			return;
-		
-		if (is("uci", command))
+
+		if (isCmd("uci"))
 			handler.uci();
 
-		else if (is("debug", command))
-			handleDebug(command, handler);
+		else if (isCmd("debug"))
+			handleDebug();
 
-		else if(is("isready", command))
+		else if(isCmd("isready"))
 			handler.isReady();
 	
-		else if(is("ucinewgame", command))
+		else if(isCmd("ucinewgame"))
 			handler.ucinewgame();
 		
-		else if(is("position", command))
-			handlerPosition(command, handler);
+		else if(isCmd("position"))
+			handlePosition();
 		
 		else
-			handler.unknown(command);
+			unknown();
 
 	}
 	
-	private void handleDebug(String[] command, CommandHandler handler) {
-		if (firstParamIs("on", command))
+	private boolean isCmd(String cmd) {
+		return cmd.contentEquals(command());
+	}
+
+	private String command() {
+		return parser.first().toLowerCase();
+	}
+
+	private void handleDebug() {
+		if (firstParamIs("on"))
 			handler.debugOn();
 		
-		else if (firstParamIs("off", command))
+		else if (firstParamIs("off"))
 			handler.debugOff();
 			
 		else
-			handler.unknown(command);
+			unknown();
 	}
 
-	private void handlerPosition(String[] command, CommandHandler handler) {
+	private void unknown() {
+		handler.unknown(parser.values());
+		
+	}
+
+	private void handlePosition() {
 	}
 
 	
-	private boolean firstParamIs(String expected, String[] received) {
-		return hasAtLeastOneParameter(received) && is(expected, received[1]);
+	private boolean firstParamIs(String expected) {
+		return parser.count() > 1 && expected.equals(parser.value(1));
 	}
 
-	private boolean hasAtLeastOneParameter(String[] received) {
-		return received.length >= 2;
-	}
-
-	private boolean is(String command, String[] commandLine) {
-		return is(command, commandLine[0]);
-	}
-
-	private boolean is(String expected, String received) {
-		return expected.toLowerCase().equals(received.toLowerCase());
-	}
-	
 }

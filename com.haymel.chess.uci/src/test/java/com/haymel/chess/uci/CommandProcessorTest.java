@@ -1,3 +1,10 @@
+/***************************************************
+ * (c) Markus Heumel
+ *
+ * @date:	16.11.2019
+ * @author: Markus.Heumel
+ *
+ */
 package com.haymel.chess.uci;
 
 import static org.mockito.Mockito.never;
@@ -11,33 +18,31 @@ import org.mockito.Mockito;
 
 public class CommandProcessorTest {
 
-	private CommandProcessor processor;
 	private CommandHandler handler;
 	
 	@Before
 	public void setup() {
-		processor = new CommandProcessor();
 		handler = Mockito.mock(CommandHandler.class);
 	}
 	
 	@Test
 	public void emptyStringDoesNotCallHandler() {
-		processor.execute("", handler);
+		new CommandProcessor("", handler).execute();
 		Mockito.verifyNoMoreInteractions(handler);
 	}
 	
 	@Test
 	public void stringContainingOnlyWhitespacesDoesNotCallHandler() {
-		processor.execute("  \t \t   ", handler);
+		new CommandProcessor("  \t \t   ", handler).execute();
 		verifyNoMoreInteractions(handler);
 	}
 
 	@Test 
 	public void trailingAndLeadingWhitespacesWillBeIgnored() {
-		processor.execute("  uci   ", handler);
+		new CommandProcessor("  uci   ", handler).execute();;
 		verify(handler, times(1)).uci();
 
-		processor.execute("  isready   ", handler);
+		new CommandProcessor("  isready   ", handler).execute();
 		verify(handler, times(1)).isReady();
 
 		verifyNoMoreInteractions(handler);
@@ -45,35 +50,35 @@ public class CommandProcessorTest {
 
 	@Test 
 	public void stringWithUciCallsUci() {
-		processor.execute("uci", handler);
+		new CommandProcessor("uci", handler).execute();
 		verify(handler, times(1)).uci();
 		verifyNoMoreInteractions(handler);
 	}
 	
 	@Test 
 	public void stringWithIsReadyCallsUci() {
-		processor.execute("isready", handler);
+		new CommandProcessor("isready", handler).execute();
 		verify(handler, times(1)).isReady();
 		verifyNoMoreInteractions(handler);
 	}
 	
 	@Test 
 	public void debugOn() {
-		processor.execute("debug on", handler);
+		new CommandProcessor("debug on", handler).execute();
 		verify(handler, times(1)).debugOn();
 		verify(handler, never()).debugOff();
 	}
 
 	@Test 
 	public void debugOff() {
-		processor.execute("debug on", handler);
+		new CommandProcessor("debug on", handler).execute();
 		verify(handler, times(1)).debugOn();
 		verify(handler, never()).debugOff();
 	}
 
 	@Test 
 	public void debugMissingOnAndOff() {
-		processor.execute("debug", handler);
+		new CommandProcessor("debug", handler).execute();
 		verify(handler, never()).debugOn();
 		verify(handler, never()).debugOff();
 		
@@ -83,7 +88,7 @@ public class CommandProcessorTest {
 
 	@Test 
 	public void debugWithUnknownMode() {
-		processor.execute("debug anything", handler);
+		new CommandProcessor("debug anything", handler).execute();
 		verify(handler, never()).debugOn();
 		verify(handler, never()).debugOff();
 		
@@ -93,7 +98,7 @@ public class CommandProcessorTest {
 	
 	@Test 
 	public void stringWithUciNewgameCallsUci() {
-		processor.execute("ucinewgame", handler);
+		new CommandProcessor("ucinewgame", handler).execute();
 		verify(handler, times(1)).ucinewgame();
 		verifyNoMoreInteractions(handler);
 	}
