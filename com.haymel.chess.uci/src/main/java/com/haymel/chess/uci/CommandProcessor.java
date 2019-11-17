@@ -35,7 +35,7 @@ public class CommandProcessor {
 		else if (parser.isCmdUcinewgame())
 			handler.ucinewgame();
 		
-		else if (parser.isCmdUcinewgame())
+		else if (parser.isCmdPosition())
 			handlePosition();
 		
 		else

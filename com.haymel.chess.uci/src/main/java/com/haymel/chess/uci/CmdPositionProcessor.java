@@ -13,10 +13,12 @@ import static com.haymel.util.Require.nonNull;
 import static com.haymel.util.exception.HaymelIllegalArgumentException.throwIAE;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class CmdPositionProcessor {
-
+														//  position fen rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1		
+	private static final int MIN_NUMBER_OF_PARAMS_FOR_FEN =  1       +1  +1                                          +1+1  +1+1+1;      
 	private final Parser parser;
 	private final CommandHandler handler;
 	
@@ -32,11 +34,15 @@ public class CmdPositionProcessor {
 		if (isStartPos())
 			handleStartPos();
 		
-		else if (isFen())
+		else if (isFen() && hasEnoughParamsForFEN())
 			handleFen();
 		
 		else
-			handler.unknown(parser.values());
+			unknown();
+	}
+
+	private boolean hasEnoughParamsForFEN() {
+		return parser.count() >= MIN_NUMBER_OF_PARAMS_FOR_FEN;
 	}
 
 	private boolean isStartPos() {
@@ -44,10 +50,7 @@ public class CmdPositionProcessor {
 	}
 
 	private void handleStartPos() {
-		if (is(2, CommandHandler.moves)) 
-			handler.positionStart(parseMoves(3));
-			
-		unknown();
+		handler.position(parseMove(2));
 	}
 	
 	private boolean isFen() {
@@ -55,6 +58,15 @@ public class CmdPositionProcessor {
 	}
 	
 	private void handleFen() {
+		handler.position(parseFen(), parseMove(MIN_NUMBER_OF_PARAMS_FOR_FEN));
+	}
+
+	private String parseFen() {
+		StringBuilder sb = new StringBuilder();
+		for(int i = 2; i < MIN_NUMBER_OF_PARAMS_FOR_FEN; i++)
+			sb.append(parser.value(i)).append(' ');
+		
+		return sb.toString().trim();
 	}
 
 	private String param(int index) {
@@ -69,6 +81,13 @@ public class CmdPositionProcessor {
 		handler.unknown(parser.values());
 	}
 
+	private List<String> parseMove(int index) {
+		if (index == parser.count())
+			return Collections.emptyList();
+
+		return parseMoves(index + 1);
+	}
+	
 	private List<String> parseMoves(int index) {
 		List<String> moves = new ArrayList<String>();
 		

@@ -184,8 +184,8 @@ public interface CommandHandler {
 	String startpos = 				"startpos";
 	String fen = 					"fen";
 	String moves = 					"moves";
-	void positionStart(List<String> moves);
-	void positionFen(String fen, List<String> moves);
+	void position(List<String> moves);
+	void position(String fen, List<String> moves);
 	
 	
 	/*
