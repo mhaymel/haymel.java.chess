@@ -235,9 +235,34 @@ public interface CommandHandler {
 	String btime =              "btime";
 	String winc =                        "winc";
 	String binc =                        "binc";
-	
 	void go(int wtime, int btime);
+
 	
+	/*	
+		stop
+			stop calculating as soon as possible,
+			don't forget the "bestmove" and possibly the "ponder" token when finishing the search
+	*/
+	String stop = "stop";
+	void stop();
+	
+	
+	/*	
+		ponderhit
+			the user has played the expected move. This will be sent if the engine was told to ponder on the same move
+			the user has played. The engine should continue searching but switch from pondering to normal search.
+	*/
+	String ponderhit = "ponderhit";
+	void ponderhit();
+	
+	
+	/*	
+	 	quit
+			quit the program as soon as possible
+	*/	
+	String quit = "quit";
+	void quit();
+
 	
 	void unknown(String[] command);
 	

@@ -141,4 +141,26 @@ public class CommandProcessorTest {
 
 		verify(handler, times(1)).position("8/4k3/8/8/8/6R1/4K3/8 b - - 0 1", moves);
 	}
+
+	@Test 
+	public void stringWithStopCallsStop() {
+		new CommandProcessor("stop", handler).execute();
+		verify(handler, times(1)).stop();
+		verifyNoMoreInteractions(handler);
+	}
+	
+	@Test 
+	public void stringWithPonderhitCallsPonderhit() {
+		new CommandProcessor("ponderhit", handler).execute();
+		verify(handler, times(1)).ponderhit();
+		verifyNoMoreInteractions(handler);
+	}
+	
+	@Test 
+	public void stringWithQuitCallsQuit() {
+		new CommandProcessor("quit", handler).execute();
+		verify(handler, times(1)).quit();
+		verifyNoMoreInteractions(handler);
+	}
+
 }

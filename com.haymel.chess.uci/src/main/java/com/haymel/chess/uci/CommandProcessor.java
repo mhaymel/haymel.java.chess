@@ -38,6 +38,15 @@ public class CommandProcessor {
 		else if (parser.isCmdPosition())
 			handlePosition();
 		
+		else if (parser.isCmdStop())
+			handler.stop();
+		
+		else if (parser.isCmdPonderhit())
+			handler.ponderhit();
+
+		else if (parser.isCmdQuit())
+			handler.quit();
+		
 		else
 			unknown();
 	}

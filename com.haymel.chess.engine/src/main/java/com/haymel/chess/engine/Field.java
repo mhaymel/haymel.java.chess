@@ -21,7 +21,7 @@ public final class Field {
 	public static final Field a7 = a6.up();
 	public static final Field a8 = a7.up();
 	
-	public static final Field b1 = a1.left();
+	public static final Field b1 = a1.right();
 	public static final Field b2 = b1.up();
 	public static final Field b3 = b2.up();
 	public static final Field b4 = b3.up();
@@ -30,7 +30,7 @@ public final class Field {
 	public static final Field b7 = b6.up();
 	public static final Field b8 = b7.up();
 	
-	public static final Field c1 = b1.left();
+	public static final Field c1 = b1.right();
 	public static final Field c2 = c1.up();
 	public static final Field c3 = c2.up();
 	public static final Field c4 = c3.up();
@@ -39,7 +39,7 @@ public final class Field {
 	public static final Field c7 = c6.up();
 	public static final Field c8 = c7.up();
 
-	public static final Field d1 = c1.left();
+	public static final Field d1 = c1.right();
 	public static final Field d2 = d1.up();
 	public static final Field d3 = d2.up();
 	public static final Field d4 = d3.up();
@@ -48,7 +48,7 @@ public final class Field {
 	public static final Field d7 = d6.up();
 	public static final Field d8 = d7.up();
 	
-	public static final Field e1 = d1.left();
+	public static final Field e1 = d1.right();
 	public static final Field e2 = e1.up();
 	public static final Field e3 = e2.up();
 	public static final Field e4 = e3.up();
@@ -57,7 +57,7 @@ public final class Field {
 	public static final Field e7 = e6.up();
 	public static final Field e8 = e7.up();
 
-	public static final Field f1 = e1.left();
+	public static final Field f1 = e1.right();
 	public static final Field f2 = f1.up();
 	public static final Field f3 = f2.up();
 	public static final Field f4 = f3.up();
@@ -66,7 +66,7 @@ public final class Field {
 	public static final Field f7 = f6.up();
 	public static final Field f8 = f7.up();
 
-	public static final Field g1 = f1.left();
+	public static final Field g1 = f1.right();
 	public static final Field g2 = g1.up();
 	public static final Field g3 = g2.up();
 	public static final Field g4 = g3.up();
@@ -75,7 +75,7 @@ public final class Field {
 	public static final Field g7 = g6.up();
 	public static final Field g8 = g7.up();
 	
-	public static final Field h1 = g1.left();
+	public static final Field h1 = g1.right();
 	public static final Field h2 = h1.up();
 	public static final Field h3 = h2.up();
 	public static final Field h4 = h3.up();

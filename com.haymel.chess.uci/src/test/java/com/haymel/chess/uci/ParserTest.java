@@ -91,6 +91,34 @@ public class ParserTest {
 		assertThat(new Parser("POSITION").isCmdPosition(), is(true));
 		assertThat(new Parser("DEBUG on").isCmdPosition(), is(false));
 	}
+
+	@Test
+	public void isCmdGo() {
+		assertThat(new Parser("go").isCmdGo(), is(true));
+		assertThat(new Parser("GO").isCmdGo(), is(true));
+		assertThat(new Parser("DEBUG on").isCmdGo(), is(false));
+	}
+	
+	@Test
+	public void isCmdStop() {
+		assertThat(new Parser("stop").isCmdStop(), is(true));
+		assertThat(new Parser("STOP").isCmdStop(), is(true));
+		assertThat(new Parser("DEBUG on").isCmdStop(), is(false));
+	}
+	
+	@Test
+	public void isCmdPonderhit() {
+		assertThat(new Parser("ponderhit").isCmdPonderhit(), is(true));
+		assertThat(new Parser("PONDERHIT").isCmdPonderhit(), is(true));
+		assertThat(new Parser("DEBUG on").isCmdPonderhit(), is(false));
+	}
+	
+	@Test
+	public void isCmdQuit() {
+		assertThat(new Parser("quit").isCmdQuit(), is(true));
+		assertThat(new Parser("QUIT").isCmdQuit(), is(true));
+		assertThat(new Parser("DEBUG on").isCmdQuit(), is(false));
+	}
 	
 	@Test
 	public void test() {

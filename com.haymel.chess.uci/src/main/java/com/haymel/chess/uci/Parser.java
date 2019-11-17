@@ -8,8 +8,12 @@
 package com.haymel.chess.uci;
 
 import static com.haymel.chess.uci.CommandHandler.debug;
+import static com.haymel.chess.uci.CommandHandler.go;
 import static com.haymel.chess.uci.CommandHandler.isready;
+import static com.haymel.chess.uci.CommandHandler.ponderhit;
 import static com.haymel.chess.uci.CommandHandler.position;
+import static com.haymel.chess.uci.CommandHandler.quit;
+import static com.haymel.chess.uci.CommandHandler.stop;
 import static com.haymel.chess.uci.CommandHandler.uci;
 import static com.haymel.chess.uci.CommandHandler.ucinewgame;
 import static com.haymel.util.Require.greaterEqualZero;
@@ -69,7 +73,23 @@ public class Parser {
 	public boolean isCmdPosition() {
 		return isCmd(position);
 	}
+
+	public boolean isCmdGo() {
+		return isCmd(go);
+	}
 	
+	public boolean isCmdStop() {
+		return isCmd(stop);
+	}
+	
+	public boolean isCmdPonderhit() {
+		return isCmd(ponderhit);
+	}
+
+	public boolean isCmdQuit() {
+		return isCmd(quit);
+	}
+
 	private static String[] extracted(String line) {
 		String trimmed = line.trim();
 		

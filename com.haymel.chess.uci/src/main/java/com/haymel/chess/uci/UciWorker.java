@@ -56,7 +56,6 @@ public class UciWorker {
 			Thread.sleep(100);
 		} 
 		catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -66,7 +65,6 @@ public class UciWorker {
 			new CommandProcessor(in.readLine(), cmdHandler).execute();
 		} 
 		catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
