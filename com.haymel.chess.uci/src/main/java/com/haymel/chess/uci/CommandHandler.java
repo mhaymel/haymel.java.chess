@@ -183,7 +183,7 @@ public interface CommandHandler {
 	String position = "position";
 	String startpos = 				"startpos";
 	String fen = 					"fen";
-	String moves = 					"moves";
+	String moves = 					             "moves";
 	void position(List<String> moves);
 	void position(String fen, List<String> moves);
 	
@@ -230,6 +230,12 @@ public interface CommandHandler {
 			* infinite
 				search until the "stop" command. Do not exit the search without being told so in this mode!
 	 */
+	String go = "go";
+	String wtime =    "wtime";
+	String btime =              "btime";
+	String winc =                        "winc";
+	String binc =                        "binc";
+	
 	void go(int wtime, int btime);
 	
 	

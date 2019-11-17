@@ -6,6 +6,7 @@ plugins {
 }
 
 dependencies {
+	compile project(':com.haymel.chess.uci') 
 	
 	implementation name: 'com.haymel.util-1.0'
 
