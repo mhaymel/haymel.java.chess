@@ -40,7 +40,6 @@ public class CommandProcessor {
 		
 		else
 			unknown();
-
 	}
 	
 	private void handleDebug() {
@@ -54,14 +53,13 @@ public class CommandProcessor {
 			unknown();
 	}
 
+	private void handlePosition() {
+		new CmdPositionProcessor(parser, handler).execute();
+	}
+
 	private void unknown() {
 		handler.unknown(parser.values());
-		
 	}
-
-	private void handlePosition() {
-	}
-
 	
 	private boolean firstParamIs(String expected) {
 		return parser.count() > 1 && expected.equals(parser.value(1));

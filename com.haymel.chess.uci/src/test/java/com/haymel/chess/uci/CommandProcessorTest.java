@@ -7,6 +7,7 @@
  */
 package com.haymel.chess.uci;
 
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -22,13 +23,13 @@ public class CommandProcessorTest {
 	
 	@Before
 	public void setup() {
-		handler = Mockito.mock(CommandHandler.class);
+		handler = mock(CommandHandler.class);
 	}
 	
 	@Test
 	public void emptyStringDoesNotCallHandler() {
 		new CommandProcessor("", handler).execute();
-		Mockito.verifyNoMoreInteractions(handler);
+		verifyNoMoreInteractions(handler);
 	}
 	
 	@Test
@@ -102,7 +103,5 @@ public class CommandProcessorTest {
 		verify(handler, times(1)).ucinewgame();
 		verifyNoMoreInteractions(handler);
 	}
-	
-	
 	
 }

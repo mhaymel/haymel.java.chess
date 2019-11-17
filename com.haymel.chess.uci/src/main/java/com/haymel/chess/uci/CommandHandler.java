@@ -181,6 +181,9 @@ public interface CommandHandler {
 			the last position sent to the engine, the GUI should have sent a "ucinewgame" inbetween.
 	*/
 	String position = "position";
+	String startpos = 				"startpos";
+	String fen = 					"fen";
+	String moves = 					"moves";
 	void positionStart(List<String> moves);
 	void positionFen(String fen, List<String> moves);
 	

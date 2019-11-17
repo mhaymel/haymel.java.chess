@@ -95,6 +95,7 @@ public class ParserTest {
 	@Test
 	public void test() {
 		test("      ", new String[] { } );
+		test("  \t \t   ", new String[] { } );
 		test("", new String[] { } );
 		test("uci", new String[] { "uci"} );
 		test("    uci   ", new String[] { "uci"} );
