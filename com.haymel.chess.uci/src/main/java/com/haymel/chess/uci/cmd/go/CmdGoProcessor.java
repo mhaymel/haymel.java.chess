@@ -8,25 +8,21 @@
 package com.haymel.chess.uci.cmd.go;
 
 import static com.haymel.util.Require.nonNull;
-import static com.haymel.util.exception.HaymelIllegalArgumentException.throwIAE;
 
 import com.haymel.chess.uci.CommandHandler;
-import com.haymel.chess.uci.Parser;
+import com.haymel.chess.uci.cmd.lexer.Lexer;
 
 public class CmdGoProcessor {
 
-	private final Parser parser;
+	private final Lexer lexer;
 	private final CommandHandler handler;
 	
-	public CmdGoProcessor(Parser parser, CommandHandler handler) {
-		this.parser = nonNull(parser, "parser");
+	public CmdGoProcessor(Lexer lexer, CommandHandler handler) {
+		this.lexer = nonNull(lexer, "lexer");
 		this.handler = nonNull(handler, "handler");
 	}
 
 	public void execute() {
-		if (!parser.isCmdGo())
-			throwIAE("command <go> expected but was %s", parser.first());
-		
 	}
 
 

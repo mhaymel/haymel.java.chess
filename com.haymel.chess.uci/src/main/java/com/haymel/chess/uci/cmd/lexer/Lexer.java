@@ -10,6 +10,7 @@ package com.haymel.chess.uci.cmd.lexer;
 import static com.haymel.chess.uci.cmd.lexer.TokenType.tokenTypeOf;
 import static com.haymel.util.Require.nonNull;
 import static com.haymel.util.exception.HaymelException.throwHE;
+import static java.lang.String.format;
 import static java.lang.String.join;
 
 public class Lexer {
@@ -24,7 +25,7 @@ public class Lexer {
 		this.index = 0;
 	}
 	
-	Token next() {
+	public Token next() {
 		if (index > count())
 			return attemptToReadAfterEof();
 		
@@ -44,7 +45,7 @@ public class Lexer {
 	}
 
 	private Token attemptToReadAfterEof() {
-		return throwHE("Attempt to fetch token after eof in line '%s'. This is probably a bug!", join(" ", line));
+		return throwHE("Attempt to fetch token after eof. This is probably a bug in %s", this);
 	}
 	
 	private int count() {
@@ -55,6 +56,15 @@ public class Lexer {
 		String trimmed = line.trim();
 		
 		return  trimmed.isEmpty() ? empty : trimmed.split("\\s+");
+	}
+	
+	@Override
+	public String toString() {
+		return format("%s(index=%s, '%s')", getClass().getSimpleName(), index, join(" ", line));
+	}
+	
+	public int remainingTokens() {
+		return count() - index + 1 /*eof*/;
 	}
 	
 }

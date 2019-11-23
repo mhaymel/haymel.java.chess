@@ -290,6 +290,6 @@ public interface CommandHandler {
 	void quit();
 
 	
-	void unknown(String[] command);
+	void unknown(String command);
 	
 }

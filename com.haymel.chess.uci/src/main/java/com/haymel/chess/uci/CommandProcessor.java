@@ -7,60 +7,78 @@
  */
 package com.haymel.chess.uci;
 
+import static com.haymel.chess.uci.cmd.lexer.TokenType.off;
+import static com.haymel.chess.uci.cmd.lexer.TokenType.on;
 import static com.haymel.util.Require.nonNull;
 
 import com.haymel.chess.uci.cmd.go.CmdGoProcessor;
+import com.haymel.chess.uci.cmd.lexer.Lexer;
+import com.haymel.chess.uci.cmd.lexer.Token;
 
 public class CommandProcessor {
 
-	private final Parser parser;
+	private final Lexer lexer;
 	private final CommandHandler handler;
 	
 	public CommandProcessor(String line, CommandHandler handler) {
-		this.parser = new Parser(nonNull(line, "line"));
+		this.lexer = new Lexer(nonNull(line, "line"));
 		this.handler = nonNull(handler, "handler");
 	}
 	
 	public void execute() {
-		if (parser.empty())
-			return;
-
-		if (parser.isCmdUci())
+		Token token = lexer.next();
+		
+		switch(token.type()) {
+		case uci:
 			handler.uci();
-
-		else if (parser.isCmdDebug())
+			break;
+			
+		case debug:
 			handleDebug();
+			break;
 
-		else if (parser.isCmdIsready())
+		case isready:
 			handler.isReady();
-	
-		else if (parser.isCmdUcinewgame())
+			break;
+
+		case ucinewgame:
 			handler.ucinewgame();
-		
-		else if (parser.isCmdPosition())
+			break;
+			
+		case position:
 			handlePosition();
-		
-		else if (parser.isCmdGo())
+			break;
+			
+		case go:
 			handleGo();
-
-		else if (parser.isCmdStop())
+			break;
+			
+		case stop:
 			handler.stop();
-		
-		else if (parser.isCmdPonderhit())
+			break;
+			
+		case ponderhit:
 			handler.ponderhit();
-
-		else if (parser.isCmdQuit())
+			break;
+			
+		case quit:
 			handler.quit();
-		
-		else
+			break;
+			
+		case eof:
+			break;
+
+		default:
 			unknown();
+		}
 	}
 	
 	private void handleDebug() {
-		if (firstParamIs("on"))
+		Token token = lexer.next();
+		if (token.type() == on)
 			handler.debugOn();
 		
-		else if (firstParamIs("off"))
+		else if (token.type() == off)
 			handler.debugOff();
 			
 		else
@@ -68,19 +86,15 @@ public class CommandProcessor {
 	}
 
 	private void handlePosition() {
-		new CmdPositionProcessor(parser, handler).execute();
+		new CmdPositionProcessor(lexer, handler).execute();
 	}
 
 	private void handleGo() {
-		new CmdGoProcessor(parser, handler).execute();
+		new CmdGoProcessor(lexer, handler).execute();
 	}
 
 	private void unknown() {
-		handler.unknown(parser.values());
+		handler.unknown(lexer.toString());
 	}
 	
-	private boolean firstParamIs(String expected) {
-		return parser.count() > 1 && expected.equals(parser.value(1));
-	}
-
 }

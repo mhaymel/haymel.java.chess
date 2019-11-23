@@ -7,85 +7,75 @@
  */
 package com.haymel.chess.uci;
 
-import static com.haymel.chess.uci.CommandHandler.fen;
-import static com.haymel.chess.uci.CommandHandler.startpos;
 import static com.haymel.chess.uci.MovesImpl.emptyMoves;
 import static com.haymel.util.Require.nonNull;
-import static com.haymel.util.exception.HaymelIllegalArgumentException.throwIAE;
+
+import com.haymel.chess.uci.cmd.lexer.Lexer;
+import com.haymel.chess.uci.cmd.lexer.Token;
+import com.haymel.chess.uci.cmd.lexer.TokenType;
 
 public class CmdPositionProcessor {
-														//  position fen rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1		
-	private static final int MIN_NUMBER_OF_PARAMS_FOR_FEN =  1       +1  +1                                          +1+1  +1+1+1;      
-	private final Parser parser;
+														// rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR    w    KQkq   -   0   1		
+	private static final int MIN_NUMBER_OF_PARAMS_FOR_FEN = 1                                            +1     +1   +1  +1  +1;      
+	private final Lexer lexer;
 	private final CommandHandler handler;
 	
-	public CmdPositionProcessor(Parser parser, CommandHandler handler) {
-		this.parser = nonNull(parser, "parser");
+	public CmdPositionProcessor(Lexer lexer, CommandHandler handler) {
+		this.lexer = nonNull(lexer, "lexer");
 		this.handler = nonNull(handler, "handler");
 	}
 
 	public void execute() {
-		if (!parser.isCmdPosition())
-			throwIAE("command <position> expected but was %s", parser.first());
+		Token token = lexer.next();
 		
-		if (isStartPos())
+		switch (token.type()) {
+		case startpos:
 			handleStartPos();
-		
-		else if (isFen() && hasEnoughParamsForFEN())
+			break;
+
+		case fen:
 			handleFen();
-		
-		else
+			break;
+
+		default:
 			unknown();
-	}
-
-	private boolean hasEnoughParamsForFEN() {
-		return parser.count() >= MIN_NUMBER_OF_PARAMS_FOR_FEN;
-	}
-
-	private boolean isStartPos() {
-		return is(1, startpos);
+			break;
+		}
 	}
 
 	private void handleStartPos() {
-		handler.positionStart(parseMove(2));
-	}
-	
-	private boolean isFen() {
-		return is(1, fen);
+		handler.positionStart(parseMoves());
 	}
 	
 	private void handleFen() {
-		handler.positionFen(parseFen(), parseMove(MIN_NUMBER_OF_PARAMS_FOR_FEN));
+		if (lexer.remainingTokens() > MIN_NUMBER_OF_PARAMS_FOR_FEN)
+			handler.positionFen(parseFen(), parseMoves());
 	}
 
 	private String parseFen() {
 		StringBuilder sb = new StringBuilder();
-		for(int i = 2; i < MIN_NUMBER_OF_PARAMS_FOR_FEN; i++)
-			sb.append(parser.value(i)).append(' ');
+		for(int i = 0; i < MIN_NUMBER_OF_PARAMS_FOR_FEN; i++)
+			sb.append(lexer.next().string()).append(' ');
 		
 		return sb.toString().trim();
 	}
 
-	private String param(int index) {
-		return parser.value(index).toLowerCase();
-	}
-	
-	private boolean is(int index, String token) {
-		return param(index).equals(token);
-	}
-	
 	private void unknown() {
-		handler.unknown(parser.values());
+		handler.unknown(lexer.toString());
 	}
 
-	private Moves parseMove(int index) {
-		return index == parser.count() ? emptyMoves : parseMoves(index + 1);
-	}
-	
-	private Moves parseMoves(int index) {
+	private Moves parseMoves() {
+		if (lexer.remainingTokens() <= 2)
+			return emptyMoves;
+		
 		MovesImpl moves = new MovesImpl();
-		for(int i = index; i < parser.count(); i++) 
-			moves.add(param(i));
+		lexer.next();
+		Token token = lexer.next();
+		while(token.type() != TokenType.eof) { 
+			moves.add(token.string());
+			token = lexer.next();
+		}
+		
 		return moves;
 	}
 

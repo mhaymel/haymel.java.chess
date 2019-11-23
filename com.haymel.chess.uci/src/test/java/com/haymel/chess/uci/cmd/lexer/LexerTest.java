@@ -90,4 +90,48 @@ public class LexerTest {
 
 		lexer.next();
 	}
+	
+	@Test
+	public void remaingTokensReturnsOneForEmptyString() {
+		Lexer lexer = new Lexer("");
+		assertThat(lexer.remainingTokens(), is(1));
+	}
+	
+	@Test
+	public void remaingTokensReturnsZeroAfterReadingEof() {
+		Lexer lexer = new Lexer("");
+		lexer.next();
+		assertThat(lexer.remainingTokens(), is(0));
+	}
+
+	@Test
+	public void remaingReturnCorrectValueAfterNext() {
+		Lexer lexer = new Lexer("go infinite");
+		assertThat(lexer.remainingTokens(), is(3));
+		
+		lexer.next();
+		assertThat(lexer.remainingTokens(), is(2));
+
+		lexer.next();
+		assertThat(lexer.remainingTokens(), is(1));
+		
+		lexer.next();
+		assertThat(lexer.remainingTokens(), is(0));
+	}
+	
+	@Test
+	public void testLexerWithFen() {
+		Lexer lexer = new Lexer("8/4k3/8/8/8/6R1/4K3/8 b - - 0 1");
+		assertThat(lexer.remainingTokens(), is(6 + 1));
+		
+		assertThat(lexer.next().string(), is("8/4k3/8/8/8/6R1/4K3/8"));
+		assertThat(lexer.next().string(), is("b"));
+		assertThat(lexer.next().string(), is("-"));
+		assertThat(lexer.next().string(), is("-"));
+		assertThat(lexer.next().string(), is("0"));
+		assertThat(lexer.next().string(), is("1"));
+
+		assertThat(lexer.remainingTokens(), is(1));
+	}
+	
 }

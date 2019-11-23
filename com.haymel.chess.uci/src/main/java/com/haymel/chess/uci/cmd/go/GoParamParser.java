@@ -1,16 +1,17 @@
 package com.haymel.chess.uci.cmd.go;
 
-import com.haymel.chess.uci.Parser;
-import com.haymel.util.Require;
+import static com.haymel.util.Require.nonNull;
+
+import com.haymel.chess.uci.cmd.lexer.Lexer;
 
 final class GoParamParser {
 	
-	private final Parser parser;
+	private final Lexer lexer;
 	private GoParam param;
 	private int nextToken;
 	
-	GoParamParser(Parser parser) {
-		this.parser = Require.nonNull(parser, "parser");
+	GoParamParser(Lexer lexer) {
+		this.lexer = nonNull(lexer, "lexer");
 	}
 	
 	GoParam execute() {
@@ -24,8 +25,4 @@ final class GoParamParser {
 		return param;
 	}
 	
-	private boolean finished() {
-		return nextToken >= parser.count();
-	}
-
 }
