@@ -26,9 +26,7 @@ public class CommandProcessor {
 	}
 	
 	public void execute() {
-		Token token = lexer.next();
-		
-		switch(token.type()) {
+		switch(lexer.next().type()) {
 		case uci:
 			handler.uci();
 			break;

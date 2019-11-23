@@ -64,7 +64,11 @@ public class Lexer {
 	}
 	
 	public int remainingTokens() {
-		return count() - index + 1 /*eof*/;
+		return count() - index + 1 /*eof*/ ;
+	}
+	
+	public boolean hasNext() {
+		return remainingTokens() > 0;
 	}
 	
 }

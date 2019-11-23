@@ -9,8 +9,8 @@ package com.haymel.chess.uci.cmd.go;
 
 import static com.haymel.chess.uci.cmd.IntParam.undefined;
 
+import com.haymel.chess.uci.Moves;
 import com.haymel.chess.uci.cmd.IntParam;
-import com.haymel.chess.uci.cmd.SearchmovesParam;
 import com.haymel.chess.uci.cmd.UnsignedInt;
 
 final class GoParam {
@@ -39,12 +39,16 @@ final class GoParam {
 	public SearchmovesParam searchmoves() { 
 		return searchmoves; 
 	}
+
+	public void searchmoves(Moves moves) { 
+		searchmoves = new SearchmovesParamImpl(moves);
+	}
 	
 	public IntParam wtime() { 
 		return wtime; 
 	}
 	
-	public void wtime(int seconds) {
+	public void wtime(long seconds) {
 		wtime = new UnsignedInt(seconds);
 	}
 	
@@ -52,7 +56,7 @@ final class GoParam {
 		return btime; 
 	}
 
-	public void btime(int seconds) {
+	public void btime(long seconds) {
 		btime = new UnsignedInt(seconds);
 	}
 	
@@ -60,7 +64,7 @@ final class GoParam {
 		return winc; 
 	}
 
-	public void winc(int seconds) {
+	public void winc(long seconds) {
 		winc = new UnsignedInt(seconds);
 	}
 
@@ -68,7 +72,7 @@ final class GoParam {
 		return binc; 
 	}
 
-	public void binc(int seconds) {
+	public void binc(long seconds) {
 		binc = new UnsignedInt(seconds);
 	}
 
@@ -76,7 +80,7 @@ final class GoParam {
 		return movestogo; 
 	}
 
-	public void movestogo(int moves) {
+	public void movestogo(long moves) {
 		movestogo = new UnsignedInt(moves);
 	}
 	
@@ -84,7 +88,7 @@ final class GoParam {
 		return depth; 
 	}
 
-	public void depth(int depth) {
+	public void depth(long depth) {
 		this.depth = new UnsignedInt(depth);
 	}
 	
@@ -92,20 +96,24 @@ final class GoParam {
 		return nodes; 
 	}
 
-	public void nodes(int nodes) {
+	public void nodes(long nodes) {
 		this.nodes = new UnsignedInt(nodes);
 	}
 	
 	public IntParam mate() { 
 		return mate; 
 	}
+
+	public IntParam mate(long count) { 
+		return mate = new UnsignedInt(count); 
+	}
 	
 	public IntParam movetime() { 
 		return movetime; 
 	}
 
-	public void movetime(int timeInMilliSeconds) {
-		winc = new UnsignedInt(timeInMilliSeconds);
+	public void movetime(long timeInMilliSeconds) {
+		movetime = new UnsignedInt(timeInMilliSeconds);
 	}
 	
 	public boolean infinite() { 

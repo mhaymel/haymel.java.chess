@@ -11,9 +11,9 @@ import static com.haymel.util.Require.greaterEqualZero;
 
 public final class UnsignedInt implements IntParam {
 
-	private final int value;
+	private final long value;
 	
-	public UnsignedInt(int seconds) {
+	public UnsignedInt(long seconds) {
 		this.value = greaterEqualZero(seconds, "seconds");
 	}
 	
@@ -23,7 +23,7 @@ public final class UnsignedInt implements IntParam {
 	}
 
 	@Override
-	public int value() {
+	public long value() {
 		return value;
 	}
 

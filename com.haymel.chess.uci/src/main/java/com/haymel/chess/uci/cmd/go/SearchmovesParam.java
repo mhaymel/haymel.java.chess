@@ -5,7 +5,7 @@
  * @author: Markus.Heumel
  *
  */
-package com.haymel.chess.uci.cmd;
+package com.haymel.chess.uci.cmd.go;
 
 import static com.haymel.util.exception.HaymelException.throwHE;
 
@@ -16,6 +16,6 @@ public interface SearchmovesParam {
 	static final SearchmovesParam undefined = new SearchmovesParam() {};
 
 	default boolean defined() { return false; }
-	default Moves value() { return throwHE("value is undefined"); }
+	default Moves moves() { return throwHE("value is undefined"); }
 	
 }

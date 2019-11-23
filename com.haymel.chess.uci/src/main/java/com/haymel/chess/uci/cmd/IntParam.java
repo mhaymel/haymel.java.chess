@@ -14,6 +14,6 @@ public interface IntParam {
 	static final IntParam undefined = new IntParam() {};
 	
 	default boolean defined() { return false; }
-	default int value() { return throwHE("value is undefined"); }
+	default long value() { return throwHE("value is undefined"); }
 	
 }

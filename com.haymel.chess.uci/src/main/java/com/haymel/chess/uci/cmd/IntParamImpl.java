@@ -9,9 +9,9 @@ package com.haymel.chess.uci.cmd;
 
 final class IntParamImpl implements IntParam {
 
-	private final int value;
+	private final long value;
 	
-	public IntParamImpl(int value) {
+	public IntParamImpl(long value) {
 		this.value = value;
 	}
 	
@@ -21,7 +21,7 @@ final class IntParamImpl implements IntParam {
 	}
 
 	@Override
-	public int value() {
+	public long value() {
 		return value;
 	}
 

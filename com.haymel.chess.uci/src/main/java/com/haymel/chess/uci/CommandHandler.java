@@ -239,17 +239,17 @@ public interface CommandHandler {
 	//go wtime 100000 winc 1000 btime 100000 binc 1000
 	//go wtime 100000 btime 100000 winc 1000 binc 1000
 	//go wtime 100000 btime 100000 winc 1000 binc 1000 movestogo 40
-	void go(int wtimeInSeconds, int btimeInSeconds, int wincInSeconds, int bincInSeconds);
+	void go(long wtimeInSeconds, long btimeInSeconds, long wincInSeconds, long bincInSeconds);
 
 	//go ponder wtime 100000 winc 1000 btime 100000 binc 1000
 	//go ponder wtime 100000 btime 100000 winc 1000 binc 1000
-	void goPonder(int wtimeInSeconds, int btimeInSeconds, int wincInSeconds, int bincInSeconds);
+	void goPonder(long wtimeInSeconds, long btimeInSeconds, long wincInSeconds, long bincInSeconds);
 	
 	//go movetime 30000
-	void goMovetime(int timeInMilliSeconds);
+	void goMovetime(long timeInMilliSeconds);
 	
 	//go depth 17
-	void goDepth(int depth);
+	void goDepth(long depth);
 
 	//go nodes 1000
 	void goNodes(long count);
@@ -261,7 +261,7 @@ public interface CommandHandler {
 	void goInfinite();
 	
 	//go mate 5
-	void goMate(int moves);
+	void goMate(long moves);
 	
 	
 	/*	

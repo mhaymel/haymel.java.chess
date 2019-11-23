@@ -134,4 +134,25 @@ public class LexerTest {
 		assertThat(lexer.remainingTokens(), is(1));
 	}
 	
+	@Test
+	public void hasNextReturnsTrueForEmptyString() {
+		Lexer lexer = new Lexer("");
+		assertThat(lexer.hasNext(), is(true));
+	}
+	
+	@Test
+	public void hasNextReturnsTrueAsLongAsTokensAreAvailable() {
+		Lexer lexer = new Lexer("go infinite");
+		assertThat(lexer.hasNext(), is(true));
+		
+		lexer.next();
+		assertThat(lexer.hasNext(), is(true));
+
+		lexer.next();
+		assertThat(lexer.hasNext(), is(true));
+	
+		lexer.next();
+		assertThat(lexer.hasNext(), is(false));
+	}
+	
 }
