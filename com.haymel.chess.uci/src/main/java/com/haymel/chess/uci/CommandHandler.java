@@ -184,8 +184,8 @@ public interface CommandHandler {
 	String startpos = 				"startpos";
 	String fen = 					"fen";
 	String moves = 					             "moves";
-	void position(List<String> moves);
-	void position(String fen, List<String> moves);
+	void positionStart(Moves moves);
+	void positionFen(String fen, Moves moves);
 	
 	
 	/*
@@ -231,12 +231,38 @@ public interface CommandHandler {
 				search until the "stop" command. Do not exit the search without being told so in this mode!
 	 */
 	String go = "go";
-	String wtime =    "wtime";
-	String btime =              "btime";
-	String winc =                        "winc";
-	String binc =                        "binc";
-	void go(int wtime, int btime);
+	String wtime = "wtime";
+	String btime = "btime";
+	String winc = "winc";
+	String binc = "binc";
+	
+	//go wtime 100000 winc 1000 btime 100000 binc 1000
+	//go wtime 100000 btime 100000 winc 1000 binc 1000
+	//go wtime 100000 btime 100000 winc 1000 binc 1000 movestogo 40
+	void go(int wtime, int btime, int winc, int binc);
 
+	//go ponder wtime 100000 winc 1000 btime 100000 binc 1000
+	//go ponder wtime 100000 btime 100000 winc 1000 binc 1000
+	void goPonder(int wtime, int btime, int winc, int binc);
+	
+	//go movetime 30000
+	void goMovetime(int time);
+	
+	//go depth 17
+	void goDepth(int depth);
+
+	//go nodes 1000
+	void goNodes(long count);
+	
+	//go infinite searchmoves e2e4 d2d4
+	void goInfinite(List<String> moves);
+	
+	//go infinite
+	void goInfinite();
+	
+	//go mate 5
+	void goMate(int moves);
+	
 	
 	/*	
 		stop

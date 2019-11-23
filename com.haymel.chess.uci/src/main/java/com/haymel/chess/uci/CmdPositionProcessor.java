@@ -9,12 +9,9 @@ package com.haymel.chess.uci;
 
 import static com.haymel.chess.uci.CommandHandler.fen;
 import static com.haymel.chess.uci.CommandHandler.startpos;
+import static com.haymel.chess.uci.MovesImpl.emptyMoves;
 import static com.haymel.util.Require.nonNull;
 import static com.haymel.util.exception.HaymelIllegalArgumentException.throwIAE;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class CmdPositionProcessor {
 														//  position fen rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1		
@@ -50,7 +47,7 @@ public class CmdPositionProcessor {
 	}
 
 	private void handleStartPos() {
-		handler.position(parseMove(2));
+		handler.positionStart(parseMove(2));
 	}
 	
 	private boolean isFen() {
@@ -58,7 +55,7 @@ public class CmdPositionProcessor {
 	}
 	
 	private void handleFen() {
-		handler.position(parseFen(), parseMove(MIN_NUMBER_OF_PARAMS_FOR_FEN));
+		handler.positionFen(parseFen(), parseMove(MIN_NUMBER_OF_PARAMS_FOR_FEN));
 	}
 
 	private String parseFen() {
@@ -81,19 +78,14 @@ public class CmdPositionProcessor {
 		handler.unknown(parser.values());
 	}
 
-	private List<String> parseMove(int index) {
-		if (index == parser.count())
-			return Collections.emptyList();
-
-		return parseMoves(index + 1);
+	private Moves parseMove(int index) {
+		return index == parser.count() ? emptyMoves : parseMoves(index + 1);
 	}
 	
-	private List<String> parseMoves(int index) {
-		List<String> moves = new ArrayList<String>();
-		
+	private Moves parseMoves(int index) {
+		MovesImpl moves = new MovesImpl();
 		for(int i = index; i < parser.count(); i++) 
 			moves.add(param(i));
-				
 		return moves;
 	}
 

@@ -55,8 +55,8 @@ public class UciWorker {
 		try {
 			Thread.sleep(100);
 		} 
-		catch (InterruptedException e) {
-			e.printStackTrace();
+		catch (InterruptedException e) {		//TODO
+			e.printStackTrace();				
 		}
 	}
 
@@ -64,7 +64,7 @@ public class UciWorker {
 		try {
 			new CommandProcessor(in.readLine(), cmdHandler).execute();
 		} 
-		catch (IOException e) {
+		catch (IOException e) {			//TODO
 			e.printStackTrace();
 		}
 	}
@@ -73,7 +73,7 @@ public class UciWorker {
 		try {
 			return in.ready();
 		} 
-		catch (IOException e) {
+		catch (IOException e) {		//TODO
 			e.printStackTrace();
 			return false;
 		}
@@ -92,7 +92,7 @@ public class UciWorker {
 		try {
 			t.join();
 		} 
-		catch (InterruptedException e) {
+		catch (InterruptedException e) {		//TODO
 			e.printStackTrace();
 		}
 	}

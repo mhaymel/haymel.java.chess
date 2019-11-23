@@ -38,6 +38,9 @@ public class CommandProcessor {
 		else if (parser.isCmdPosition())
 			handlePosition();
 		
+		else if (parser.isCmdGo())
+			handleGo();
+
 		else if (parser.isCmdStop())
 			handler.stop();
 		
@@ -64,6 +67,10 @@ public class CommandProcessor {
 
 	private void handlePosition() {
 		new CmdPositionProcessor(parser, handler).execute();
+	}
+
+	private void handleGo() {
+		new CmdGoProcessor(parser, handler).execute();
 	}
 
 	private void unknown() {
