@@ -239,14 +239,14 @@ public interface CommandHandler {
 	//go wtime 100000 winc 1000 btime 100000 binc 1000
 	//go wtime 100000 btime 100000 winc 1000 binc 1000
 	//go wtime 100000 btime 100000 winc 1000 binc 1000 movestogo 40
-	void go(int wtime, int btime, int winc, int binc);
+	void go(int wtimeInSeconds, int btimeInSeconds, int wincInSeconds, int bincInSeconds);
 
 	//go ponder wtime 100000 winc 1000 btime 100000 binc 1000
 	//go ponder wtime 100000 btime 100000 winc 1000 binc 1000
-	void goPonder(int wtime, int btime, int winc, int binc);
+	void goPonder(int wtimeInSeconds, int btimeInSeconds, int wincInSeconds, int bincInSeconds);
 	
 	//go movetime 30000
-	void goMovetime(int time);
+	void goMovetime(int timeInMilliSeconds);
 	
 	//go depth 17
 	void goDepth(int depth);

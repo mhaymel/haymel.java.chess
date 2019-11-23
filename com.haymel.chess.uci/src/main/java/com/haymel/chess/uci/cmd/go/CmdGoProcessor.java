@@ -5,10 +5,13 @@
  * @author: Markus.Heumel
  *
  */
-package com.haymel.chess.uci;
+package com.haymel.chess.uci.cmd.go;
 
 import static com.haymel.util.Require.nonNull;
 import static com.haymel.util.exception.HaymelIllegalArgumentException.throwIAE;
+
+import com.haymel.chess.uci.CommandHandler;
+import com.haymel.chess.uci.Parser;
 
 public class CmdGoProcessor {
 

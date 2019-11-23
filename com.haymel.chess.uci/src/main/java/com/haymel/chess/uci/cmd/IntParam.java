@@ -5,7 +5,7 @@
  * @author: Markus.Heumel
  *
  */
-package com.haymel.chess.uci;
+package com.haymel.chess.uci.cmd;
 
 import static com.haymel.util.exception.HaymelException.throwHE;
 

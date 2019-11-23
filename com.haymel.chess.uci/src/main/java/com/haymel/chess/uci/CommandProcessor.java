@@ -9,6 +9,8 @@ package com.haymel.chess.uci;
 
 import static com.haymel.util.Require.nonNull;
 
+import com.haymel.chess.uci.cmd.go.CmdGoProcessor;
+
 public class CommandProcessor {
 
 	private final Parser parser;
