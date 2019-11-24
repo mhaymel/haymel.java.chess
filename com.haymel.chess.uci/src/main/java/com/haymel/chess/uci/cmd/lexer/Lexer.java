@@ -35,6 +35,13 @@ public class Lexer {
 		return token(line[index++]);
 	}
 
+	public void pushback() {
+		if (index == 0)
+			throwHE("Attempt to pushback a token without having read one before. This is probably a bug in %s", this);
+		
+		index--;
+	}
+		
 	private Token token(String string) {
 		return new TokenCreator(tokenTypeOf(string), string).value();
 	}

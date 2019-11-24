@@ -14,7 +14,7 @@ import com.haymel.chess.uci.cmd.lexer.NumberToken;
 import com.haymel.chess.uci.cmd.lexer.Token;
 import com.haymel.chess.uci.cmd.lexer.TokenType;
 
-final class GoParamParser {
+class GoParamParser {
 	
 	private final Lexer lexer;
 	private GoParam param;
@@ -106,14 +106,12 @@ final class GoParamParser {
 		param.winc(number(token));
 	}
 
-
 	private void handleBinc(Token token) {
 		if (!isNumber(token))
 			return;
 		
 		param.binc(number(token));
 	}
-	
 
 	private void handleMovestogo(Token token) {
 		if (!isNumber(token))

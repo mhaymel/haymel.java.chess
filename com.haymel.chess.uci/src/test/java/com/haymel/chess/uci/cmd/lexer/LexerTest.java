@@ -155,4 +155,36 @@ public class LexerTest {
 		assertThat(lexer.hasNext(), is(false));
 	}
 	
+	@Test(expected=HaymelException.class)
+	public void pushbackThrowsExceptionIfNoTokenWasRead() {
+		new Lexer("").pushback();
+	}
+
+	@Test
+	public void pushbackOnEofIsOk() {
+		Lexer lexer = new Lexer("");
+		lexer.next();
+		assertThat(lexer.hasNext(), is(false));
+		lexer.pushback();
+		assertThat(lexer.hasNext(), is(true));
+		assertThat(lexer.next().type(), is(TokenType.eof));
+	}
+
+	@Test
+	public void pushbackOnReadToken() {
+		Lexer lexer = new Lexer("go infinite");
+
+		Token token = lexer.next();
+		assertThat(token.type(), is(TokenType.go));
+
+		token = lexer.next();
+		assertThat(token.type(), is(TokenType.infinite));
+		
+		lexer.pushback();
+		lexer.pushback();
+
+		token = lexer.next();
+		assertThat(token.type(), is(TokenType.go));
+	}
+	
 }
