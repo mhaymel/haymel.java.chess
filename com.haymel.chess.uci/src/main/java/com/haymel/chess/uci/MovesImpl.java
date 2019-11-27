@@ -7,10 +7,14 @@
  */
 package com.haymel.chess.uci;
 
+import static java.lang.String.join;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovesImpl implements Moves {
+import com.haymel.util.SimpleClassNameMixin;
+
+public class MovesImpl implements Moves, SimpleClassNameMixin {
 
 	public static final MovesImpl emptyMoves = new MovesImpl();
 	
@@ -36,6 +40,16 @@ public class MovesImpl implements Moves {
 			return false;
 		
 		return ((MovesImpl)obj).value().equals(moves);
+	}
+
+	@Override
+	public int hashCode() {
+		return moves.hashCode();
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("%s(%s)", simpleClassName(), join(" ", moves));
 	}
 	
 }

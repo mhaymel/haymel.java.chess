@@ -11,7 +11,7 @@ package com.haymel.chess.uci.cmd.lexer;
 import static com.haymel.util.Require.nonEmpty;
 import static com.haymel.util.Require.nonNull;
 
-class TokenImpl implements Token {
+class TokenImpl implements Token { //TODO unit test
 
 	private final TokenType type;
 	private final String value;

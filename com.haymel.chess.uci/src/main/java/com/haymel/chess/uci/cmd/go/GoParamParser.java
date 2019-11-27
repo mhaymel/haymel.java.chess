@@ -8,6 +8,7 @@
 package com.haymel.chess.uci.cmd.go;
 
 import static com.haymel.util.Require.nonNull;
+import static java.lang.Integer.MAX_VALUE;
 
 import com.haymel.chess.uci.cmd.lexer.Lexer;
 import com.haymel.chess.uci.cmd.lexer.NumberToken;
@@ -89,76 +90,79 @@ class GoParamParser {
 		if (!isNumber(token))
 			return;
 		
-		param.wtime(number(token));
+		param.wtime(asInt(token));
 	}
 
 	private void handleBtime(Token token) {
 		if (!isNumber(token))
 			return;
 		
-		param.btime(number(token));
+		param.btime(asInt(token));
 	}
 
 	private void handleWinc(Token token) {
 		if (!isNumber(token))
 			return;
 		
-		param.winc(number(token));
+		param.winc(asInt(token));
 	}
 
 	private void handleBinc(Token token) {
 		if (!isNumber(token))
 			return;
 		
-		param.binc(number(token));
+		param.binc(asInt(token));
 	}
 
 	private void handleMovestogo(Token token) {
 		if (!isNumber(token))
 			return;
 		
-		param.movestogo(number(token));
+		param.movestogo(asInt(token));
 	}
 	
 	private void handleMovetime(Token token) {
 		if (!isNumber(token))
 			return;
 		
-		param.movetime(number(token));
+		param.movetime(asInt(token));
 	}
 
 	private void handleDepth(Token token) {
 		if (!isNumber(token))
 			return;
 		
-		param.depth(number(token));
+		param.depth(asInt(token));
 	}
 
 	private void handleNodes(Token next) {
 		if (!isNumber(next))
 			return;
 		
-		param.nodes(number(next));
+		param.nodes(asLong(next));
 	}
 
 	private void handleSearchmoves() {
-		param.searchmoves();
+		param.searchmoves(new MovesParser(lexer).execute());
 	}
-
 	
 	private void handleMate(Token token) {
 		if (!isNumber(token))
 			return;
 		
-		param.mate(number(token));
+		param.mate(asInt(token));
 	}
 
 	private boolean isNumber(Token token) {
 		return token.type() == TokenType.number;
 	}
 	
-	private long number(Token token) {
-		return ((NumberToken)token).value();
+	private int asInt(Token token) {		 
+		return (int)Math.min(asLong(token), MAX_VALUE);
 	}
 
+	private long asLong(Token token) {		 
+		return ((NumberToken)token).value();
+	}
+	
 }

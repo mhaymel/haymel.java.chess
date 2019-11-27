@@ -1,7 +1,7 @@
 /***************************************************
  * (c) Markus Heumel
  *
- * @date:	21.11.2019
+ * @date:	27.11.2019
  * @author: Markus.Heumel
  *
  */
@@ -9,11 +9,11 @@ package com.haymel.chess.uci.cmd;
 
 import static com.haymel.util.Require.greaterEqualZero;
 
-public final class UnsignedInt implements IntParam {	//TODO unit test
+public final class UnsignedLong implements LongParam { //TODO unit test
 
-	private final int value;
+	private final long value;
 	
-	public UnsignedInt(int seconds) {
+	public UnsignedLong(long seconds) {
 		this.value = greaterEqualZero(seconds, "seconds");
 	}
 	
@@ -23,7 +23,7 @@ public final class UnsignedInt implements IntParam {	//TODO unit test
 	}
 
 	@Override
-	public int value() {
+	public long value() {
 		return value;
 	}
 

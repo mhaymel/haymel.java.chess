@@ -7,8 +7,6 @@
  */
 package com.haymel.chess.uci;
 
-import java.util.List;
-
 /*
  * The comments below were copied from 
  * 		"Description of the universal chess interface (UCI) April  2006" 
@@ -238,30 +236,32 @@ public interface CommandHandler {
 	
 	//go wtime 100000 winc 1000 btime 100000 binc 1000
 	//go wtime 100000 btime 100000 winc 1000 binc 1000
+	void go(int wtimeInSeconds, int btimeInSeconds, int wincInSeconds, int bincInSeconds);
+
 	//go wtime 100000 btime 100000 winc 1000 binc 1000 movestogo 40
-	void go(long wtimeInSeconds, long btimeInSeconds, long wincInSeconds, long bincInSeconds);
+	void go(int wtimeInSeconds, int btimeInSeconds, int wincInSeconds, int bincInSeconds, int movestogo);
 
 	//go ponder wtime 100000 winc 1000 btime 100000 binc 1000
 	//go ponder wtime 100000 btime 100000 winc 1000 binc 1000
-	void goPonder(long wtimeInSeconds, long btimeInSeconds, long wincInSeconds, long bincInSeconds);
+	void goPonder(int wtimeInSeconds, int btimeInSeconds, int wincInSeconds, int bincInSeconds);
 	
 	//go movetime 30000
-	void goMovetime(long timeInMilliSeconds);
+	void goMovetime(int timeInMilliSeconds);
 	
 	//go depth 17
-	void goDepth(long depth);
+	void goDepth(int depth);
 
 	//go nodes 1000
 	void goNodes(long count);
 	
 	//go infinite searchmoves e2e4 d2d4
-	void goInfinite(List<String> moves);
+	void goInfinite(Moves moves);
 	
 	//go infinite
 	void goInfinite();
 	
 	//go mate 5
-	void goMate(long moves);
+	void goMate(int moves);
 	
 	
 	/*	

@@ -11,9 +11,11 @@ import static com.haymel.chess.uci.cmd.IntParam.undefined;
 
 import com.haymel.chess.uci.Moves;
 import com.haymel.chess.uci.cmd.IntParam;
+import com.haymel.chess.uci.cmd.LongParam;
 import com.haymel.chess.uci.cmd.UnsignedInt;
+import com.haymel.chess.uci.cmd.UnsignedLong;
 
-final class GoParam {
+final class GoParam {	//TODO unit test
 
 	private boolean ponder = false;
 	private SearchmovesParam searchmoves = SearchmovesParam.undefined;
@@ -23,7 +25,7 @@ final class GoParam {
 	private IntParam binc = undefined;
 	private IntParam movestogo = undefined;
 	private IntParam depth = undefined;
-	private IntParam nodes = undefined;
+	private LongParam nodes = LongParam.undefined;
 	private IntParam mate = undefined;
 	private IntParam movetime = undefined;
 	private boolean infinite = false;
@@ -48,7 +50,7 @@ final class GoParam {
 		return wtime; 
 	}
 	
-	public void wtime(long seconds) {
+	public void wtime(int seconds) {
 		wtime = new UnsignedInt(seconds);
 	}
 	
@@ -56,7 +58,7 @@ final class GoParam {
 		return btime; 
 	}
 
-	public void btime(long seconds) {
+	public void btime(int seconds) {
 		btime = new UnsignedInt(seconds);
 	}
 	
@@ -64,7 +66,7 @@ final class GoParam {
 		return winc; 
 	}
 
-	public void winc(long seconds) {
+	public void winc(int seconds) {
 		winc = new UnsignedInt(seconds);
 	}
 
@@ -72,7 +74,7 @@ final class GoParam {
 		return binc; 
 	}
 
-	public void binc(long seconds) {
+	public void binc(int seconds) {
 		binc = new UnsignedInt(seconds);
 	}
 
@@ -80,7 +82,7 @@ final class GoParam {
 		return movestogo; 
 	}
 
-	public void movestogo(long moves) {
+	public void movestogo(int moves) {
 		movestogo = new UnsignedInt(moves);
 	}
 	
@@ -88,23 +90,23 @@ final class GoParam {
 		return depth; 
 	}
 
-	public void depth(long depth) {
+	public void depth(int depth) {
 		this.depth = new UnsignedInt(depth);
 	}
 	
-	public IntParam nodes() { 
+	public LongParam nodes() { 
 		return nodes; 
 	}
 
 	public void nodes(long nodes) {
-		this.nodes = new UnsignedInt(nodes);
+		this.nodes = new UnsignedLong(nodes);
 	}
 	
 	public IntParam mate() { 
 		return mate; 
 	}
 
-	public IntParam mate(long count) { 
+	public IntParam mate(int count) { 
 		return mate = new UnsignedInt(count); 
 	}
 	
@@ -112,7 +114,7 @@ final class GoParam {
 		return movetime; 
 	}
 
-	public void movetime(long timeInMilliSeconds) {
+	public void movetime(int timeInMilliSeconds) {
 		movetime = new UnsignedInt(timeInMilliSeconds);
 	}
 	

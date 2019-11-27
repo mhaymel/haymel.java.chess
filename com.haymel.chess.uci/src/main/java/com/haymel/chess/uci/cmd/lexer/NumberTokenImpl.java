@@ -8,7 +8,7 @@
 
 package com.haymel.chess.uci.cmd.lexer;
 
-class NumberTokenImpl implements NumberToken {
+class NumberTokenImpl implements NumberToken { //TODO unit test
 
 	private final long value;
 

@@ -7,6 +7,8 @@
  */
 package com.haymel.chess.uci.cmd.go;
 
+import static java.lang.Long.MAX_VALUE;
+import static java.lang.String.format;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
@@ -63,7 +65,7 @@ public class GoParamParserTest {
 		assertThat(param.ponder(), is(false));
 		assertThat(param.searchmoves().defined(), is(false));
 		assertThat(param.wtime().defined(), is(true));
-		assertThat(param.wtime().value(), is(12345L));
+		assertThat(param.wtime().value(), is(12345));
 		assertThat(param.btime().defined(), is(false));
 		assertThat(param.winc().defined(), is(false));
 		assertThat(param.binc().defined(), is(false));
@@ -82,7 +84,7 @@ public class GoParamParserTest {
 		assertThat(param.searchmoves().defined(), is(false));
 		assertThat(param.wtime().defined(), is(false));
 		assertThat(param.btime().defined(), is(true));
-		assertThat(param.btime().value(), is(12345L));
+		assertThat(param.btime().value(), is(12345));
 		assertThat(param.winc().defined(), is(false));
 		assertThat(param.binc().defined(), is(false));
 		assertThat(param.movestogo().defined(), is(false));
@@ -101,7 +103,7 @@ public class GoParamParserTest {
 		assertThat(param.wtime().defined(), is(false));
 		assertThat(param.btime().defined(), is(false));
 		assertThat(param.winc().defined(), is(true));
-		assertThat(param.winc().value(), is(12345L));
+		assertThat(param.winc().value(), is(12345));
 		assertThat(param.binc().defined(), is(false));
 		assertThat(param.movestogo().defined(), is(false));
 		assertThat(param.depth().defined(), is(false));
@@ -120,7 +122,7 @@ public class GoParamParserTest {
 		assertThat(param.btime().defined(), is(false));
 		assertThat(param.winc().defined(), is(false));
 		assertThat(param.binc().defined(), is(true));
-		assertThat(param.binc().value(), is(12345L));
+		assertThat(param.binc().value(), is(12345));
 		assertThat(param.movestogo().defined(), is(false));
 		assertThat(param.depth().defined(), is(false));
 		assertThat(param.nodes().defined(), is(false));
@@ -139,7 +141,7 @@ public class GoParamParserTest {
 		assertThat(param.winc().defined(), is(false));
 		assertThat(param.binc().defined(), is(false));
 		assertThat(param.movestogo().defined(), is(true));
-		assertThat(param.movestogo().value(), is(40L));
+		assertThat(param.movestogo().value(), is(40));
 		assertThat(param.depth().defined(), is(false));
 		assertThat(param.nodes().defined(), is(false));
 		assertThat(param.mate().defined(), is(false));
@@ -161,7 +163,7 @@ public class GoParamParserTest {
 		assertThat(param.nodes().defined(), is(false));
 		assertThat(param.mate().defined(), is(false));
 		assertThat(param.movetime().defined(), is(true));
-		assertThat(param.movetime().value(), is(30000L));
+		assertThat(param.movetime().value(), is(30000));
 		assertThat(param.infinite(), is(false));
 	}
 	
@@ -176,7 +178,7 @@ public class GoParamParserTest {
 		assertThat(param.binc().defined(), is(false));
 		assertThat(param.movestogo().defined(), is(false));
 		assertThat(param.depth().defined(), is(true));
-		assertThat(param.depth().value(), is(17L));
+		assertThat(param.depth().value(), is(17));
 		assertThat(param.nodes().defined(), is(false));
 		assertThat(param.mate().defined(), is(false));
 		assertThat(param.movetime().defined(), is(false));
@@ -201,6 +203,23 @@ public class GoParamParserTest {
 		assertThat(param.infinite(), is(false));
 	}
 	
+	@Test
+	public void nodesMaxLong() {
+		GoParam param = param(format("nodes %s", MAX_VALUE));
+		assertThat(param.ponder(), is(false));
+		assertThat(param.searchmoves().defined(), is(false));
+		assertThat(param.wtime().defined(), is(false));
+		assertThat(param.btime().defined(), is(false));
+		assertThat(param.winc().defined(), is(false));
+		assertThat(param.binc().defined(), is(false));
+		assertThat(param.movestogo().defined(), is(false));
+		assertThat(param.depth().defined(), is(false));
+		assertThat(param.nodes().defined(), is(true));
+		assertThat(param.nodes().value(), is(MAX_VALUE));
+		assertThat(param.mate().defined(), is(false));
+		assertThat(param.movetime().defined(), is(false));
+		assertThat(param.infinite(), is(false));
+	}
 	@Test
 	public void infinite() {
 		GoParam param = param("infinite");
@@ -231,7 +250,7 @@ public class GoParamParserTest {
 		assertThat(param.depth().defined(), is(false));
 		assertThat(param.nodes().defined(), is(false));
 		assertThat(param.mate().defined(), is(true));
-		assertThat(param.mate().value(), is(5L));
+		assertThat(param.mate().value(), is(5));
 		assertThat(param.movetime().defined(), is(false));
 		assertThat(param.infinite(), is(false));
 	}
@@ -239,7 +258,7 @@ public class GoParamParserTest {
 	@Test
 	public void searchmoves() {
 		MovesImpl moves = new MovesImpl();
-		moves.add("e2e4").add("e7e5");
+		moves.add("e2e4").add("d2d4");
 				
 		GoParam param = param("searchmoves e2e4 d2d4");
 		assertThat(param.ponder(), is(false));
@@ -262,16 +281,16 @@ public class GoParamParserTest {
 		GoParam param = param("wtime 100000 winc 2000 btime 300000 binc 4000");
 		
 		assertThat(param.wtime().defined(), is(true));
-		assertThat(param.wtime().value(), is(100000L));
+		assertThat(param.wtime().value(), is(100000));
 		
 		assertThat(param.winc().defined(), is(true));
-		assertThat(param.winc().value(), is(2000L));
+		assertThat(param.winc().value(), is(2000));
 
 		assertThat(param.btime().defined(), is(true));
-		assertThat(param.btime().value(), is(300000L));
+		assertThat(param.btime().value(), is(300000));
 		
 		assertThat(param.binc().defined(), is(true));
-		assertThat(param.binc().value(), is(4000L));
+		assertThat(param.binc().value(), is(4000));
 		
 		assertThat(param.ponder(), is(false));
 		assertThat(param.searchmoves().defined(), is(false));
@@ -288,16 +307,16 @@ public class GoParamParserTest {
 		GoParam param = param("wtime 100000 btime 300000 winc 2000 binc 4000");
 		
 		assertThat(param.wtime().defined(), is(true));
-		assertThat(param.wtime().value(), is(100000L));
+		assertThat(param.wtime().value(), is(100000));
 		
 		assertThat(param.winc().defined(), is(true));
-		assertThat(param.winc().value(), is(2000L));
+		assertThat(param.winc().value(), is(2000));
 		
 		assertThat(param.btime().defined(), is(true));
-		assertThat(param.btime().value(), is(300000L));
+		assertThat(param.btime().value(), is(300000));
 		
 		assertThat(param.binc().defined(), is(true));
-		assertThat(param.binc().value(), is(4000L));
+		assertThat(param.binc().value(), is(4000));
 		
 		assertThat(param.ponder(), is(false));
 		assertThat(param.searchmoves().defined(), is(false));
@@ -314,19 +333,19 @@ public class GoParamParserTest {
 		GoParam param = param("wtime 100000 winc 2000 btime 300000 binc 4000 movestogo 40");
 		
 		assertThat(param.wtime().defined(), is(true));
-		assertThat(param.wtime().value(), is(100000L));
+		assertThat(param.wtime().value(), is(100000));
 		
 		assertThat(param.winc().defined(), is(true));
-		assertThat(param.winc().value(), is(2000L));
+		assertThat(param.winc().value(), is(2000));
 
 		assertThat(param.btime().defined(), is(true));
-		assertThat(param.btime().value(), is(300000L));
+		assertThat(param.btime().value(), is(300000));
 		
 		assertThat(param.binc().defined(), is(true));
-		assertThat(param.binc().value(), is(4000L));
+		assertThat(param.binc().value(), is(4000));
 
 		assertThat(param.movestogo().defined(), is(true));
-		assertThat(param.movestogo().value(), is(40L));
+		assertThat(param.movestogo().value(), is(40));
 		
 		assertThat(param.ponder(), is(false));
 		assertThat(param.searchmoves().defined(), is(false));
@@ -344,16 +363,16 @@ public class GoParamParserTest {
 		assertThat(param.ponder(), is(true));
 
 		assertThat(param.wtime().defined(), is(true));
-		assertThat(param.wtime().value(), is(100000L));
+		assertThat(param.wtime().value(), is(100000));
 		
 		assertThat(param.winc().defined(), is(true));
-		assertThat(param.winc().value(), is(2000L));
+		assertThat(param.winc().value(), is(2000));
 
 		assertThat(param.btime().defined(), is(true));
-		assertThat(param.btime().value(), is(300000L));
+		assertThat(param.btime().value(), is(300000));
 		
 		assertThat(param.binc().defined(), is(true));
-		assertThat(param.binc().value(), is(4000L));
+		assertThat(param.binc().value(), is(4000));
 		
 		assertThat(param.searchmoves().defined(), is(false));
 		assertThat(param.movestogo().defined(), is(false));
@@ -371,16 +390,16 @@ public class GoParamParserTest {
 		assertThat(param.ponder(), is(true));
 
 		assertThat(param.wtime().defined(), is(true));
-		assertThat(param.wtime().value(), is(100000L));
+		assertThat(param.wtime().value(), is(100000));
 		
 		assertThat(param.winc().defined(), is(true));
-		assertThat(param.winc().value(), is(2000L));
+		assertThat(param.winc().value(), is(2000));
 		
 		assertThat(param.btime().defined(), is(true));
-		assertThat(param.btime().value(), is(300000L));
+		assertThat(param.btime().value(), is(300000));
 		
 		assertThat(param.binc().defined(), is(true));
-		assertThat(param.binc().value(), is(4000L));
+		assertThat(param.binc().value(), is(4000));
 		
 		assertThat(param.searchmoves().defined(), is(false));
 		assertThat(param.movestogo().defined(), is(false));
@@ -394,7 +413,7 @@ public class GoParamParserTest {
 	@Test
 	public void goInfiniteSearchmoves() {
 		MovesImpl moves = new MovesImpl();
-		moves.add("e2e4").add("e7e5");
+		moves.add("e2e4").add("d2d4");
 				
 		GoParam param = param("infinite searchmoves e2e4 d2d4");
 		assertThat(param.ponder(), is(false));

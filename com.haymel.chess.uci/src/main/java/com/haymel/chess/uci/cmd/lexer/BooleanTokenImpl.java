@@ -8,7 +8,7 @@
 
 package com.haymel.chess.uci.cmd.lexer;
 
-public class BooleanTokenImpl implements BooleanToken {
+public class BooleanTokenImpl implements BooleanToken { //TODO unit test
 
 	private final boolean value;
 

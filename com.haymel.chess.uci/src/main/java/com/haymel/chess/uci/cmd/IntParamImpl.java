@@ -7,11 +7,11 @@
  */
 package com.haymel.chess.uci.cmd;
 
-final class IntParamImpl implements IntParam {
+final class IntParamImpl implements IntParam {	//TODO unit test
 
-	private final long value;
+	private final int value;
 	
-	public IntParamImpl(long value) {
+	public IntParamImpl(int value) {
 		this.value = value;
 	}
 	
@@ -21,7 +21,7 @@ final class IntParamImpl implements IntParam {
 	}
 
 	@Override
-	public long value() {
+	public int value() {
 		return value;
 	}
 

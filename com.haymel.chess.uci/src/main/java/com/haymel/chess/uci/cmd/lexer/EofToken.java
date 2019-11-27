@@ -10,7 +10,7 @@ package com.haymel.chess.uci.cmd.lexer;
 
 import static com.haymel.util.exception.HaymelNullPointerException.throwNPE;
 
-class EofToken implements Token {
+class EofToken implements Token { //TODO unit test
 
 	static final EofToken eof = new EofToken();
 	
