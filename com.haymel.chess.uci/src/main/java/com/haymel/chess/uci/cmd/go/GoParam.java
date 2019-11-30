@@ -15,7 +15,7 @@ import com.haymel.chess.uci.cmd.LongParam;
 import com.haymel.chess.uci.cmd.UnsignedInt;
 import com.haymel.chess.uci.cmd.UnsignedLong;
 
-final class GoParam {	//TODO unit test
+final class GoParam {
 
 	private boolean ponder = false;
 	private SearchmovesParam searchmoves = SearchmovesParam.undefined;

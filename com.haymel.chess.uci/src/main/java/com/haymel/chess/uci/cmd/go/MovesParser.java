@@ -5,7 +5,6 @@
  * @author: Markus.Heumel
  *
  */
-
 package com.haymel.chess.uci.cmd.go;
 
 import static com.haymel.util.Require.nonNull;
