@@ -85,7 +85,7 @@ import java.util.List;
 			The engine should only send this if the option "UCI_ShowCurrLine" is set to true.
 */
 
-public class Infos {			//TODO unit test
+public class Infos {
 
 	private final List<Info> infos;
 	
