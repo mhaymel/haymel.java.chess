@@ -18,9 +18,9 @@ public class CmdPositionProcessor {
 														// rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR    w    KQkq   -   0   1		
 	private static final int MIN_NUMBER_OF_PARAMS_FOR_FEN = 1                                            +1     +1   +1  +1  +1;      
 	private final Lexer lexer;
-	private final CommandHandler handler;
+	private final Command handler;
 	
-	public CmdPositionProcessor(Lexer lexer, CommandHandler handler) {
+	public CmdPositionProcessor(Lexer lexer, Command handler) {
 		this.lexer = nonNull(lexer, "lexer");
 		this.handler = nonNull(handler, "handler");
 	}

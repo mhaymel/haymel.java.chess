@@ -22,11 +22,11 @@ import org.mockito.Mockito;
 
 public class CommandProcessorTest {
 
-	private CommandHandler handler;
+	private Command handler;
 	
 	@Before
 	public void setup() {
-		handler = mock(CommandHandler.class);
+		handler = mock(Command.class);
 	}
 	
 	@Test

@@ -18,9 +18,9 @@ import com.haymel.chess.uci.cmd.lexer.Token;
 public class CommandProcessor {
 
 	private final Lexer lexer;
-	private final CommandHandler handler;
+	private final Command handler;
 	
-	public CommandProcessor(String line, CommandHandler handler) {
+	public CommandProcessor(String line, Command handler) {
 		this.lexer = new Lexer(nonNull(line, "line"));
 		this.handler = nonNull(handler, "handler");
 	}

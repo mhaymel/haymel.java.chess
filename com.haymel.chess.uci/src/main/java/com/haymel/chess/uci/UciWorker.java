@@ -17,15 +17,15 @@ import java.io.InputStreamReader;
 public class UciWorker {
 
 	private final BufferedReader in;
-	private final CommandHandler cmdHandler;
+	private final Command cmdHandler;
 	private volatile Thread thread;
 	
-	public UciWorker(BufferedReader in, CommandHandler cmdHandler) {
+	public UciWorker(BufferedReader in, Command cmdHandler) {
 		this.in = nonNull(in, "in");
 		this.cmdHandler = nonNull(cmdHandler, "cmdHandler");
 	}
 
-	public UciWorker(InputStream in, CommandHandler cmdHandler) {
+	public UciWorker(InputStream in, Command cmdHandler) {
 		this(
 			new BufferedReader(new InputStreamReader(nonNull(in, "in"))), 
 			nonNull(cmdHandler, "cmdHandler"));

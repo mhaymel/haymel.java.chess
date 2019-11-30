@@ -18,11 +18,11 @@ import org.junit.Test;
 
 public class UciWorkerTest {
 
-	private CommandHandler cmdHandler;
+	private Command cmdHandler;
 	
 	@Before
 	public void setup() {
-		cmdHandler = mock(CommandHandler.class);
+		cmdHandler = mock(Command.class);
 	}
 	
 	@Test

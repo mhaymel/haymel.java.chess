@@ -9,15 +9,15 @@ package com.haymel.chess.uci.cmd.go;
 
 import static com.haymel.util.Require.nonNull;
 
-import com.haymel.chess.uci.CommandHandler;
+import com.haymel.chess.uci.Command;
 import com.haymel.chess.uci.cmd.lexer.Lexer;
 
 public class CmdGoProcessor {
 
 	private final Lexer lexer;
-	private final CommandHandler handler;
+	private final Command handler;
 	
-	public CmdGoProcessor(Lexer lexer, CommandHandler handler) {
+	public CmdGoProcessor(Lexer lexer, Command handler) {
 		this.lexer = nonNull(lexer, "lexer");
 		this.handler = nonNull(handler, "handler");
 	}

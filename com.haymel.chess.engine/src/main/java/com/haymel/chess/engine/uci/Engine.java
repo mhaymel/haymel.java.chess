@@ -1,9 +1,9 @@
 package com.haymel.chess.engine.uci;
 
-import com.haymel.chess.uci.CommandHandler;
+import com.haymel.chess.uci.Command;
 
 public interface Engine {
 
-	CommandHandler uciCommandHandler();
+	Command uciCommandHandler();
 	
 }

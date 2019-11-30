@@ -19,11 +19,11 @@ import com.haymel.chess.uci.cmd.lexer.Lexer;
 
 public class CmdPositionProcessorTest {
 
-	private CommandHandler handler;
+	private Command handler;
 
 	@Before
 	public void setup() {
-		handler = mock(CommandHandler.class);
+		handler = mock(Command.class);
 	}
 
 	@Test

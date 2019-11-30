@@ -69,7 +69,7 @@ package com.haymel.chess.uci;
 		
 		These are all the command the engine gets from the interface.	 
 */
-public interface CommandHandler {
+public interface Command {
 	
 	/* 
 		uci
@@ -81,7 +81,6 @@ public interface CommandHandler {
 			After that the engine should send "uciok" to acknowledge the uci mode.
 			If no uciok is sent within a certain time period, the engine task will be killed by the GUI.
 	*/
-	String uci = "uci";
 	void uci();
 
 
@@ -93,9 +92,6 @@ public interface CommandHandler {
 			This mode should be switched off by default and this command can be sent
 			any time, also when the engine is thinking.
 	*/
-	String debug = "debug";
-	String on = "on";
-	String off = "off";
 	void debugOn();
 	void debugOff();
 	
@@ -112,7 +108,6 @@ public interface CommandHandler {
 			This command must always be answered with "readyok" and can be sent also when the engine is calculating
 			in which case the engine should also immediately answer with "readyok" without stopping the search.
 	 */
-	String isready = "isready";
 	void isReady();
 	
 	
@@ -166,7 +161,6 @@ public interface CommandHandler {
 		   As the engine's reaction to "ucinewgame" can take some time the GUI should always send "isready"
 		   after "ucinewgame" to wait for the engine to finish its operation.
 	*/
-	String ucinewgame = "ucinewgame";
 	void ucinewgame();
 
 	
@@ -178,10 +172,6 @@ public interface CommandHandler {
 			Note: no "new" command is needed. However, if this position is from a different game than
 			the last position sent to the engine, the GUI should have sent a "ucinewgame" inbetween.
 	*/
-	String position = "position";
-	String startpos = 				"startpos";
-	String fen = 					"fen";
-	String moves = 					             "moves";
 	void positionStart(Moves moves);
 	void positionFen(String fen, Moves moves);
 	
@@ -228,12 +218,7 @@ public interface CommandHandler {
 			* infinite
 				search until the "stop" command. Do not exit the search without being told so in this mode!
 	 */
-	String go = "go";
-	String wtime = "wtime";
-	String btime = "btime";
-	String winc = "winc";
-	String binc = "binc";
-	
+
 	//go wtime 100000 winc 1000 btime 100000 binc 1000
 	//go wtime 100000 btime 100000 winc 1000 binc 1000
 	void go(int wtimeInSeconds, int btimeInSeconds, int wincInSeconds, int bincInSeconds);
@@ -269,7 +254,6 @@ public interface CommandHandler {
 			stop calculating as soon as possible,
 			don't forget the "bestmove" and possibly the "ponder" token when finishing the search
 	*/
-	String stop = "stop";
 	void stop();
 	
 	
@@ -278,7 +262,6 @@ public interface CommandHandler {
 			the user has played the expected move. This will be sent if the engine was told to ponder on the same move
 			the user has played. The engine should continue searching but switch from pondering to normal search.
 	*/
-	String ponderhit = "ponderhit";
 	void ponderhit();
 	
 	
@@ -286,9 +269,7 @@ public interface CommandHandler {
 	 	quit
 			quit the program as soon as possible
 	*/	
-	String quit = "quit";
 	void quit();
-
 	
 	void unknown(String command);
 	

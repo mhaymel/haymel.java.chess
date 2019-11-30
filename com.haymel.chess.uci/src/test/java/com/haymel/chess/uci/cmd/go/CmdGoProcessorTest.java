@@ -17,17 +17,17 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.haymel.chess.uci.CommandHandler;
+import com.haymel.chess.uci.Command;
 import com.haymel.chess.uci.MovesImpl;
 import com.haymel.chess.uci.cmd.lexer.Lexer;
 
 public class CmdGoProcessorTest {
 
-	private CommandHandler handler;
+	private Command handler;
 	
 	@Before
 	public void setup() {
-		handler = mock(CommandHandler.class);
+		handler = mock(Command.class);
 	}
 	
 	@Test 
