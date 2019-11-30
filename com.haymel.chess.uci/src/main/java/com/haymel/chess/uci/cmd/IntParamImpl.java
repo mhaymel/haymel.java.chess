@@ -7,7 +7,7 @@
  */
 package com.haymel.chess.uci.cmd;
 
-final class IntParamImpl implements IntParam {	//TODO unit test
+final class IntParamImpl implements IntParam {
 
 	private final int value;
 	

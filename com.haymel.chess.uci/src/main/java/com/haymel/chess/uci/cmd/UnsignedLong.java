@@ -9,7 +9,7 @@ package com.haymel.chess.uci.cmd;
 
 import static com.haymel.util.Require.greaterEqualZero;
 
-public final class UnsignedLong implements LongParam { //TODO unit test
+public final class UnsignedLong implements LongParam {
 
 	private final long value;
 	

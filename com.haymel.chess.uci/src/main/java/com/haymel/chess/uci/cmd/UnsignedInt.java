@@ -9,7 +9,7 @@ package com.haymel.chess.uci.cmd;
 
 import static com.haymel.util.Require.greaterEqualZero;
 
-public final class UnsignedInt implements IntParam {	//TODO unit test
+public final class UnsignedInt implements IntParam {
 
 	private final int value;
 	
