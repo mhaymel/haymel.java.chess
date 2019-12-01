@@ -15,7 +15,7 @@ import com.haymel.chess.uci.lexer.Lexer;
 import com.haymel.chess.uci.lexer.Token;
 import com.haymel.chess.uci.lexer.TokenType;
 
-class MovesParser {	//TODO unit test
+class MovesParser {
 
 	private final Lexer lexer;
 	
