@@ -10,7 +10,7 @@ package com.haymel.chess.uci.cmd.lexer;
 
 import static com.haymel.util.exception.HaymelNullPointerException.throwNPE;
 
-class EofToken implements Token { //TODO unit test
+class EofToken implements Token {
 
 	static final EofToken eof = new EofToken();
 	
@@ -21,7 +21,7 @@ class EofToken implements Token { //TODO unit test
 
 	@Override
 	public String string() {
-		return throwNPE("eof does not have a value. This is probably a bug!");
+		return throwNPE("eof does not have a value. This is probably a bug!", "");
 	}
 
 }
