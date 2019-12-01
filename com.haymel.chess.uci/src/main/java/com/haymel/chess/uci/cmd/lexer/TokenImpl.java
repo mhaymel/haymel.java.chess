@@ -11,14 +11,14 @@ package com.haymel.chess.uci.cmd.lexer;
 import static com.haymel.util.Require.nonEmpty;
 import static com.haymel.util.Require.nonNull;
 
-class TokenImpl implements Token { //TODO unit test
+class TokenImpl implements Token {
 
 	private final TokenType type;
 	private final String value;
 
 	public TokenImpl(TokenType type, String value) {
 		this.type = nonNull(type, "type");
-		this.value = nonEmpty(value, "value");
+		this.value = verify(value);
 	}
 	
 	@Override
@@ -29,6 +29,11 @@ class TokenImpl implements Token { //TODO unit test
 	@Override
 	public String string() {
 		return value;
+	}
+
+	private static String verify(String value) {
+		nonNull(value, "value");
+		return nonEmpty(value.trim(), "value");
 	}
 
 }
