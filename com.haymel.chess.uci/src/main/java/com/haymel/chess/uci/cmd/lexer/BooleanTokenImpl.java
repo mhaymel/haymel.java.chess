@@ -8,14 +8,13 @@
 
 package com.haymel.chess.uci.cmd.lexer;
 
-public class BooleanTokenImpl implements BooleanToken { //TODO unit test
+public class BooleanTokenImpl implements BooleanToken {
 
 	private final boolean value;
 
 	public BooleanTokenImpl(boolean value) {
 		this.value = value;
 	}
-	
 	
 	@Override
 	public TokenType type() {
