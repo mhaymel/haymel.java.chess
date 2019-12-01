@@ -8,17 +8,19 @@
 package com.haymel.chess.uci.result;
 
 import static com.haymel.util.Require.nonEmpty;
+import static com.haymel.util.Require.nonNull;
+import static com.haymel.util.exception.HaymelIllegalArgumentException.throwIAE;
 import static java.lang.String.join;
 
 import com.haymel.chess.uci.Moves;
 
-class Info {		//TODO unit test
+class Info {
 
 	private final String key;
 	private final String value;
 	
 	Info(String key, Moves moves) {
-		this(key,  join(" ",  moves.value()));
+		this(key,  join(" ",  verify(moves).value()));
 	}
 	
 	Info(String key, long value) {
@@ -46,5 +48,14 @@ class Info {		//TODO unit test
 	public String value() {
 		return value;
 	}
+
+	private static Moves verify(Moves moves) {
+		nonNull(moves, "moves");
+		if (moves.value().isEmpty())
+			throwIAE("moves must not be empty");
+		
+		return moves;
+	}
+
 	
 }
