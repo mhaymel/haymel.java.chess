@@ -5,16 +5,14 @@
  * @author: Markus.Heumel
  *
  */
-package com.haymel.chess.uci.command;
+package com.haymel.chess.uci.command.core;
 
-import static com.haymel.util.Require.greaterEqualZero;
-
-public final class UnsignedInt implements IntParam {
+final class IntParamImpl implements IntParam {
 
 	private final int value;
 	
-	public UnsignedInt(int seconds) {
-		this.value = greaterEqualZero(seconds, "seconds");
+	public IntParamImpl(int value) {
+		this.value = value;
 	}
 	
 	@Override

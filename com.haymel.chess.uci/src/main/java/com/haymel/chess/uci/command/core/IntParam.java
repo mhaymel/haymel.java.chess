@@ -1,19 +1,19 @@
 /***************************************************
  * (c) Markus Heumel
  *
- * @date:	27.11.2019
+ * @date:	20.11.2019
  * @author: Markus.Heumel
  *
  */
-package com.haymel.chess.uci.command;
+package com.haymel.chess.uci.command.core;
 
 import static com.haymel.util.exception.HaymelException.throwHE;
 
-public interface LongParam {
+public interface IntParam {
 
-	static final LongParam undefined = new LongParam() {};
+	static final IntParam undefined = new IntParam() {};
 	
 	default boolean defined() { return false; }
-	default long value() { return throwHE("value is undefined"); }
+	default int value() { return throwHE("value is undefined"); }
 	
 }

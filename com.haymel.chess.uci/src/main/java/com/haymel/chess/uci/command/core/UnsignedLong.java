@@ -5,7 +5,7 @@
  * @author: Markus.Heumel
  *
  */
-package com.haymel.chess.uci.command;
+package com.haymel.chess.uci.command.core;
 
 import static com.haymel.util.Require.greaterEqualZero;
 

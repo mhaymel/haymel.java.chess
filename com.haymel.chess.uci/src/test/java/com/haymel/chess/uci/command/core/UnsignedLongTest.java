@@ -5,7 +5,7 @@
  * @author: Markus.Heumel
  *
  */
-package com.haymel.chess.uci.command;
+package com.haymel.chess.uci.command.core;
 
 import static java.lang.Long.MAX_VALUE;
 import static org.hamcrest.CoreMatchers.is;
@@ -13,8 +13,8 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
-import com.haymel.chess.uci.command.UnsignedInt;
-import com.haymel.chess.uci.command.UnsignedLong;
+import com.haymel.chess.uci.command.core.UnsignedInt;
+import com.haymel.chess.uci.command.core.UnsignedLong;
 import com.haymel.util.exception.HaymelException;
 
 public class UnsignedLongTest {

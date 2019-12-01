@@ -7,13 +7,13 @@
  */
 package com.haymel.chess.uci.command.go;
 
-import static com.haymel.chess.uci.command.IntParam.undefined;
+import static com.haymel.chess.uci.command.core.IntParam.undefined;
 
 import com.haymel.chess.uci.Moves;
-import com.haymel.chess.uci.command.IntParam;
-import com.haymel.chess.uci.command.LongParam;
-import com.haymel.chess.uci.command.UnsignedInt;
-import com.haymel.chess.uci.command.UnsignedLong;
+import com.haymel.chess.uci.command.core.IntParam;
+import com.haymel.chess.uci.command.core.LongParam;
+import com.haymel.chess.uci.command.core.UnsignedInt;
+import com.haymel.chess.uci.command.core.UnsignedLong;
 
 final class GoParam {
 
