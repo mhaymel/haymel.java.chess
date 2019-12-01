@@ -9,9 +9,6 @@ package com.haymel.chess.uci.result;
 
 import static com.haymel.util.Require.nonEmpty;
 import static java.lang.String.join;
-import static java.util.Objects.hash;
-
-import java.util.Objects;
 
 import com.haymel.chess.uci.Moves;
 
@@ -48,23 +45,6 @@ class Info {		//TODO unit test
 	
 	public String value() {
 		return value;
-	}
-	
-	@Override
-	public boolean equals(Object obj) {
-		if (!(obj instanceof Info))
-			return false;
-		
-		Info info = (Info)obj;
-		
-		return 
-			Objects.equals(key(), info.key()) && 
-			Objects.equals(key(), info.key());
-	}
-
-	@Override
-	public int hashCode() {
-		return hash(key, value);
 	}
 	
 }

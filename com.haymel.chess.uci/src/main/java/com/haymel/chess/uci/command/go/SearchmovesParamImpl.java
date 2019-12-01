@@ -10,7 +10,7 @@ package com.haymel.chess.uci.command.go;
 import com.haymel.chess.uci.Moves;
 import com.haymel.util.Require;
 
-public class SearchmovesParamImpl implements SearchmovesParam { //TODO unit test
+public class SearchmovesParamImpl implements SearchmovesParam {
 
 	private final Moves moves;
 	
