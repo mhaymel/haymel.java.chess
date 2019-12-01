@@ -7,6 +7,8 @@
  */
 package com.haymel.chess.uci;
 
+import com.haymel.chess.uci.result.Infos;
+
 /*
  * The comments below were copied from 
  * 		"Description of the universal chess interface (UCI) April  2006" 
