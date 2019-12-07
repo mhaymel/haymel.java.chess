@@ -75,9 +75,13 @@ public interface Result {
 			* author <x>
 				this must be sent after receiving the "uci" command to identify the engine,
 				e.g. "id author Stefan MK\n"
+		
+		e.g.
+		id name SOS 5 for Arena
+		id author Rudolf Huber
 	*/
-	void id(String name, String author);
-
+	void idname(String name);		
+	void idauthor(String author);
 
 	/*
 	 	uciok
@@ -124,6 +128,7 @@ public interface Result {
 		      else
 		         TellGUI("copyprotection error\n");
    	*/
+	void copyprotectionChecking();
 	void copyprotectionOk();
 	void copyprotectionError();
 	
