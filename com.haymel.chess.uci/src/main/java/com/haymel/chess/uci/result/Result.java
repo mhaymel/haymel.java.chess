@@ -5,9 +5,7 @@
  * @author: Markus.Heumel
  *
  */
-package com.haymel.chess.uci;
-
-import com.haymel.chess.uci.result.Infos;
+package com.haymel.chess.uci.result;
 
 /*
  * The comments below were copied from 

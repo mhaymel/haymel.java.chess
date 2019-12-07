@@ -5,7 +5,7 @@
  * @author: Markus.Heumel
  *
  */
-package com.haymel.chess.uci;
+package com.haymel.chess.uci.command;
 
 import static com.haymel.util.Require.nonNull;
 
@@ -14,23 +14,21 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import com.haymel.chess.uci.command.CommandProcessor;
-
-public class UciWorker {
+public class CommandWorker {
 
 	private final BufferedReader in;
 	private final Command cmdHandler;
 	private volatile Thread thread;
 	
-	public UciWorker(BufferedReader in, Command cmdHandler) {
-		this.in = nonNull(in, "in");
-		this.cmdHandler = nonNull(cmdHandler, "cmdHandler");
-	}
-
-	public UciWorker(InputStream in, Command cmdHandler) {
+	public CommandWorker(InputStream in, Command cmdHandler) {
 		this(
 			new BufferedReader(new InputStreamReader(nonNull(in, "in"))), 
 			nonNull(cmdHandler, "cmdHandler"));
+	}
+
+	private CommandWorker(BufferedReader in, Command cmdHandler) {
+		this.in = nonNull(in, "in");
+		this.cmdHandler = nonNull(cmdHandler, "cmdHandler");
 	}
 	
 	public synchronized void start() {

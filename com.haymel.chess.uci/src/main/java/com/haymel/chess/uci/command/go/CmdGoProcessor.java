@@ -9,7 +9,7 @@ package com.haymel.chess.uci.command.go;
 
 import static com.haymel.util.Require.nonNull;
 
-import com.haymel.chess.uci.Command;
+import com.haymel.chess.uci.command.Command;
 import com.haymel.chess.uci.lexer.Lexer;
 
 public class CmdGoProcessor {

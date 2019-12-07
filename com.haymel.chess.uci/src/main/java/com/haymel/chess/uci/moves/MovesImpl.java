@@ -5,7 +5,7 @@
  * @author: Markus.Heumel
  *
  */
-package com.haymel.chess.uci;
+package com.haymel.chess.uci.moves;
 
 import static java.lang.String.join;
 

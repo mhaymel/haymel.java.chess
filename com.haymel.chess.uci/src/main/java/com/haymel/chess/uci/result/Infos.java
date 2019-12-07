@@ -16,7 +16,7 @@ package com.haymel.chess.uci.result;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.haymel.chess.uci.Moves;
+import com.haymel.chess.uci.moves.Moves;
 
 /*
 	info

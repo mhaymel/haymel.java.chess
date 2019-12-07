@@ -7,7 +7,7 @@
  */
 package com.haymel.chess.uci.command.go;
 
-import com.haymel.chess.uci.Moves;
+import com.haymel.chess.uci.moves.Moves;
 import com.haymel.util.Require;
 
 public class SearchmovesParamImpl implements SearchmovesParam {

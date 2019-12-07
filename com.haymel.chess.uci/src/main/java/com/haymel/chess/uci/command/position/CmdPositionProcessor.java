@@ -7,15 +7,15 @@
  */
 package com.haymel.chess.uci.command.position;
 
-import static com.haymel.chess.uci.MovesImpl.emptyMoves;
+import static com.haymel.chess.uci.moves.MovesImpl.emptyMoves;
 import static com.haymel.util.Require.nonNull;
 
-import com.haymel.chess.uci.Command;
-import com.haymel.chess.uci.Moves;
-import com.haymel.chess.uci.MovesImpl;
+import com.haymel.chess.uci.command.Command;
 import com.haymel.chess.uci.lexer.Lexer;
 import com.haymel.chess.uci.lexer.Token;
 import com.haymel.chess.uci.lexer.TokenType;
+import com.haymel.chess.uci.moves.Moves;
+import com.haymel.chess.uci.moves.MovesImpl;
 
 public class CmdPositionProcessor {
 														// rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR    w    KQkq   -   0   1		

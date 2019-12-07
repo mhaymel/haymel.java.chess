@@ -7,7 +7,7 @@
  */
 package com.haymel.chess.uci.command.position;
 
-import static com.haymel.chess.uci.MovesImpl.emptyMoves;
+import static com.haymel.chess.uci.moves.MovesImpl.emptyMoves;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -15,10 +15,10 @@ import static org.mockito.Mockito.verify;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.haymel.chess.uci.Command;
-import com.haymel.chess.uci.MovesImpl;
+import com.haymel.chess.uci.command.Command;
 import com.haymel.chess.uci.command.position.CmdPositionProcessor;
 import com.haymel.chess.uci.lexer.Lexer;
+import com.haymel.chess.uci.moves.MovesImpl;
 
 public class CmdPositionProcessorTest {
 

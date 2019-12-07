@@ -11,7 +11,6 @@ import static com.haymel.chess.uci.lexer.TokenType.off;
 import static com.haymel.chess.uci.lexer.TokenType.on;
 import static com.haymel.util.Require.nonNull;
 
-import com.haymel.chess.uci.Command;
 import com.haymel.chess.uci.command.go.CmdGoProcessor;
 import com.haymel.chess.uci.command.position.CmdPositionProcessor;
 import com.haymel.chess.uci.lexer.Lexer;

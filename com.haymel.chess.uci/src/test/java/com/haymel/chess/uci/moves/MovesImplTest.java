@@ -5,12 +5,14 @@
  * @author: Markus.Heumel
  *
  */
-package com.haymel.chess.uci;
+package com.haymel.chess.uci.moves;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
+
+import com.haymel.chess.uci.moves.MovesImpl;
 
 public class MovesImplTest {
 

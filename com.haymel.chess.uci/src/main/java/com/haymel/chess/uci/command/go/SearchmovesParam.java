@@ -9,7 +9,7 @@ package com.haymel.chess.uci.command.go;
 
 import static com.haymel.util.exception.HaymelException.throwHE;
 
-import com.haymel.chess.uci.Moves;
+import com.haymel.chess.uci.moves.Moves;
 
 public interface SearchmovesParam {
 

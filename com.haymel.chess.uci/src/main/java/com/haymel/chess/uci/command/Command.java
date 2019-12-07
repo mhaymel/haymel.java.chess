@@ -5,7 +5,9 @@
  * @author: Markus.Heumel
  *
  */
-package com.haymel.chess.uci;
+package com.haymel.chess.uci.command;
+
+import com.haymel.chess.uci.moves.Moves;
 
 /*
  * The comments below were copied from 

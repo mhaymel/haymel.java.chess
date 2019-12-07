@@ -12,7 +12,7 @@ import static com.haymel.util.Require.nonNull;
 import static com.haymel.util.exception.HaymelIllegalArgumentException.throwIAE;
 import static java.lang.String.join;
 
-import com.haymel.chess.uci.Moves;
+import com.haymel.chess.uci.moves.Moves;
 
 class Info {
 

@@ -5,7 +5,7 @@
  * @author: Markus.Heumel
  *
  */
-package com.haymel.chess.uci.command.core;
+package com.haymel.chess.uci.command.parameter;
 
 import static java.lang.Integer.MAX_VALUE;
 import static java.lang.Integer.MIN_VALUE;
@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.haymel.chess.uci.command.core.IntParamImpl;
+import com.haymel.chess.uci.command.parameter.IntParamImpl;
 
 public class IntParamImplTest {
 

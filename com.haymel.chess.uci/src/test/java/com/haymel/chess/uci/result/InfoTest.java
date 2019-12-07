@@ -12,8 +12,8 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
-import com.haymel.chess.uci.Moves;
-import com.haymel.chess.uci.MovesImpl;
+import com.haymel.chess.uci.moves.Moves;
+import com.haymel.chess.uci.moves.MovesImpl;
 import com.haymel.util.exception.HaymelIllegalArgumentException;
 import com.haymel.util.exception.HaymelNullPointerException;
 

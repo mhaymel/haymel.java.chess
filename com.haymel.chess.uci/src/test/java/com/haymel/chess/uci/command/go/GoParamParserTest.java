@@ -14,8 +14,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.haymel.chess.uci.MovesImpl;
 import com.haymel.chess.uci.lexer.Lexer;
+import com.haymel.chess.uci.moves.MovesImpl;
 import com.haymel.util.exception.HaymelNullPointerException;
 
 public class GoParamParserTest {

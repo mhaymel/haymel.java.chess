@@ -16,9 +16,7 @@ import java.util.Iterator;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.haymel.chess.uci.MovesImpl;
-import com.haymel.chess.uci.result.Info;
-import com.haymel.chess.uci.result.Infos;
+import com.haymel.chess.uci.moves.MovesImpl;
 
 public class InfosTest {
 

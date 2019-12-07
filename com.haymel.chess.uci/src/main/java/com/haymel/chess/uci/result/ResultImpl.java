@@ -13,10 +13,9 @@ import static java.lang.String.format;
 
 import java.io.PrintStream;
 
-import com.haymel.chess.uci.Result;
 import com.haymel.util.Require;
 
-public class ResultImpl implements Result {		//TODO unit test
+public class ResultImpl implements Result {	
 
 	private final PrintStream out;
 	

@@ -7,7 +7,7 @@
  */
 package com.haymel.chess.uci.command;
 
-import static com.haymel.chess.uci.MovesImpl.emptyMoves;
+import static com.haymel.chess.uci.moves.MovesImpl.emptyMoves;
 import static java.lang.Long.MAX_VALUE;
 import static java.lang.String.format;
 import static org.mockito.Mockito.mock;
@@ -20,9 +20,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import com.haymel.chess.uci.Command;
-import com.haymel.chess.uci.MovesImpl;
 import com.haymel.chess.uci.command.CommandProcessor;
+import com.haymel.chess.uci.moves.MovesImpl;
 
 public class CommandProcessorTest {
 
