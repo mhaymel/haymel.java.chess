@@ -99,11 +99,28 @@ public class ResultImplTest {
 		assertOutput("registration checking");
 	}
 	
+	@Test
+	public void testregistrationOk() {
+		result.registrationOk();
+		assertOutput("registration ok");
+	}
+	
+	@Test
+	public void testRegistrationError() {
+		result.registrationError();
+		assertOutput("registration error");
+	}
+
+	@Test
+	public void testInfo() {
+		result.info(new Infos().depth(12).nodes(123456).nps(100000));
+		assertOutput("info depth 12 nodes 123456 nps 100000");
+	}
+	
 
 	private void assertOutput(String string) {
 		assertThat(output(), is(format("%s%n", string)));
 	}
-
 
 	private String output() {
 	    return new String(baos.toByteArray(), StandardCharsets.UTF_8);
