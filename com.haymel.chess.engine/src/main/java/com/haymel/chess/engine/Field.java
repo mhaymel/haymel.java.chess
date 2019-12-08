@@ -9,7 +9,7 @@ package com.haymel.chess.engine;
 
 public final class Field {
 
-	private static final int up = 12;
+	static final int up = 12;
 	private static final Field[] fields = createFields();
 
 	public static final Field a1 = fields[0].rightUp().rightUp();
@@ -88,6 +88,10 @@ public final class Field {
 	
 	private Field(int position) {
 		this.position = position;
+	}
+	
+	int position() {
+		return position;
 	}
 	
 	public Field up() {
