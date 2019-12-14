@@ -5,7 +5,7 @@
  * @author: Markus.Heumel
  *
  */
-package com.haymel.chess.engine;
+package com.haymel.chess.engine.board;
 
 import static java.lang.Integer.MAX_VALUE;
 
@@ -118,10 +118,18 @@ public final class Field {
 		return right().up();
 	}
 
+	public Field rightDown() {
+		return right().down();
+	}
+	
 	public Field leftUp() {
 		return left().up();
 	}
 	
+	public Field leftDown() {
+		return left().down();
+	}
+
 	@Override
 	public String toString() {
 		return Character.toString('a' + file()) + (rank()+1);

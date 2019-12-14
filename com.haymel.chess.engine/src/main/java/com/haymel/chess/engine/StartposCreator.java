@@ -7,41 +7,54 @@
  */
 package com.haymel.chess.engine;
 
-import static com.haymel.chess.engine.Field.a1;
-import static com.haymel.chess.engine.Field.b1;
-import static com.haymel.chess.engine.Field.c1;
-import static com.haymel.chess.engine.Field.d1;
-import static com.haymel.chess.engine.Field.e1;
-import static com.haymel.chess.engine.Field.f1;
-import static com.haymel.chess.engine.Field.g1;
-import static com.haymel.chess.engine.Field.h1;
+import static com.haymel.chess.engine.board.Field.a1;
+import static com.haymel.chess.engine.board.Field.a2;
+import static com.haymel.chess.engine.board.Field.a7;
+import static com.haymel.chess.engine.board.Field.a8;
+import static com.haymel.chess.engine.board.Field.b1;
+import static com.haymel.chess.engine.board.Field.b2;
+import static com.haymel.chess.engine.board.Field.b7;
+import static com.haymel.chess.engine.board.Field.b8;
+import static com.haymel.chess.engine.board.Field.c1;
+import static com.haymel.chess.engine.board.Field.c2;
+import static com.haymel.chess.engine.board.Field.c7;
+import static com.haymel.chess.engine.board.Field.c8;
+import static com.haymel.chess.engine.board.Field.d1;
+import static com.haymel.chess.engine.board.Field.d2;
+import static com.haymel.chess.engine.board.Field.d7;
+import static com.haymel.chess.engine.board.Field.d8;
+import static com.haymel.chess.engine.board.Field.e1;
+import static com.haymel.chess.engine.board.Field.e2;
+import static com.haymel.chess.engine.board.Field.e7;
+import static com.haymel.chess.engine.board.Field.e8;
+import static com.haymel.chess.engine.board.Field.f1;
+import static com.haymel.chess.engine.board.Field.f2;
+import static com.haymel.chess.engine.board.Field.f7;
+import static com.haymel.chess.engine.board.Field.f8;
+import static com.haymel.chess.engine.board.Field.g1;
+import static com.haymel.chess.engine.board.Field.g2;
+import static com.haymel.chess.engine.board.Field.g7;
+import static com.haymel.chess.engine.board.Field.g8;
+import static com.haymel.chess.engine.board.Field.h1;
+import static com.haymel.chess.engine.board.Field.h2;
+import static com.haymel.chess.engine.board.Field.h7;
+import static com.haymel.chess.engine.board.Field.h8;
 
-import static com.haymel.chess.engine.Field.a2;
-import static com.haymel.chess.engine.Field.b2;
-import static com.haymel.chess.engine.Field.c2;
-import static com.haymel.chess.engine.Field.d2;
-import static com.haymel.chess.engine.Field.e2;
-import static com.haymel.chess.engine.Field.f2;
-import static com.haymel.chess.engine.Field.g2;
-import static com.haymel.chess.engine.Field.h2;
-
-import static com.haymel.chess.engine.Field.a7;
-import static com.haymel.chess.engine.Field.b7;
-import static com.haymel.chess.engine.Field.c7;
-import static com.haymel.chess.engine.Field.d7;
-import static com.haymel.chess.engine.Field.e7;
-import static com.haymel.chess.engine.Field.f7;
-import static com.haymel.chess.engine.Field.g7;
-import static com.haymel.chess.engine.Field.h7;
-
-import static com.haymel.chess.engine.Field.a8;
-import static com.haymel.chess.engine.Field.b8;
-import static com.haymel.chess.engine.Field.c8;
-import static com.haymel.chess.engine.Field.d8;
-import static com.haymel.chess.engine.Field.e8;
-import static com.haymel.chess.engine.Field.f8;
-import static com.haymel.chess.engine.Field.g8;
-import static com.haymel.chess.engine.Field.h8;
+import com.haymel.chess.engine.board.Board;
+import com.haymel.chess.engine.board.Field;
+import com.haymel.chess.engine.pieces.Piece;
+import com.haymel.chess.engine.pieces.black.BlackBishop;
+import com.haymel.chess.engine.pieces.black.BlackKing;
+import com.haymel.chess.engine.pieces.black.BlackKnight;
+import com.haymel.chess.engine.pieces.black.BlackPawn;
+import com.haymel.chess.engine.pieces.black.BlackQueen;
+import com.haymel.chess.engine.pieces.black.BlackRook;
+import com.haymel.chess.engine.pieces.white.WhiteBishop;
+import com.haymel.chess.engine.pieces.white.WhiteKing;
+import com.haymel.chess.engine.pieces.white.WhiteKnight;
+import com.haymel.chess.engine.pieces.white.WhitePawn;
+import com.haymel.chess.engine.pieces.white.WhiteQueen;
+import com.haymel.chess.engine.pieces.white.WhiteRook;
 
 public class StartposCreator {		//TODO unit test
 	

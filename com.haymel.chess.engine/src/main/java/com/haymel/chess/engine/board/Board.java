@@ -5,12 +5,14 @@
  * @author: Markus.Heumel
  *
  */
-package com.haymel.chess.engine;
+package com.haymel.chess.engine.board;
 
-import static com.haymel.chess.engine.Border.border;
-import static com.haymel.chess.engine.Field.up;
-import static com.haymel.chess.engine.Free.free;
+import static com.haymel.chess.engine.board.Border.border;
+import static com.haymel.chess.engine.board.Field.up;
+import static com.haymel.chess.engine.board.Free.free;
 import static java.lang.String.format;
+
+import com.haymel.chess.engine.pieces.Piece;
 
 public final class Board {
 

@@ -5,12 +5,14 @@
  * @author: Markus.Heumel
  *
  */
-package com.haymel.chess.engine;
+package com.haymel.chess.engine.board;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import com.haymel.chess.engine.board.Field;
 
 public class FieldTest {
 
