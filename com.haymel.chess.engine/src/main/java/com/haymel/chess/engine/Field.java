@@ -7,6 +7,8 @@
  */
 package com.haymel.chess.engine;
 
+import static java.lang.Integer.MAX_VALUE;
+
 public final class Field {
 
 	static final int up = 12;
@@ -83,6 +85,8 @@ public final class Field {
 	public static final Field h6 = h5.up();
 	public static final Field h7 = h6.up();
 	public static final Field h8 = h7.up();
+
+	public static final Field removed = fields[fields.length - 1];
 	
 	private final int position;
 	
@@ -138,10 +142,12 @@ public final class Field {
 	}
 	
 	private static Field[] createFields() {
-		Field[] fields = new Field[up*up];
+		Field[] fields = new Field[up*up + 1];
 		
-		for(int i = 0; i < fields.length; i++) 
+		for(int i = 0; i < fields.length - 1; i++) 
 			fields[i] = new Field(i);
+		
+		fields[fields.length - 1] = new Field(MAX_VALUE);
 		
 		return fields;
 	}

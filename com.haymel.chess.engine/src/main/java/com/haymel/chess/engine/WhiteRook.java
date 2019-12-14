@@ -1,7 +1,22 @@
+/***************************************************
+ * (c) Markus Heumel
+ *
+ * @date: 	13.12.2019
+ * @author: Markus.Heumel
+ *
+ */
 package com.haymel.chess.engine;
+
+import static com.haymel.chess.engine.Field.removed;
 
 public final class WhiteRook implements Piece {
 
+	private Field field; 
+	
+	public WhiteRook() {
+		field = removed;
+	}
+	
 	@Override
 	public boolean white() {
 		return true;
@@ -14,14 +29,18 @@ public final class WhiteRook implements Piece {
 
 	@Override
 	public boolean free() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public Field field() {
-		// TODO Auto-generated method stub
-		return null;
+		return field;
+	}
+
+	@Override
+	public void field(Field field) {
+		assert field != null;
+		this.field = field;
 	}
 
 }
