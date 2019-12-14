@@ -17,7 +17,7 @@ public final class Board {
 	private final BoardElement[] pieces = new BoardElement[up*up];
 	
 	public Board() {
-		init();
+		reset();
 	}
 	
 	public BoardElement piece(Field f) {
@@ -27,7 +27,7 @@ public final class Board {
 	public void place(Piece piece) {
 		assert piece(piece.field()) != border : format("cannot place piece on border: %s", piece);
 		assert !piece.free() : format("piece.free() must return false for %s", piece);
-		assert (piece.black() && piece.white()) || (!piece.black() && !piece.white()): format("piece must be black or white %s", piece);
+		assert (!piece.black() && piece.white()) || (piece.black() && !piece.white()): format("piece must be black or white %s", piece);
 		
 		pieces[piece.field().position()] = piece;
 	}
@@ -38,7 +38,7 @@ public final class Board {
 	}
 	
 	
-	private void init() {
+	public void reset() {		//TODO unit test
 		for(int i = 0; i < pieces.length; i++)
 			pieces[i] = border;
 

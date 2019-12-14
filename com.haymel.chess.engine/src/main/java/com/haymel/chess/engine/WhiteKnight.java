@@ -7,19 +7,14 @@
  */
 package com.haymel.chess.engine;
 
-import static com.haymel.chess.engine.Field.a1;
-import static com.haymel.chess.engine.Field.h1;
 import static com.haymel.chess.engine.Field.removed;
-import static java.lang.String.format;
 
-public final class WhiteRook implements Piece {	//TODO unit test
+public final class WhiteKnight implements Piece {	//TODO unit test
 
 	private Field field; 
-	private boolean moved;
 	
-	public WhiteRook() {
+	public WhiteKnight() {
 		field = removed;
-		moved = true;
 	}
 	
 	@Override
@@ -48,14 +43,4 @@ public final class WhiteRook implements Piece {	//TODO unit test
 		this.field = field;
 	}
 	
-	public boolean moved() {
-		return moved;
-	}
-
-	public void setMoved(boolean value) {
-		assert !value && (field == a1 || field == h1) : format("a white rook which was not moved must be on field a1 or h1. The current value of field is %s", field); 
-		
-		moved = value;
-	}
-
 }

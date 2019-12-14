@@ -130,14 +130,14 @@ public final class Field {
 	/**
 	 * @return zero based rank (row)
 	 */
-	private int rank() {
+	public int rank() {		//TODO unit test
 		return position / up - 2;
 	}
 
 	/**
 	 * @return zero base file (column)
 	 */
-	private int file() {
+	public int file() {					//TODO unit test
 		return (position % up) - 2;
 	}
 	

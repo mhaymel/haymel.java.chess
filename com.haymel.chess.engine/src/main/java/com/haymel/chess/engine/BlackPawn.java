@@ -7,29 +7,25 @@
  */
 package com.haymel.chess.engine;
 
-import static com.haymel.chess.engine.Field.a1;
-import static com.haymel.chess.engine.Field.h1;
 import static com.haymel.chess.engine.Field.removed;
 import static java.lang.String.format;
 
-public final class WhiteRook implements Piece {	//TODO unit test
+public final class BlackPawn implements Piece {	//TODO unit test
 
 	private Field field; 
-	private boolean moved;
 	
-	public WhiteRook() {
+	public BlackPawn() {
 		field = removed;
-		moved = true;
 	}
 	
 	@Override
 	public boolean white() {
-		return true;
+		return false;
 	}
 
 	@Override
 	public boolean black() {
-		return false;
+		return true;
 	}
 
 	@Override
@@ -45,17 +41,9 @@ public final class WhiteRook implements Piece {	//TODO unit test
 	@Override
 	public void field(Field field) {
 		assert field != null;
+		assert field.rank() != 0 && field.rank() != 7 : format("a black pawn must not be placed on file 1 or 8. The value of field is %s", field);
+		
 		this.field = field;
 	}
 	
-	public boolean moved() {
-		return moved;
-	}
-
-	public void setMoved(boolean value) {
-		assert !value && (field == a1 || field == h1) : format("a white rook which was not moved must be on field a1 or h1. The current value of field is %s", field); 
-		
-		moved = value;
-	}
-
 }

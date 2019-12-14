@@ -89,4 +89,10 @@ public class FieldTest {
 		assertThat(Field.h8.toString(), is("h8"));
 	}
 
+	@Test
+	public void testFile() {
+		assertThat(Field.a1.rank(), is(0));
+		assertThat(Field.a2.rank(), is(1));
+		assertThat(Field.a8.rank(), is(7));
+	}
 }
