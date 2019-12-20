@@ -13,7 +13,7 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.haymel.chess.engine.pieces.Piece;
+import com.haymel.chess.engine.piece.Piece;
 
 public class BoardTest {	//TODO implement
 

@@ -15,7 +15,7 @@ import java.util.Set;
 
 import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.board.Field;
-import com.haymel.chess.engine.pieces.Piece;
+import com.haymel.chess.engine.piece.Piece;
 
 public class Generator {
 

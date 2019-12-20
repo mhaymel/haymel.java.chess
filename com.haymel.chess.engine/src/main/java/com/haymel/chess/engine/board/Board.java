@@ -8,11 +8,11 @@
 package com.haymel.chess.engine.board;
 
 import static com.haymel.chess.engine.board.Field.up;
-import static com.haymel.chess.engine.pieces.Piece.border;
-import static com.haymel.chess.engine.pieces.Piece.free;
+import static com.haymel.chess.engine.piece.Piece.border;
+import static com.haymel.chess.engine.piece.Piece.free;
 import static java.lang.String.format;
 
-import com.haymel.chess.engine.pieces.Piece;
+import com.haymel.chess.engine.piece.Piece;
 
 public final class Board {
 
@@ -27,7 +27,7 @@ public final class Board {
 	}
 
 	public void place(Piece piece) {
-		assert !piece(piece.field()).isBorder() : format("cannot place piece on border: %s", piece);
+		assert !piece(piece.field()).border() : format("cannot place piece on border: %s", piece);
 		assert !piece.free() : format("piece.free() must return false for %s", piece);
 		assert (!piece.black() && piece.white()) || (piece.black() && !piece.white()): format("piece must be black or white %s", piece);
 		
@@ -35,7 +35,7 @@ public final class Board {
 	}
 
 	public void clear(Field f) {
-		assert !piece(f).isBorder() : format("cannot clear border: %s", f);
+		assert !piece(f).border() : format("cannot clear border: %s", f);
 		pieces[f.position()] = free;
 	}
 	

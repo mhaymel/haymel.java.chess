@@ -5,7 +5,7 @@
  * @author: Markus.Heumel
  *
  */
-package com.haymel.chess.engine.pieces;
+package com.haymel.chess.engine.piece;
 
 import static com.haymel.chess.engine.board.Field.a1;
 import static com.haymel.chess.engine.board.Field.a8;
@@ -14,14 +14,14 @@ import static com.haymel.chess.engine.board.Field.e8;
 import static com.haymel.chess.engine.board.Field.h1;
 import static com.haymel.chess.engine.board.Field.h8;
 import static com.haymel.chess.engine.board.Field.removed;
-import static com.haymel.chess.engine.pieces.PieceType.BlackKing;
-import static com.haymel.chess.engine.pieces.PieceType.BlackPawn;
-import static com.haymel.chess.engine.pieces.PieceType.BlackRook;
-import static com.haymel.chess.engine.pieces.PieceType.Border;
-import static com.haymel.chess.engine.pieces.PieceType.Free;
-import static com.haymel.chess.engine.pieces.PieceType.WhiteKing;
-import static com.haymel.chess.engine.pieces.PieceType.WhitePawn;
-import static com.haymel.chess.engine.pieces.PieceType.WhiteRook;
+import static com.haymel.chess.engine.piece.PieceType.BlackKing;
+import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
+import static com.haymel.chess.engine.piece.PieceType.BlackRook;
+import static com.haymel.chess.engine.piece.PieceType.Border;
+import static com.haymel.chess.engine.piece.PieceType.Free;
+import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
+import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
+import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
 import static java.lang.String.format;
 
 import com.haymel.chess.engine.board.Field;
@@ -71,11 +71,15 @@ public final class Piece {
 		}
 	}
 
+	public PieceType type() {
+		return type;
+	}
+	
 	public boolean free() {
 		return type == Free;
 	}
 	
-	public boolean isBorder() {
+	public boolean border() {
 		return type == Border;
 	}
 	
@@ -107,15 +111,19 @@ public final class Piece {
 		moved = value;
 	}
 
-	public boolean isBlackKing() {
+	public boolean blackKing() {
 		return type == BlackKing;
 	}
 
-	public boolean isWhiteKing() {
+	public boolean whiteKing() {
 		return type == WhiteKing;
 	}
 
-	public boolean isWhiteRook() {
+	public boolean blackRook() {
+		return type == BlackRook;
+	}
+	
+	public boolean whiteRook() {
 		return type == WhiteRook;
 	}
 

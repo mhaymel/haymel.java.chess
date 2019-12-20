@@ -39,22 +39,22 @@ import static com.haymel.chess.engine.board.Field.h1;
 import static com.haymel.chess.engine.board.Field.h2;
 import static com.haymel.chess.engine.board.Field.h7;
 import static com.haymel.chess.engine.board.Field.h8;
-import static com.haymel.chess.engine.pieces.PieceType.BlackBishop;
-import static com.haymel.chess.engine.pieces.PieceType.BlackKing;
-import static com.haymel.chess.engine.pieces.PieceType.BlackKnight;
-import static com.haymel.chess.engine.pieces.PieceType.BlackPawn;
-import static com.haymel.chess.engine.pieces.PieceType.BlackQueen;
-import static com.haymel.chess.engine.pieces.PieceType.BlackRook;
-import static com.haymel.chess.engine.pieces.PieceType.WhiteBishop;
-import static com.haymel.chess.engine.pieces.PieceType.WhiteKing;
-import static com.haymel.chess.engine.pieces.PieceType.WhiteKnight;
-import static com.haymel.chess.engine.pieces.PieceType.WhitePawn;
-import static com.haymel.chess.engine.pieces.PieceType.WhiteQueen;
-import static com.haymel.chess.engine.pieces.PieceType.WhiteRook;
+import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
+import static com.haymel.chess.engine.piece.PieceType.BlackKing;
+import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
+import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
+import static com.haymel.chess.engine.piece.PieceType.BlackQueen;
+import static com.haymel.chess.engine.piece.PieceType.BlackRook;
+import static com.haymel.chess.engine.piece.PieceType.WhiteBishop;
+import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
+import static com.haymel.chess.engine.piece.PieceType.WhiteKnight;
+import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
+import static com.haymel.chess.engine.piece.PieceType.WhiteQueen;
+import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
 
 import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.board.Field;
-import com.haymel.chess.engine.pieces.Piece;
+import com.haymel.chess.engine.piece.Piece;
 
 public class StartposCreator {		//TODO unit test
 	

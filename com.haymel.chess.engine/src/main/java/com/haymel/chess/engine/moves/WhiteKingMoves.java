@@ -22,7 +22,7 @@ import java.util.List;
 
 import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.board.Field;
-import com.haymel.chess.engine.pieces.Piece;
+import com.haymel.chess.engine.piece.Piece;
 
 public class WhiteKingMoves {
 
@@ -36,7 +36,7 @@ public class WhiteKingMoves {
 		assert king != null;
 		assert king.field() != removed;
 		assert board.piece(king.field()) == king;
-		assert king.isWhiteKing() : format("piece must be white king but is %s", king);
+		assert king.whiteKing() : format("piece must be white king but is %s", king);
 		
 		this.board = board;
 		this.moves = moves;
@@ -102,14 +102,14 @@ public class WhiteKingMoves {
 			moves.add(new Move(from, to));
 		}
 		else if (piece.black()) {
-			assert !piece.isBlackKing() : format("cannot capture black king %s", piece);	
+			assert !piece.blackKing() : format("cannot capture black king %s", piece);	
 			moves.add(new Move(from, to));
 		}
 	}
 
 	private boolean isRookNotMoved(Field f) {
 		Piece piece = board.piece(f);
-		return piece.isWhiteRook() && !piece.moved();
+		return piece.whiteRook() && !piece.moved();
 	}
 	
 }

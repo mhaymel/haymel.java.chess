@@ -1,4 +1,4 @@
-package com.haymel.chess.engine.pieces;
+package com.haymel.chess.engine.piece;
 
 public enum PieceType {
 
