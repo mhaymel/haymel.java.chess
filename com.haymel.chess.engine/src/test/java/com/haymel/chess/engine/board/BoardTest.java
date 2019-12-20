@@ -13,9 +13,7 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.haymel.chess.engine.board.Board;
-import com.haymel.chess.engine.board.BoardElement;
-import com.haymel.chess.engine.board.Field;
+import com.haymel.chess.engine.pieces.Piece;
 
 public class BoardTest {	//TODO implement
 
@@ -28,7 +26,7 @@ public class BoardTest {	//TODO implement
 	
 	@Test
 	public void test() {
-		BoardElement elem = board.piece(Field.a1);
+		Piece elem = board.piece(Field.a1);
 		
 		assertThat(elem.free(), is(true));
 		assertThat(elem.black(), is(false));
@@ -37,7 +35,7 @@ public class BoardTest {	//TODO implement
 
 	@Test
 	public void testBorderElement() {
-		BoardElement elem = board.piece(Field.a1.left());
+		Piece elem = board.piece(Field.a1.left());
 		assertThat(elem.free(), is(false));
 		assertThat(elem.black(), is(false));
 		assertThat(elem.white(), is(false));

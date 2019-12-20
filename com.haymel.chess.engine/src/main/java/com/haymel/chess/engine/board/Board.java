@@ -7,27 +7,27 @@
  */
 package com.haymel.chess.engine.board;
 
-import static com.haymel.chess.engine.board.Border.border;
 import static com.haymel.chess.engine.board.Field.up;
-import static com.haymel.chess.engine.board.Free.free;
+import static com.haymel.chess.engine.pieces.Piece.border;
+import static com.haymel.chess.engine.pieces.Piece.free;
 import static java.lang.String.format;
 
 import com.haymel.chess.engine.pieces.Piece;
 
 public final class Board {
 
-	private final BoardElement[] pieces = new BoardElement[up*up];
+	private final Piece[] pieces = new Piece[up*up];
 	
 	public Board() {
 		reset();
 	}
 	
-	public BoardElement piece(Field f) {
+	public Piece piece(Field f) {
 		return pieces[f.position()];
 	}
 
 	public void place(Piece piece) {
-		assert piece(piece.field()) != border : format("cannot place piece on border: %s", piece);
+		assert !piece(piece.field()).isBorder() : format("cannot place piece on border: %s", piece);
 		assert !piece.free() : format("piece.free() must return false for %s", piece);
 		assert (!piece.black() && piece.white()) || (piece.black() && !piece.white()): format("piece must be black or white %s", piece);
 		
@@ -35,7 +35,7 @@ public final class Board {
 	}
 
 	public void clear(Field f) {
-		assert piece(f) != border : format("cannot clear border: %s", f);
+		assert !piece(f).isBorder() : format("cannot clear border: %s", f);
 		pieces[f.position()] = free;
 	}
 	
@@ -49,6 +49,11 @@ public final class Board {
 			init(f);
 			f = f.up();
 		}
+	}
+	
+	public boolean isFree(Field f) {
+		assert f != null;
+		return piece(f).free();
 	}
 	
 	private void init(Field f) {

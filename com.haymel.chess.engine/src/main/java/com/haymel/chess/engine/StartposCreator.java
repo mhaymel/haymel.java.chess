@@ -39,22 +39,22 @@ import static com.haymel.chess.engine.board.Field.h1;
 import static com.haymel.chess.engine.board.Field.h2;
 import static com.haymel.chess.engine.board.Field.h7;
 import static com.haymel.chess.engine.board.Field.h8;
+import static com.haymel.chess.engine.pieces.PieceType.BlackBishop;
+import static com.haymel.chess.engine.pieces.PieceType.BlackKing;
+import static com.haymel.chess.engine.pieces.PieceType.BlackKnight;
+import static com.haymel.chess.engine.pieces.PieceType.BlackPawn;
+import static com.haymel.chess.engine.pieces.PieceType.BlackQueen;
+import static com.haymel.chess.engine.pieces.PieceType.BlackRook;
+import static com.haymel.chess.engine.pieces.PieceType.WhiteBishop;
+import static com.haymel.chess.engine.pieces.PieceType.WhiteKing;
+import static com.haymel.chess.engine.pieces.PieceType.WhiteKnight;
+import static com.haymel.chess.engine.pieces.PieceType.WhitePawn;
+import static com.haymel.chess.engine.pieces.PieceType.WhiteQueen;
+import static com.haymel.chess.engine.pieces.PieceType.WhiteRook;
 
 import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.pieces.Piece;
-import com.haymel.chess.engine.pieces.black.BlackBishop;
-import com.haymel.chess.engine.pieces.black.BlackKing;
-import com.haymel.chess.engine.pieces.black.BlackKnight;
-import com.haymel.chess.engine.pieces.black.BlackPawn;
-import com.haymel.chess.engine.pieces.black.BlackQueen;
-import com.haymel.chess.engine.pieces.black.BlackRook;
-import com.haymel.chess.engine.pieces.white.WhiteBishop;
-import com.haymel.chess.engine.pieces.white.WhiteKing;
-import com.haymel.chess.engine.pieces.white.WhiteKnight;
-import com.haymel.chess.engine.pieces.white.WhitePawn;
-import com.haymel.chess.engine.pieces.white.WhiteQueen;
-import com.haymel.chess.engine.pieces.white.WhiteRook;
 
 public class StartposCreator {		//TODO unit test
 	
@@ -76,69 +76,49 @@ public class StartposCreator {		//TODO unit test
 	}
 
 	private void placeWhitePieces() {
-		place(a2, new WhitePawn());
-		place(b2, new WhitePawn());
-		place(c2, new WhitePawn());
-		place(d2, new WhitePawn());
-		place(e2, new WhitePawn());
-		place(f2, new WhitePawn());
-		place(g2, new WhitePawn());
-		place(h2, new WhitePawn());
+		place(a2, new Piece(WhitePawn));
+		place(b2, new Piece(WhitePawn));
+		place(c2, new Piece(WhitePawn));
+		place(d2, new Piece(WhitePawn));
+		place(e2, new Piece(WhitePawn));
+		place(f2, new Piece(WhitePawn));
+		place(g2, new Piece(WhitePawn));
+		place(h2, new Piece(WhitePawn));
 		
-		placeRook(a1, new WhiteRook());
-		place(b1, new WhiteKnight());
-		place(c1, new WhiteBishop());
-		place(d1, new WhiteQueen());
-		placeKing(e1, new WhiteKing());
-		place(f1, new WhiteBishop());
-		place(g1, new WhiteKnight());
-		placeRook(h1, new WhiteRook());
+		place(a1, new Piece(WhiteRook)).setMoved(false);
+		place(b1, new Piece(WhiteKnight));
+		place(c1, new Piece(WhiteBishop));
+		place(d1, new Piece(WhiteQueen));
+		place(e1, new Piece(WhiteKing)).setMoved(false);
+		place(f1, new Piece(WhiteBishop));
+		place(g1, new Piece(WhiteKnight));
+		place(h1, new Piece(WhiteRook)).setMoved(false);
 	}
 
 	private void placeBlackPieces() {
-		place(a7, new BlackPawn());
-		place(b7, new BlackPawn());
-		place(c7, new BlackPawn());
-		place(d7, new BlackPawn());
-		place(e7, new BlackPawn());
-		place(f7, new BlackPawn());
-		place(g7, new BlackPawn());
-		place(h7, new BlackPawn());
+		place(a7, new Piece(BlackPawn));
+		place(b7, new Piece(BlackPawn));
+		place(c7, new Piece(BlackPawn));
+		place(d7, new Piece(BlackPawn));
+		place(e7, new Piece(BlackPawn));
+		place(f7, new Piece(BlackPawn));
+		place(g7, new Piece(BlackPawn));
+		place(h7, new Piece(BlackPawn));
 
-		placeRook(a8, new BlackRook());
-		place(b8, new BlackKnight());
-		place(c8, new BlackBishop());
-		place(d8, new BlackQueen());
-		placeKing(e8, new BlackKing());
-		place(f8, new BlackBishop());
-		place(g8, new BlackKnight());
-		placeRook(h8, new BlackRook());
+		place(a8, new Piece(BlackRook)).setMoved(false);
+		place(b8, new Piece(BlackKnight));
+		place(c8, new Piece(BlackBishop));
+		place(d8, new Piece(BlackQueen));
+		place(e8, new Piece(BlackKing)).setMoved(false);
+		place(f8, new Piece(BlackBishop));
+		place(g8, new Piece(BlackKnight));
+		place(h8, new Piece(BlackRook)).setMoved(false);
 	}
 
-
-	private void placeRook(Field f, WhiteRook rook) {
-		place(f, rook);
-		rook.setMoved(false);
-	}
-
-	private void placeKing(Field f, WhiteKing king) {
-		place(f, king);
-		king.setMoved(false);
-	}
-
-	private void placeRook(Field f, BlackRook rook) {
-		place(f, rook);
-		rook.setMoved(false);
-	}
-	
-	private void placeKing(Field f, BlackKing king) {
-		place(f, king);
-		king.setMoved(false);
-	}
-
-	private void place(Field f, Piece piece) {
+	private Piece place(Field f, Piece piece) {
 		piece.field(f);
 		board.place(piece);
+		return piece;
 	}
 		
 }

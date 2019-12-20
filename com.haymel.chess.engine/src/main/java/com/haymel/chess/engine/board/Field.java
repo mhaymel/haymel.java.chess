@@ -149,6 +149,10 @@ public final class Field {
 		return (position % up) - 2;
 	}
 	
+	static Field field(int position) {
+		return field(position);
+	}
+	
 	private static Field[] createFields() {
 		Field[] fields = new Field[up*up + 1];
 		
@@ -158,6 +162,16 @@ public final class Field {
 		fields[fields.length - 1] = new Field(MAX_VALUE);
 		
 		return fields;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return this == obj; 
+	}
+	
+	@Override
+	public int hashCode() {
+		return position;
 	}
 	
 }
