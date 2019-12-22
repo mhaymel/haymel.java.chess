@@ -5,7 +5,7 @@
  * @author: Markus.Heumel
  *
  */
-package com.haymel.chess.engine.moves;
+package com.haymel.chess.engine.moves.white;
 
 import static com.haymel.chess.engine.board.Field.a1;
 import static com.haymel.chess.engine.board.Field.b1;
@@ -18,32 +18,30 @@ import static com.haymel.chess.engine.board.Field.h1;
 import static com.haymel.chess.engine.board.Field.removed;
 import static java.lang.String.format;
 
-import java.util.List;
-
 import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.board.Field;
+import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.piece.Piece;
 
 public class WhiteKingMoves {
 
 	private final Board board;
-	private final List<Move> moves;
-	private final Piece king;
+	private final Moves moves;
 	
-	public WhiteKingMoves(Board board, List<Move> moves, Piece king) {
+	public WhiteKingMoves(Board board, Moves moves) {
 		assert board != null;
 		assert moves != null;
+		
+		this.board = board;
+		this.moves = moves;
+	}
+	
+	public void generate(Piece king) {
 		assert king != null;
 		assert king.field() != removed;
 		assert board.piece(king.field()) == king;
 		assert king.whiteKing() : format("piece must be white king but is %s", king);
-		
-		this.board = board;
-		this.moves = moves;
-		this.king = king;
-	}
-	
-	public void generate() {
+
 		Field from = king.field();
 		
 		add(from, from.left());
@@ -58,11 +56,11 @@ public class WhiteKingMoves {
 		if (king.moved())
 			return;
 		
-		kingSidecasteling();
-		queenSidecasteling();
+		kingSidecasteling(king);
+		queenSidecasteling(king);
 	}
 
-	private void kingSidecasteling() {
+	private void kingSidecasteling(Piece king) {
 		assert king.field() == e1;
 		
 		if (!board.isFree(f1))
@@ -74,10 +72,10 @@ public class WhiteKingMoves {
 		if (!isRookNotMoved(h1))
 			return;
 		
-		moves.add(new Move(e1, g1));
+		moves.addCasteling(e1, g1);
 	}
 
-	private void queenSidecasteling() {
+	private void queenSidecasteling(Piece king) {
 		assert king.field() == e1;
 
 		if (!board.isFree(d1))
@@ -92,18 +90,18 @@ public class WhiteKingMoves {
 		if (!isRookNotMoved(a1))
 			return;
 		
-		moves.add(new Move(e1, c1));
+		moves.addCasteling(e1, c1);
 	}
 
 	private void add(Field from, Field to) {
 		Piece piece = board.piece(to);
 		
 		if (piece.free()) {
-			moves.add(new Move(from, to));
+			moves.add(from, to);
 		}
 		else if (piece.black()) {
 			assert !piece.blackKing() : format("cannot capture black king %s", piece);	
-			moves.add(new Move(from, to));
+			moves.addCapture(from, to, piece);
 		}
 	}
 

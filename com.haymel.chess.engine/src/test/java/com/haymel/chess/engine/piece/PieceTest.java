@@ -33,8 +33,6 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
-import com.haymel.chess.engine.board.Field;
-
 public class PieceTest {
 
 	@Test

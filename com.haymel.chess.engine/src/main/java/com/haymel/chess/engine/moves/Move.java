@@ -9,18 +9,20 @@ package com.haymel.chess.engine.moves;
 
 import com.haymel.chess.engine.board.Field;
 
-public class Move {
+class Move {
 	
 	private final Field from;
 	private final Field to;
+	private final boolean capture;
 	
-	public Move(Field from, Field to) {
+	public Move(Field from, Field to, boolean capture) {
 		assert from != null;
 		assert to != null;
 		assert from != to;
-	
+
 		this.from = from;
 		this.to = to;
+		this.capture = capture;
 	}
 	
 	public Field from() {
@@ -33,7 +35,8 @@ public class Move {
 	
 	@Override
 	public String toString() {
-		return from.toString() + to.toString();
+		String op = capture ? "x" : "-";
+		return String.format("%s%s%s", from, op, to);
 	}
 	
 }
