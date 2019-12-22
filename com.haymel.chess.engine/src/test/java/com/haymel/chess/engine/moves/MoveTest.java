@@ -34,5 +34,6 @@ public class MoveTest {
 	public void testToStringOfCapture() {
 		assertThat(new Move(a1, b2, true).toString(), is("a1xb2"));
 	}
+
 	
 }

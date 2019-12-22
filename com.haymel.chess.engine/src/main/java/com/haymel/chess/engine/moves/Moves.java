@@ -13,6 +13,11 @@ import static com.haymel.chess.engine.board.Field.e1;
 import static com.haymel.chess.engine.board.Field.e8;
 import static com.haymel.chess.engine.board.Field.g1;
 import static com.haymel.chess.engine.board.Field.g8;
+import static com.haymel.chess.engine.moves.Casteling.blackKingSide;
+import static com.haymel.chess.engine.moves.Casteling.blackQueenSide;
+import static com.haymel.chess.engine.moves.Casteling.noCasteling;
+import static com.haymel.chess.engine.moves.Casteling.whiteKingSide;
+import static com.haymel.chess.engine.moves.Casteling.whiteQueenSide;
 import static com.haymel.chess.engine.piece.Piece.free;
 import static java.lang.String.join;
 import static java.util.stream.Collectors.toList;
@@ -28,16 +33,19 @@ public class Moves {
 	private final ArrayList<Field> from;
 	private final ArrayList<Field> to;
 	private final ArrayList<Piece> capturedPiece;
-
+	private final ArrayList<Casteling> casteling;
+	
 	public Moves() {
 		from = new ArrayList<>();
 		to = new ArrayList<>();
 		capturedPiece = new ArrayList<>();
+		casteling = new ArrayList<>();
 	}
 	
 	public void add(Field from, Field to) {
 		assert this.from.size() == this.to.size(); 
 		assert this.to.size() == this.capturedPiece.size(); 
+		assert this.capturedPiece.size() == this.casteling.size(); 
 		assert from != to;
 		doAdd(from, to);
 	}
@@ -45,28 +53,51 @@ public class Moves {
 	public void addCapture(Field from, Field to, Piece piece) {
 		assert this.from.size() == this.to.size(); 
 		assert this.to.size() == this.capturedPiece.size(); 
+		assert this.capturedPiece.size() == this.casteling.size(); 
 		assert from != to;
 		assert !piece.free();
 		assert piece.black() || piece.white();
 		assert !piece.blackKing() && !piece.whiteKing();
 		
-		doAdd(from, to, piece);
+		doAdd(from, to, piece, noCasteling);
 	}
 
-	public void addCasteling(Field from, Field to) {
+	public void addWhiteKingSideCasteling() {
 		assert this.from.size() == this.to.size(); 
 		assert this.to.size() == this.capturedPiece.size(); 
-		assert from != to;
-		assert 
-			(from == e1 && (to == g1) || to == c1) ||
-			(from == e8 && (to == g8) || to == c8);
+		assert this.capturedPiece.size() == this.casteling.size(); 
 		
-		doAdd(from, to);
+		doAdd(e1, g1, free, whiteKingSide);
+	}
+
+	public void addWhiteQueenSideCasteling() {
+		assert this.from.size() == this.to.size(); 
+		assert this.to.size() == this.capturedPiece.size(); 
+		assert this.capturedPiece.size() == this.casteling.size(); 
+		
+		doAdd(e1, c1, free, whiteQueenSide);
+	}
+	
+	public void addBlackKingSideCasteling() {
+		assert this.from.size() == this.to.size(); 
+		assert this.to.size() == this.capturedPiece.size(); 
+		assert this.capturedPiece.size() == this.casteling.size(); 
+		
+		doAdd(e8, g8, free, blackKingSide);
+	}
+
+	public void addBlackQueenSideCasteling() {
+		assert this.from.size() == this.to.size(); 
+		assert this.to.size() == this.capturedPiece.size(); 
+		assert this.capturedPiece.size() == this.casteling.size(); 
+		
+		doAdd(e8, c8, free, blackQueenSide);
 	}
 	
 	public int size() {
 		assert this.from.size() == this.to.size(); 
 		assert this.to.size() == this.capturedPiece.size(); 
+		assert this.capturedPiece.size() == this.casteling.size(); 
 		return from.size();
 	}
 	
@@ -83,27 +114,31 @@ public class Moves {
 	}
 	
 	private Move move(int index) {
-		return new Move(from.get(index), to.get(index), !capturedPiece.get(index).free());
+		return new Move(from.get(index), to.get(index), !capturedPiece.get(index).free(), casteling.get(index));
 	}
 
 	private void doAdd(Field from, Field to) {
 		assert this.from.size() == this.to.size(); 
 		assert this.to.size() == this.capturedPiece.size(); 
+		assert this.capturedPiece.size() == this.casteling.size(); 
 		assert from != to;
-		doAdd(from, to, free);
+		doAdd(from, to, free, noCasteling);
 	}
 	
-	private void doAdd(Field from, Field to, Piece capturedPiece) {
+	private void doAdd(Field from, Field to, Piece capturedPiece, Casteling casteling) {
 		assert this.from.size() == this.to.size(); 
 		assert this.to.size() == this.capturedPiece.size(); 
+		assert this.capturedPiece.size() == this.casteling.size(); 
 		assert from != to;
 			
 		this.from.add(from);
 		this.to.add(to);
 		this.capturedPiece.add(capturedPiece);
+		this.casteling.add(casteling);
 		
 		assert this.from.size() == this.to.size(); 
 		assert this.to.size() == this.capturedPiece.size(); 
+		assert this.capturedPiece.size() == this.casteling.size(); 
 	}
 	
 }

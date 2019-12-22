@@ -72,7 +72,7 @@ public class WhiteKingMoves {
 		if (!isRookNotMoved(h1))
 			return;
 		
-		moves.addCasteling(e1, g1);
+		moves.addWhiteKingSideCasteling();
 	}
 
 	private void queenSidecasteling(Piece king) {
@@ -90,7 +90,7 @@ public class WhiteKingMoves {
 		if (!isRookNotMoved(a1))
 			return;
 		
-		moves.addCasteling(e1, c1);
+		moves.addWhiteQueenSideCasteling();
 	}
 
 	private void add(Field from, Field to) {
