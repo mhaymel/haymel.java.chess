@@ -7,7 +7,7 @@
  */
 package com.haymel.chess.engine.moves;
 
-enum Casteling {
+public enum Casteling {
 	noCasteling,
 	whiteKingSide,
 	whiteQueenSide,

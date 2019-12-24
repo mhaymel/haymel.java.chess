@@ -69,7 +69,7 @@ public class WhiteKingMoves {
 		if (!board.isFree(g1))
 			return;
 		
-		if (!isRookNotMoved(h1))
+		if (isNoRookOrMoved(h1))
 			return;
 		
 		moves.addWhiteKingSideCasteling();
@@ -87,10 +87,18 @@ public class WhiteKingMoves {
 		if (!board.isFree(b1))
 			return;
 		
-		if (!isRookNotMoved(a1))
+		if (isNoRookOrMoved(a1))
 			return;
 		
 		moves.addWhiteQueenSideCasteling();
+	}
+
+	private boolean isMoved(Field f) {
+		return board.piece(f).moved();
+	}
+
+	private boolean isWhiteRook(Field f) {
+		return board.piece(f).whiteRook();
 	}
 
 	private void add(Field from, Field to) {
@@ -105,9 +113,8 @@ public class WhiteKingMoves {
 		}
 	}
 
-	private boolean isRookNotMoved(Field f) {
-		Piece piece = board.piece(f);
-		return piece.whiteRook() && !piece.moved();
+	private boolean isNoRookOrMoved(Field f) {
+		return !isWhiteRook(f) || isMoved(f);
 	}
 	
 }

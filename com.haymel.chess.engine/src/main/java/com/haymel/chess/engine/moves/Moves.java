@@ -113,7 +113,7 @@ public class Moves {
 		return String.format("Moves(%s)", join(", ", strings));
 	}
 	
-	private Move move(int index) {
+	public Move move(int index) {
 		return new Move(from.get(index), to.get(index), !capturedPiece.get(index).free(), casteling.get(index));
 	}
 

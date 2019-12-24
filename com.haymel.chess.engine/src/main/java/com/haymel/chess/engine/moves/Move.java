@@ -20,15 +20,21 @@ import static com.haymel.chess.engine.moves.Casteling.whiteKingSide;
 import static com.haymel.chess.engine.moves.Casteling.whiteQueenSide;
 import static java.lang.String.format;
 
+import java.util.Objects;
+
 import com.haymel.chess.engine.board.Field;
 
-class Move {
+public class Move {
 	
 	private final Field from;
 	private final Field to;
 	private final boolean capture;
 	private final Casteling casteling;
 
+	public Move(Field from, Field to) {
+		this(from, to, false, noCasteling);
+	}
+	
 	public Move(Field from, Field to, boolean capture) {
 		this(from, to, capture, noCasteling);
 	}
@@ -73,6 +79,28 @@ class Move {
 			assert false;
 			throw new IllegalStateException(casteling.toString());
 		}
+	}
+	
+	@Override
+	public int hashCode() {			//TODO unit test
+		return Objects.hash(from, to, capture, casteling);
+	}
+	
+	@Override			
+	public boolean equals(Object obj) {		//TODO unit test
+		if (obj == this)
+			return true;
+		
+		if (!(obj instanceof Move))
+			return false;
+		
+		Move that = (Move)obj;
+		
+		return 
+			from.equals(that.from) && 
+			to.equals(that.to) && 
+			capture == that.capture && 
+			casteling == that.casteling;
 	}
 	
 }
