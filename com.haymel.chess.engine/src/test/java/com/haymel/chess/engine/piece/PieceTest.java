@@ -62,6 +62,10 @@ public class PieceTest {
 		assertThat(piece.whiteKing(), is(false));
 		assertThat(piece.blackRook(), is(false));
 		assertThat(piece.whiteRook(), is(false));
+		assertThat(piece.blackQueen(), is(false));
+		assertThat(piece.blackKnight(), is(false));
+		assertThat(piece.blackBishop(), is(false));
+		assertThat(piece.blackPawn(), is(false));
 		assertThat(piece.moved(),is(true));
 	}
 
@@ -76,6 +80,10 @@ public class PieceTest {
 		assertThat(piece.whiteKing(), is(false));
 		assertThat(piece.blackRook(), is(false));
 		assertThat(piece.whiteRook(), is(true));
+		assertThat(piece.blackQueen(), is(false));
+		assertThat(piece.blackKnight(), is(false));
+		assertThat(piece.blackBishop(), is(false));
+		assertThat(piece.blackPawn(), is(false));
 		assertThat(piece.moved(),is(true));
 
 		piece.field(a1);
@@ -100,6 +108,10 @@ public class PieceTest {
 		assertThat(piece.whiteKing(), is(false));
 		assertThat(piece.blackRook(), is(false));
 		assertThat(piece.whiteRook(), is(false));
+		assertThat(piece.blackQueen(), is(false));
+		assertThat(piece.blackKnight(), is(false));
+		assertThat(piece.blackBishop(), is(false));
+		assertThat(piece.blackPawn(), is(false));
 		assertThat(piece.moved(),is(true));
 	}
 
@@ -114,6 +126,10 @@ public class PieceTest {
 		assertThat(piece.whiteKing(), is(false));
 		assertThat(piece.blackRook(), is(false));
 		assertThat(piece.whiteRook(), is(false));
+		assertThat(piece.blackQueen(), is(false));
+		assertThat(piece.blackKnight(), is(false));
+		assertThat(piece.blackBishop(), is(false));
+		assertThat(piece.blackPawn(), is(false));
 		assertThat(piece.moved(),is(true));
 	}
 
@@ -128,6 +144,10 @@ public class PieceTest {
 		assertThat(piece.whiteKing(), is(false));
 		assertThat(piece.blackRook(), is(false));
 		assertThat(piece.whiteRook(), is(false));
+		assertThat(piece.blackQueen(), is(false));
+		assertThat(piece.blackKnight(), is(false));
+		assertThat(piece.blackBishop(), is(false));
+		assertThat(piece.blackPawn(), is(false));
 		assertThat(piece.moved(),is(true));
 	}
 
@@ -142,6 +162,10 @@ public class PieceTest {
 		assertThat(piece.whiteKing(), is(true));
 		assertThat(piece.blackRook(), is(false));
 		assertThat(piece.whiteRook(), is(false));
+		assertThat(piece.blackQueen(), is(false));
+		assertThat(piece.blackKnight(), is(false));
+		assertThat(piece.blackBishop(), is(false));
+		assertThat(piece.blackPawn(), is(false));
 		assertThat(piece.moved(),is(true));
 		
 		piece.field(e1);
@@ -161,6 +185,10 @@ public class PieceTest {
 		assertThat(piece.whiteKing(), is(false));
 		assertThat(piece.blackRook(), is(false));
 		assertThat(piece.whiteRook(), is(false));
+		assertThat(piece.blackQueen(), is(false));
+		assertThat(piece.blackKnight(), is(false));
+		assertThat(piece.blackBishop(), is(false));
+		assertThat(piece.blackPawn(), is(true));
 		assertThat(piece.moved(),is(true));
 	}
 	
@@ -175,6 +203,10 @@ public class PieceTest {
 		assertThat(piece.whiteKing(), is(false));
 		assertThat(piece.blackRook(), is(true));
 		assertThat(piece.whiteRook(), is(false));
+		assertThat(piece.blackQueen(), is(false));
+		assertThat(piece.blackKnight(), is(false));
+		assertThat(piece.blackBishop(), is(false));
+		assertThat(piece.blackPawn(), is(false));
 		assertThat(piece.moved(),is(true));
 
 		piece.field(a8);
@@ -199,6 +231,10 @@ public class PieceTest {
 		assertThat(piece.whiteKing(), is(false));
 		assertThat(piece.blackRook(), is(false));
 		assertThat(piece.whiteRook(), is(false));
+		assertThat(piece.blackQueen(), is(false));
+		assertThat(piece.blackKnight(), is(true));
+		assertThat(piece.blackBishop(), is(false));
+		assertThat(piece.blackPawn(), is(false));
 		assertThat(piece.moved(),is(true));
 	}
 
@@ -213,11 +249,15 @@ public class PieceTest {
 		assertThat(piece.whiteKing(), is(false));
 		assertThat(piece.blackRook(), is(false));
 		assertThat(piece.whiteRook(), is(false));
+		assertThat(piece.blackQueen(), is(false));
+		assertThat(piece.blackKnight(), is(false));
+		assertThat(piece.blackBishop(), is(true));
+		assertThat(piece.blackPawn(), is(false));
 		assertThat(piece.moved(),is(true));
 	}
 
 	@Test
-	public void testWBlackQueen() {
+	public void testBlackQueen() {
 		Piece piece = new Piece(BlackQueen);
 
 		assertThat(piece.type(), is(BlackQueen));
@@ -227,6 +267,10 @@ public class PieceTest {
 		assertThat(piece.whiteKing(), is(false));
 		assertThat(piece.blackRook(), is(false));
 		assertThat(piece.whiteRook(), is(false));
+		assertThat(piece.blackQueen(), is(true));
+		assertThat(piece.blackKnight(), is(false));
+		assertThat(piece.blackBishop(), is(false));
+		assertThat(piece.blackPawn(), is(false));
 		assertThat(piece.moved(),is(true));
 	}
 
@@ -241,6 +285,10 @@ public class PieceTest {
 		assertThat(piece.whiteKing(), is(false));
 		assertThat(piece.blackRook(), is(false));
 		assertThat(piece.whiteRook(), is(false));
+		assertThat(piece.blackQueen(), is(false));
+		assertThat(piece.blackKnight(), is(false));
+		assertThat(piece.blackBishop(), is(false));
+		assertThat(piece.blackPawn(), is(false));
 		assertThat(piece.moved(),is(true));
 		
 		piece.field(e8);

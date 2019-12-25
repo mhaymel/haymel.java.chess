@@ -14,8 +14,11 @@ import static com.haymel.chess.engine.board.Field.e8;
 import static com.haymel.chess.engine.board.Field.h1;
 import static com.haymel.chess.engine.board.Field.h8;
 import static com.haymel.chess.engine.board.Field.removed;
+import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
 import static com.haymel.chess.engine.piece.PieceType.BlackKing;
+import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
+import static com.haymel.chess.engine.piece.PieceType.BlackQueen;
 import static com.haymel.chess.engine.piece.PieceType.BlackRook;
 import static com.haymel.chess.engine.piece.PieceType.Border;
 import static com.haymel.chess.engine.piece.PieceType.Free;
@@ -122,9 +125,25 @@ public final class Piece {
 	public boolean blackRook() {
 		return type == BlackRook;
 	}
+
+	public boolean blackQueen() {
+		return type == BlackQueen;
+	}
 	
 	public boolean whiteRook() {
 		return type == WhiteRook;
+	}
+
+	public boolean blackKnight() {
+		return type == BlackKnight;
+	}
+
+	public boolean blackBishop() {
+		return type == BlackBishop;
+	}
+
+	public boolean blackPawn() {
+		return type == BlackPawn;
 	}
 
 }
