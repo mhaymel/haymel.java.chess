@@ -56,37 +56,37 @@ public class D1AttackedTest {
 	}
 
 	@Test
-	public void testBlackPwanOnC2() {
+	public void testBlackPawnOnC2() {
 		blackPawn(c2);
 		assertThat(d1Attacked(board), is(true));
 	}
 
 	@Test
-	public void testBlackPwanOnD2() {
+	public void testBlackPawnOnD2() {
 		blackPawn(d2);
 		assertThat(d1Attacked(board), is(false));
 	}
 
 	@Test
-	public void testBlackPwanOnE2() {
+	public void testBlackPawnOnE2() {
 		blackPawn(e2);
 		assertThat(d1Attacked(board), is(true));
 	}
 	
 	@Test
-	public void testWhitePwanOnC2() {
+	public void testWhitePawnOnC2() {
 		whitePawn(c2);
 		assertThat(d1Attacked(board), is(false));
 	}
 
 	@Test
-	public void testWhitePwanOnD2() {
+	public void testWhitePawnOnD2() {
 		whitePawn(d2);
 		assertThat(d1Attacked(board), is(false));
 	}
 
 	@Test
-	public void testWhitePwanOnE2() {
+	public void testWhitePawnOnE2() {
 		whitePawn(e2);
 		assertThat(d1Attacked(board), is(false));
 	}
