@@ -19,7 +19,7 @@ import static com.haymel.chess.engine.board.Field.g2;
 import static com.haymel.chess.engine.board.Field.g3;
 import static com.haymel.chess.engine.board.Field.h2;
 import static com.haymel.chess.engine.board.Field.h3;
-import static com.haymel.chess.engine.moves.white.casteling.F1Attacked.f1Attacked;
+import static com.haymel.chess.engine.moves.white.castling.F1Attacked.f1Attacked;
 import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
 import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;

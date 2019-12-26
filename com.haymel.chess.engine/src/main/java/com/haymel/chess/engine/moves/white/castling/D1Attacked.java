@@ -5,7 +5,7 @@
  * @author: Markus.Heumel
  *
  */
-package com.haymel.chess.engine.moves.white.casteling;
+package com.haymel.chess.engine.moves.white.castling;
 
 import static com.haymel.chess.engine.board.Field.b2;
 import static com.haymel.chess.engine.board.Field.c2;
@@ -22,7 +22,7 @@ import com.haymel.chess.engine.piece.Piece;
 public final class D1Attacked {
 
 	/**
-	 * This method will be used to check if white queen side casteling is
+	 * This method will be used to check if white queen side castling is
 	 * prevented by an attack of d1 by a black piece.
 	 * 
 	 * ATTENTION: 

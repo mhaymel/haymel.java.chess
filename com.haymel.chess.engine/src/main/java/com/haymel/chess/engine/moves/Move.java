@@ -13,11 +13,11 @@ import static com.haymel.chess.engine.board.Field.e1;
 import static com.haymel.chess.engine.board.Field.e8;
 import static com.haymel.chess.engine.board.Field.g1;
 import static com.haymel.chess.engine.board.Field.g8;
-import static com.haymel.chess.engine.moves.Casteling.blackKingSide;
-import static com.haymel.chess.engine.moves.Casteling.blackQueenSide;
-import static com.haymel.chess.engine.moves.Casteling.noCasteling;
-import static com.haymel.chess.engine.moves.Casteling.whiteKingSide;
-import static com.haymel.chess.engine.moves.Casteling.whiteQueenSide;
+import static com.haymel.chess.engine.moves.Castling.blackKingSide;
+import static com.haymel.chess.engine.moves.Castling.blackQueenSide;
+import static com.haymel.chess.engine.moves.Castling.noCastling;
+import static com.haymel.chess.engine.moves.Castling.whiteKingSide;
+import static com.haymel.chess.engine.moves.Castling.whiteQueenSide;
 import static java.lang.String.format;
 
 import java.util.Objects;
@@ -29,32 +29,32 @@ public class Move {
 	private final Field from;
 	private final Field to;
 	private final boolean capture;
-	private final Casteling casteling;
+	private final Castling castling;
 
 	public Move(Field from, Field to) {
-		this(from, to, false, noCasteling);
+		this(from, to, false, noCastling);
 	}
 	
 	public Move(Field from, Field to, boolean capture) {
-		this(from, to, capture, noCasteling);
+		this(from, to, capture, noCastling);
 	}
 	
-	public Move(Field from, Field to, boolean capture, Casteling casteling) {
+	public Move(Field from, Field to, boolean capture, Castling castling) {
 		assert from != null;
 		assert to != null;
 		assert from != to;
-		assert casteling != null;
+		assert castling != null;
 		
-		assert casteling == noCasteling || 
+		assert castling == noCastling || 
 								(!capture && 
-									((casteling == whiteKingSide && from == e1 && to == g1) ||
-									 (casteling == whiteQueenSide && from == e1 && to == c1) ||
-									 (casteling == blackKingSide && from == e8 && to == g8) ||
-									 (casteling == blackQueenSide && from == e8 && to == c8)));				
+									((castling == whiteKingSide && from == e1 && to == g1) ||
+									 (castling == whiteQueenSide && from == e1 && to == c1) ||
+									 (castling == blackKingSide && from == e8 && to == g8) ||
+									 (castling == blackQueenSide && from == e8 && to == c8)));				
 		this.from = from;
 		this.to = to;
 		this.capture = capture;
-		this.casteling = casteling;
+		this.castling = castling;
 	}
 	
 	public Field from() {
@@ -69,21 +69,21 @@ public class Move {
 	public String toString() {
 		String op = capture ? "x" : "-";
 		
-		switch(casteling) {
-		case noCasteling: 		return format("%s%s%s", from, op, to);
+		switch(castling) {
+		case noCastling: 		return format("%s%s%s", from, op, to);
 		case blackKingSide: 	return "O-O";
 		case blackQueenSide:	return "O-O-O";
 		case whiteKingSide: 	return "O-O";
 		case whiteQueenSide:	return "O-O-O";
 		default:
 			assert false;
-			throw new IllegalStateException(casteling.toString());
+			throw new IllegalStateException(castling.toString());
 		}
 	}
 	
 	@Override
 	public int hashCode() {			//TODO unit test
-		return Objects.hash(from, to, capture, casteling);
+		return Objects.hash(from, to, capture, castling);
 	}
 	
 	@Override			
@@ -100,7 +100,7 @@ public class Move {
 			from.equals(that.from) && 
 			to.equals(that.to) && 
 			capture == that.capture && 
-			casteling == that.casteling;
+			castling == that.castling;
 	}
 	
 }

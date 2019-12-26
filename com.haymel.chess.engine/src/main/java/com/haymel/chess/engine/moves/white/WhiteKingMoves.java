@@ -16,9 +16,9 @@ import static com.haymel.chess.engine.board.Field.f1;
 import static com.haymel.chess.engine.board.Field.g1;
 import static com.haymel.chess.engine.board.Field.h1;
 import static com.haymel.chess.engine.board.Field.removed;
-import static com.haymel.chess.engine.moves.white.casteling.D1Attacked.d1Attacked;
-import static com.haymel.chess.engine.moves.white.casteling.E1Attacked.e1Attacked;
-import static com.haymel.chess.engine.moves.white.casteling.F1Attacked.f1Attacked;
+import static com.haymel.chess.engine.moves.white.castling.D1Attacked.d1Attacked;
+import static com.haymel.chess.engine.moves.white.castling.E1Attacked.e1Attacked;
+import static com.haymel.chess.engine.moves.white.castling.F1Attacked.f1Attacked;
 import static java.lang.String.format;
 
 import com.haymel.chess.engine.board.Board;
@@ -81,7 +81,7 @@ public class WhiteKingMoves {
 		if (f1Attacked(board))
 			return; 
 		
-		moves.addWhiteKingSideCasteling();
+		moves.addWhiteKingSideCastling();
 	}
 
 	private void queenSidecasteling(Piece king) {
@@ -105,7 +105,7 @@ public class WhiteKingMoves {
 		if (d1Attacked(board))
 			return;
 
-		moves.addWhiteQueenSideCasteling();
+		moves.addWhiteQueenSideCastling();
 	}
 
 	private boolean isMoved(Field f) {

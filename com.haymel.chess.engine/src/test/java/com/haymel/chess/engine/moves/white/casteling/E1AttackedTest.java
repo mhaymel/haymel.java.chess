@@ -24,7 +24,7 @@ import static com.haymel.chess.engine.board.Field.g2;
 import static com.haymel.chess.engine.board.Field.g3;
 import static com.haymel.chess.engine.board.Field.h1;
 import static com.haymel.chess.engine.board.Field.h4;
-import static com.haymel.chess.engine.moves.white.casteling.E1Attacked.e1Attacked;
+import static com.haymel.chess.engine.moves.white.castling.E1Attacked.e1Attacked;
 import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
 import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;

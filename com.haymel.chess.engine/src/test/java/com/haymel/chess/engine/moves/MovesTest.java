@@ -74,50 +74,50 @@ public class MovesTest {
 	}
 
 	@Test
-	public void addWhiteKingSideCasteling() {
-		moves.addWhiteKingSideCasteling();
+	public void addWhiteKingSideCastling() {
+		moves.addWhiteKingSideCastling();
 		
 		assertThat(moves.size(), is(1));
 		assertThat(moves.toString(), is("Moves(O-O)"));
 	}
 	
 	@Test
-	public void addWhiteQueenSideCasteling() {
-		moves.addWhiteQueenSideCasteling();
+	public void addWhiteQueenSideCastling() {
+		moves.addWhiteQueenSideCastling();
 		
 		assertThat(moves.size(), is(1));
 		assertThat(moves.toString(), is("Moves(O-O-O)"));
 	}
 
 	@Test
-	public void addWhiteCasteling() {
-		moves.addWhiteKingSideCasteling();
-		moves.addWhiteQueenSideCasteling();
+	public void addWhiteCastling() {
+		moves.addWhiteKingSideCastling();
+		moves.addWhiteQueenSideCastling();
 		
 		assertThat(moves.size(), is(2));
 		assertThat(moves.toString(), is("Moves(O-O, O-O-O)"));
 	}
 	
 	@Test
-	public void addBlackKingSideCasteling() {
-		moves.addBlackKingSideCasteling();
+	public void addBlackKingSideCastling() {
+		moves.addBlackKingSideCastling();
 		
 		assertThat(moves.size(), is(1));
 		assertThat(moves.toString(), is("Moves(O-O)"));
 	}
 	
 	@Test
-	public void addBlackQueenSideCasteling() {
-		moves.addBlackQueenSideCasteling();
+	public void addBlackQueenSideCastling() {
+		moves.addBlackQueenSideCastling();
 		
 		assertThat(moves.size(), is(1));
 		assertThat(moves.toString(), is("Moves(O-O-O)"));
 	}
 
 	@Test
-	public void addBlackCasteling() {
-		moves.addBlackKingSideCasteling();
-		moves.addBlackQueenSideCasteling();
+	public void addBlackCastling() {
+		moves.addBlackKingSideCastling();
+		moves.addBlackQueenSideCastling();
 		
 		assertThat(moves.size(), is(2));
 		assertThat(moves.toString(), is("Moves(O-O, O-O-O)"));
