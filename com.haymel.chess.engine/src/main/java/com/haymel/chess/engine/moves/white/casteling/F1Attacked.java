@@ -5,11 +5,12 @@
  * @author: Markus.Heumel
  *
  */
-package com.haymel.chess.engine.moves.white;
+package com.haymel.chess.engine.moves.white.casteling;
 
 import static com.haymel.chess.engine.board.Field.d2;
 import static com.haymel.chess.engine.board.Field.e2;
 import static com.haymel.chess.engine.board.Field.e3;
+import static com.haymel.chess.engine.board.Field.f2;
 import static com.haymel.chess.engine.board.Field.g2;
 import static com.haymel.chess.engine.board.Field.g3;
 import static com.haymel.chess.engine.board.Field.h2;
@@ -18,19 +19,19 @@ import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.piece.Piece;
 
-final class D1Attacked {
+public final class F1Attacked {
 
-	static boolean d1Attacked(Board board) {
+	public static boolean f1Attacked(Board board) {
 		return 
-			d2d8(board) || 
-			d2a4(board) ||
+			f2f8(board) || 
+			e2a6(board) ||
 			g2h3(board) ||
 			knights(board) || 
 			pawns(board);
 	}
 
-	static boolean d2d8(Board board) {
-		Field f = d2;
+	static boolean f2f8(Board board) {
+		Field f = f2;
 		Piece piece = board.piece(f);
 		while(piece.free()) {
 			f = f.up();
@@ -40,8 +41,8 @@ final class D1Attacked {
 		return piece.blackRook() || piece.blackQueen();
 	}
 	
-	static boolean d2a4(Board board) {
-		Field f = d2;
+	static boolean e2a6(Board board) {
+		Field f = e2;
 		Piece piece = board.piece(f);
 		while(piece.free()) {
 			f = f.leftUp();

@@ -16,8 +16,9 @@ import static com.haymel.chess.engine.board.Field.f1;
 import static com.haymel.chess.engine.board.Field.g1;
 import static com.haymel.chess.engine.board.Field.h1;
 import static com.haymel.chess.engine.board.Field.removed;
-import static com.haymel.chess.engine.moves.white.E1Attacked.e1Attacked;
-import static com.haymel.chess.engine.moves.white.F1Attacked.f1Attacked;
+import static com.haymel.chess.engine.moves.white.casteling.D1Attacked.d1Attacked;
+import static com.haymel.chess.engine.moves.white.casteling.E1Attacked.e1Attacked;
+import static com.haymel.chess.engine.moves.white.casteling.F1Attacked.f1Attacked;
 import static java.lang.String.format;
 
 import com.haymel.chess.engine.board.Board;
@@ -99,6 +100,9 @@ public class WhiteKingMoves {
 			return;
 		
 		if (e1Attacked(board))
+			return;
+		
+		if (d1Attacked(board))
 			return;
 
 		moves.addWhiteQueenSideCasteling();

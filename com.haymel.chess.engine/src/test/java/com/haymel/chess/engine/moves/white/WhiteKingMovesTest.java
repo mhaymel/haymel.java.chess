@@ -15,6 +15,7 @@ import static com.haymel.chess.engine.board.Field.c1;
 import static com.haymel.chess.engine.board.Field.d3;
 import static com.haymel.chess.engine.board.Field.d4;
 import static com.haymel.chess.engine.board.Field.d5;
+import static com.haymel.chess.engine.board.Field.d8;
 import static com.haymel.chess.engine.board.Field.e1;
 import static com.haymel.chess.engine.board.Field.e3;
 import static com.haymel.chess.engine.board.Field.e4;
@@ -23,11 +24,13 @@ import static com.haymel.chess.engine.board.Field.f1;
 import static com.haymel.chess.engine.board.Field.f3;
 import static com.haymel.chess.engine.board.Field.f4;
 import static com.haymel.chess.engine.board.Field.f5;
+import static com.haymel.chess.engine.board.Field.f8;
 import static com.haymel.chess.engine.board.Field.g1;
 import static com.haymel.chess.engine.board.Field.h1;
 import static com.haymel.chess.engine.moves.Casteling.whiteKingSide;
 import static com.haymel.chess.engine.moves.Casteling.whiteQueenSide;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
+import static com.haymel.chess.engine.piece.PieceType.BlackQueen;
 import static com.haymel.chess.engine.piece.PieceType.WhiteBishop;
 import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
 import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
@@ -261,6 +264,45 @@ public class WhiteKingMovesTest {
 		assertThat(result.contains(kingSideCasteling()), is(false));
 	}
 
+	@Test
+	public void queenSideCastelingIsNotPossibleIfD1IsAttacked() {
+		king(e1).setMoved(false);
+		rook(h1).setMoved(false);
+		rook(a1).setMoved(false);
+		blackQueen(d8);
+		kingMoves.generate(king);
+		
+		Set<Move> result = movesAsSet();
+		assertThat(moves.size(), is(6));
+		assertThat(result.contains(kingSideCasteling()), is(true));
+		assertThat(result.contains(queenSideCasteling()), is(false));
+	}
+	
+	@Test
+	public void kingSideCastelingIsNotPossibleIfF1IsAttacked() {
+		king(e1).setMoved(false);
+		rook(h1).setMoved(false);
+		rook(a1).setMoved(false);
+		blackQueen(f8);
+		kingMoves.generate(king);
+		
+		Set<Move> result = movesAsSet();
+		assertThat(moves.size(), is(6));
+		assertThat(result.contains(kingSideCasteling()), is(false));
+		assertThat(result.contains(queenSideCasteling()), is(true));
+	}
+	
+	private Piece blackQueen(Field f) {
+		return piece(f, BlackQueen);
+	}
+	
+	private Piece piece(Field f, PieceType t) {
+		Piece p = new Piece(t);
+		p.field(f);
+		board.place(p);
+		return p;
+	}
+	
 	private Move kingSideCasteling() {
 		return new Move(e1, g1, false, whiteKingSide);
 	}
@@ -268,7 +310,6 @@ public class WhiteKingMovesTest {
 	private Move queenSideCasteling() {
 		return new Move(e1, c1, false, whiteQueenSide);
 	}
-
 
 	private void place(Field f, PieceType t) {
 		Piece piece = new Piece(t);

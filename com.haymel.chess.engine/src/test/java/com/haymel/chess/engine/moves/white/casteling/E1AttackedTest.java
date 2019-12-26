@@ -5,7 +5,7 @@
  * @author: Markus.Heumel
  *
  */
-package com.haymel.chess.engine.moves.white;
+package com.haymel.chess.engine.moves.white.casteling;
 
 import static com.haymel.chess.engine.board.Field.a1;
 import static com.haymel.chess.engine.board.Field.a5;
@@ -14,7 +14,6 @@ import static com.haymel.chess.engine.board.Field.b4;
 import static com.haymel.chess.engine.board.Field.c2;
 import static com.haymel.chess.engine.board.Field.d2;
 import static com.haymel.chess.engine.board.Field.d3;
-import static com.haymel.chess.engine.board.Field.e1;
 import static com.haymel.chess.engine.board.Field.e2;
 import static com.haymel.chess.engine.board.Field.e7;
 import static com.haymel.chess.engine.board.Field.e8;
@@ -25,14 +24,13 @@ import static com.haymel.chess.engine.board.Field.g2;
 import static com.haymel.chess.engine.board.Field.g3;
 import static com.haymel.chess.engine.board.Field.h1;
 import static com.haymel.chess.engine.board.Field.h4;
-import static com.haymel.chess.engine.moves.white.E1Attacked.e1Attacked;
+import static com.haymel.chess.engine.moves.white.casteling.E1Attacked.e1Attacked;
 import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
 import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 import static com.haymel.chess.engine.piece.PieceType.BlackQueen;
 import static com.haymel.chess.engine.piece.PieceType.BlackRook;
 import static com.haymel.chess.engine.piece.PieceType.WhiteBishop;
-import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
 import static com.haymel.chess.engine.piece.PieceType.WhiteKnight;
 import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
 import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
@@ -50,7 +48,6 @@ import com.haymel.chess.engine.piece.PieceType;
 public class E1AttackedTest {
 
 	private Board board;
-	private Piece king = new Piece(WhiteKing);
 	
 	@Before
 	public void setup() {
@@ -58,70 +55,60 @@ public class E1AttackedTest {
 	}
 	
 	@Test
-	public void testOnlyWhiteKing() {
-		king(e1);
+	public void testEmptyBoard() {
 		assertThat(e1Attacked(board), is(false));
 	}
 
 	@Test
 	public void testBlackPwanOnD2() {
-		king(e1);
 		blackPawn(d2);
 		assertThat(e1Attacked(board), is(true));
 	}
 
 	@Test
 	public void testBlackPwanOnE2() {
-		king(e1);
 		blackPawn(e2);
 		assertThat(e1Attacked(board), is(false));
 	}
 
 	@Test
 	public void testBlackPwanOnf2() {
-		king(e1);
 		blackPawn(f2);
 		assertThat(e1Attacked(board), is(true));
 	}
 	
 	@Test
 	public void testWhitePwanOnD2() {
-		king(e1);
 		whitePawn(d2);
 		assertThat(e1Attacked(board), is(false));
 	}
 
 	@Test
 	public void testWhitePwanOnE2() {
-		king(e1);
 		whitePawn(e2);
 		assertThat(e1Attacked(board), is(false));
 	}
 
 	@Test
 	public void testWhitePwanOnf2() {
-		king(e1);
 		whitePawn(f2);
 		assertThat(e1Attacked(board), is(false));
 	}
 
 	@Test
 	public void testBlackRookOnA1() {
-		king(e1);
 		blackRook(a1);
 		assertThat(e1Attacked(board), is(true));
 	}
 	
 	@Test
 	public void testBlackQueenOnA1() {
-		king(e1);
 		blackQueen(a1);
 		assertThat(e1Attacked(board), is(true));
 	}
 
 	@Test
 	public void testBlackPieceBlocksBlackQueenOnA1() {
-		king(e1);
 		blackQueen(a1);
 		blackBishop(b1);
 		assertThat(e1Attacked(board), is(false));
@@ -129,7 +116,6 @@ public class E1AttackedTest {
 
 	@Test
 	public void testWhitePieceBlocksBlackQueenOnA1() {
-		king(e1);
 		blackQueen(a1);
 		whiteBishop(b1);
 		assertThat(e1Attacked(board), is(false));
@@ -137,21 +123,18 @@ public class E1AttackedTest {
 	
 	@Test
 	public void testBlackRookOnH1() {
-		king(e1);
 		blackRook(h1);
 		assertThat(e1Attacked(board), is(true));
 	}
 	
 	@Test
 	public void testBlackQueenOnH1() {
-		king(e1);
 		blackQueen(h1);
 		assertThat(e1Attacked(board), is(true));
 	}
 
 	@Test
 	public void testBlackPieceBlocksBlackQueenOnH1() {
-		king(e1);
 		blackQueen(h1);
 		blackBishop(g1);
 		assertThat(e1Attacked(board), is(false));
@@ -159,7 +142,6 @@ public class E1AttackedTest {
 
 	@Test
 	public void testWhitePieceBlocksBlackQueenOnH1() {
-		king(e1);
 		blackQueen(h1);
 		whiteBishop(g1);
 		assertThat(e1Attacked(board), is(false));
@@ -167,84 +149,72 @@ public class E1AttackedTest {
 	
 	@Test
 	public void testBlackKnightOnC2() {
-		king(e1);
 		blackKnight(c2);
 		assertThat(e1Attacked(board), is(true));
 	}
 	
 	@Test
 	public void testBlackKnightOnD3() {
-		king(e1);
 		blackKnight(d3);
 		assertThat(e1Attacked(board), is(true));
 	}
 	
 	@Test
 	public void testBlackKnightOnF3() {
-		king(e1);
 		blackKnight(f3);
 		assertThat(e1Attacked(board), is(true));
 	}
 	
 	@Test
 	public void testBlackKnightOnG2() {
-		king(e1);
 		blackKnight(g2);
 		assertThat(e1Attacked(board), is(true));
 	}
 	
 	@Test
 	public void testWhiteKnightOnC2() {
-		king(e1);
 		whiteKnight(c2);
 		assertThat(e1Attacked(board), is(false));
 	}
 	
 	@Test
 	public void testWhiteKnightOnD3() {
-		king(e1);
 		whiteKnight(d3);
 		assertThat(e1Attacked(board), is(false));
 	}
 	
 	@Test
 	public void testWhiteKnightOnF3() {
-		king(e1);
 		whiteKnight(f3);
 		assertThat(e1Attacked(board), is(false));
 	}
 	
 	@Test
 	public void testWhiteKnightOnG2() {
-		king(e1);
 		whiteKnight(g2);
 		assertThat(e1Attacked(board), is(false));
 	}
 	
 	@Test
 	public void testBlackRookOnE8() {
-		king(e1);
 		blackRook(e8);
 		assertThat(e1Attacked(board), is(true));
 	}
 
 	@Test
 	public void testBlackQueenE8() {
-		king(e1);
 		blackQueen(e8);
 		assertThat(e1Attacked(board), is(true));
 	}
 	
 	@Test
 	public void testBlackBishopE8() {
-		king(e1);
 		blackBishop(e8);
 		assertThat(e1Attacked(board), is(false));
 	}
 	
 	@Test
 	public void testWhitePieceBlocksBlackRookOnE8() {
-		king(e1);
 		blackRook(e8);
 		whiteRook(e7);
 		assertThat(e1Attacked(board), is(false));
@@ -252,71 +222,54 @@ public class E1AttackedTest {
 
 	@Test
 	public void testBlackBishopA5() {
-		king(e1);
 		blackBishop(a5);
 		assertThat(e1Attacked(board), is(true));
 	}
 	
 	@Test
 	public void testBlackQueenA5() {
-		king(e1);
 		blackQueen(a5);
 		assertThat(e1Attacked(board), is(true));
 	}
 	
 	@Test
 	public void testBlackRookA5() {
-		king(e1);
 		blackRook(a5);
 		assertThat(e1Attacked(board), is(false));
 	}
 	
 	@Test
 	public void testWhitePieceBlocksBlackQueenA5() {
-		king(e1);
 		blackQueen(a5);
 		whiteBishop(b4);
 		assertThat(e1Attacked(board), is(false));
 	}
-	
 
-	
 	@Test
 	public void testBlackBishopH4() {
-		king(e1);
 		blackBishop(h4);
 		assertThat(e1Attacked(board), is(true));
 	}
 	
 	@Test
 	public void testBlackQueenH4() {
-		king(e1);
 		blackQueen(h4);
 		assertThat(e1Attacked(board), is(true));
 	}
 	
 	@Test
 	public void testBlackRookH4() {
-		king(e1);
 		blackRook(h4);
 		assertThat(e1Attacked(board), is(false));
 	}
 	
 	@Test
 	public void testWhitePieceBlocksBlackQueenH4() {
-		king(e1);
 		blackQueen(h4);
 		whiteBishop(g3);
 		assertThat(e1Attacked(board), is(false));
 	}
 	
-	private Piece king(Field f) {
-		king.field(f);
-		board.place(king);
-		king.setMoved(true);
-		return king;
-	}
-
 	private Piece blackPawn(Field f) {
 		return piece(f, BlackPawn);
 	}

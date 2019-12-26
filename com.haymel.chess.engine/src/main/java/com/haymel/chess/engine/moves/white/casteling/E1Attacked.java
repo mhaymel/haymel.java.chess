@@ -5,7 +5,7 @@
  * @author: Markus.Heumel
  *
  */
-package com.haymel.chess.engine.moves.white;
+package com.haymel.chess.engine.moves.white.casteling;
 
 import static com.haymel.chess.engine.board.Field.c2;
 import static com.haymel.chess.engine.board.Field.d1;
@@ -21,9 +21,9 @@ import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.piece.Piece;
 
-final class E1Attacked {
+public final class E1Attacked {
 
-	static boolean e1Attacked(Board board) {
+	public static boolean e1Attacked(Board board) {
 		return 
 			e2e8(board) || 
 			d1a1(board) ||
