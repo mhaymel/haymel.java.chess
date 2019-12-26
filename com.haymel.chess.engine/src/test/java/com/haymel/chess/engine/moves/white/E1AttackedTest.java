@@ -8,18 +8,23 @@
 package com.haymel.chess.engine.moves.white;
 
 import static com.haymel.chess.engine.board.Field.a1;
+import static com.haymel.chess.engine.board.Field.a5;
 import static com.haymel.chess.engine.board.Field.b1;
+import static com.haymel.chess.engine.board.Field.b4;
 import static com.haymel.chess.engine.board.Field.c2;
 import static com.haymel.chess.engine.board.Field.d2;
 import static com.haymel.chess.engine.board.Field.d3;
 import static com.haymel.chess.engine.board.Field.e1;
 import static com.haymel.chess.engine.board.Field.e2;
-import static com.haymel.chess.engine.board.Field.e3;
+import static com.haymel.chess.engine.board.Field.e7;
+import static com.haymel.chess.engine.board.Field.e8;
 import static com.haymel.chess.engine.board.Field.f2;
 import static com.haymel.chess.engine.board.Field.f3;
 import static com.haymel.chess.engine.board.Field.g1;
 import static com.haymel.chess.engine.board.Field.g2;
+import static com.haymel.chess.engine.board.Field.g3;
 import static com.haymel.chess.engine.board.Field.h1;
+import static com.haymel.chess.engine.board.Field.h4;
 import static com.haymel.chess.engine.moves.white.E1Attacked.e1Attacked;
 import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
 import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
@@ -30,6 +35,7 @@ import static com.haymel.chess.engine.piece.PieceType.WhiteBishop;
 import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
 import static com.haymel.chess.engine.piece.PieceType.WhiteKnight;
 import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
+import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -215,6 +221,95 @@ public class E1AttackedTest {
 		assertThat(e1Attacked(board), is(false));
 	}
 	
+	@Test
+	public void testBlackRookOnE8() {
+		king(e1);
+		blackRook(e8);
+		assertThat(e1Attacked(board), is(true));
+	}
+
+	@Test
+	public void testBlackQueenE8() {
+		king(e1);
+		blackQueen(e8);
+		assertThat(e1Attacked(board), is(true));
+	}
+	
+	@Test
+	public void testBlackBishopE8() {
+		king(e1);
+		blackBishop(e8);
+		assertThat(e1Attacked(board), is(false));
+	}
+	
+	@Test
+	public void testWhitePieceBlocksBlackRookOnE8() {
+		king(e1);
+		blackRook(e8);
+		whiteRook(e7);
+		assertThat(e1Attacked(board), is(false));
+	}
+
+	@Test
+	public void testBlackBishopA5() {
+		king(e1);
+		blackBishop(a5);
+		assertThat(e1Attacked(board), is(true));
+	}
+	
+	@Test
+	public void testBlackQueenA5() {
+		king(e1);
+		blackQueen(a5);
+		assertThat(e1Attacked(board), is(true));
+	}
+	
+	@Test
+	public void testBlackRookA5() {
+		king(e1);
+		blackRook(a5);
+		assertThat(e1Attacked(board), is(false));
+	}
+	
+	@Test
+	public void testWhitePieceBlocksBlackQueenA5() {
+		king(e1);
+		blackQueen(a5);
+		whiteBishop(b4);
+		assertThat(e1Attacked(board), is(false));
+	}
+	
+
+	
+	@Test
+	public void testBlackBishopH4() {
+		king(e1);
+		blackBishop(h4);
+		assertThat(e1Attacked(board), is(true));
+	}
+	
+	@Test
+	public void testBlackQueenH4() {
+		king(e1);
+		blackQueen(h4);
+		assertThat(e1Attacked(board), is(true));
+	}
+	
+	@Test
+	public void testBlackRookH4() {
+		king(e1);
+		blackRook(h4);
+		assertThat(e1Attacked(board), is(false));
+	}
+	
+	@Test
+	public void testWhitePieceBlocksBlackQueenH4() {
+		king(e1);
+		blackQueen(h4);
+		whiteBishop(g3);
+		assertThat(e1Attacked(board), is(false));
+	}
+	
 	private Piece king(Field f) {
 		king.field(f);
 		board.place(king);
@@ -252,6 +347,10 @@ public class E1AttackedTest {
 	
 	private Piece whiteKnight(Field f) {
 		return piece(f, WhiteKnight);
+	}
+	
+	private Piece whiteRook(Field f) {
+		return piece(f, WhiteRook);
 	}
 	
 	private Piece piece(Field f, PieceType t) {
