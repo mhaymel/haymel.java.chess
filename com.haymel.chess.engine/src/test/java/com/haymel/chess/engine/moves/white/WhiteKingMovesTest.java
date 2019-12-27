@@ -700,7 +700,6 @@ public class WhiteKingMovesTest {
 		assertThat(result.contains(kingSideCasteling()), is(true));
 	}
 	
-	
 	@Test
 	public void kingSideCastelingIsPossible10() {
 		king(e1).setMoved(false);
@@ -712,6 +711,236 @@ public class WhiteKingMovesTest {
 		
 		Set<Move> result = movesAsSet();
 		assertThat(result.contains(kingSideCasteling()), is(true));
+	}
+	
+	@Test
+	public void queenSideCastelingIsNotPossibleIfE1IsAttacked1() {
+		king(e1).setMoved(false);
+		rook(a1).setMoved(false);
+		blackQueen(h1);
+		
+		kingMoves.generate(king);
+		
+		Set<Move> result = movesAsSet();
+		assertThat(moves.size(), is(5));
+		assertThat(result.contains(queenSideCasteling()), is(false));
+	}
+	
+	@Test
+	public void queenSideCastelingIsNotPossibleIfE1IsAttacked2() {
+		king(e1).setMoved(false);
+		rook(a1).setMoved(false);
+		blackRook(h1);
+		
+		kingMoves.generate(king);
+		
+		Set<Move> result = movesAsSet();
+		assertThat(moves.size(), is(5));
+		assertThat(result.contains(queenSideCasteling()), is(false));
+	}
+
+	@Test
+	public void queenSideCastelingIsPossible1() {
+		king(e1).setMoved(false);
+		rook(a1).setMoved(false);
+		blackBishop(h1);
+		
+		kingMoves.generate(king);
+		
+		Set<Move> result = movesAsSet();
+		assertThat(moves.size(), is(6));
+		assertThat(result.contains(queenSideCasteling()), is(true));
+	}
+	
+	@Test
+	public void queenSideCastelingIsNotPossibleIfE1IsAttacked3() {
+		king(e1).setMoved(false);
+		rook(a1).setMoved(false);
+		blackPawn(d2);
+		
+		kingMoves.generate(king);
+		
+		Set<Move> result = movesAsSet();
+		assertThat(moves.size(), is(5));
+		assertThat(result.contains(queenSideCasteling()), is(false));
+	}
+	
+	@Test
+	public void queenSideCastelingIsNotPossibleIfE1IsAttacked4() {
+		king(e1).setMoved(false);
+		rook(a1).setMoved(false);
+		blackPawn(f2);
+		
+		kingMoves.generate(king);
+		
+		Set<Move> result = movesAsSet();
+		assertThat(moves.size(), is(5));
+		assertThat(result.contains(queenSideCasteling()), is(false));
+	}
+	
+	@Test
+	public void queenSideCastelingIsNotPossibleIfE1IsAttacked5() {
+		king(e1).setMoved(false);
+		rook(a1).setMoved(false);
+		blackKnight(c2);
+		
+		kingMoves.generate(king);
+		
+		Set<Move> result = movesAsSet();
+		assertThat(moves.size(), is(5));
+		assertThat(result.contains(queenSideCasteling()), is(false));
+	}
+
+	@Test
+	public void queenSideCastelingIsNotPossibleIfE1IsAttacked6() {
+		king(e1).setMoved(false);
+		rook(a1).setMoved(false);
+		blackKnight(d3);
+		
+		kingMoves.generate(king);
+		
+		Set<Move> result = movesAsSet();
+		assertThat(moves.size(), is(5));
+		assertThat(result.contains(queenSideCasteling()), is(false));
+	}
+	
+	@Test
+	public void queenSideCastelingIsNotPossibleIfE1IsAttacked7() {
+		king(e1).setMoved(false);
+		rook(a1).setMoved(false);
+		blackKnight(f3);
+		
+		kingMoves.generate(king);
+		
+		Set<Move> result = movesAsSet();
+		assertThat(moves.size(), is(5));
+		assertThat(result.contains(queenSideCasteling()), is(false));
+	}
+	
+	@Test
+	public void queenSideCastelingIsNotPossibleIfE1IsAttacked8() {
+		king(e1).setMoved(false);
+		rook(a1).setMoved(false);
+		blackKnight(g2);
+		
+		kingMoves.generate(king);
+		
+		Set<Move> result = movesAsSet();
+		assertThat(moves.size(), is(5));
+		assertThat(result.contains(queenSideCasteling()), is(false));
+	}
+	
+	@Test
+	public void queenSideCastelingIsNotPossibleIfE1IsAttacked9() {
+		king(e1).setMoved(false);
+		rook(a1).setMoved(false);
+		blackQueen(a5);
+		
+		kingMoves.generate(king);
+		
+		Set<Move> result = movesAsSet();
+		assertThat(moves.size(), is(5));
+		assertThat(result.contains(queenSideCasteling()), is(false));
+	}
+	
+	@Test
+	public void queenSideCastelingIsNotPossibleIfE1IsAttacked10() {
+		king(e1).setMoved(false);
+		rook(a1).setMoved(false);
+		blackBishop(a5);
+		
+		kingMoves.generate(king);
+		
+		Set<Move> result = movesAsSet();
+		assertThat(moves.size(), is(5));
+		assertThat(result.contains(queenSideCasteling()), is(false));
+	}
+
+	@Test
+	public void queenSideCastelingIsNotPossibleIfE1IsAttacked11() {
+		king(e1).setMoved(false);
+		rook(a1).setMoved(false);
+		blackQueen(e8);
+		
+		kingMoves.generate(king);
+		
+		Set<Move> result = movesAsSet();
+		assertThat(moves.size(), is(5));
+		assertThat(result.contains(queenSideCasteling()), is(false));
+	}
+	
+	@Test
+	public void queenSideCastelingIsNotPossibleIfE1IsAttacked12() {
+		king(e1).setMoved(false);
+		rook(a1).setMoved(false);
+		blackRook(e8);
+		
+		kingMoves.generate(king);
+		
+		Set<Move> result = movesAsSet();
+		assertThat(moves.size(), is(5));
+		assertThat(result.contains(queenSideCasteling()), is(false));
+	}
+
+	@Test
+	public void queenSideCastelingIsNotPossibleIfE1IsAttacked13() {
+		king(e1).setMoved(false);
+		rook(a1).setMoved(false);
+		blackQueen(h4);
+		
+		kingMoves.generate(king);
+		
+		Set<Move> result = movesAsSet();
+		assertThat(moves.size(), is(5));
+		assertThat(result.contains(queenSideCasteling()), is(false));
+	}
+	
+	@Test
+	public void queenSideCastelingIsNotPossibleIfE1IsAttacked14() {
+		king(e1).setMoved(false);
+		rook(a1).setMoved(false);
+		blackBishop(h4);
+		
+		kingMoves.generate(king);
+		
+		Set<Move> result = movesAsSet();
+		assertThat(moves.size(), is(5));
+		assertThat(result.contains(queenSideCasteling()), is(false));
+	}
+	
+	@Test
+	public void queenSideCastelingIsPossible2() {
+		king(e1).setMoved(false);
+		rook(a1).setMoved(false);
+		blackRook(a5);
+		blackRook(h4);
+		blackBishop(e8);
+		
+		kingMoves.generate(king);
+		
+		Set<Move> result = movesAsSet();
+		assertThat(moves.size(), is(6));
+		assertThat(result.contains(queenSideCasteling()), is(true));
+	}
+
+	@Test
+	public void queenSideCastelingIsPossible3() {
+		king(e1).setMoved(false);
+		rook(a1).setMoved(false);
+		whiteQueen(e8);
+		whiteQueen(h1);
+		whitePawn(d2);
+		whitePawn(f2);
+		whiteKnight(c2);
+		whiteKnight(d3);
+		whiteKnight(f3);
+		whiteKnight(g2);
+		
+		kingMoves.generate(king);
+		
+		Set<Move> result = movesAsSet();
+		assertThat(moves.size(), is(4));
+		assertThat(result.contains(queenSideCasteling()), is(true));
 	}
 	
 	@Test
