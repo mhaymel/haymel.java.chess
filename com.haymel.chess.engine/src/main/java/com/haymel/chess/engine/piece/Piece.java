@@ -96,7 +96,6 @@ public final class Piece {
 		assert field == removed || type != WhitePawn || (field.rank() != 0 && field.rank() != 7) : format("a white pawn must not be placed on file 1 or 8. The value of field is %s", field);
 		assert field == removed || type != BlackPawn || (field.rank() != 0 && field.rank() != 7) : format("a black pawn must not be placed on file 1 or 8. The value of field is %s", field);
 		
-		
 		this.field = field;
 	}
 

@@ -130,6 +130,38 @@ public final class Field {
 		return left().down();
 	}
 
+	public Field leftLeftUp() {
+		return left().leftUp();
+	}
+	
+	public Field leftLeftDown() {
+		return left().leftDown();
+	}
+	
+	public Field rightRightUp() {
+		return right().rightUp();
+	}
+	
+	public Field rightRightDown() {
+		return right().rightDown();
+	}
+	
+	public Field leftUpUp() {
+		return leftUp().up();
+	}
+
+	public Field leftDownDown() {
+		return leftDown().down();
+	}
+
+	public Field rightUpUp() {
+		return rightUp().up();
+	}
+
+	public Field rightDownDown() {
+		return rightDown().down();
+	}
+
 	@Override
 	public String toString() {
 		return Character.toString('a' + file()) + (rank()+1);

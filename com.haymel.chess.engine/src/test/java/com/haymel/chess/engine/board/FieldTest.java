@@ -7,6 +7,15 @@
  */
 package com.haymel.chess.engine.board;
 
+import static com.haymel.chess.engine.board.Field.c3;
+import static com.haymel.chess.engine.board.Field.c5;
+import static com.haymel.chess.engine.board.Field.d2;
+import static com.haymel.chess.engine.board.Field.d6;
+import static com.haymel.chess.engine.board.Field.e4;
+import static com.haymel.chess.engine.board.Field.f2;
+import static com.haymel.chess.engine.board.Field.f6;
+import static com.haymel.chess.engine.board.Field.g3;
+import static com.haymel.chess.engine.board.Field.g5;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
@@ -96,5 +105,17 @@ public class FieldTest {
 		assertThat(Field.a1.rank(), is(0));
 		assertThat(Field.a2.rank(), is(1));
 		assertThat(Field.a8.rank(), is(7));
+	}
+	
+	@Test
+	public void knightMoves() {
+		assertThat(e4.leftLeftUp(), is(c5));
+		assertThat(e4.leftLeftDown(), is(c3));
+		assertThat(e4.leftUpUp(), is(d6));
+		assertThat(e4.rightUpUp(), is(f6));
+		assertThat(e4.rightRightUp(), is(g5));
+		assertThat(e4.rightRightDown(), is(g3));
+		assertThat(e4.rightDownDown(), is(f2));
+		assertThat(e4.leftDownDown(), is(d2));
 	}
 }
