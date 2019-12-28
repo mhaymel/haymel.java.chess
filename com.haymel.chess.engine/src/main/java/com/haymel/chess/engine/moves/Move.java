@@ -50,7 +50,8 @@ public class Move {
 	@Override
 	public String toString() {
 		switch(type) {
-		case normal: 					return format("%s-%s", from, to);
+		case normal: 
+		case pawnDoubleStep:			return format("%s-%s", from, to);
 		case capture: 					return format("%sx%s", from, to);
 		case enpassant:					return format("%sx%se.p.", from, to);
 		case capturePromotionQueen:		return format("%sx%sQ", from, to);

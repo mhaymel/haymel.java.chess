@@ -39,7 +39,6 @@ public final class Board {
 		pieces[f.position()] = free;
 	}
 	
-	
 	public void reset() {		//TODO unit test
 		for(int i = 0; i < pieces.length; i++)
 			pieces[i] = border;

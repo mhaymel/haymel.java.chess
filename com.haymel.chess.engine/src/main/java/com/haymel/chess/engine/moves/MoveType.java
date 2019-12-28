@@ -10,6 +10,7 @@ package com.haymel.chess.engine.moves;
 public enum MoveType {
 
 	normal,
+	pawnDoubleStep,
 	kingsideCastling,
 	queensideCastling,
 	enpassant,
