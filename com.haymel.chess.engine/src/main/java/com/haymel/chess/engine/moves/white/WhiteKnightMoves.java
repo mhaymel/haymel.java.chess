@@ -34,14 +34,14 @@ public class WhiteKnightMoves {	//TODO unit test
 
 		Field from = knight.field();
 		
-		add(from, from.left());
-		add(from, from.right());
-		add(from, from.up());
-		add(from, from.down());
-		add(from, from.leftUp());
-		add(from, from.leftDown());
-		add(from, from.rightUp());
-		add(from, from.rightDown());
+		add(from, from.leftLeftUp());
+		add(from, from.leftDownDown());
+		add(from, from.rightRightUp());
+		add(from, from.rightRightDown());
+		add(from, from.rightDownDown());
+		add(from, from.leftUpUp());
+		add(from, from.rightUpUp());
+		add(from, from.leftLeftDown());
 	}
 
 	private void add(Field from, Field to) {
