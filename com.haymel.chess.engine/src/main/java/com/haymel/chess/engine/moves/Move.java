@@ -52,17 +52,17 @@ public class Move {
 		switch(type) {
 		case normal: 					return format("%s-%s", from, to);
 		case capture: 					return format("%sx%s", from, to);
-		case enpassant:					return format("%sx%s", from, to);
+		case enpassant:					return format("%sx%se.p.", from, to);
 		case capturePromotionQueen:		return format("%sx%sQ", from, to);
 		case capturePromotionRook:		return format("%sx%sR", from, to);
 		case capturePromotionBishop:	return format("%sx%sB", from, to);
-		case capturePromotionKnight:	return format("%sx%sK", from, to);
+		case capturePromotionKnight:	return format("%sx%sN", from, to);
 		case kingsideCastling:			return "O-O";
 		case queensideCastling:			return "O-O-O";
 		case promotionQueen:			return format("%s-%sQ", from, to);
 		case promotionRook:				return format("%s-%sR", from, to);
 		case promotionBishop:			return format("%s-%sB", from, to);	
-		case promotionKnight:			return format("%s-%sK", from, to);
+		case promotionKnight:			return format("%s-%sN", from, to);
 		default:
 			assert false;
 			throw new IllegalStateException(type.toString());
