@@ -39,8 +39,9 @@ import static com.haymel.chess.engine.board.Field.h1;
 import static com.haymel.chess.engine.board.Field.h2;
 import static com.haymel.chess.engine.board.Field.h3;
 import static com.haymel.chess.engine.board.Field.h4;
-import static com.haymel.chess.engine.moves.Castling.whiteKingSide;
-import static com.haymel.chess.engine.moves.Castling.whiteQueenSide;
+import static com.haymel.chess.engine.moves.MoveType.capture;
+import static com.haymel.chess.engine.moves.MoveType.kingsideCastling;
+import static com.haymel.chess.engine.moves.MoveType.queensideCastling;
 import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
 import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
@@ -140,7 +141,7 @@ public class WhiteKingMovesTest {
 	}
 
 	private Move capture(Field from, Field to) {
-		return new Move(from, to, true);
+		return new Move(from, to, capture);
 	}
 
 	@Test
@@ -1001,11 +1002,11 @@ public class WhiteKingMovesTest {
 	}
 	
 	private Move kingSideCasteling() {
-		return new Move(e1, g1, false, whiteKingSide);
+		return new Move(e1, g1, kingsideCastling);
 	}
 
 	private Move queenSideCasteling() {
-		return new Move(e1, c1, false, whiteQueenSide);
+		return new Move(e1, c1, queensideCastling);
 	}
 
 	private void place(Field f, PieceType t) {

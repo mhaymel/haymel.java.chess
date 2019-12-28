@@ -11,6 +11,7 @@ import static com.haymel.chess.engine.board.Field.a1;
 import static com.haymel.chess.engine.board.Field.b2;
 import static com.haymel.chess.engine.board.Field.e2;
 import static com.haymel.chess.engine.board.Field.e4;
+import static com.haymel.chess.engine.moves.MoveType.capture;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -20,20 +21,19 @@ public class MoveTest {
 
 	@Test
 	public void fromAndToReturnValuesSetByConstructor() {
-		Move move = new Move(e2, e4, false);
+		Move move = new Move(e2, e4);
 		assertThat(move.from(), is(e2));
 		assertThat(move.to(), is(e4));
 	}
 	
 	@Test
 	public void testToString() {
-		assertThat(new Move(a1, b2, false).toString(), is("a1-b2"));
+		assertThat(new Move(a1, b2).toString(), is("a1-b2"));
 	}
 	
 	@Test
 	public void testToStringOfCapture() {
-		assertThat(new Move(a1, b2, true).toString(), is("a1xb2"));
+		assertThat(new Move(a1, b2, capture).toString(), is("a1xb2"));
 	}
-
 	
 }

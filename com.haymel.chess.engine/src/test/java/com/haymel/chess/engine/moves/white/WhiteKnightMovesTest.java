@@ -26,6 +26,7 @@ import static com.haymel.chess.engine.board.Field.g5;
 import static com.haymel.chess.engine.board.Field.g6;
 import static com.haymel.chess.engine.board.Field.h1;
 import static com.haymel.chess.engine.board.Field.h8;
+import static com.haymel.chess.engine.moves.MoveType.capture;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 import static com.haymel.chess.engine.piece.PieceType.WhiteKnight;
 import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
@@ -156,14 +157,18 @@ public class WhiteKnightMovesTest {
 		
 		assertThat(moves.size(), is(8));
 		Set<Move> result = movesAsSet();
-		assertThat(result.contains(new Move(e4, d2, true)), is(true));
-		assertThat(result.contains(new Move(e4, c3, true)), is(true));
-		assertThat(result.contains(new Move(e4, c5, true)), is(true));
-		assertThat(result.contains(new Move(e4, d6, true)), is(true));
-		assertThat(result.contains(new Move(e4, f6, true)), is(true));
-		assertThat(result.contains(new Move(e4, g5, true)), is(true));
-		assertThat(result.contains(new Move(e4, g3, true)), is(true));
-		assertThat(result.contains(new Move(e4, f2, true)), is(true));
+		assertThat(result.contains(capture(e4, d2)), is(true));
+		assertThat(result.contains(capture(e4, c3)), is(true));
+		assertThat(result.contains(capture(e4, c5)), is(true));
+		assertThat(result.contains(capture(e4, d6)), is(true));
+		assertThat(result.contains(capture(e4, f6)), is(true));
+		assertThat(result.contains(capture(e4, g5)), is(true));
+		assertThat(result.contains(capture(e4, g3)), is(true));
+		assertThat(result.contains(capture(e4, f2)), is(true));
+	}
+	
+	private Move capture(Field from, Field to) {
+		return new Move(from, to, capture);
 	}
 	
 	private Piece blackPawn(Field f) {

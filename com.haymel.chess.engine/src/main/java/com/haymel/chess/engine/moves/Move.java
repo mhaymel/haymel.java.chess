@@ -7,17 +7,7 @@
  */
 package com.haymel.chess.engine.moves;
 
-import static com.haymel.chess.engine.board.Field.c1;
-import static com.haymel.chess.engine.board.Field.c8;
-import static com.haymel.chess.engine.board.Field.e1;
-import static com.haymel.chess.engine.board.Field.e8;
-import static com.haymel.chess.engine.board.Field.g1;
-import static com.haymel.chess.engine.board.Field.g8;
-import static com.haymel.chess.engine.moves.Castling.blackKingSide;
-import static com.haymel.chess.engine.moves.Castling.blackQueenSide;
-import static com.haymel.chess.engine.moves.Castling.noCastling;
-import static com.haymel.chess.engine.moves.Castling.whiteKingSide;
-import static com.haymel.chess.engine.moves.Castling.whiteQueenSide;
+import static com.haymel.chess.engine.moves.MoveType.normal;
 import static java.lang.String.format;
 
 import java.util.Objects;
@@ -26,35 +16,23 @@ import com.haymel.chess.engine.board.Field;
 
 public class Move {
 	
+	private final MoveType type;
 	private final Field from;
 	private final Field to;
-	private final boolean capture;
-	private final Castling castling;
 
 	public Move(Field from, Field to) {
-		this(from, to, false, noCastling);
+		this(from, to, normal);
 	}
 	
-	public Move(Field from, Field to, boolean capture) {
-		this(from, to, capture, noCastling);
-	}
-	
-	public Move(Field from, Field to, boolean capture, Castling castling) {
+	public Move(Field from, Field to, MoveType type) {
 		assert from != null;
 		assert to != null;
 		assert from != to;
-		assert castling != null;
+		assert type != null;
 		
-		assert castling == noCastling || 
-								(!capture && 
-									((castling == whiteKingSide && from == e1 && to == g1) ||
-									 (castling == whiteQueenSide && from == e1 && to == c1) ||
-									 (castling == blackKingSide && from == e8 && to == g8) ||
-									 (castling == blackQueenSide && from == e8 && to == c8)));				
 		this.from = from;
 		this.to = to;
-		this.capture = capture;
-		this.castling = castling;
+		this.type = type;
 	}
 	
 	public Field from() {
@@ -65,25 +43,35 @@ public class Move {
 		return to;
 	}
 	
+	public MoveType type() {
+		return type;
+	}
+	
 	@Override
 	public String toString() {
-		String op = capture ? "x" : "-";
-		
-		switch(castling) {
-		case noCastling: 		return format("%s%s%s", from, op, to);
-		case blackKingSide: 	return "O-O";
-		case blackQueenSide:	return "O-O-O";
-		case whiteKingSide: 	return "O-O";
-		case whiteQueenSide:	return "O-O-O";
+		switch(type) {
+		case normal: 					return format("%s-%s", from, to);
+		case capture: 					return format("%sx%s", from, to);
+		case enpassant:					return format("%sx%s", from, to);
+		case capturePromotionQueen:		return format("%sx%sQ", from, to);
+		case capturePromotionRook:		return format("%sx%sR", from, to);
+		case capturePromotionBishop:	return format("%sx%sB", from, to);
+		case capturePromotionKnight:	return format("%sx%sK", from, to);
+		case kingsideCastling:			return "O-O";
+		case queensideCastling:			return "O-O-O";
+		case promotionQueen:			return format("%s-%sQ", from, to);
+		case promotionRook:				return format("%s-%sR", from, to);
+		case promotionBishop:			return format("%s-%sB", from, to);	
+		case promotionKnight:			return format("%s-%sK", from, to);
 		default:
 			assert false;
-			throw new IllegalStateException(castling.toString());
+			throw new IllegalStateException(type.toString());
 		}
 	}
 	
 	@Override
 	public int hashCode() {			//TODO unit test
-		return Objects.hash(from, to, capture, castling);
+		return Objects.hash(from, to, type);
 	}
 	
 	@Override			
@@ -99,8 +87,7 @@ public class Move {
 		return 
 			from.equals(that.from) && 
 			to.equals(that.to) && 
-			capture == that.capture && 
-			castling == that.castling;
+			type == that.type;
 	}
 	
 }
