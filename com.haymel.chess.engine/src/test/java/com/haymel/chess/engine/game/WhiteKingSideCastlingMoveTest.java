@@ -46,13 +46,17 @@ public class WhiteKingSideCastlingMoveTest {
 		rook.setMoved(false);
 		game.addWhite(rook);
 		game.place(rook);
+		game.assertVerify();
 	}
 	
 	@Test
 	public void makeAndUndo() {
+		game.assertVerify();
+
 		Move e1g1 = new Move(e1, g1, kingsideCastling);
 		
 		game.makeMove(e1g1);
+		game.assertVerify();
 		assertThat(king.field(), is(g1));
 		assertThat(king.moved(), is(true));
 		assertThat(game.piece(g1), is(king));
@@ -68,6 +72,7 @@ public class WhiteKingSideCastlingMoveTest {
 		assertThat(game.enPassant(), is(removed));
 		
 		game.undoMove();
+		game.assertVerify();
 		assertThat(king.field(), is(e1));
 		assertThat(king.moved(), is(false));
 		assertThat(game.piece(e1), is(king));
@@ -83,13 +88,16 @@ public class WhiteKingSideCastlingMoveTest {
 
 	@Test
 	public void enPassantIsSetCorrectly() {
+		game.assertVerify();
 		game.enPassant(c3);
 
 		Move e1g1 = new Move(e1, g1, kingsideCastling);
 		game.makeMove(e1g1);
+		game.assertVerify();
 		assertThat(game.enPassant(), is(removed));
 		
 		game.undoMove();
+		game.assertVerify();
 		assertThat(game.enPassant(), is(c3));
 	}
 	

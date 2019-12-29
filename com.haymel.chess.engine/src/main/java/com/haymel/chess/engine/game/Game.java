@@ -7,6 +7,8 @@
  */
 package com.haymel.chess.engine.game;
 
+import static com.haymel.chess.engine.board.Field.a3;
+import static com.haymel.chess.engine.board.Field.a6;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
 
@@ -87,6 +89,7 @@ public final class Game {	//TODO unit test
 		case pawnDoubleStep:
 			break;
 		case capture:
+			CaptureWhiteMove.make(this, move);		
 			break;
 		case capturePromotionBishop:
 			break;
@@ -132,6 +135,7 @@ public final class Game {	//TODO unit test
 		case pawnDoubleStep:
 			break;
 		case capture:
+			CaptureWhiteMove.undo(this, undo.move(), undo.moved());		
 			break;
 		case capturePromotionBishop:
 			break;
@@ -290,6 +294,13 @@ public final class Game {	//TODO unit test
 	}
 
 	public void enPassant(Field field) {
+		assert field != null;
+		assert field == Field.removed || board.piece(field).free();
+		assert 
+			field == Field.removed ||
+			activeColor == white && field.rank() == a3.rank() ||
+			activeColor == black && field.rank() == a6.rank();
+		
 		enPassant = field;
 	}
 
@@ -297,6 +308,20 @@ public final class Game {	//TODO unit test
 		halfMoveClock++;
 	}
 
+	public void resetHalfMoveClock() {
+		halfMoveClock(0);
+	}
+	
+	public void halfMoveClock(int value) {
+		assert value >= 0;
+		
+		halfMoveClock = value;
+	}
+
+	public void activeColorWhite() {
+		activeColor = white;
+	}
+	
 	public void activeColorBlack() {
 		activeColor = black;
 	}
@@ -313,10 +338,28 @@ public final class Game {	//TODO unit test
 		return enPassant;
 	}
 
+	public void addBlack(Piece piece) {
+		assert piece != null;
+		assert piece.black();
+		assert !blackPieces.contains(piece);
+
+		blackPieces.add(piece);
+	}
+	
+
 	public void removeBlack(Piece piece) {
+		assert piece != null;
 		assert piece.black();
 		assert !piece.blackKing();
+		assert blackPieces.contains(piece);
+		
 		blackPieces.remove(piece);
+	}
+	
+	public boolean containsBlackPiece(Piece piece) {
+		assert piece != null;
+		assert piece.black();
+		return blackPieces.contains(piece);
 	}
 
 	public boolean assertVerify() {
@@ -359,5 +402,5 @@ public final class Game {	//TODO unit test
 		assert piece.white();
 		whitePieces.add(piece);
 	}
-	
+
 }

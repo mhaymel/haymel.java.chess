@@ -13,7 +13,6 @@ import static com.haymel.chess.engine.game.ActiveColor.white;
 import static com.haymel.chess.engine.moves.MoveType.capture;
 
 import com.haymel.chess.engine.moves.Move;
-import com.haymel.chess.engine.moves.MoveType;
 import com.haymel.chess.engine.piece.Piece;
 
 final class CaptureWhiteMove {
@@ -26,6 +25,7 @@ final class CaptureWhiteMove {
 		assert game.piece(move.to()).black();
 		assert game.piece(move.to()) == move.capturedPiece();
 		assert move.capturedPiece().black();
+		assert game.containsBlackPiece(move.capturedPiece());
 		assert !game.piece(move.to()).blackKing();
 		
 		Piece piece = game.piece(move.from());
@@ -40,31 +40,41 @@ final class CaptureWhiteMove {
 		game.push(move, moved);
 		
 		game.enPassant(removed);
-		game.incHalfMoveClock();
+		game.resetHalfMoveClock();
 		game.activeColorBlack();
 
 		assert game.activeColor() == black; 
 		assert game.piece(move.from()).free();
 		assert game.piece(move.to()).white();
+		assert game.piece(move.to()) == piece;
+		assert !game.containsBlackPiece(move.capturedPiece());
 		assert game.assertVerify();
 	}
 
 	static void undo(Game game, Move move, boolean moved) {
 		assert game.assertVerify();
-		assert game.piece(move.to()).white();
+		assert move.type() == capture;
 		assert game.piece(move.from()).free();
+		assert game.piece(move.to()).white();
+		assert move.capturedPiece().black();
+		assert !game.containsBlackPiece(move.capturedPiece());
 
 		Piece piece = game.piece(move.to());
-		game.clear(move.to());
 		piece.field(move.from());
 		piece.setMoved(moved);
-		piece.setMoved(moved);
 		game.place(piece);
+
+		game.addBlack(move.capturedPiece());
+		game.place(move.capturedPiece());
 		
 		assert game.halfMoveClock() >= 0;
-		assert game.activeColor() == white; 
-		assert game.piece(move.to()).free();
+		assert game.activeColor() == white;
 		assert game.piece(move.from()).white();
+		assert game.piece(move.to()).black();
+		assert game.piece(move.to()) == move.capturedPiece();
+		assert move.capturedPiece().black();
+		assert game.containsBlackPiece(move.capturedPiece());
+		assert !game.piece(move.to()).blackKing();
 		assert game.assertVerify();
 	}
 

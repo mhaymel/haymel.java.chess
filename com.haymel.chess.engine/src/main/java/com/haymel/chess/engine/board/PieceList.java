@@ -32,12 +32,11 @@ public final class PieceList {	//TODO unit test
 
 	public void remove(Piece piece) {
 		assert piece != null;
-		assert size() > 2;
+		assert size() > 0;
 
 		boolean removed = pieces.remove(piece);
 		
 		assert removed;
-		assert size() > 0;
 	}
 	
 	public int size() {
