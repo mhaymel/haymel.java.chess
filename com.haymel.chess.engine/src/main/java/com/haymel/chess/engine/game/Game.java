@@ -298,12 +298,16 @@ public final class Game {	//TODO unit test
 		assert field == Field.removed || board.piece(field).free();
 		assert 
 			field == Field.removed ||
-			activeColor == white && field.rank() == a3.rank() ||
-			activeColor == black && field.rank() == a6.rank();
+			activeColor == white && field.rank() == a3.rank() && board.piece(field.up()).whitePawn()||
+			activeColor == black && field.rank() == a6.rank() && board.piece(field.down()).blackPawn();
 		
 		enPassant = field;
 	}
 
+	public Field enPassant() {
+		return enPassant;
+	}
+	
 	public void incHalfMoveClock() {
 		halfMoveClock++;
 	}
@@ -332,10 +336,6 @@ public final class Game {	//TODO unit test
 
 	public int fullMoveNumber() {
 		return fullMoveNumber;
-	}
-
-	public Field enPassant() {
-		return enPassant;
 	}
 
 	public void addBlack(Piece piece) {

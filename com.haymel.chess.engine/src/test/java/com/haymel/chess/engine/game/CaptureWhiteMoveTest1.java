@@ -8,6 +8,7 @@
 package com.haymel.chess.engine.game;
 
 import static com.haymel.chess.engine.board.Field.a1;
+import static com.haymel.chess.engine.board.Field.a5;
 import static com.haymel.chess.engine.board.Field.a6;
 import static com.haymel.chess.engine.board.Field.c2;
 import static com.haymel.chess.engine.board.Field.removed;
@@ -77,9 +78,14 @@ public class CaptureWhiteMoveTest1 {
 	public void enPassantIsSetCorrectly() {
 		game.assertVerify();
 
-		game.halfMoveClock(13);
+		Piece blackEnpassantPawn = new Piece(BlackPawn);
+		blackEnpassantPawn.field(a5);
+		game.addBlack(blackEnpassantPawn);
+		game.place(blackEnpassantPawn);
 		game.activeColorBlack();
 		game.enPassant(a6);
+		
+		game.halfMoveClock(13);
 		game.activeColorWhite();
 
 		Move a1c2 = new Move(a1, c2, capture, blackPawn);

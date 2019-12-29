@@ -7,10 +7,12 @@
  */
 package com.haymel.chess.engine.game;
 
-import static com.haymel.chess.engine.board.Field.c3;
+import static com.haymel.chess.engine.board.Field.a5;
+import static com.haymel.chess.engine.board.Field.a6;
 import static com.haymel.chess.engine.board.Field.e1;
 import static com.haymel.chess.engine.board.Field.e2;
 import static com.haymel.chess.engine.board.Field.removed;
+import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -59,12 +61,21 @@ public class NormalWhiteMoveTest {
 
 	@Test
 	public void enPassantIsSetCorrectly() {
+		
+		Piece blackEnpassantPawn = new Piece(BlackPawn);
+		blackEnpassantPawn.field(a5);
+		game.addBlack(blackEnpassantPawn);
+		game.place(blackEnpassantPawn);
+		game.activeColorBlack();
+		game.enPassant(a6);
+		
 		Piece king = new Piece(WhiteKing);
 		king.field(e1);
 		king.setMoved(false);
 		game.addWhite(king);
 		game.place(king);
-		game.enPassant(c3);
+		
+		game.activeColorWhite();
 		
 		Move e1e2 = new Move(e1, e2);
 		
@@ -72,7 +83,7 @@ public class NormalWhiteMoveTest {
 		assertThat(game.enPassant(), is(removed));
 		
 		game.undoMove();
-		assertThat(game.enPassant(), is(c3));
+		assertThat(game.enPassant(), is(a6));
 	}
 	
 	@Test

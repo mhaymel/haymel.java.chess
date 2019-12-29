@@ -145,4 +145,8 @@ public final class Piece {
 		return type == BlackPawn;
 	}
 
+	public boolean whitePawn() {
+		return type == WhitePawn;
+	}
+
 }

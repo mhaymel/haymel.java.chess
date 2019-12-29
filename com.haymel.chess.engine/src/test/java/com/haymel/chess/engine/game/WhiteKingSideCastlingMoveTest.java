@@ -7,13 +7,15 @@
  */
 package com.haymel.chess.engine.game;
 
-import static com.haymel.chess.engine.board.Field.c3;
+import static com.haymel.chess.engine.board.Field.a5;
+import static com.haymel.chess.engine.board.Field.a6;
 import static com.haymel.chess.engine.board.Field.e1;
 import static com.haymel.chess.engine.board.Field.f1;
 import static com.haymel.chess.engine.board.Field.g1;
 import static com.haymel.chess.engine.board.Field.h1;
 import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.moves.MoveType.kingsideCastling;
+import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
 import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
 import static org.hamcrest.CoreMatchers.is;
@@ -89,7 +91,14 @@ public class WhiteKingSideCastlingMoveTest {
 	@Test
 	public void enPassantIsSetCorrectly() {
 		game.assertVerify();
-		game.enPassant(c3);
+
+		Piece blackEnpassantPawn = new Piece(BlackPawn);
+		blackEnpassantPawn.field(a5);
+		game.addBlack(blackEnpassantPawn);
+		game.place(blackEnpassantPawn);
+		game.activeColorBlack();
+		game.enPassant(a6);
+		game.activeColorWhite();
 
 		Move e1g1 = new Move(e1, g1, kingsideCastling);
 		game.makeMove(e1g1);
@@ -98,7 +107,7 @@ public class WhiteKingSideCastlingMoveTest {
 		
 		game.undoMove();
 		game.assertVerify();
-		assertThat(game.enPassant(), is(c3));
+		assertThat(game.enPassant(), is(a6));
 	}
 	
 }
