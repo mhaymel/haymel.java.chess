@@ -1,7 +1,7 @@
 /***************************************************
  * (c) Markus Heumel
  *
- * @date: 	28.12.2019
+ * @date: 	29.12.2019
  * @author: Markus.Heumel
  *
  */
@@ -23,7 +23,7 @@ import org.junit.Test;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.piece.Piece;
 
-public class CaptureWhiteMoveTest {
+public class CaptureWhiteMoveTest1 {
 
 	private Game game;
 	private Piece whiteKnight;
