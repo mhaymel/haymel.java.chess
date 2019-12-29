@@ -14,7 +14,7 @@ import static com.haymel.chess.engine.game.ActiveColor.white;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.piece.Piece;
 
-final class NormalWhiteMove {	//TODO unit test
+final class NormalWhiteMove {
 
 	static void make(Game game, Move move) {
 		assert game.activeColor() == white; 

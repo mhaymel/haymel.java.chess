@@ -99,6 +99,10 @@ public final class Game {	//TODO unit test
 		case enpassant:
 			break;
 		case kingsideCastling:
+			WhiteKingSideCastlingMove.make(this, move);
+			break;
+		case queensideCastling:
+			WhiteQueenSideCastlingMove.make(this, move);
 			break;
 		case promotionBishop:
 			break;
@@ -108,8 +112,6 @@ public final class Game {	//TODO unit test
 			break;
 		case promotionRook:
 			break;
-		case queensideCastling:
-			break;
 		default:
 			assert false : "unknown move type " + move.type();
 			break;
@@ -118,6 +120,52 @@ public final class Game {	//TODO unit test
 		assert activeColor == black; 
 	}
 
+
+	private void undoWhiteMove() {
+		assert activeColor == black; 
+		
+		Undo undo = pop();
+		
+		switch(undo.move().type()) {
+		case normal:
+			NormalWhiteMove.undo(this, undo.move(), undo.moved());
+			break;
+		case pawnDoubleStep:
+			break;
+		case capture:
+			break;
+		case capturePromotionBishop:
+			break;
+		case capturePromotionKnight:
+			break;
+		case capturePromotionQueen:
+			break;
+		case capturePromotionRook:
+			break;
+		case enpassant:
+			break;
+		case kingsideCastling:
+			WhiteKingSideCastlingMove.undo(this, undo.move());
+			break;
+		case queensideCastling:
+			WhiteQueenSideCastlingMove.undo(this, undo.move());
+			break;
+		case promotionBishop:
+			break;
+		case promotionKnight:
+			break;
+		case promotionQueen:
+			break;
+		case promotionRook:
+			break;
+		default:
+			assert false : "unknown move type " + undo.move().type();
+			break;
+		}
+		
+		assert activeColor == white; 
+	}
+	
 	private void makeBlackMove(Move move) {
 		assert activeColor == black; 
 		assert board.piece(move.from()).black();
@@ -159,49 +207,6 @@ public final class Game {	//TODO unit test
 		assert activeColor == white; 
 	}
 
-	private void undoWhiteMove() {
-		assert activeColor == black; 
-		
-		Undo undo = pop();
-		
-		switch(undo.move().type()) {
-		case normal:
-			NormalWhiteMove.undo(this, undo.move(), undo.moved());
-			break;
-		case pawnDoubleStep:
-			break;
-		case capture:
-			break;
-		case capturePromotionBishop:
-			break;
-		case capturePromotionKnight:
-			break;
-		case capturePromotionQueen:
-			break;
-		case capturePromotionRook:
-			break;
-		case enpassant:
-			break;
-		case kingsideCastling:
-			break;
-		case promotionBishop:
-			break;
-		case promotionKnight:
-			break;
-		case promotionQueen:
-			break;
-		case promotionRook:
-			break;
-		case queensideCastling:
-			break;
-		default:
-			assert false : "unknown move type " + undo.move().type();
-			break;
-		}
-		
-		assert activeColor == white; 
-	}
-	
 	private void undoBlackMove() {
 		assert activeColor == white; 
 		
