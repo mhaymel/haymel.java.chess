@@ -50,5 +50,9 @@ public final class PieceList {	//TODO unit test
 		
 		return pieces.get(index);
 	}
+
+	public boolean contains(Piece p) {
+		return pieces.contains(p);
+	}
 	
 }

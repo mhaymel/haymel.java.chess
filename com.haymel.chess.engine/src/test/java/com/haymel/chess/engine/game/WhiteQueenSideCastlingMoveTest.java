@@ -38,11 +38,13 @@ public class WhiteQueenSideCastlingMoveTest {
 		king = new Piece(WhiteKing);
 		king.field(e1);
 		king.setMoved(false);
+		game.addWhite(king);
 		game.place(king);
 		
 		rook = new Piece(WhiteRook);
 		rook.field(a1);
 		rook.setMoved(false);
+		game.addWhite(rook);
 		game.place(rook);
 	}
 	

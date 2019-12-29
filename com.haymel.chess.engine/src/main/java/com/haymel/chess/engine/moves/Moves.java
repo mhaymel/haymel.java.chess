@@ -43,7 +43,7 @@ public class Moves {
 		assert !piece.free();
 		assert piece.black() || piece.white();
 
-		moves.add(new Move(from, to, capture));
+		moves.add(new Move(from, to, capture, piece));
 	}
 
 	public void addWhiteKingSideCastling() {

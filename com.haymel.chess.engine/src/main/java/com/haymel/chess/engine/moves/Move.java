@@ -7,32 +7,55 @@
  */
 package com.haymel.chess.engine.moves;
 
+import static com.haymel.chess.engine.moves.MoveType.capture;
+import static com.haymel.chess.engine.moves.MoveType.capturePromotionBishop;
+import static com.haymel.chess.engine.moves.MoveType.capturePromotionKnight;
+import static com.haymel.chess.engine.moves.MoveType.capturePromotionQueen;
+import static com.haymel.chess.engine.moves.MoveType.capturePromotionRook;
+import static com.haymel.chess.engine.moves.MoveType.enpassant;
 import static com.haymel.chess.engine.moves.MoveType.normal;
+import static com.haymel.chess.engine.piece.Piece.free;
 import static java.lang.String.format;
 
 import java.util.Objects;
 
 import com.haymel.chess.engine.board.Field;
+import com.haymel.chess.engine.piece.Piece;
 
 public class Move {
 	
 	private final MoveType type;
 	private final Field from;
 	private final Field to;
+	private final Piece capturedPiece;
 
 	public Move(Field from, Field to) {
 		this(from, to, normal);
 	}
 	
 	public Move(Field from, Field to, MoveType type) {
+		this(from, to, type, free);
+	}	
+	
+	public Move(Field from, Field to, MoveType type, Piece capturedPiece) {
 		assert from != null;
 		assert to != null;
 		assert from != to;
 		assert type != null;
+		assert capturedPiece != null;
+		
+		assert capturedPiece.free() || 
+			type == enpassant ||
+			type == capture ||
+			type == capturePromotionQueen ||
+			type == capturePromotionRook ||
+			type == capturePromotionBishop ||
+			type == capturePromotionKnight;
 		
 		this.from = from;
 		this.to = to;
 		this.type = type;
+		this.capturedPiece = capturedPiece;
 	}
 	
 	public Field from() {
@@ -88,7 +111,12 @@ public class Move {
 		return 
 			from.equals(that.from) && 
 			to.equals(that.to) && 
-			type == that.type;
+			type == that.type &&
+			capturedPiece == that.capturedPiece;
+	}
+
+	public Piece capturedPiece() {
+		return capturedPiece;
 	}
 	
 }

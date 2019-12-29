@@ -181,10 +181,6 @@ public final class Field {
 		return (position % up) - 2;
 	}
 	
-	static Field field(int position) {
-		return field(position);
-	}
-	
 	private static Field[] createFields() {
 		Field[] fields = new Field[up*up + 1];
 		

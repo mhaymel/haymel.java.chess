@@ -120,7 +120,6 @@ public final class Game {	//TODO unit test
 		assert activeColor == black; 
 	}
 
-
 	private void undoWhiteMove() {
 		assert activeColor == black; 
 		
@@ -277,6 +276,12 @@ public final class Game {	//TODO unit test
 	}
 
 	public void place(Piece piece) {
+		assert piece != null;
+		assert piece.black() || piece.white();
+		assert 
+			piece.black() && blackPieces.contains(piece) || 
+			piece.white() && whitePieces.contains(piece);
+		
 		board.place(piece);
 	}
 
@@ -306,6 +311,53 @@ public final class Game {	//TODO unit test
 
 	public Field enPassant() {
 		return enPassant;
+	}
+
+	public void removeBlack(Piece piece) {
+		assert piece.black();
+		assert !piece.blackKing();
+		blackPieces.remove(piece);
+	}
+
+	public boolean assertVerify() {
+		assert board.assertVerify();
+		
+		int size = whitePieces.size();
+		for(int i = 0; i < size; i++) {
+			Piece piece = whitePieces.piece(i);
+			assert piece.white();
+			assert board.piece(piece.field()) == piece;
+		}
+
+		size = blackPieces.size();
+		for(int i = 0; i < size; i++) {
+			Piece piece = blackPieces.piece(i);
+			assert piece.black();
+			assert board.piece(piece.field()) == piece;
+		}
+		
+		Field fy = Field.a1;
+		for(int y = 0; y < 8; y++) {
+			Field fx = fy;
+			for(int x = 0; x < 8; x++) {
+				Piece p = board.piece(fx);
+				assert !p.border();
+				if (p.black()) 
+					assert blackPieces.contains(p);
+				else if (p.white())
+					assert whitePieces.contains(p);
+				fx = fx.right();
+			}
+			fy = fy.up();
+			
+		}
+		return true;
+	}
+
+	public void addWhite(Piece piece) {
+		assert piece != null;
+		assert piece.white();
+		whitePieces.add(piece);
 	}
 	
 }

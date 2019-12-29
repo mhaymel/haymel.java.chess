@@ -35,6 +35,7 @@ public class NormalWhiteMoveTest {
 		Piece king = new Piece(WhiteKing);
 		king.field(e1);
 		king.setMoved(false);
+		game.addWhite(king);
 		game.place(king);
 		
 		Move e1e2 = new Move(e1, e2);
@@ -61,6 +62,7 @@ public class NormalWhiteMoveTest {
 		Piece king = new Piece(WhiteKing);
 		king.field(e1);
 		king.setMoved(false);
+		game.addWhite(king);
 		game.place(king);
 		game.enPassant(c3);
 		
@@ -78,6 +80,7 @@ public class NormalWhiteMoveTest {
 		Piece king = new Piece(WhiteKing);
 		king.field(e1);
 		king.setMoved(true);
+		game.addWhite(king);
 		game.place(king);
 		
 		Move e1e2 = new Move(e1, e2);

@@ -62,4 +62,11 @@ public final class Board {
 		}
 	}
 
+	public boolean assertVerify() {
+		for(int i = 0; i < pieces.length; i++) {
+			assert pieces[i].free() || pieces[i].border() || piece(pieces[i].field()) == pieces[i];
+		}
+		return true;
+	}
+
 }

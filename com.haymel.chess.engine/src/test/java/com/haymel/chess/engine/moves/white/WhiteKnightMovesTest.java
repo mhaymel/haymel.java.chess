@@ -168,7 +168,7 @@ public class WhiteKnightMovesTest {
 	}
 	
 	private Move capture(Field from, Field to) {
-		return new Move(from, to, capture);
+		return new Move(from, to, capture, board.piece(to));
 	}
 	
 	private Piece blackPawn(Field f) {

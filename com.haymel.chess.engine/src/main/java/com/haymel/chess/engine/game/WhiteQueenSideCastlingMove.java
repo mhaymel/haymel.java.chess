@@ -22,6 +22,7 @@ import com.haymel.chess.engine.piece.Piece;
 final class WhiteQueenSideCastlingMove {
 
 	static void make(Game game, Move move) {
+		assert game.assertVerify();
 		assert game.activeColor() == white;
 		assert move.from() == e1;
 		assert move.to() == c1;
@@ -59,9 +60,11 @@ final class WhiteQueenSideCastlingMove {
 		assert game.piece(c1).moved();
 		assert game.piece(d1).whiteRook();
 		assert game.piece(d1).moved();
+		assert game.assertVerify();
 	}
 
 	static void undo(Game game, Move move) {
+		assert game.assertVerify();
 		assert game.piece(e1).free();
 		assert game.piece(a1).free();
 		assert game.piece(c1).whiteKing();
@@ -90,6 +93,7 @@ final class WhiteQueenSideCastlingMove {
 		assert game.piece(b1).free();
 		assert game.piece(c1).free();
 		assert game.piece(d1).free();
+		assert game.assertVerify();
 	}
 
 }
