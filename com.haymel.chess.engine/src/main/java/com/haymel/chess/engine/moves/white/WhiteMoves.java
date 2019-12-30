@@ -19,6 +19,7 @@ public class WhiteMoves {		//TODO unit test
 	
 	private WhiteKingMoves kingMoves;
 	private WhiteRookMoves rookMoves;
+	private WhiteKnightMoves knightMoves;
 	
 	public WhiteMoves(Board board, Moves moves) {
 		assert board != null;
@@ -28,6 +29,8 @@ public class WhiteMoves {		//TODO unit test
 		this.moves = moves;
 		this.kingMoves = new WhiteKingMoves(board, moves);
 		this.rookMoves = new WhiteRookMoves(board, moves);
+		this.rookMoves = new WhiteRookMoves(board, moves);
+		this.knightMoves = new WhiteKnightMoves(board, moves);
 	}
 	
 	public void generate(PieceList pieces) {
@@ -50,6 +53,7 @@ public class WhiteMoves {		//TODO unit test
 			rookMoves.generate(piece);
 			break;
 		case WhiteKnight:
+			knightMoves.generate(piece);
 			break;
 		case WhiteBishop:
 			break;

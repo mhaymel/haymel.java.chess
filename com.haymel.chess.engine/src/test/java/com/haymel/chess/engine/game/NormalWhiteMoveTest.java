@@ -26,10 +26,12 @@ import com.haymel.chess.engine.piece.Piece;
 public class NormalWhiteMoveTest {
 
 	private Game game;
+	private MoveMaker moveMaker;
 	
 	@Before
 	public void setup() {
 		game = new Game();
+		moveMaker = new MoveMaker(game);
 	}
 	
 	@Test
@@ -42,7 +44,7 @@ public class NormalWhiteMoveTest {
 		
 		Move e1e2 = new Move(e1, e2);
 		
-		game.makeMove(e1e2);
+		moveMaker.makeMove(e1e2);
 		assertThat(king.field(), is(e2));
 		assertThat(king.moved(), is(true));
 		assertThat(game.piece(e1).free(), is(true));
@@ -50,7 +52,7 @@ public class NormalWhiteMoveTest {
 		assertThat(game.fullMoveNumber(), is(1));
 		assertThat(game.enPassant(), is(removed));
 		
-		game.undoMove();
+		moveMaker.undoMove();
 		assertThat(king.field(), is(e1));
 		assertThat(king.moved(), is(false));
 		assertThat(game.piece(e2).free(), is(true));
@@ -79,10 +81,10 @@ public class NormalWhiteMoveTest {
 		
 		Move e1e2 = new Move(e1, e2);
 		
-		game.makeMove(e1e2);
+		moveMaker.makeMove(e1e2);
 		assertThat(game.enPassant(), is(removed));
 		
-		game.undoMove();
+		moveMaker.undoMove();
 		assertThat(game.enPassant(), is(a6));
 	}
 	
@@ -96,10 +98,10 @@ public class NormalWhiteMoveTest {
 		
 		Move e1e2 = new Move(e1, e2);
 		
-		game.makeMove(e1e2);
+		moveMaker.makeMove(e1e2);
 		assertThat(king.moved(), is(true));
 		
-		game.undoMove();
+		moveMaker.undoMove();
 		assertThat(king.moved(), is(true));
 	}
 	

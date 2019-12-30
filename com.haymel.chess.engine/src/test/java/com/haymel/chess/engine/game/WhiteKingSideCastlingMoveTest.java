@@ -30,12 +30,14 @@ import com.haymel.chess.engine.piece.Piece;
 public class WhiteKingSideCastlingMoveTest {
 
 	private Game game;
+	private MoveMaker moveMaker;
 	private Piece king;
 	private Piece rook;
 	
 	@Before
 	public void setup() {
 		game = new Game();
+		moveMaker = new MoveMaker(game);
 
 		king = new Piece(WhiteKing);
 		king.field(e1);
@@ -53,12 +55,9 @@ public class WhiteKingSideCastlingMoveTest {
 	
 	@Test
 	public void makeAndUndo() {
-		game.assertVerify();
-
 		Move e1g1 = new Move(e1, g1, kingsideCastling);
 		
-		game.makeMove(e1g1);
-		game.assertVerify();
+		moveMaker.makeMove(e1g1);
 		assertThat(king.field(), is(g1));
 		assertThat(king.moved(), is(true));
 		assertThat(game.piece(g1), is(king));
@@ -73,8 +72,7 @@ public class WhiteKingSideCastlingMoveTest {
 		assertThat(game.fullMoveNumber(), is(1));
 		assertThat(game.enPassant(), is(removed));
 		
-		game.undoMove();
-		game.assertVerify();
+		moveMaker.undoMove();
 		assertThat(king.field(), is(e1));
 		assertThat(king.moved(), is(false));
 		assertThat(game.piece(e1), is(king));
@@ -90,8 +88,6 @@ public class WhiteKingSideCastlingMoveTest {
 
 	@Test
 	public void enPassantIsSetCorrectly() {
-		game.assertVerify();
-
 		Piece blackEnpassantPawn = new Piece(BlackPawn);
 		blackEnpassantPawn.field(a5);
 		game.addBlack(blackEnpassantPawn);
@@ -101,12 +97,10 @@ public class WhiteKingSideCastlingMoveTest {
 		game.activeColorWhite();
 
 		Move e1g1 = new Move(e1, g1, kingsideCastling);
-		game.makeMove(e1g1);
-		game.assertVerify();
+		moveMaker.makeMove(e1g1);
 		assertThat(game.enPassant(), is(removed));
 		
-		game.undoMove();
-		game.assertVerify();
+		moveMaker.undoMove();
 		assertThat(game.enPassant(), is(a6));
 	}
 	

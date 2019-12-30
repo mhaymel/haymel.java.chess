@@ -9,6 +9,7 @@ package com.haymel.chess.engine.game;
 
 import static com.haymel.chess.engine.board.Field.a3;
 import static com.haymel.chess.engine.board.Field.a6;
+import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
 
@@ -37,219 +38,6 @@ public final class Game {	//TODO unit test
 		this.enPassant = Field.removed;
 		this.halfMoveClock = 0;
 		this.fullMoveNumber = 1;
-	}
-	
-	public void makeMove(Move move) {
-		assert move != null;
-		assert 
-			activeColor == white && board.piece(move.from()).white() || 
-			activeColor == black && board.piece(move.from()).black();
-		
-		switch(activeColor) {
-		case black:
-			makeBlackMove(move);
-			assert activeColor == white;
-			break;
-		case white:
-			makeWhiteMove(move);
-			assert activeColor == black;
-			break;
-		default:
-			assert false : "unknown activeColor " + activeColor;
-			break;
-		}
-		
-		assert halfMoveClock >= 0;
-	}
-
-	public void undoMove() {
-		switch(activeColor) {
-		case black:
-			undoWhiteMove();
-			break;
-		case white:
-			undoBlackMove();
-			break;
-		default:
-			assert false : "unknown activeColor " + activeColor;
-			break;
-		}
-
-		assert halfMoveClock >= 0;
-	}
-	
-	private void makeWhiteMove(Move move) {
-		assert activeColor == white; 
-		assert board.piece(move.from()).white();
-		
-		switch(move.type()) {
-		case normal:
-			NormalWhiteMove.make(this, move);
-			break;
-		case pawnDoubleStep:
-			break;
-		case capture:
-			CaptureWhiteMove.make(this, move);		
-			break;
-		case capturePromotionBishop:
-			break;
-		case capturePromotionKnight:
-			break;
-		case capturePromotionQueen:
-			break;
-		case capturePromotionRook:
-			break;
-		case enpassant:
-			break;
-		case kingsideCastling:
-			WhiteKingSideCastlingMove.make(this, move);
-			break;
-		case queensideCastling:
-			WhiteQueenSideCastlingMove.make(this, move);
-			break;
-		case promotionBishop:
-			break;
-		case promotionKnight:
-			break;
-		case promotionQueen:
-			break;
-		case promotionRook:
-			break;
-		default:
-			assert false : "unknown move type " + move.type();
-			break;
-		}
-		
-		assert activeColor == black; 
-	}
-
-	private void undoWhiteMove() {
-		assert activeColor == black; 
-		
-		Undo undo = pop();
-		
-		switch(undo.move().type()) {
-		case normal:
-			NormalWhiteMove.undo(this, undo.move(), undo.moved());
-			break;
-		case pawnDoubleStep:
-			break;
-		case capture:
-			CaptureWhiteMove.undo(this, undo.move(), undo.moved());		
-			break;
-		case capturePromotionBishop:
-			break;
-		case capturePromotionKnight:
-			break;
-		case capturePromotionQueen:
-			break;
-		case capturePromotionRook:
-			break;
-		case enpassant:
-			break;
-		case kingsideCastling:
-			WhiteKingSideCastlingMove.undo(this, undo.move());
-			break;
-		case queensideCastling:
-			WhiteQueenSideCastlingMove.undo(this, undo.move());
-			break;
-		case promotionBishop:
-			break;
-		case promotionKnight:
-			break;
-		case promotionQueen:
-			break;
-		case promotionRook:
-			break;
-		default:
-			assert false : "unknown move type " + undo.move().type();
-			break;
-		}
-		
-		assert activeColor == white; 
-	}
-	
-	private void makeBlackMove(Move move) {
-		assert activeColor == black; 
-		assert board.piece(move.from()).black();
-		
-		switch(move.type()) {
-		case normal:
-			break;
-		case pawnDoubleStep:
-			break;
-		case capture:
-			break;
-		case capturePromotionBishop:
-			break;
-		case capturePromotionKnight:
-			break;
-		case capturePromotionQueen:
-			break;
-		case capturePromotionRook:
-			break;
-		case enpassant:
-			break;
-		case kingsideCastling:
-			break;
-		case promotionBishop:
-			break;
-		case promotionKnight:
-			break;
-		case promotionQueen:
-			break;
-		case promotionRook:
-			break;
-		case queensideCastling:
-			break;
-		default:
-			assert false : "unknown move type " + move.type();
-			break;
-		}
-
-		assert activeColor == white; 
-	}
-
-	private void undoBlackMove() {
-		assert activeColor == white; 
-		
-		Undo undo = pop();
-		
-		switch(undo.move().type()) {
-		case normal:
-			break;
-		case pawnDoubleStep:
-			break;
-		case capture:
-			break;
-		case capturePromotionBishop:
-			break;
-		case capturePromotionKnight:
-			break;
-		case capturePromotionQueen:
-			break;
-		case capturePromotionRook:
-			break;
-		case enpassant:
-			break;
-		case kingsideCastling:
-			break;
-		case promotionBishop:
-			break;
-		case promotionKnight:
-			break;
-		case promotionQueen:
-			break;
-		case promotionRook:
-			break;
-		case queensideCastling:
-			break;
-		default:
-			assert false : "unknown move type " + undo.move().type();
-			break;
-		}
-		
-		assert activeColor == black; 
 	}
 
 	public void push(Move move, boolean moved) {
@@ -293,11 +81,15 @@ public final class Game {	//TODO unit test
 		undos.add(undo);
 	}
 
+	public void resetEnPassant() {
+		enPassant(removed);
+	}
+
 	public void enPassant(Field field) {
 		assert field != null;
-		assert field == Field.removed || board.piece(field).free();
+		assert field == removed || board.piece(field).free();
 		assert 
-			field == Field.removed ||
+			field == removed ||
 			activeColor == white && field.rank() == a3.rank() && board.piece(field.up()).whitePawn()||
 			activeColor == black && field.rank() == a6.rank() && board.piece(field.down()).blackPawn();
 		
@@ -322,6 +114,10 @@ public final class Game {	//TODO unit test
 		halfMoveClock = value;
 	}
 
+	public void resetFullMoveNumber() {
+		fullMoveNumber = 1;
+	}
+	
 	public void activeColorWhite() {
 		activeColor = white;
 	}
@@ -345,7 +141,6 @@ public final class Game {	//TODO unit test
 
 		blackPieces.add(piece);
 	}
-	
 
 	public void removeBlack(Piece piece) {
 		assert piece != null;
@@ -364,6 +159,8 @@ public final class Game {	//TODO unit test
 
 	public boolean assertVerify() {
 		assert board.assertVerify();
+		assert halfMoveClock >= 0;
+		assert fullMoveNumber > 0;
 		
 		int size = whitePieces.size();
 		for(int i = 0; i < size; i++) {

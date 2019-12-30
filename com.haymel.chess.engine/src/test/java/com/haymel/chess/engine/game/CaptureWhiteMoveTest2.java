@@ -24,12 +24,16 @@ import com.haymel.chess.engine.piece.Piece;
 public class CaptureWhiteMoveTest2 {
 
 	private Game game;
+	private MoveMaker moveMaker;
+
 	private Piece whiteRook;
 	private Piece blackRook;
 	
 	@Before
 	public void setup() {
 		game = new Game();
+		moveMaker = new MoveMaker(game);
+		
 		whiteRook = new Piece(WhiteRook);
 		whiteRook.field(a1);
 		whiteRook.setMoved(false);
@@ -51,11 +55,11 @@ public class CaptureWhiteMoveTest2 {
 
 		Move a1a8 = new Move(a1, a8, capture, blackRook);
 		
-		game.makeMove(a1a8);
+		moveMaker.makeMove(a1a8);
 		game.assertVerify();
 		assertThat(whiteRook.moved(), is(true));
 		
-		game.undoMove();
+		moveMaker.undoMove();
 		game.assertVerify();
 		assertThat(whiteRook.moved(), is(false));
 		assertThat(blackRook.moved(), is(false));

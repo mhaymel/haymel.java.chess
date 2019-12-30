@@ -30,12 +30,14 @@ import com.haymel.chess.engine.piece.Piece;
 public class WhiteQueenSideCastlingMoveTest {
 
 	private Game game;
+	private MoveMaker moveMaker;
 	private Piece king;
 	private Piece rook;
 	
 	@Before
 	public void setup() {
 		game = new Game();
+		moveMaker = new MoveMaker(game);
 
 		king = new Piece(WhiteKing);
 		king.field(e1);
@@ -54,7 +56,7 @@ public class WhiteQueenSideCastlingMoveTest {
 	public void makeAndUndo() {
 		Move e1c1 = new Move(e1, c1, queensideCastling);
 		
-		game.makeMove(e1c1);
+		moveMaker.makeMove(e1c1);
 		assertThat(king.field(), is(c1));
 		assertThat(king.moved(), is(true));
 		assertThat(game.piece(c1), is(king));
@@ -69,7 +71,7 @@ public class WhiteQueenSideCastlingMoveTest {
 		assertThat(game.fullMoveNumber(), is(1));
 		assertThat(game.enPassant(), is(removed));
 		
-		game.undoMove();
+		moveMaker.undoMove();
 		assertThat(king.field(), is(e1));
 		assertThat(king.moved(), is(false));
 		assertThat(game.piece(e1), is(king));
@@ -94,10 +96,10 @@ public class WhiteQueenSideCastlingMoveTest {
 		game.activeColorWhite();
 
 		Move e1c1 = new Move(e1, c1, queensideCastling);
-		game.makeMove(e1c1);
+		moveMaker.makeMove(e1c1);
 		assertThat(game.enPassant(), is(removed));
 		
-		game.undoMove();
+		moveMaker.undoMove();
 		assertThat(game.enPassant(), is(a6));
 	}
 	
