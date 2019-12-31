@@ -17,10 +17,11 @@ public class WhiteMoves {		//TODO unit test
 	private final Board board;
 	private final Moves moves;
 	
-	private WhiteKingMoves kingMoves;
-	private WhiteRookMoves rookMoves;
-	private WhiteKnightMoves knightMoves;
-	private WhiteBishopMoves bishopMoves;
+	private final WhiteKingMoves kingMoves;
+	private final WhiteRookMoves rookMoves;
+	private final WhiteKnightMoves knightMoves;
+	private final WhiteBishopMoves bishopMoves;
+	private final WhiteQueenMoves queenMoves;
 	
 	public WhiteMoves(Board board, Moves moves) {
 		assert board != null;
@@ -30,9 +31,9 @@ public class WhiteMoves {		//TODO unit test
 		this.moves = moves;
 		this.kingMoves = new WhiteKingMoves(board, moves);
 		this.rookMoves = new WhiteRookMoves(board, moves);
-		this.rookMoves = new WhiteRookMoves(board, moves);
 		this.knightMoves = new WhiteKnightMoves(board, moves);
 		this.bishopMoves = new WhiteBishopMoves(board, moves);
+		this.queenMoves = new WhiteQueenMoves(board, moves);
 	}
 	
 	public void generate(PieceList pieces) {
@@ -61,6 +62,7 @@ public class WhiteMoves {		//TODO unit test
 			bishopMoves.generate(piece);
 			break;
 		case WhiteQueen:
+			queenMoves.generate(piece);
 			break;
 		case WhiteKing:
 			kingMoves.generate(piece);

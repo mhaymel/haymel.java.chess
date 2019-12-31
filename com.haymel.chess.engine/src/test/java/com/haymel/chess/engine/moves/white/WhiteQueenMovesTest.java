@@ -1,7 +1,7 @@
 /***************************************************
  * (c) Markus Heumel
  *
- * @date: 	30.12.2019
+ * @date: 	31.12.2019
  * @author: Markus.Heumel
  *
  */
@@ -16,14 +16,18 @@ import static com.haymel.chess.engine.board.Field.a6;
 import static com.haymel.chess.engine.board.Field.a7;
 import static com.haymel.chess.engine.board.Field.a8;
 import static com.haymel.chess.engine.board.Field.b1;
+import static com.haymel.chess.engine.board.Field.b2;
 import static com.haymel.chess.engine.board.Field.b4;
-import static com.haymel.chess.engine.board.Field.b8;
+import static com.haymel.chess.engine.board.Field.b7;
 import static com.haymel.chess.engine.board.Field.c1;
+import static com.haymel.chess.engine.board.Field.c2;
+import static com.haymel.chess.engine.board.Field.c3;
 import static com.haymel.chess.engine.board.Field.c4;
-import static com.haymel.chess.engine.board.Field.c8;
+import static com.haymel.chess.engine.board.Field.c6;
 import static com.haymel.chess.engine.board.Field.d1;
+import static com.haymel.chess.engine.board.Field.d3;
 import static com.haymel.chess.engine.board.Field.d4;
-import static com.haymel.chess.engine.board.Field.d8;
+import static com.haymel.chess.engine.board.Field.d5;
 import static com.haymel.chess.engine.board.Field.e1;
 import static com.haymel.chess.engine.board.Field.e2;
 import static com.haymel.chess.engine.board.Field.e3;
@@ -33,23 +37,23 @@ import static com.haymel.chess.engine.board.Field.e6;
 import static com.haymel.chess.engine.board.Field.e7;
 import static com.haymel.chess.engine.board.Field.e8;
 import static com.haymel.chess.engine.board.Field.f1;
+import static com.haymel.chess.engine.board.Field.f3;
 import static com.haymel.chess.engine.board.Field.f4;
-import static com.haymel.chess.engine.board.Field.f8;
+import static com.haymel.chess.engine.board.Field.f5;
+import static com.haymel.chess.engine.board.Field.f6;
 import static com.haymel.chess.engine.board.Field.g1;
+import static com.haymel.chess.engine.board.Field.g2;
 import static com.haymel.chess.engine.board.Field.g4;
-import static com.haymel.chess.engine.board.Field.g8;
+import static com.haymel.chess.engine.board.Field.g6;
+import static com.haymel.chess.engine.board.Field.g7;
 import static com.haymel.chess.engine.board.Field.h1;
-import static com.haymel.chess.engine.board.Field.h2;
-import static com.haymel.chess.engine.board.Field.h3;
 import static com.haymel.chess.engine.board.Field.h4;
-import static com.haymel.chess.engine.board.Field.h5;
-import static com.haymel.chess.engine.board.Field.h6;
 import static com.haymel.chess.engine.board.Field.h7;
 import static com.haymel.chess.engine.board.Field.h8;
 import static com.haymel.chess.engine.moves.MoveType.capture;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
-import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
+import static com.haymel.chess.engine.piece.PieceType.WhiteQueen;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -66,28 +70,35 @@ import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.piece.Piece;
 import com.haymel.chess.engine.piece.PieceType;
 
-public class WhiteRookMovesTest {
+public class WhiteQueenMovesTest {
 
 	private Moves moves;
 	private Board board;
-	private WhiteRookMoves rookMoves;
-	private Piece rook = new Piece(WhiteRook);
+	private WhiteQueenMoves queenMoves;
+	private Piece queen = new Piece(WhiteQueen);
 	
 	@Before
 	public void setup() {
 		moves = new Moves();
 		board = new Board();
-		rookMoves = new WhiteRookMoves(board, moves);
+		queenMoves = new WhiteQueenMoves(board, moves);
 	}
 	
 	@Test
 	public void testA1() {
-		rook(a1);
-		rookMoves.generate(rook);
+		queen(a1);
+		queenMoves.generate(queen);
 		
-		assertThat(moves.size(), is(14));
+		assertThat(moves.size(), is(21));
 		
 		Set<Move> result = movesAsSet();
+		assertThat(result.contains(new Move(a1, b2)), is(true));
+		assertThat(result.contains(new Move(a1, c3)), is(true));
+		assertThat(result.contains(new Move(a1, d4)), is(true));
+		assertThat(result.contains(new Move(a1, e5)), is(true));
+		assertThat(result.contains(new Move(a1, f6)), is(true));
+		assertThat(result.contains(new Move(a1, g7)), is(true));
+		assertThat(result.contains(new Move(a1, h8)), is(true));
 		assertThat(result.contains(new Move(a1, a2)), is(true));
 		assertThat(result.contains(new Move(a1, a3)), is(true));
 		assertThat(result.contains(new Move(a1, a4)), is(true));
@@ -105,38 +116,26 @@ public class WhiteRookMovesTest {
 	}
 
 	@Test
-	public void testH8() {
-		rook(h8);
-		rookMoves.generate(rook);
-		
-		assertThat(moves.size(), is(14));
-		
-		Set<Move> result = movesAsSet();
-		assertThat(result.contains(new Move(h8, g8)), is(true));
-		assertThat(result.contains(new Move(h8, f8)), is(true));
-		assertThat(result.contains(new Move(h8, g8)), is(true));
-		assertThat(result.contains(new Move(h8, e8)), is(true));
-		assertThat(result.contains(new Move(h8, d8)), is(true));
-		assertThat(result.contains(new Move(h8, c8)), is(true));
-		assertThat(result.contains(new Move(h8, b8)), is(true));
-		assertThat(result.contains(new Move(h8, a8)), is(true));
-		assertThat(result.contains(new Move(h8, h7)), is(true));
-		assertThat(result.contains(new Move(h8, h6)), is(true));
-		assertThat(result.contains(new Move(h8, h5)), is(true));
-		assertThat(result.contains(new Move(h8, h4)), is(true));
-		assertThat(result.contains(new Move(h8, h3)), is(true));
-		assertThat(result.contains(new Move(h8, h2)), is(true));
-		assertThat(result.contains(new Move(h8, h1)), is(true));
-	}
-
-	@Test
 	public void testE4() {
-		rook(e4);
-		rookMoves.generate(rook);
+		queen(e4);
+		queenMoves.generate(queen);
 		
-		assertThat(moves.size(), is(14));
+		assertThat(moves.size(), is(27));
 		
 		Set<Move> result = movesAsSet();
+		assertThat(result.contains(new Move(e4, d3)), is(true));
+		assertThat(result.contains(new Move(e4, c2)), is(true));
+		assertThat(result.contains(new Move(e4, b1)), is(true));
+		assertThat(result.contains(new Move(e4, f5)), is(true));
+		assertThat(result.contains(new Move(e4, g6)), is(true));
+		assertThat(result.contains(new Move(e4, h7)), is(true));
+		assertThat(result.contains(new Move(e4, d5)), is(true));
+		assertThat(result.contains(new Move(e4, c6)), is(true));
+		assertThat(result.contains(new Move(e4, b7)), is(true));
+		assertThat(result.contains(new Move(e4, a8)), is(true));
+		assertThat(result.contains(new Move(e4, f3)), is(true));
+		assertThat(result.contains(new Move(e4, g2)), is(true));
+		assertThat(result.contains(new Move(e4, h1)), is(true));
 		assertThat(result.contains(new Move(e4, e3)), is(true));
 		assertThat(result.contains(new Move(e4, e2)), is(true));
 		assertThat(result.contains(new Move(e4, e1)), is(true));
@@ -152,18 +151,26 @@ public class WhiteRookMovesTest {
 		assertThat(result.contains(new Move(e4, g4)), is(true));
 		assertThat(result.contains(new Move(e4, h4)), is(true));
 	}
-	
+
 	@Test
 	public void testE4Capture() {
-		rook(e4);
+		queen(e4);
+		blackPawn(d5);
+		blackPawn(f3);
+		blackPawn(d3);
+		blackPawn(f5);
 		blackPawn(e5);
 		blackPawn(e3);
 		blackPawn(d4);
 		blackPawn(f4);
-		rookMoves.generate(rook);
+		queenMoves.generate(queen);
 		
-		assertThat(moves.size(), is(4));
+		assertThat(moves.size(), is(8));
 		Set<Move> result = movesAsSet();
+		assertThat(result.contains(capture(e4, d5)), is(true));
+		assertThat(result.contains(capture(e4, f3)), is(true));
+		assertThat(result.contains(capture(e4, d3)), is(true));
+		assertThat(result.contains(capture(e4, f5)), is(true));
 		assertThat(result.contains(capture(e4, e5)), is(true));
 		assertThat(result.contains(capture(e4, e3)), is(true));
 		assertThat(result.contains(capture(e4, d4)), is(true));
@@ -172,12 +179,16 @@ public class WhiteRookMovesTest {
 
 	@Test
 	public void testE4MoveNotPossible() {
-		rook(e4);
+		queen(e4);
+		whitePawn(d5);
+		whitePawn(f3);
+		whitePawn(d3);
+		whitePawn(f5);
 		whitePawn(e5);
 		whitePawn(e3);
 		whitePawn(d4);
 		whitePawn(f4);
-		rookMoves.generate(rook);
+		queenMoves.generate(queen);
 		
 		assertThat(moves.size(), is(0));
 	}
@@ -201,9 +212,9 @@ public class WhiteRookMovesTest {
 		return p;
 	}
 	
-	private void rook(Field f) {
-		rook.field(f);
-		board.place(rook);
+	private void queen(Field f) {
+		queen.field(f);
+		board.place(queen);
 	}
 	
 	private Set<Move> movesAsSet() {
