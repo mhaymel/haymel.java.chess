@@ -8,19 +8,23 @@
 package com.haymel.chess.engine.moves;
 
 import static com.haymel.chess.engine.moves.MoveType.capture;
-import static com.haymel.chess.engine.moves.MoveType.capturePromotionBishop;
-import static com.haymel.chess.engine.moves.MoveType.capturePromotionKnight;
-import static com.haymel.chess.engine.moves.MoveType.capturePromotionQueen;
-import static com.haymel.chess.engine.moves.MoveType.capturePromotionRook;
+import static com.haymel.chess.engine.moves.MoveType.capturePromotion;
 import static com.haymel.chess.engine.moves.MoveType.enpassant;
 import static com.haymel.chess.engine.moves.MoveType.normal;
 import static com.haymel.chess.engine.piece.Piece.free;
+import static com.haymel.chess.engine.piece.PieceType.BlackKing;
+import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
+import static com.haymel.chess.engine.piece.PieceType.Border;
+import static com.haymel.chess.engine.piece.PieceType.Free;
+import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
+import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
 import static java.lang.String.format;
 
 import java.util.Objects;
 
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.piece.Piece;
+import com.haymel.chess.engine.piece.PieceType;
 
 public class Move {
 	
@@ -28,34 +32,53 @@ public class Move {
 	private final Field from;
 	private final Field to;
 	private final Piece capturedPiece;
+	private final PieceType promotion;
 
 	public Move(Field from, Field to) {
 		this(from, to, normal);
 	}
 	
 	public Move(Field from, Field to, MoveType type) {
-		this(from, to, type, free);
+		this(from, to, type, free, Free);
 	}	
-	
+
 	public Move(Field from, Field to, MoveType type, Piece capturedPiece) {
+		this(from, to, type, capturedPiece, Free);
+	}
+	
+	public Move(Field from, Field to, MoveType type, PieceType promotion) {
+		this(from, to, type, free, promotion);
+	}
+	
+	public Move(Field from, Field to, MoveType type, Piece capturedPiece, PieceType promotion) {
 		assert from != null;
 		assert to != null;
 		assert from != to;
 		assert type != null;
 		assert capturedPiece != null;
+		assert promotion != null;
+		assert 
+			promotion != BlackKing || 
+			promotion != WhiteKing || 
+			promotion != BlackPawn || 
+			promotion != WhitePawn ||
+			promotion != Border;
 		
 		assert capturedPiece.free() || 
 			type == enpassant ||
 			type == capture ||
-			type == capturePromotionQueen ||
-			type == capturePromotionRook ||
-			type == capturePromotionBishop ||
-			type == capturePromotionKnight;
-		
+			type == capturePromotion;
+
+		assert 
+			promotion == Free || 
+			to.rank() == 0 || 
+			to.rank() == 7; 
+				
 		this.from = from;
 		this.to = to;
 		this.type = type;
 		this.capturedPiece = capturedPiece;
+		this.promotion = promotion;
 	}
 	
 	public Field from() {
@@ -74,19 +97,13 @@ public class Move {
 	public String toString() {
 		switch(type) {
 		case normal: 
-		case pawnDoubleStep:			return format("%s-%s", from, to);
-		case capture: 					return format("%sx%s", from, to);
-		case enpassant:					return format("%sx%se.p.", from, to);
-		case capturePromotionQueen:		return format("%sx%sQ", from, to);
-		case capturePromotionRook:		return format("%sx%sR", from, to);
-		case capturePromotionBishop:	return format("%sx%sB", from, to);
-		case capturePromotionKnight:	return format("%sx%sN", from, to);
-		case kingsideCastling:			return "O-O";
-		case queensideCastling:			return "O-O-O";
-		case promotionQueen:			return format("%s-%sQ", from, to);
-		case promotionRook:				return format("%s-%sR", from, to);
-		case promotionBishop:			return format("%s-%sB", from, to);	
-		case promotionKnight:			return format("%s-%sN", from, to);
+		case pawnDoubleStep:	return format("%s-%s", from, to);
+		case capture: 			return format("%sx%s", from, to);
+		case enpassant:			return format("%sx%se.p.", from, to);
+		case capturePromotion:	return format("%sx%s%s", from, to, letterForPieceType(promotion));
+		case kingsideCastling:	return "O-O";
+		case queensideCastling:	return "O-O-O";
+		case promotion:			return format("%s-%s%s", from, to, letterForPieceType(promotion));
 		default:
 			assert false;
 			throw new IllegalStateException(type.toString());
@@ -117,6 +134,32 @@ public class Move {
 
 	public Piece capturedPiece() {
 		return capturedPiece;
+	}
+	
+	private static String letterForPieceType(PieceType type) {
+		switch(type) {
+		case BlackBishop:
+		case WhiteBishop:	return "B";
+		
+		case BlackKnight:
+		case WhiteKnight:	return "N";
+		
+		case BlackQueen:
+		case WhiteQueen:	return "Q";
+		
+		case BlackRook:
+		case WhiteRook:		return "R";
+
+		case BlackPawn:
+		case WhitePawn:
+		case BlackKing:
+		case WhiteKing:
+		case Free:
+		case Border:
+		default:
+			assert false;
+			throw new IllegalStateException(type.toString());
+		}
 	}
 	
 }

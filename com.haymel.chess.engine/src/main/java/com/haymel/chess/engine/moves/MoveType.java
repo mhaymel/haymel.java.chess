@@ -15,13 +15,7 @@ public enum MoveType {
 	queensideCastling,
 	enpassant,
 	capture,
-	promotionQueen,
-	promotionRook,
-	promotionBishop,
-	promotionKnight,
-	capturePromotionQueen,
-	capturePromotionRook,
-	capturePromotionBishop,
-	capturePromotionKnight,
+	promotion,
+	capturePromotion;
 	
 }

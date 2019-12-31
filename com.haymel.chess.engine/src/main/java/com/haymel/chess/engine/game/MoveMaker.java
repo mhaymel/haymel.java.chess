@@ -81,13 +81,7 @@ public final class MoveMaker {	//TODO unit test
 		case capture:
 			CaptureWhiteMove.make(game, move);		
 			break;
-		case capturePromotionBishop:
-			break;
-		case capturePromotionKnight:
-			break;
-		case capturePromotionQueen:
-			break;
-		case capturePromotionRook:
+		case capturePromotion:
 			break;
 		case enpassant:
 			break;
@@ -97,13 +91,7 @@ public final class MoveMaker {	//TODO unit test
 		case queensideCastling:
 			WhiteQueenSideCastlingMove.make(game, move);
 			break;
-		case promotionBishop:
-			break;
-		case promotionKnight:
-			break;
-		case promotionQueen:
-			break;
-		case promotionRook:
+		case promotion:
 			break;
 		default:
 			assert false : "unknown move type " + move.type();
@@ -127,13 +115,7 @@ public final class MoveMaker {	//TODO unit test
 		case capture:
 			CaptureWhiteMove.undo(game, undo.move(), undo.moved());		
 			break;
-		case capturePromotionBishop:
-			break;
-		case capturePromotionKnight:
-			break;
-		case capturePromotionQueen:
-			break;
-		case capturePromotionRook:
+		case capturePromotion:
 			break;
 		case enpassant:
 			break;
@@ -143,13 +125,7 @@ public final class MoveMaker {	//TODO unit test
 		case queensideCastling:
 			WhiteQueenSideCastlingMove.undo(game, undo.move());
 			break;
-		case promotionBishop:
-			break;
-		case promotionKnight:
-			break;
-		case promotionQueen:
-			break;
-		case promotionRook:
+		case promotion:
 			break;
 		default:
 			assert false : "unknown move type " + undo.move().type();
@@ -170,25 +146,13 @@ public final class MoveMaker {	//TODO unit test
 			break;
 		case capture:
 			break;
-		case capturePromotionBishop:
-			break;
-		case capturePromotionKnight:
-			break;
-		case capturePromotionQueen:
-			break;
-		case capturePromotionRook:
+		case capturePromotion:
 			break;
 		case enpassant:
 			break;
 		case kingsideCastling:
 			break;
-		case promotionBishop:
-			break;
-		case promotionKnight:
-			break;
-		case promotionQueen:
-			break;
-		case promotionRook:
+		case promotion:
 			break;
 		case queensideCastling:
 			break;
@@ -212,27 +176,15 @@ public final class MoveMaker {	//TODO unit test
 			break;
 		case capture:
 			break;
-		case capturePromotionBishop:
-			break;
-		case capturePromotionKnight:
-			break;
-		case capturePromotionQueen:
-			break;
-		case capturePromotionRook:
+		case capturePromotion:
 			break;
 		case enpassant:
 			break;
 		case kingsideCastling:
 			break;
-		case promotionBishop:
-			break;
-		case promotionKnight:
-			break;
-		case promotionQueen:
-			break;
-		case promotionRook:
-			break;
 		case queensideCastling:
+			break;
+		case promotion:
 			break;
 		default:
 			assert false : "unknown move type " + undo.move().type();
