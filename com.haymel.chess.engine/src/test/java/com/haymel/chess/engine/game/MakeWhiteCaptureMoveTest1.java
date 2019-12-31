@@ -24,17 +24,17 @@ import org.junit.Test;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.piece.Piece;
 
-public class CaptureWhiteMoveTest1 {
+public class MakeWhiteCaptureMoveTest1 {
 
 	private Game game;
-	private MoveMaker moveMaker;
+	private MakeMove moveMaker;
 	private Piece whiteKnight;
 	private Piece blackPawn;
 	
 	@Before
 	public void setup() {
 		game = new Game();
-		moveMaker = new MoveMaker(game);
+		moveMaker = new MakeMove(game);
 		
 		whiteKnight = new Piece(WhiteKnight);
 		whiteKnight.field(a1);

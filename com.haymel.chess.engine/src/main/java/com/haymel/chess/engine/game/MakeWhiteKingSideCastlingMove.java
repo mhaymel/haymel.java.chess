@@ -18,7 +18,7 @@ import static com.haymel.chess.engine.game.ActiveColor.white;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.piece.Piece;
 
-final class WhiteKingSideCastlingMove {
+final class MakeWhiteKingSideCastlingMove {
 
 	static void make(Game game, Move move) {
 		assert game.assertVerify();

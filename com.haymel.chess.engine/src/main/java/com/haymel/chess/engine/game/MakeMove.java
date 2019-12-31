@@ -12,11 +12,11 @@ import static com.haymel.chess.engine.game.ActiveColor.white;
 
 import com.haymel.chess.engine.moves.Move;
 
-public final class MoveMaker {	//TODO unit test
+public final class MakeMove {	//TODO unit test
 
 	private final Game game;
 	
-	public MoveMaker(Game game) {
+	public MakeMove(Game game) {
 		assert game != null;
 		assert game.assertVerify();
 		this.game = game;
@@ -74,22 +74,22 @@ public final class MoveMaker {	//TODO unit test
 		
 		switch(move.type()) {
 		case normal:
-			NormalWhiteMove.make(game, move);
+			MakeWhiteMove.make(game, move);
 			break;
 		case pawnDoubleStep:
 			break;
 		case capture:
-			CaptureWhiteMove.make(game, move);		
+			MakeWhiteCaptureMove.make(game, move);		
 			break;
 		case capturePromotion:
 			break;
 		case enpassant:
 			break;
 		case kingsideCastling:
-			WhiteKingSideCastlingMove.make(game, move);
+			MakeWhiteKingSideCastlingMove.make(game, move);
 			break;
 		case queensideCastling:
-			WhiteQueenSideCastlingMove.make(game, move);
+			MakeWhiteQueenSideCastlingMove.make(game, move);
 			break;
 		case promotion:
 			break;
@@ -108,22 +108,22 @@ public final class MoveMaker {	//TODO unit test
 		
 		switch(undo.move().type()) {
 		case normal:
-			NormalWhiteMove.undo(game, undo.move(), undo.moved());
+			MakeWhiteMove.undo(game, undo.move(), undo.moved());
 			break;
 		case pawnDoubleStep:
 			break;
 		case capture:
-			CaptureWhiteMove.undo(game, undo.move(), undo.moved());		
+			MakeWhiteCaptureMove.undo(game, undo.move(), undo.moved());		
 			break;
 		case capturePromotion:
 			break;
 		case enpassant:
 			break;
 		case kingsideCastling:
-			WhiteKingSideCastlingMove.undo(game, undo.move());
+			MakeWhiteKingSideCastlingMove.undo(game, undo.move());
 			break;
 		case queensideCastling:
-			WhiteQueenSideCastlingMove.undo(game, undo.move());
+			MakeWhiteQueenSideCastlingMove.undo(game, undo.move());
 			break;
 		case promotion:
 			break;

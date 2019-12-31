@@ -1,23 +1,19 @@
 /***************************************************
  * (c) Markus Heumel
  *
- * @date: 	29.12.2019
+ * @date: 	28.12.2019
  * @author: Markus.Heumel
  *
  */
 package com.haymel.chess.engine.game;
 
-import static com.haymel.chess.engine.board.Field.a1;
 import static com.haymel.chess.engine.board.Field.a5;
 import static com.haymel.chess.engine.board.Field.a6;
-import static com.haymel.chess.engine.board.Field.c1;
-import static com.haymel.chess.engine.board.Field.d1;
 import static com.haymel.chess.engine.board.Field.e1;
+import static com.haymel.chess.engine.board.Field.e2;
 import static com.haymel.chess.engine.board.Field.removed;
-import static com.haymel.chess.engine.moves.MoveType.queensideCastling;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
-import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -27,46 +23,31 @@ import org.junit.Test;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.piece.Piece;
 
-public class WhiteQueenSideCastlingMoveTest {
+public class MakeWhiteMoveTest {
 
 	private Game game;
-	private MoveMaker moveMaker;
-	private Piece king;
-	private Piece rook;
+	private MakeMove moveMaker;
 	
 	@Before
 	public void setup() {
 		game = new Game();
-		moveMaker = new MoveMaker(game);
-
-		king = new Piece(WhiteKing);
+		moveMaker = new MakeMove(game);
+	}
+	
+	@Test
+	public void makeAndUndo() {
+		Piece king = new Piece(WhiteKing);
 		king.field(e1);
 		king.setMoved(false);
 		game.addWhite(king);
 		game.place(king);
 		
-		rook = new Piece(WhiteRook);
-		rook.field(a1);
-		rook.setMoved(false);
-		game.addWhite(rook);
-		game.place(rook);
-	}
-	
-	@Test
-	public void makeAndUndo() {
-		Move e1c1 = new Move(e1, c1, queensideCastling);
+		Move e1e2 = new Move(e1, e2);
 		
-		moveMaker.makeMove(e1c1);
-		assertThat(king.field(), is(c1));
+		moveMaker.makeMove(e1e2);
+		assertThat(king.field(), is(e2));
 		assertThat(king.moved(), is(true));
-		assertThat(game.piece(c1), is(king));
 		assertThat(game.piece(e1).free(), is(true));
-
-		assertThat(rook.field(), is(d1));
-		assertThat(rook.moved(), is(true));
-		assertThat(game.piece(d1), is(rook));
-		assertThat(game.piece(a1).free(), is(true));
-		
 		assertThat(game.halfMoveClock(), is(1));
 		assertThat(game.fullMoveNumber(), is(1));
 		assertThat(game.enPassant(), is(removed));
@@ -74,12 +55,7 @@ public class WhiteQueenSideCastlingMoveTest {
 		moveMaker.undoMove();
 		assertThat(king.field(), is(e1));
 		assertThat(king.moved(), is(false));
-		assertThat(game.piece(e1), is(king));
-		assertThat(game.piece(d1).free(), is(true));
-		assertThat(game.piece(c1).free(), is(true));
-		assertThat(game.piece(a1).whiteRook(), is(true));
-		assertThat(game.piece(a1).moved(), is(false));
-		assertThat(game.piece(a1), is(rook));
+		assertThat(game.piece(e2).free(), is(true));
 		assertThat(game.halfMoveClock(), is(0));
 		assertThat(game.fullMoveNumber(), is(1));
 		assertThat(game.enPassant(), is(removed));
@@ -87,20 +63,46 @@ public class WhiteQueenSideCastlingMoveTest {
 
 	@Test
 	public void enPassantIsSetCorrectly() {
+		
 		Piece blackEnpassantPawn = new Piece(BlackPawn);
 		blackEnpassantPawn.field(a5);
 		game.addBlack(blackEnpassantPawn);
 		game.place(blackEnpassantPawn);
 		game.activeColorBlack();
 		game.enPassant(a6);
+		
+		Piece king = new Piece(WhiteKing);
+		king.field(e1);
+		king.setMoved(false);
+		game.addWhite(king);
+		game.place(king);
+		
 		game.activeColorWhite();
-
-		Move e1c1 = new Move(e1, c1, queensideCastling);
-		moveMaker.makeMove(e1c1);
+		
+		Move e1e2 = new Move(e1, e2);
+		
+		moveMaker.makeMove(e1e2);
 		assertThat(game.enPassant(), is(removed));
 		
 		moveMaker.undoMove();
 		assertThat(game.enPassant(), is(a6));
+	}
+	
+	@Test
+	public void movedIsSetCorrectly() {
+		Piece king = new Piece(WhiteKing);
+		king.field(e1);
+		king.setMoved(true);
+		game.addWhite(king);
+		game.place(king);
+		
+		Move e1e2 = new Move(e1, e2);
+		
+		moveMaker.makeMove(e1e2);
+		assertThat(king.moved(), is(true));
+		
+		moveMaker.undoMove();
+		assertThat(king.moved(), is(true));
 	}
 	
 }

@@ -1,20 +1,20 @@
 /***************************************************
  * (c) Markus Heumel
  *
- * @date: 	28.12.2019
+ * @date: 	29.12.2019
  * @author: Markus.Heumel
  *
  */
 package com.haymel.chess.engine.game;
 
+import static com.haymel.chess.engine.board.Field.a1;
 import static com.haymel.chess.engine.board.Field.a5;
 import static com.haymel.chess.engine.board.Field.a6;
+import static com.haymel.chess.engine.board.Field.c1;
+import static com.haymel.chess.engine.board.Field.d1;
 import static com.haymel.chess.engine.board.Field.e1;
-import static com.haymel.chess.engine.board.Field.f1;
-import static com.haymel.chess.engine.board.Field.g1;
-import static com.haymel.chess.engine.board.Field.h1;
 import static com.haymel.chess.engine.board.Field.removed;
-import static com.haymel.chess.engine.moves.MoveType.kingsideCastling;
+import static com.haymel.chess.engine.moves.MoveType.queensideCastling;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
 import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
@@ -27,17 +27,17 @@ import org.junit.Test;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.piece.Piece;
 
-public class WhiteKingSideCastlingMoveTest {
+public class MakeWhiteQueenSideCastlingMoveTest {
 
 	private Game game;
-	private MoveMaker moveMaker;
+	private MakeMove moveMaker;
 	private Piece king;
 	private Piece rook;
 	
 	@Before
 	public void setup() {
 		game = new Game();
-		moveMaker = new MoveMaker(game);
+		moveMaker = new MakeMove(game);
 
 		king = new Piece(WhiteKing);
 		king.field(e1);
@@ -46,27 +46,26 @@ public class WhiteKingSideCastlingMoveTest {
 		game.place(king);
 		
 		rook = new Piece(WhiteRook);
-		rook.field(h1);
+		rook.field(a1);
 		rook.setMoved(false);
 		game.addWhite(rook);
 		game.place(rook);
-		game.assertVerify();
 	}
 	
 	@Test
 	public void makeAndUndo() {
-		Move e1g1 = new Move(e1, g1, kingsideCastling);
+		Move e1c1 = new Move(e1, c1, queensideCastling);
 		
-		moveMaker.makeMove(e1g1);
-		assertThat(king.field(), is(g1));
+		moveMaker.makeMove(e1c1);
+		assertThat(king.field(), is(c1));
 		assertThat(king.moved(), is(true));
-		assertThat(game.piece(g1), is(king));
+		assertThat(game.piece(c1), is(king));
 		assertThat(game.piece(e1).free(), is(true));
 
-		assertThat(rook.field(), is(f1));
+		assertThat(rook.field(), is(d1));
 		assertThat(rook.moved(), is(true));
-		assertThat(game.piece(f1), is(rook));
-		assertThat(game.piece(h1).free(), is(true));
+		assertThat(game.piece(d1), is(rook));
+		assertThat(game.piece(a1).free(), is(true));
 		
 		assertThat(game.halfMoveClock(), is(1));
 		assertThat(game.fullMoveNumber(), is(1));
@@ -76,11 +75,11 @@ public class WhiteKingSideCastlingMoveTest {
 		assertThat(king.field(), is(e1));
 		assertThat(king.moved(), is(false));
 		assertThat(game.piece(e1), is(king));
-		assertThat(game.piece(g1).free(), is(true));
-		assertThat(game.piece(f1).free(), is(true));
-		assertThat(game.piece(h1).whiteRook(), is(true));
-		assertThat(game.piece(h1).moved(), is(false));
-		assertThat(game.piece(h1), is(rook));
+		assertThat(game.piece(d1).free(), is(true));
+		assertThat(game.piece(c1).free(), is(true));
+		assertThat(game.piece(a1).whiteRook(), is(true));
+		assertThat(game.piece(a1).moved(), is(false));
+		assertThat(game.piece(a1), is(rook));
 		assertThat(game.halfMoveClock(), is(0));
 		assertThat(game.fullMoveNumber(), is(1));
 		assertThat(game.enPassant(), is(removed));
@@ -96,8 +95,8 @@ public class WhiteKingSideCastlingMoveTest {
 		game.enPassant(a6);
 		game.activeColorWhite();
 
-		Move e1g1 = new Move(e1, g1, kingsideCastling);
-		moveMaker.makeMove(e1g1);
+		Move e1c1 = new Move(e1, c1, queensideCastling);
+		moveMaker.makeMove(e1c1);
 		assertThat(game.enPassant(), is(removed));
 		
 		moveMaker.undoMove();

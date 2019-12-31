@@ -15,7 +15,7 @@ import static com.haymel.chess.engine.moves.MoveType.capture;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.piece.Piece;
 
-final class CaptureWhiteMove {
+final class MakeWhiteCaptureMove {
 
 	static void make(Game game, Move move) {
 		assert game.assertVerify();
