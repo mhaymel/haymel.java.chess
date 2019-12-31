@@ -110,6 +110,8 @@ public final class MakeMove {	//TODO unit test
 		case normal:
 			MakeWhiteMove.undo(game, undo.move(), undo.moved());
 			break;
+		case pawn:
+			break;
 		case pawnDoubleStep:
 			break;
 		case capture:
@@ -142,6 +144,8 @@ public final class MakeMove {	//TODO unit test
 		switch(move.type()) {
 		case normal:
 			break;
+		case pawn:
+			break;
 		case pawnDoubleStep:
 			break;
 		case capture:
@@ -171,6 +175,8 @@ public final class MakeMove {	//TODO unit test
 		
 		switch(undo.move().type()) {
 		case normal:
+			break;
+		case pawn:
 			break;
 		case pawnDoubleStep:
 			break;

@@ -19,10 +19,8 @@ import static com.haymel.chess.engine.board.Field.e4;
 import static com.haymel.chess.engine.board.Field.e8;
 import static com.haymel.chess.engine.board.Field.g1;
 import static com.haymel.chess.engine.moves.MoveType.capture;
-import static com.haymel.chess.engine.moves.MoveType.capturePromotion;
 import static com.haymel.chess.engine.moves.MoveType.enpassant;
 import static com.haymel.chess.engine.moves.MoveType.kingsideCastling;
-import static com.haymel.chess.engine.moves.MoveType.promotion;
 import static com.haymel.chess.engine.moves.MoveType.queensideCastling;
 import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
 import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
@@ -75,26 +73,26 @@ public class MoveTest {
 	
 	@Test
 	public void testToStringCapturePromotionQueen() {
-		assertThat(new Move(d7, e8, capturePromotion, capturedWhitePiece, BlackQueen).toString(), is("d7xe8Q"));
-		assertThat(new Move(d7, e8, capturePromotion, capturedBlackPiece, WhiteQueen).toString(), is("d7xe8Q"));
+		assertThat(new Move(d7, e8, capturedWhitePiece, BlackQueen).toString(), is("d7xe8Q"));
+		assertThat(new Move(d7, e8, capturedBlackPiece, WhiteQueen).toString(), is("d7xe8Q"));
 	}
 
 	@Test
 	public void testToStringCapturePromotionRook() {
-		assertThat(new Move(d7, e8, capturePromotion, capturedWhitePiece, BlackRook).toString(), is("d7xe8R"));
-		assertThat(new Move(d7, e8, capturePromotion, capturedBlackPiece, WhiteRook).toString(), is("d7xe8R"));
+		assertThat(new Move(d7, e8, capturedWhitePiece, BlackRook).toString(), is("d7xe8R"));
+		assertThat(new Move(d7, e8, capturedBlackPiece, WhiteRook).toString(), is("d7xe8R"));
 	}
 	
 	@Test
 	public void testToStringCapturePromotionBishop() {
-		assertThat(new Move(d7, e8, capturePromotion, capturedWhitePiece, BlackBishop).toString(), is("d7xe8B"));
-		assertThat(new Move(d7, e8, capturePromotion, capturedBlackPiece, WhiteBishop).toString(), is("d7xe8B"));
+		assertThat(new Move(d7, e8, capturedWhitePiece, BlackBishop).toString(), is("d7xe8B"));
+		assertThat(new Move(d7, e8, capturedBlackPiece, WhiteBishop).toString(), is("d7xe8B"));
 	}
 	
 	@Test
 	public void testToStringCapturePromotionKnight() {
-		assertThat(new Move(d7, e8, capturePromotion, capturedWhitePiece, BlackKnight).toString(), is("d7xe8N"));
-		assertThat(new Move(d7, e8, capturePromotion, capturedBlackPiece, WhiteKnight).toString(), is("d7xe8N"));
+		assertThat(new Move(d7, e8, capturedWhitePiece, BlackKnight).toString(), is("d7xe8N"));
+		assertThat(new Move(d7, e8, capturedBlackPiece, WhiteKnight).toString(), is("d7xe8N"));
 	}
 	
 	@Test
@@ -109,26 +107,26 @@ public class MoveTest {
 	
 	@Test
 	public void testToStringPromotionQueen() {
-		assertThat(new Move(d7, d8, promotion, BlackQueen).toString(), is("d7-d8Q"));
-		assertThat(new Move(d7, d8, promotion, WhiteQueen).toString(), is("d7-d8Q"));
+		assertThat(new Move(d7, d8, BlackQueen).toString(), is("d7-d8Q"));
+		assertThat(new Move(d7, d8, WhiteQueen).toString(), is("d7-d8Q"));
 	}
 	
 	@Test
 	public void testToStringPromotionRook() {
-		assertThat(new Move(d7, d8, promotion, BlackRook).toString(), is("d7-d8R"));
-		assertThat(new Move(d7, d8, promotion, WhiteRook).toString(), is("d7-d8R"));
+		assertThat(new Move(d7, d8, BlackRook).toString(), is("d7-d8R"));
+		assertThat(new Move(d7, d8, WhiteRook).toString(), is("d7-d8R"));
 	}
 
 	@Test
 	public void testToStringPromotionBishop() {
-		assertThat(new Move(d7, d8, promotion, BlackBishop).toString(), is("d7-d8B"));
-		assertThat(new Move(d7, d8, promotion, WhiteBishop).toString(), is("d7-d8B"));
+		assertThat(new Move(d7, d8, BlackBishop).toString(), is("d7-d8B"));
+		assertThat(new Move(d7, d8, WhiteBishop).toString(), is("d7-d8B"));
 	}
 	
 	@Test
 	public void testToStringPromotionKnight() {
-		assertThat(new Move(d7, d8, promotion, BlackKnight).toString(), is("d7-d8N"));
-		assertThat(new Move(d7, d8, promotion, WhiteKnight).toString(), is("d7-d8N"));
+		assertThat(new Move(d7, d8, BlackKnight).toString(), is("d7-d8N"));
+		assertThat(new Move(d7, d8, WhiteKnight).toString(), is("d7-d8N"));
 	}
 	
 }

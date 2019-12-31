@@ -1,0 +1,380 @@
+/***************************************************
+ * (c) Markus Heumel
+ *
+ * @date: 	30.12.2019
+ * @author: Markus.Heumel
+ *
+ */
+package com.haymel.chess.engine.moves.white;
+
+import static com.haymel.chess.engine.board.Field.a2;
+import static com.haymel.chess.engine.board.Field.a3;
+import static com.haymel.chess.engine.board.Field.a4;
+import static com.haymel.chess.engine.board.Field.b2;
+import static com.haymel.chess.engine.board.Field.b3;
+import static com.haymel.chess.engine.board.Field.b4;
+import static com.haymel.chess.engine.board.Field.c2;
+import static com.haymel.chess.engine.board.Field.c3;
+import static com.haymel.chess.engine.board.Field.c4;
+import static com.haymel.chess.engine.board.Field.d2;
+import static com.haymel.chess.engine.board.Field.d3;
+import static com.haymel.chess.engine.board.Field.d4;
+import static com.haymel.chess.engine.board.Field.d5;
+import static com.haymel.chess.engine.board.Field.d6;
+import static com.haymel.chess.engine.board.Field.d8;
+import static com.haymel.chess.engine.board.Field.e2;
+import static com.haymel.chess.engine.board.Field.e3;
+import static com.haymel.chess.engine.board.Field.e4;
+import static com.haymel.chess.engine.board.Field.e5;
+import static com.haymel.chess.engine.board.Field.e6;
+import static com.haymel.chess.engine.board.Field.e7;
+import static com.haymel.chess.engine.board.Field.e8;
+import static com.haymel.chess.engine.board.Field.f2;
+import static com.haymel.chess.engine.board.Field.f3;
+import static com.haymel.chess.engine.board.Field.f4;
+import static com.haymel.chess.engine.board.Field.f5;
+import static com.haymel.chess.engine.board.Field.f6;
+import static com.haymel.chess.engine.board.Field.f8;
+import static com.haymel.chess.engine.board.Field.g2;
+import static com.haymel.chess.engine.board.Field.g3;
+import static com.haymel.chess.engine.board.Field.g4;
+import static com.haymel.chess.engine.board.Field.h2;
+import static com.haymel.chess.engine.board.Field.h3;
+import static com.haymel.chess.engine.board.Field.h4;
+import static com.haymel.chess.engine.board.Field.removed;
+import static com.haymel.chess.engine.moves.MoveType.capture;
+import static com.haymel.chess.engine.moves.MoveType.enpassant;
+import static com.haymel.chess.engine.moves.MoveType.pawn;
+import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
+import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
+import static com.haymel.chess.engine.piece.PieceType.WhiteBishop;
+import static com.haymel.chess.engine.piece.PieceType.WhiteKnight;
+import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
+import static com.haymel.chess.engine.piece.PieceType.WhiteQueen;
+import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import com.haymel.chess.engine.board.Board;
+import com.haymel.chess.engine.board.Field;
+import com.haymel.chess.engine.moves.Move;
+import com.haymel.chess.engine.moves.Moves;
+import com.haymel.chess.engine.piece.Piece;
+import com.haymel.chess.engine.piece.PieceType;
+
+public class WhitePawnMoveTest {
+
+	private Moves moves;
+	private Board board;
+	private WhitePawnMoves pawnMoves;
+	
+	@Before
+	public void setup() {
+		moves = new Moves();
+		board = new Board();
+		pawnMoves = new WhitePawnMoves(board, moves);
+	}
+	
+	@Test
+	public void testA2() {
+		pawnMoves.generate(whitePawn(a2), removed);
+		
+		assertThat(moves.size(), is(2));
+		
+		Set<Move> result = movesAsSet();
+ 		assertThat(result.contains(new Move(a2, a3, pawn)), is(true));
+		assertThat(result.contains(new Move(a2, a4, pawn)), is(true));
+	}
+	
+	@Test
+	public void testB2() {
+		pawnMoves.generate(whitePawn(b2), removed);
+		
+		assertThat(moves.size(), is(2));
+		
+		Set<Move> result = movesAsSet();
+		assertThat(result.contains(new Move(b2, b3, pawn)), is(true));
+		assertThat(result.contains(new Move(b2, b4, pawn)), is(true));
+	}
+	
+	@Test
+	public void testC2() {
+		pawnMoves.generate(whitePawn(c2), removed);
+		
+		assertThat(moves.size(), is(2));
+		
+		Set<Move> result = movesAsSet();
+		assertThat(result.contains(new Move(c2, c3, pawn)), is(true));
+		assertThat(result.contains(new Move(c2, c4, pawn)), is(true));
+	}
+
+	@Test
+	public void testD2() {
+		pawnMoves.generate(whitePawn(Field.d2), removed);
+		
+		assertThat(moves.size(), is(2));
+		
+		Set<Move> result = movesAsSet();
+		assertThat(result.contains(new Move(d2, d3, pawn)), is(true));
+		assertThat(result.contains(new Move(d2, d4, pawn)), is(true));
+	}
+
+	@Test
+	public void testE2() {
+		pawnMoves.generate(whitePawn(e2), removed);
+		
+		assertThat(moves.size(), is(2));
+		
+		Set<Move> result = movesAsSet();
+ 		assertThat(result.contains(new Move(e2, e3, pawn)), is(true));
+		assertThat(result.contains(new Move(e2, e4, pawn)), is(true));
+	}
+
+	@Test
+	public void testF2() {
+		pawnMoves.generate(whitePawn(f2), removed);
+		
+		assertThat(moves.size(), is(2));
+		
+		Set<Move> result = movesAsSet();
+		assertThat(result.contains(new Move(f2, f3, pawn)), is(true));
+		assertThat(result.contains(new Move(f2, f4, pawn)), is(true));
+	}
+
+	@Test
+	public void testG2() {
+		pawnMoves.generate(whitePawn(g2), removed);
+		
+		assertThat(moves.size(), is(2));
+		
+		Set<Move> result = movesAsSet();
+		assertThat(result.contains(new Move(g2, g3, pawn)), is(true));
+		assertThat(result.contains(new Move(g2, g4, pawn)), is(true));
+	}
+	
+	@Test
+	public void testH2() {
+		pawnMoves.generate(whitePawn(h2), removed);
+		
+		assertThat(moves.size(), is(2));
+		
+		Set<Move> result = movesAsSet();
+		assertThat(result.contains(new Move(h2, h3, pawn)), is(true));
+		assertThat(result.contains(new Move(h2, h4, pawn)), is(true));
+	}
+	
+	@Test
+	public void testE3() {
+		pawnMoves.generate(whitePawn(e3), removed);
+		
+		assertThat(moves.size(), is(1));
+		
+		Set<Move> result = movesAsSet();
+		assertThat(result.contains(new Move(e3, e4, pawn)), is(true));
+	}
+	
+	@Test
+	public void testE2MoveBlockedByWhitePiece() {
+		piece(e3, WhiteBishop);
+		pawnMoves.generate(whitePawn(e2), removed);
+		assertThat(moves.size(), is(0));
+	}
+
+	@Test
+	public void testE2MoveBlockedByBlackPiece() {
+		piece(e3, BlackBishop);
+		pawnMoves.generate(whitePawn(e2), removed);
+		assertThat(moves.size(), is(0));
+	}
+
+	@Test
+	public void testE2DoubleMovedBlockedByWhitePiece() {
+		piece(e4, WhiteBishop);
+		pawnMoves.generate(whitePawn(e2), removed);
+		
+		assertThat(moves.size(), is(1));
+		
+		Set<Move> result = movesAsSet();
+ 		assertThat(result.contains(new Move(e2, e3, pawn)), is(true));
+	}
+
+	@Test
+	public void testE2DoubleMovedBlockedByBlackPiece() {
+		piece(e4, BlackBishop);
+		
+		pawnMoves.generate(whitePawn(e2), removed);
+		
+		assertThat(moves.size(), is(1));
+		
+		Set<Move> result = movesAsSet();
+		assertThat(result.contains(new Move(e2, e3, pawn)), is(true));
+	}
+	
+	@Test
+	public void testE2CaptureD3AndF3() {
+		piece(d3, BlackBishop);
+		piece(f3, BlackBishop);
+		
+		pawnMoves.generate(whitePawn(e2), removed);
+		
+		assertThat(moves.size(), is(4));
+		
+		Set<Move> result = movesAsSet();
+		assertThat(result.contains(new Move(e2, e3, pawn)), is(true));
+		assertThat(result.contains(new Move(e2, e4, pawn)), is(true));
+		assertThat(result.contains(capture(e2, d3)), is(true));
+		assertThat(result.contains(capture(e2, f3)), is(true));
+	}
+	
+	@Test
+	public void testE2CannotCaptureWhitePiecesOnD3AndF3() {
+		piece(d3, WhiteBishop);
+		piece(f3, WhiteBishop);
+		
+		pawnMoves.generate(whitePawn(e2), removed);
+		
+		assertThat(moves.size(), is(2));
+		
+		Set<Move> result = movesAsSet();
+		assertThat(result.contains(new Move(e2, e3, pawn)), is(true));
+		assertThat(result.contains(new Move(e2, e4, pawn)), is(true));
+	}
+
+	@Test
+	public void testE7Promotion() {
+		pawnMoves.generate(whitePawn(e7), removed);
+		
+		assertThat(moves.size(), is(4));
+		
+		Set<Move> result = movesAsSet();
+		assertThat(result.contains(new Move(e7, e8, WhiteQueen)), is(true));
+		assertThat(result.contains(new Move(e7, e8, WhiteRook)), is(true));
+		assertThat(result.contains(new Move(e7, e8, WhiteBishop)), is(true));
+		assertThat(result.contains(new Move(e7, e8, WhiteKnight)), is(true));
+	}
+
+	@Test
+	public void testE7PromotionPreventedByWhitePiece() {
+		piece(e8, WhiteBishop);
+		pawnMoves.generate(whitePawn(e7), removed);
+		
+		assertThat(moves.size(), is(0));
+	}
+	
+	@Test
+	public void testE7PromotionPreventedByBlackPiece() {
+		piece(e8, BlackBishop);
+		pawnMoves.generate(whitePawn(e7), removed);
+		
+		assertThat(moves.size(), is(0));
+	}
+
+	@Test
+	public void testE7CapturePromotionD8() {
+		piece(e8, BlackBishop);
+		Piece captured = piece(d8, BlackBishop);
+		pawnMoves.generate(whitePawn(e7), removed);
+		
+		assertThat(moves.size(), is(4));
+		
+		Set<Move> result = movesAsSet();
+		assertThat(result.contains(new Move(e7, d8, captured, WhiteQueen)), is(true));
+		assertThat(result.contains(new Move(e7, d8, captured, WhiteRook)), is(true));
+		assertThat(result.contains(new Move(e7, d8, captured, WhiteBishop)), is(true));
+		assertThat(result.contains(new Move(e7, d8, captured, WhiteKnight)), is(true));
+	}
+	
+	@Test
+	public void testE7CapturePromotionF8() {
+		piece(e8, BlackBishop);
+		Piece captured = piece(f8, BlackBishop);
+		pawnMoves.generate(whitePawn(e7), removed);
+		
+		assertThat(moves.size(), is(4));
+		
+		Set<Move> result = movesAsSet();
+		assertThat(result.contains(new Move(e7, f8, captured, WhiteQueen)), is(true));
+		assertThat(result.contains(new Move(e7, f8, captured, WhiteRook)), is(true));
+		assertThat(result.contains(new Move(e7, f8, captured, WhiteBishop)), is(true));
+		assertThat(result.contains(new Move(e7, f8, captured, WhiteKnight)), is(true));
+	}
+	
+	@Test
+	public void testPromotion() {
+		Piece capturedD8 = piece(d8, BlackBishop);
+		Piece capturedF8 = piece(f8, BlackBishop);
+		pawnMoves.generate(whitePawn(e7), removed);
+		
+		assertThat(moves.size(), is(12));
+		
+		Set<Move> result = movesAsSet();
+		assertThat(result.contains(new Move(e7, e8, WhiteQueen)), is(true));
+		assertThat(result.contains(new Move(e7, e8, WhiteRook)), is(true));
+		assertThat(result.contains(new Move(e7, e8, WhiteBishop)), is(true));
+		assertThat(result.contains(new Move(e7, e8, WhiteKnight)), is(true));
+		assertThat(result.contains(new Move(e7, d8, capturedD8, WhiteQueen)), is(true));
+		assertThat(result.contains(new Move(e7, d8, capturedD8, WhiteRook)), is(true));
+		assertThat(result.contains(new Move(e7, d8, capturedD8, WhiteBishop)), is(true));
+		assertThat(result.contains(new Move(e7, d8, capturedD8, WhiteKnight)), is(true));
+		assertThat(result.contains(new Move(e7, f8, capturedF8, WhiteQueen)), is(true));
+		assertThat(result.contains(new Move(e7, f8, capturedF8, WhiteRook)), is(true));
+		assertThat(result.contains(new Move(e7, f8, capturedF8, WhiteBishop)), is(true));
+		assertThat(result.contains(new Move(e7, f8, capturedF8, WhiteKnight)), is(true));
+	}
+
+	@Test
+	public void testEnPassantLeft() {
+		piece(d5, BlackPawn);
+		pawnMoves.generate(whitePawn(e5), d6);
+		
+		assertThat(moves.size(), is(2));
+		
+		Set<Move> result = movesAsSet();
+		assertThat(result.contains(new Move(e5, e6, pawn)), is(true));
+		assertThat(result.contains(new Move(e5, d6, enpassant)), is(true));
+	}
+
+	@Test
+	public void testEnPassantRight() {
+		piece(f5, BlackPawn);
+		pawnMoves.generate(whitePawn(e5), f6);
+		
+		assertThat(moves.size(), is(2));
+		
+		Set<Move> result = movesAsSet();
+		assertThat(result.contains(new Move(e5, e6, pawn)), is(true));
+		assertThat(result.contains(new Move(e5, f6, enpassant)), is(true));
+	}
+	
+	private Move capture(Field from, Field to) {
+		return new Move(from, to, capture, board.piece(to));
+	}
+	
+	private Piece whitePawn(Field f) {
+		return piece(f, WhitePawn);
+	}
+	
+	private Piece piece(Field f, PieceType t) {
+		Piece p = new Piece(t);
+		p.field(f);
+		board.place(p);
+		return p;
+	}
+
+	private Set<Move> movesAsSet() {
+		Set<Move> result = new HashSet<Move>(moves.size());
+
+		int size = moves.size();
+		for(int i = 0; i < size; i++) 
+			result.add(moves.move(i));
+		
+		return result;
+	}
+
+}

@@ -14,8 +14,14 @@ import static com.haymel.chess.engine.board.Field.e8;
 import static com.haymel.chess.engine.board.Field.g1;
 import static com.haymel.chess.engine.board.Field.g8;
 import static com.haymel.chess.engine.moves.MoveType.capture;
+import static com.haymel.chess.engine.moves.MoveType.enpassant;
 import static com.haymel.chess.engine.moves.MoveType.kingsideCastling;
+import static com.haymel.chess.engine.moves.MoveType.pawn;
 import static com.haymel.chess.engine.moves.MoveType.queensideCastling;
+import static com.haymel.chess.engine.piece.PieceType.WhiteBishop;
+import static com.haymel.chess.engine.piece.PieceType.WhiteKnight;
+import static com.haymel.chess.engine.piece.PieceType.WhiteQueen;
+import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
 import static java.lang.String.join;
 import static java.util.stream.Collectors.toList;
 
@@ -46,6 +52,36 @@ public class Moves {
 		moves.add(new Move(from, to, capture, piece));
 	}
 
+	public void addPawn(Field from, Field to) {
+		assert from != to;
+		assert to.rank() != 7;
+		assert from.rank() != 0;
+		
+		moves.add(new Move(from, to, pawn));
+	}
+
+	public void addWhitePromotion(Field from) {
+		assert from.rank() == 6;
+		
+		Field to = from.up();
+		
+		moves.add(new Move(from, to, WhiteQueen));
+		moves.add(new Move(from, to, WhiteRook));
+		moves.add(new Move(from, to, WhiteBishop));
+		moves.add(new Move(from, to, WhiteKnight));
+	}
+
+	public void addCapturePromotion(Field from, Field to, Piece piece) {
+		moves.add(new Move(from, to, piece, WhiteQueen));
+		moves.add(new Move(from, to, piece, WhiteRook));
+		moves.add(new Move(from, to, piece, WhiteBishop));
+		moves.add(new Move(from, to, piece, WhiteKnight));
+	}
+
+	public void addEnpassant(Field from, Field to) {
+		moves.add(new Move(from, to, enpassant));
+	}
+	
 	public void addWhiteKingSideCastling() {
 		moves.add(new Move(e1, g1, kingsideCastling));
 	}

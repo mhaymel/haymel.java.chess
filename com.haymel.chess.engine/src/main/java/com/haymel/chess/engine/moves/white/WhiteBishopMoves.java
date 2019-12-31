@@ -15,8 +15,8 @@ import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.piece.Piece;
 
-public class WhiteBishopMoves {	//TODO unit test
-
+public final class WhiteBishopMoves {
+	
 	private final Board board;
 	private final Moves moves;
 	

@@ -1,0 +1,147 @@
+/***************************************************
+ * (c) Markus Heumel
+ *
+ * @date: 	31.12.2019
+ * @author: Markus.Heumel
+ *
+ */
+package com.haymel.chess.engine.moves.white;
+
+import static com.haymel.chess.engine.board.Field.removed;
+
+import com.haymel.chess.engine.board.Board;
+import com.haymel.chess.engine.board.Field;
+import com.haymel.chess.engine.moves.Moves;
+import com.haymel.chess.engine.piece.Piece;
+import com.haymel.chess.engine.piece.PieceType;
+
+public final class WhitePawnMoves {
+	
+	private final Board board;
+	private final Moves moves;
+	
+	public WhitePawnMoves(Board board, Moves moves) {
+		assert board != null;
+		assert moves != null;
+		
+		this.board = board;
+		this.moves = moves;
+	}
+	
+	public void generate(Piece piece, Field epField) {
+		assert piece != null;
+		assert epField != null;
+		assert epField == Field.removed || epField.rank() == 5;
+		assert epField == Field.removed || board.piece(epField.down()).blackPawn();
+		assert piece.field() != removed;
+		assert board.piece(piece.field()) == piece;
+		assert piece.type() == PieceType.WhitePawn;
+		
+		switch(piece.field().rank()) {
+		case 1:
+			doubleStepMove(piece);
+			break;
+		case 4:
+			enpassant(piece, epField);
+			break;
+		case 6:
+			promotion(piece);
+			break;
+		case 2:
+		case 3:
+		case 5:
+			normal(piece);
+			break;
+		default:
+			assert false;
+		}
+	}
+
+	private void enpassant(Piece piece, Field epField) {
+		assert piece.field().rank() == 4;
+		
+		Field from = piece.field();
+		Field to = from.up();
+		if (isFree(to)) 
+			moves.addPawn(from, to);
+		
+		Field leftUp = from.leftUp();
+		if (leftUp.equals(epField))
+			moves.addEnpassant(from, leftUp);
+		else
+			capture(from, leftUp);
+		
+		Field rightUp = from.rightUp();
+		if (rightUp.equals(epField))
+			moves.addEnpassant(from, rightUp);
+		else
+			capture(from, rightUp);
+	}
+
+	private void promotion(Piece piece) {
+		assert piece.field().rank() == 6;
+
+		Field from = piece.field();
+		Field to = from.up();
+		if (isFree(to))
+			moves.addWhitePromotion(from);
+		
+		capturePromotion(from);
+	}
+
+	private void capturePromotion(Field from) {
+		capturePromotion(from, from.leftUp());
+		capturePromotion(from, from.rightUp());
+	}
+	
+	private void capturePromotion(Field from, Field to) {
+		Piece piece = board.piece(to);
+		if (piece.black())
+			moves.addCapturePromotion(from, to, piece);
+	}
+
+	private void normal(Piece piece) {
+		assert 
+			piece.field().rank() == 2 || 
+			piece.field().rank() == 3 || 
+			piece.field().rank() == 5;
+		
+		Field from = piece.field();
+		Field to = from.up();
+		if (isFree(to)) 
+			moves.addPawn(from, to);
+		
+		capture(from);
+	}
+
+	private void doubleStepMove(Piece piece) {
+		assert piece.field().rank() == 1;
+		
+		Field from = piece.field();
+		Field to = from.up();
+		if (isFree(to)) {
+			moves.addPawn(from, to);
+			Field doubleTo = to.up();
+			if (isFree(doubleTo))
+				moves.addPawn(from, doubleTo);		
+		}
+		
+		capture(from);
+	}
+
+	private void capture(Field from) {
+		capture(from, from.leftUp());
+		capture(from, from.rightUp());
+	}
+	
+	private void capture(Field from, Field to) {
+		Piece piece = board.piece(to);
+		if (piece.black())
+			moves.addCapture(from, to, piece);
+	}
+
+	private boolean isFree(Field f) {
+		return board.isFree(f);
+	}
+		
+}

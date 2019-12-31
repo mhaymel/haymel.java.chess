@@ -26,7 +26,7 @@ import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.piece.Piece;
 
-public class WhiteKingMoves {
+public final class WhiteKingMoves {
 
 	private final Board board;
 	private final Moves moves;
