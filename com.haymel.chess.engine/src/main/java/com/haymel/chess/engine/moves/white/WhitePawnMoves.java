@@ -63,7 +63,7 @@ public final class WhitePawnMoves {
 		Field from = piece.field();
 		Field to = from.up();
 		if (isFree(to)) 
-			moves.addPawn(from, to);
+			moves.addPawnMove(from, to);
 		
 		Field leftUp = from.leftUp();
 		if (leftUp.equals(epField))
@@ -97,7 +97,7 @@ public final class WhitePawnMoves {
 	private void capturePromotion(Field from, Field to) {
 		Piece piece = board.piece(to);
 		if (piece.black())
-			moves.addCapturePromotion(from, to, piece);
+			moves.addWhiteCapturePromotion(from, to, piece);
 	}
 
 	private void normal(Piece piece) {
@@ -109,7 +109,7 @@ public final class WhitePawnMoves {
 		Field from = piece.field();
 		Field to = from.up();
 		if (isFree(to)) 
-			moves.addPawn(from, to);
+			moves.addPawnMove(from, to);
 		
 		capture(from);
 	}
@@ -120,7 +120,7 @@ public final class WhitePawnMoves {
 		Field from = piece.field();
 		Field to = from.up();
 		if (isFree(to)) {
-			moves.addPawn(from, to);
+			moves.addPawnMove(from, to);
 			Field doubleTo = to.up();
 			if (isFree(doubleTo))
 				moves.addPawnDoubleStep(from, doubleTo);		

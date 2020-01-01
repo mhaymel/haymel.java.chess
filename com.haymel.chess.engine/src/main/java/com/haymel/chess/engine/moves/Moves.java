@@ -41,11 +41,15 @@ public class Moves {
 	}
 	
 	public void add(Field from, Field to) {
+		assert from != null;
+		assert to != null;
 		assert from != to;
 		moves.add(new Move(from, to));
 	}
 
 	public void addCapture(Field from, Field to, Piece piece) {
+		assert from != null;
+		assert to != null;
 		assert from != to;
 		assert !piece.free();
 		assert piece.black() || piece.white();
@@ -53,7 +57,9 @@ public class Moves {
 		moves.add(new Move(from, to, capture, piece));
 	}
 
-	public void addPawn(Field from, Field to) {
+	public void addPawnMove(Field from, Field to) {
+		assert from != null;
+		assert to != null;
 		assert from != to;
 		assert to.rank() != 7;
 		assert from.rank() != 0;
@@ -62,28 +68,36 @@ public class Moves {
 	}
 
 	public void addPawnDoubleStep(Field from, Field to) {
+		assert from != null;
+		assert to != null;
 		assert from != to;
 		assert from.rank() == 1 || from.rank() == 6;
 		assert to.rank() == 3 || to.rank() == 4;
 		assert from.file() == to.file();
 
 		moves.add(new Move(from, to, pawnDoubleStep));
-		
 	}
 
-	
 	public void addWhitePromotion(Field from) {
+		assert from != null;
 		assert from.rank() == 6;
 		
 		Field to = from.up();
-		
 		moves.add(new Move(from, to, WhiteQueen));
 		moves.add(new Move(from, to, WhiteRook));
 		moves.add(new Move(from, to, WhiteBishop));
 		moves.add(new Move(from, to, WhiteKnight));
 	}
 
-	public void addCapturePromotion(Field from, Field to, Piece piece) {
+	public void addWhiteCapturePromotion(Field from, Field to, Piece piece) {
+		assert from != null;
+		assert to != null;
+		assert from != to;
+		assert Math.abs(from.file() - to.file()) == 1;
+		assert from.rank() == 6;
+		assert to.rank() == 7;
+		assert piece.black();
+		
 		moves.add(new Move(from, to, piece, WhiteQueen));
 		moves.add(new Move(from, to, piece, WhiteRook));
 		moves.add(new Move(from, to, piece, WhiteBishop));
@@ -96,6 +110,7 @@ public class Moves {
 		assert captured != null;
 		assert captured.blackPawn() || captured.whitePawn();
 		assert from != to;
+		assert Math.abs(from.file() - to.file()) == 1;
 		assert 
 			from.rank() == 4 && to.rank() == 5 ||
 			from.rank() == 3 && to.rank() == 2;
