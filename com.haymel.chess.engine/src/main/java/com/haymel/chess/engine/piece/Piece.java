@@ -22,8 +22,11 @@ import static com.haymel.chess.engine.piece.PieceType.BlackQueen;
 import static com.haymel.chess.engine.piece.PieceType.BlackRook;
 import static com.haymel.chess.engine.piece.PieceType.Border;
 import static com.haymel.chess.engine.piece.PieceType.Free;
+import static com.haymel.chess.engine.piece.PieceType.WhiteBishop;
 import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
+import static com.haymel.chess.engine.piece.PieceType.WhiteKnight;
 import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
+import static com.haymel.chess.engine.piece.PieceType.WhiteQueen;
 import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
 import static java.lang.String.format;
 
@@ -31,7 +34,7 @@ import com.haymel.chess.engine.board.Field;
 
 public final class Piece {
 
-	private final PieceType type;
+	private PieceType type;
 	private Field field; 
 	private boolean moved;
 
@@ -78,6 +81,10 @@ public final class Piece {
 		return type;
 	}
 	
+	public void type(PieceType type) {
+		this.type = type;
+	}
+
 	public boolean free() {
 		return type == Free;
 	}
@@ -129,6 +136,10 @@ public final class Piece {
 		return type == BlackQueen;
 	}
 	
+	public boolean whiteQueen() {		// TODO unit test
+		return type == WhiteQueen;
+	}
+
 	public boolean whiteRook() {
 		return type == WhiteRook;
 	}
@@ -147,6 +158,14 @@ public final class Piece {
 
 	public boolean whitePawn() {
 		return type == WhitePawn;
+	}
+
+	public boolean whiteBishop() {			//TODO unit test
+		return type == WhiteBishop;	
+	}
+
+	public boolean whiteKnight() {
+		return  type == WhiteKnight;
 	}
 
 }

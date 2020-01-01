@@ -90,8 +90,17 @@ public class Moves {
 		moves.add(new Move(from, to, piece, WhiteKnight));
 	}
 
-	public void addEnpassant(Field from, Field to) {
-		moves.add(new Move(from, to, enpassant));
+	public void addEnpassant(Field from, Field to, Piece captured) {
+		assert from != null;
+		assert to != null;
+		assert captured != null;
+		assert captured.blackPawn() || captured.whitePawn();
+		assert from != to;
+		assert 
+			from.rank() == 4 && to.rank() == 5 ||
+			from.rank() == 3 && to.rank() == 2;
+		
+		moves.add(new Move(from, to, enpassant, captured));
 	}
 	
 	public void addWhiteKingSideCastling() {

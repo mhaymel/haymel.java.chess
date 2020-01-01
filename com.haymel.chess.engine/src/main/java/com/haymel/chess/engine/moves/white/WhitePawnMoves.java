@@ -67,13 +67,13 @@ public final class WhitePawnMoves {
 		
 		Field leftUp = from.leftUp();
 		if (leftUp.equals(epField))
-			moves.addEnpassant(from, leftUp);
+			moves.addEnpassant(from, leftUp, board.piece(epField.down()));
 		else
 			capture(from, leftUp);
 		
 		Field rightUp = from.rightUp();
 		if (rightUp.equals(epField))
-			moves.addEnpassant(from, rightUp);
+			moves.addEnpassant(from, rightUp, board.piece(epField.down()));
 		else
 			capture(from, rightUp);
 	}

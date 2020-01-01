@@ -331,26 +331,26 @@ public class WhitePawnMoveTest {
 
 	@Test
 	public void testEnPassantLeft() {
-		piece(d5, BlackPawn);
+		Piece blackPawn = piece(d5, BlackPawn);
 		pawnMoves.generate(whitePawn(e5), d6);
 		
 		assertThat(moves.size(), is(2));
 		
 		Set<Move> result = movesAsSet();
 		assertThat(result.contains(new Move(e5, e6, pawn)), is(true));
-		assertThat(result.contains(new Move(e5, d6, enpassant)), is(true));
+		assertThat(result.contains(new Move(e5, d6, enpassant, blackPawn)), is(true));
 	}
 
 	@Test
 	public void testEnPassantRight() {
-		piece(f5, BlackPawn);
+		Piece blackPawn = piece(f5, BlackPawn);
 		pawnMoves.generate(whitePawn(e5), f6);
 		
 		assertThat(moves.size(), is(2));
 		
 		Set<Move> result = movesAsSet();
 		assertThat(result.contains(new Move(e5, e6, pawn)), is(true));
-		assertThat(result.contains(new Move(e5, f6, enpassant)), is(true));
+		assertThat(result.contains(new Move(e5, f6, enpassant, blackPawn)), is(true));
 	}
 	
 	private Move capture(Field from, Field to) {

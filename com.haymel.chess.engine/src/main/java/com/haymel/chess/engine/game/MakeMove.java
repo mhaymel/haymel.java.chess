@@ -77,8 +77,10 @@ public final class MakeMove {	//TODO unit test
 			MakeWhiteMove.make(game, move);
 			break;
 		case pawn:
+			MakeWhitePawnMove.make(game, move);
 			break;
 		case pawnDoubleStep:
+			MakeWhitePawnDoubleStepMove.make(game, move);
 			break;
 		case capture:
 			MakeWhiteCaptureMove.make(game, move);		
@@ -86,6 +88,7 @@ public final class MakeMove {	//TODO unit test
 		case capturePromotion:
 			break;
 		case enpassant:
+			MakeWhiteEnpassantMove.make(game, move);
 			break;
 		case kingsideCastling:
 			MakeWhiteKingSideCastlingMove.make(game, move);
@@ -94,6 +97,7 @@ public final class MakeMove {	//TODO unit test
 			MakeWhiteQueenSideCastlingMove.make(game, move);
 			break;
 		case promotion:
+			MakeWhitePromotionMove.make(game, move);
 			break;
 		default:
 			assert false : "unknown move type " + move.type();
@@ -113,8 +117,10 @@ public final class MakeMove {	//TODO unit test
 			MakeWhiteMove.undo(game, undo.move(), undo.moved());
 			break;
 		case pawn:
+			MakeWhitePawnMove.undo(game, undo.move());
 			break;
 		case pawnDoubleStep:
+			MakeWhitePawnDoubleStepMove.undo(game, undo.move());
 			break;
 		case capture:
 			MakeWhiteCaptureMove.undo(game, undo.move(), undo.moved());		
@@ -122,6 +128,7 @@ public final class MakeMove {	//TODO unit test
 		case capturePromotion:
 			break;
 		case enpassant:
+			MakeWhiteEnpassantMove.undo(game, undo.move());
 			break;
 		case kingsideCastling:
 			MakeWhiteKingSideCastlingMove.undo(game, undo.move());
@@ -130,6 +137,7 @@ public final class MakeMove {	//TODO unit test
 			MakeWhiteQueenSideCastlingMove.undo(game, undo.move());
 			break;
 		case promotion:
+			MakeWhitePromotionMove.undo(game, undo.move());
 			break;
 		default:
 			assert false : "unknown move type " + undo.move().type();

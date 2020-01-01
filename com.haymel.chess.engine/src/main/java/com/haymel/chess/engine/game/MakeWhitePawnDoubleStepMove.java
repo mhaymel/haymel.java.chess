@@ -1,7 +1,7 @@
 /***************************************************
  * (c) Markus Heumel
  *
- * @date: 	28.12.2019
+ * @date: 	01.01.2020
  * @author: Markus.Heumel
  *
  */
@@ -9,33 +9,32 @@ package com.haymel.chess.engine.game;
 
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
-import static com.haymel.chess.engine.moves.MoveType.normal;
+import static com.haymel.chess.engine.moves.MoveType.pawnDoubleStep;
 
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.piece.Piece;
 
-final class MakeWhiteMove {
+final class MakeWhitePawnDoubleStepMove {		//TODO unit test
 
 	static void make(Game game, Move move) {
 		assert game != null;
 		assert move != null;
 		assert game.assertVerify();
 		assert game.activeColor() == white; 
-		assert move.type() == normal;
-		assert game.piece(move.from()).white();
-		assert !game.piece(move.from()).whitePawn();
+		assert move.type() == pawnDoubleStep;
+		assert game.piece(move.from()).whitePawn();
 		assert game.piece(move.to()).free();
+		assert move.from().rank() == 1;
 		
 		Piece piece = game.piece(move.from());
-		boolean moved = piece.moved();
 		game.clear(move.from());
 		piece.field(move.to());
-		piece.setMoved(true);
 		game.place(piece);
 		
-		game.push(move, moved);
+		game.push(move);
 		
-		game.incHalfMoveClock();
+		game.enPassant(move.from().up());
+		game.resetHalfMoveClock();
 		game.activeColorBlack();
 
 		assert game.activeColor() == black; 
@@ -44,20 +43,16 @@ final class MakeWhiteMove {
 		assert game.assertVerify();
 	}
 
-	static void undo(Game game, Move move, boolean moved) {
+	static void undo(Game game, Move move) {
 		assert game != null;
 		assert move != null;
 		assert game.assertVerify();
-		assert game.activeColor() == white; 
-		assert move.type() == normal;
 		assert game.piece(move.to()).white();
-		assert !game.piece(move.to()).whitePawn();
 		assert game.piece(move.from()).free();
 
 		Piece piece = game.piece(move.to());
 		game.clear(move.to());
 		piece.field(move.from());
-		piece.setMoved(moved);
 		game.place(piece);
 		
 		assert game.halfMoveClock() >= 0;

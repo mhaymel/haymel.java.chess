@@ -11,7 +11,6 @@ import static com.haymel.chess.engine.board.Field.e1;
 import static com.haymel.chess.engine.board.Field.f1;
 import static com.haymel.chess.engine.board.Field.g1;
 import static com.haymel.chess.engine.board.Field.h1;
-import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
 
@@ -21,6 +20,8 @@ import com.haymel.chess.engine.piece.Piece;
 final class MakeWhiteKingSideCastlingMove {
 
 	static void make(Game game, Move move) {
+		assert game != null;
+		assert move != null;
 		assert game.assertVerify();
 		assert game.activeColor() == white;
 		assert move.from() == e1;
@@ -46,8 +47,6 @@ final class MakeWhiteKingSideCastlingMove {
 		game.place(rook);
 		
 		game.push(move, false);
-		
-		game.enPassant(removed);
 		game.incHalfMoveClock();
 		game.activeColorBlack();
 
@@ -62,6 +61,8 @@ final class MakeWhiteKingSideCastlingMove {
 	}
 
 	static void undo(Game game, Move move) {
+		assert game != null;
+		assert move != null;
 		assert game.assertVerify();
 		assert game.piece(e1).free();
 		assert game.piece(h1).free();

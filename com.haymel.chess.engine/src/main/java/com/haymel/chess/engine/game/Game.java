@@ -40,8 +40,13 @@ public final class Game {	//TODO unit test
 		this.fullMoveNumber = 1;
 	}
 
+	public void push(Move move) {
+		push(move, true);
+	}
+
 	public void push(Move move, boolean moved) {
 		push(new Undo(move, moved, activeColor, enPassant, halfMoveClock, fullMoveNumber));
+		resetEnPassant();
 	}
 	
 	public Undo pop() {
@@ -157,6 +162,12 @@ public final class Game {	//TODO unit test
 		return blackPieces.contains(piece);
 	}
 
+	public boolean containsWhitePiece(Piece piece) {
+		assert piece != null;
+		assert piece.white();
+		return whitePieces.contains(piece);
+	}
+	
 	public boolean assertVerify() {
 		assert board.assertVerify();
 		assert halfMoveClock >= 0;

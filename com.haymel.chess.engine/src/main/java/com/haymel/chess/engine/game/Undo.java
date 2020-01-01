@@ -19,6 +19,10 @@ final class Undo {			//TODO unit test
 	private int halfMoveClock;
 	private int fullMoveNumber;
 	
+	public Undo(Move move, ActiveColor activeColor, Field enPassant, int halfMoveClock, int fullMoveNumber) {
+		this(move, true, activeColor, enPassant, halfMoveClock, fullMoveNumber);
+	}
+	
 	public Undo(Move move, boolean moved, ActiveColor activeColor, Field enPassant, int halfMoveClock, int fullMoveNumber) {
 		assert move != null;
 		assert activeColor != null;

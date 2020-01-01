@@ -1,7 +1,7 @@
 /***************************************************
  * (c) Markus Heumel
  *
- * @date: 	29.12.2019
+ * @date: 	01.01.2020
  * @author: Markus.Heumel
  *
  */
@@ -9,74 +9,74 @@ package com.haymel.chess.engine.game;
 
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
-import static com.haymel.chess.engine.moves.MoveType.capture;
+import static com.haymel.chess.engine.moves.MoveType.enpassant;
 
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.piece.Piece;
 
-final class MakeWhiteCaptureMove {
+final class MakeWhiteEnpassantMove {
 
 	static void make(Game game, Move move) {
 		assert game != null;
 		assert move != null;
 		assert game.assertVerify();
 		assert game.activeColor() == white; 
-		assert move.type() == capture;
-		assert game.piece(move.from()).white();
-		assert game.piece(move.to()).black();
-		assert game.piece(move.to()) == move.capturedPiece();
-		assert move.capturedPiece().black();
+		assert move.type() == enpassant;
+		assert move.to() == game.enPassant();
+		assert game.piece(move.from()).whitePawn();
+		assert move.from().rank() == 4;
+		assert game.piece(game.enPassant()).free();
+		assert game.piece(game.enPassant().down()).blackPawn();
+		assert game.piece(game.enPassant().down()) == move.capturedPiece();
 		assert game.containsBlackPiece(move.capturedPiece());
-		assert !game.piece(move.to()).blackKing();
-		assert game.containsWhitePiece(game.piece(move.from()));
 		
 		Piece piece = game.piece(move.from());
-		boolean moved = piece.moved();
 		game.clear(move.from());
 		piece.field(move.to());
-		piece.setMoved(true);
 		game.place(piece);
+		game.clear(move.capturedPiece().field());
 		game.removeBlack(move.capturedPiece());
-		game.push(move, moved);
+		game.push(move);
 		game.resetHalfMoveClock();
 		game.activeColorBlack();
 
 		assert game.activeColor() == black; 
 		assert game.piece(move.from()).free();
-		assert game.piece(move.to()).white();
 		assert game.piece(move.to()) == piece;
 		assert !game.containsBlackPiece(move.capturedPiece());
-		assert game.containsWhitePiece(piece);
+		assert game.halfMoveClock() == 0;
 		assert game.assertVerify();
 	}
 
-	static void undo(Game game, Move move, boolean moved) {
+	static void undo(Game game, Move move) {
 		assert game != null;
 		assert move != null;
 		assert game.assertVerify();
-		assert move.type() == capture;
+		assert move.type() == enpassant;
+		assert move.to() == game.enPassant();
+		assert game.activeColor() == white; 
+		assert game.piece(move.to()).whitePawn();
 		assert game.piece(move.from()).free();
-		assert game.piece(move.to()).white();
-		assert move.capturedPiece().black();
 		assert !game.containsBlackPiece(move.capturedPiece());
-
+		assert game.piece(game.enPassant().down()).free();
+		assert game.assertVerify();
+		
 		Piece piece = game.piece(move.to());
+		game.clear(move.to());
 		piece.field(move.from());
-		piece.setMoved(moved);
 		game.place(piece);
-
 		game.addBlack(move.capturedPiece());
 		game.place(move.capturedPiece());
 		
 		assert game.halfMoveClock() >= 0;
-		assert game.activeColor() == white;
-		assert game.piece(move.from()).white();
-		assert game.piece(move.to()).black();
-		assert game.piece(move.to()) == move.capturedPiece();
-		assert move.capturedPiece().black();
+		assert game.activeColor() == white; 
+		assert move.to() == game.enPassant();
+		assert game.piece(move.from()).whitePawn();
+		assert move.from().rank() == 4;
+		assert game.piece(game.enPassant()).free();
+		assert game.piece(game.enPassant().down()).blackPawn();
+		assert game.piece(game.enPassant().down()) == move.capturedPiece();
 		assert game.containsBlackPiece(move.capturedPiece());
-		assert !game.piece(move.to()).blackKing();
-		assert game.containsWhitePiece(piece);
 		assert game.assertVerify();
 	}
 

@@ -63,10 +63,10 @@ public class Move {
 		assert capturedPiece != null;
 		assert promotion != null;
 		assert 
-			promotion != BlackKing || 
-			promotion != WhiteKing || 
-			promotion != BlackPawn || 
-			promotion != WhitePawn ||
+			promotion != BlackKing && 
+			promotion != WhiteKing && 
+			promotion != BlackPawn && 
+			promotion != WhitePawn &&
 			promotion != Border;
 		
 		assert capturedPiece.free() || 
@@ -96,6 +96,10 @@ public class Move {
 	
 	public MoveType type() {
 		return type;
+	}
+	
+	public PieceType pieceType() {
+		return pieceType;
 	}
 	
 	@Override
