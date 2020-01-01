@@ -76,6 +76,8 @@ public final class MakeMove {	//TODO unit test
 		case normal:
 			MakeWhiteMove.make(game, move);
 			break;
+		case pawn:
+			break;
 		case pawnDoubleStep:
 			break;
 		case capture:

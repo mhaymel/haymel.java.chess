@@ -69,49 +69,59 @@ public final class GameStartPos {	//TODO unit test
 	}
 
 	private void addWhitePieces() {
-		add(WhitePawn, a2);
-		add(WhitePawn, b2);
-		add(WhitePawn, c2);
-		add(WhitePawn, d2);
-		add(WhitePawn, e2);
-		add(WhitePawn, f2);
-		add(WhitePawn, g2);
-		add(WhitePawn, h2);
-		add(WhiteRook, a1);
-		add(WhiteKnight, b1);
-		add(WhiteBishop, c1);
-		add(WhiteQueen, d1);
-		add(WhiteKing, e1);
-		add(WhiteBishop, f1);
-		add(WhiteKnight, g1);
-		add(WhiteRook, h1);
+		addWhite(WhitePawn, a2);
+		addWhite(WhitePawn, b2);
+		addWhite(WhitePawn, c2);
+		addWhite(WhitePawn, d2);
+		addWhite(WhitePawn, e2);
+		addWhite(WhitePawn, f2);
+		addWhite(WhitePawn, g2);
+		addWhite(WhitePawn, h2);
+		addWhite(WhiteRook, a1);
+		addWhite(WhiteKnight, b1);
+		addWhite(WhiteBishop, c1);
+		addWhite(WhiteQueen, d1);
+		addWhite(WhiteKing, e1);
+		addWhite(WhiteBishop, f1);
+		addWhite(WhiteKnight, g1);
+		addWhite(WhiteRook, h1);
 	}
 
 	private void addBlackPieces() {
-		add(PieceType.BlackPawn, a7);
-		add(PieceType.BlackPawn, b7);
-		add(PieceType.BlackPawn, c7);
-		add(PieceType.BlackPawn, d7);
-		add(PieceType.BlackPawn, e7);
-		add(PieceType.BlackPawn, f7);
-		add(PieceType.BlackPawn, g7);
-		add(PieceType.BlackPawn, h7);
-		add(PieceType.BlackRook, a8);
-		add(PieceType.BlackKnight, b8);
-		add(PieceType.BlackBishop, c8);
-		add(PieceType.BlackQueen, d8);
-		add(PieceType.BlackKing, e8);
-		add(PieceType.BlackBishop, f8);
-		add(PieceType.BlackKnight, g8);
-		add(PieceType.BlackRook, h8);
+		addBlack(PieceType.BlackPawn, a7);
+		addBlack(PieceType.BlackPawn, b7);
+		addBlack(PieceType.BlackPawn, c7);
+		addBlack(PieceType.BlackPawn, d7);
+		addBlack(PieceType.BlackPawn, e7);
+		addBlack(PieceType.BlackPawn, f7);
+		addBlack(PieceType.BlackPawn, g7);
+		addBlack(PieceType.BlackPawn, h7);
+		addBlack(PieceType.BlackRook, a8);
+		addBlack(PieceType.BlackKnight, b8);
+		addBlack(PieceType.BlackBishop, c8);
+		addBlack(PieceType.BlackQueen, d8);
+		addBlack(PieceType.BlackKing, e8);
+		addBlack(PieceType.BlackBishop, f8);
+		addBlack(PieceType.BlackKnight, g8);
+		addBlack(PieceType.BlackRook, h8);
 	}
 	
-	private void add(PieceType type, Field field) {
-		Piece piece = new Piece(type);
-		piece.setMoved(false);
-		piece.field(field);
+	private void addWhite(PieceType type, Field field) {
+		Piece piece = piece(type, field);
 		game.addWhite(piece);
 		game.place(piece);
 	}
 	
+	private void addBlack(PieceType type, Field field) {
+		Piece piece = piece(type, field);
+		game.addBlack(piece);
+		game.place(piece);
+	}
+
+	private Piece piece(PieceType type, Field field) {
+		Piece piece = new Piece(type);
+		piece.field(field);
+		piece.setMoved(false);
+		return piece;
+	}
 }

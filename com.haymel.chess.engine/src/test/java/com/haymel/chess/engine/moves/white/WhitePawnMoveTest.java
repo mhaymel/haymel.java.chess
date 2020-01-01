@@ -45,6 +45,7 @@ import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.moves.MoveType.capture;
 import static com.haymel.chess.engine.moves.MoveType.enpassant;
 import static com.haymel.chess.engine.moves.MoveType.pawn;
+import static com.haymel.chess.engine.moves.MoveType.pawnDoubleStep;
 import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 import static com.haymel.chess.engine.piece.PieceType.WhiteBishop;
@@ -89,7 +90,7 @@ public class WhitePawnMoveTest {
 		
 		Set<Move> result = movesAsSet();
  		assertThat(result.contains(new Move(a2, a3, pawn)), is(true));
-		assertThat(result.contains(new Move(a2, a4, pawn)), is(true));
+		assertThat(result.contains(new Move(a2, a4, pawnDoubleStep)), is(true));
 	}
 	
 	@Test
@@ -100,7 +101,7 @@ public class WhitePawnMoveTest {
 		
 		Set<Move> result = movesAsSet();
 		assertThat(result.contains(new Move(b2, b3, pawn)), is(true));
-		assertThat(result.contains(new Move(b2, b4, pawn)), is(true));
+		assertThat(result.contains(new Move(b2, b4, pawnDoubleStep)), is(true));
 	}
 	
 	@Test
@@ -111,7 +112,7 @@ public class WhitePawnMoveTest {
 		
 		Set<Move> result = movesAsSet();
 		assertThat(result.contains(new Move(c2, c3, pawn)), is(true));
-		assertThat(result.contains(new Move(c2, c4, pawn)), is(true));
+		assertThat(result.contains(new Move(c2, c4, pawnDoubleStep)), is(true));
 	}
 
 	@Test
@@ -122,7 +123,7 @@ public class WhitePawnMoveTest {
 		
 		Set<Move> result = movesAsSet();
 		assertThat(result.contains(new Move(d2, d3, pawn)), is(true));
-		assertThat(result.contains(new Move(d2, d4, pawn)), is(true));
+		assertThat(result.contains(new Move(d2, d4, pawnDoubleStep)), is(true));
 	}
 
 	@Test
@@ -133,7 +134,7 @@ public class WhitePawnMoveTest {
 		
 		Set<Move> result = movesAsSet();
  		assertThat(result.contains(new Move(e2, e3, pawn)), is(true));
-		assertThat(result.contains(new Move(e2, e4, pawn)), is(true));
+		assertThat(result.contains(new Move(e2, e4, pawnDoubleStep)), is(true));
 	}
 
 	@Test
@@ -144,7 +145,7 @@ public class WhitePawnMoveTest {
 		
 		Set<Move> result = movesAsSet();
 		assertThat(result.contains(new Move(f2, f3, pawn)), is(true));
-		assertThat(result.contains(new Move(f2, f4, pawn)), is(true));
+		assertThat(result.contains(new Move(f2, f4, pawnDoubleStep)), is(true));
 	}
 
 	@Test
@@ -155,7 +156,7 @@ public class WhitePawnMoveTest {
 		
 		Set<Move> result = movesAsSet();
 		assertThat(result.contains(new Move(g2, g3, pawn)), is(true));
-		assertThat(result.contains(new Move(g2, g4, pawn)), is(true));
+		assertThat(result.contains(new Move(g2, g4, pawnDoubleStep)), is(true));
 	}
 	
 	@Test
@@ -166,7 +167,7 @@ public class WhitePawnMoveTest {
 		
 		Set<Move> result = movesAsSet();
 		assertThat(result.contains(new Move(h2, h3, pawn)), is(true));
-		assertThat(result.contains(new Move(h2, h4, pawn)), is(true));
+		assertThat(result.contains(new Move(h2, h4, pawnDoubleStep)), is(true));
 	}
 	
 	@Test
@@ -227,7 +228,7 @@ public class WhitePawnMoveTest {
 		
 		Set<Move> result = movesAsSet();
 		assertThat(result.contains(new Move(e2, e3, pawn)), is(true));
-		assertThat(result.contains(new Move(e2, e4, pawn)), is(true));
+		assertThat(result.contains(new Move(e2, e4, pawnDoubleStep)), is(true));
 		assertThat(result.contains(capture(e2, d3)), is(true));
 		assertThat(result.contains(capture(e2, f3)), is(true));
 	}
@@ -243,7 +244,7 @@ public class WhitePawnMoveTest {
 		
 		Set<Move> result = movesAsSet();
 		assertThat(result.contains(new Move(e2, e3, pawn)), is(true));
-		assertThat(result.contains(new Move(e2, e4, pawn)), is(true));
+		assertThat(result.contains(new Move(e2, e4, pawnDoubleStep)), is(true));
 	}
 
 	@Test

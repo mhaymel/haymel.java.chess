@@ -17,6 +17,7 @@ import static com.haymel.chess.engine.moves.MoveType.capture;
 import static com.haymel.chess.engine.moves.MoveType.enpassant;
 import static com.haymel.chess.engine.moves.MoveType.kingsideCastling;
 import static com.haymel.chess.engine.moves.MoveType.pawn;
+import static com.haymel.chess.engine.moves.MoveType.pawnDoubleStep;
 import static com.haymel.chess.engine.moves.MoveType.queensideCastling;
 import static com.haymel.chess.engine.piece.PieceType.WhiteBishop;
 import static com.haymel.chess.engine.piece.PieceType.WhiteKnight;
@@ -60,6 +61,17 @@ public class Moves {
 		moves.add(new Move(from, to, pawn));
 	}
 
+	public void addPawnDoubleStep(Field from, Field to) {
+		assert from != to;
+		assert from.rank() == 1 || from.rank() == 6;
+		assert to.rank() == 3 || to.rank() == 4;
+		assert from.file() == to.file();
+
+		moves.add(new Move(from, to, pawnDoubleStep));
+		
+	}
+
+	
 	public void addWhitePromotion(Field from) {
 		assert from.rank() == 6;
 		

@@ -123,7 +123,7 @@ public final class WhitePawnMoves {
 			moves.addPawn(from, to);
 			Field doubleTo = to.up();
 			if (isFree(doubleTo))
-				moves.addPawn(from, doubleTo);		
+				moves.addPawnDoubleStep(from, doubleTo);		
 		}
 		
 		capture(from);

@@ -200,4 +200,12 @@ public final class Game {	//TODO unit test
 		whitePieces.add(piece);
 	}
 
+	public Board board() {
+		return board;
+	}
+
+	public PieceList whitePieces() {
+		return whitePieces;
+	}
+
 }
