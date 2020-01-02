@@ -1,3 +1,10 @@
+/***************************************************
+ * (c) Markus Heumel
+ *
+ * @date: 	02.01.2020
+ * @author: Markus.Heumel
+ *
+ */
 package com.haymel.chess.engine.piece;
 
 public enum PieceType {

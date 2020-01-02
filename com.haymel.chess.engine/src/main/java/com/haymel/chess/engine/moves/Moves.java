@@ -19,6 +19,10 @@ import static com.haymel.chess.engine.moves.MoveType.kingsideCastling;
 import static com.haymel.chess.engine.moves.MoveType.pawn;
 import static com.haymel.chess.engine.moves.MoveType.pawnDoubleStep;
 import static com.haymel.chess.engine.moves.MoveType.queensideCastling;
+import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
+import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
+import static com.haymel.chess.engine.piece.PieceType.BlackQueen;
+import static com.haymel.chess.engine.piece.PieceType.BlackRook;
 import static com.haymel.chess.engine.piece.PieceType.WhiteBishop;
 import static com.haymel.chess.engine.piece.PieceType.WhiteKnight;
 import static com.haymel.chess.engine.piece.PieceType.WhiteQueen;
@@ -102,6 +106,32 @@ public class Moves {
 		moves.add(new Move(from, to, piece, WhiteRook));
 		moves.add(new Move(from, to, piece, WhiteBishop));
 		moves.add(new Move(from, to, piece, WhiteKnight));
+	}
+
+	public void addBlackPromotion(Field from) {
+		assert from != null;
+		assert from.rank() == 1;
+		
+		Field to = from.down();
+		moves.add(new Move(from, to, BlackQueen));
+		moves.add(new Move(from, to, BlackRook));
+		moves.add(new Move(from, to, BlackBishop));
+		moves.add(new Move(from, to, BlackKnight));
+	}
+
+	public void addBlackCapturePromotion(Field from, Field to, Piece piece) {
+		assert from != null;
+		assert to != null;
+		assert from != to;
+		assert Math.abs(from.file() - to.file()) == 1;
+		assert from.rank() == 1;
+		assert to.rank() == 0;
+		assert piece.white();
+		
+		moves.add(new Move(from, to, piece, BlackQueen));
+		moves.add(new Move(from, to, piece, BlackRook));
+		moves.add(new Move(from, to, piece, BlackBishop));
+		moves.add(new Move(from, to, piece, BlackKnight));
 	}
 
 	public void addEnpassant(Field from, Field to, Piece captured) {
