@@ -219,4 +219,8 @@ public final class Game {	//TODO unit test
 		return whitePieces;
 	}
 
+	public PieceList blackPieces() {
+		return blackPieces;
+	}
+
 }
