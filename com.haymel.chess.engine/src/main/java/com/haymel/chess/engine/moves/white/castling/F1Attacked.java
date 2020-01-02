@@ -31,12 +31,16 @@ public final class F1Attacked {
 	 * 
 	 */
 	public static boolean f1Attacked(Board board) {
+		assert board != null;
+		assert board.assertVerify();
+
 		return 
 			f2f8(board) || 
 			e2a6(board) ||
 			g2h3(board) ||
 			knights(board) || 
-			pawns(board);
+			pawns(board) ||
+			board.piece(g2).blackKing();
 	}
 
 	static boolean f2f8(Board board) {

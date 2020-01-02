@@ -24,6 +24,9 @@ import com.haymel.chess.engine.piece.Piece;
 public final class E1Attacked {
 
 	public static boolean e1Attacked(Board board) {
+		assert board != null;
+		assert board.assertVerify();
+
 		return 
 			e2e8(board) || 
 			d1a1(board) ||

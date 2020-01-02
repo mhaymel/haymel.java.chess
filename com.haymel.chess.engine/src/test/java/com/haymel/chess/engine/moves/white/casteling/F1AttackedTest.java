@@ -21,6 +21,7 @@ import static com.haymel.chess.engine.board.Field.h2;
 import static com.haymel.chess.engine.board.Field.h3;
 import static com.haymel.chess.engine.moves.white.castling.F1Attacked.f1Attacked;
 import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
+import static com.haymel.chess.engine.piece.PieceType.BlackKing;
 import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 import static com.haymel.chess.engine.piece.PieceType.BlackQueen;
@@ -213,6 +214,16 @@ public class F1AttackedTest {
 		assertThat(f1Attacked(board), is(false));
 	}
 	
+	@Test
+	public void blackKingOnG2AttacksF1() {
+		blackKing(g2);
+		assertThat(f1Attacked(board), is(true));
+	}
+
+	private Piece blackKing(Field f) {
+		return piece(f, BlackKing);
+	}
+
 	private Piece blackPawn(Field f) {
 		return piece(f, BlackPawn);
 	}
