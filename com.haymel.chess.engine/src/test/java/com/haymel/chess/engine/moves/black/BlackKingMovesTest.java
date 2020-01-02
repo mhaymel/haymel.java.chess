@@ -26,7 +26,6 @@ import static com.haymel.chess.engine.board.Field.d4;
 import static com.haymel.chess.engine.board.Field.d5;
 import static com.haymel.chess.engine.board.Field.d6;
 import static com.haymel.chess.engine.board.Field.d7;
-import static com.haymel.chess.engine.board.Field.d8;
 import static com.haymel.chess.engine.board.Field.e1;
 import static com.haymel.chess.engine.board.Field.e3;
 import static com.haymel.chess.engine.board.Field.e4;
