@@ -65,7 +65,7 @@ public class GameWhiteStartPosMakeAndUndoTest {
 	
 	@Test
 	public void testStartPos() {
-		white();
+		white(2);
 		Moves moves = new Moves();
 		WhiteMoves whiteMoves = new WhiteMoves(game.board(), moves);
 		whiteMoves.generate(game.whitePieces(), game.enPassant());
@@ -94,7 +94,10 @@ public class GameWhiteStartPosMakeAndUndoTest {
 		assertThat(result.contains(new Move(g1, h3)), is(true));
 	}
 
-	private void white() {
+	private void white(int depth) {
+		if (depth == 0)
+			return;
+		
 		Board board = game.board();
 		PieceList pieces = game.whitePieces();
 		Moves moves = new Moves();
@@ -106,12 +109,15 @@ public class GameWhiteStartPosMakeAndUndoTest {
 		for(int i = 0; i < size; i++) {
 			Move move = moves.move(i);
 			makeMove.makeMove(move);
-			black();
+			black(depth - 1);
 			makeMove.undoMove();
 		}
 	}
 	
-	private void black() {
+	private void black(int depth) {
+		if (depth == 0)
+			return;
+
 		Board board = game.board();
 		PieceList pieces = game.blackPieces();
 		Moves moves = new Moves();
@@ -123,7 +129,7 @@ public class GameWhiteStartPosMakeAndUndoTest {
 		for(int i = 0; i < size; i++) {
 			Move move = moves.move(i);
 			makeMove.makeMove(move);
-//			white();
+			white(depth - 1);
 			makeMove.undoMove();
 		}
 	}

@@ -28,7 +28,7 @@ public final class MakeWhiteCaptureMove {
 		assert game.piece(move.to()) == move.capturedPiece();
 		assert move.capturedPiece().black();
 		assert game.containsBlackPiece(move.capturedPiece());
-		assert !game.piece(move.to()).blackKing();
+		assert !game.piece(move.to()).blackKing() : move;
 		assert game.containsWhitePiece(game.piece(move.from()));
 		
 		Piece piece = game.piece(move.from());
