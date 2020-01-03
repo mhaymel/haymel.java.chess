@@ -9,12 +9,14 @@ package com.haymel.chess.engine.game;
 
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
+import static java.lang.String.format;
 
 import com.haymel.chess.engine.game.black.MakeBlackCaptureMove;
 import com.haymel.chess.engine.game.black.MakeBlackEnpassantMove;
 import com.haymel.chess.engine.game.black.MakeBlackKingSideCastlingMove;
 import com.haymel.chess.engine.game.black.MakeBlackMove;
 import com.haymel.chess.engine.game.black.MakeBlackPawnDoubleStepMove;
+import com.haymel.chess.engine.game.black.MakeBlackPawnMove;
 import com.haymel.chess.engine.game.white.MakeWhiteCaptureMove;
 import com.haymel.chess.engine.game.white.MakeWhiteEnpassantMove;
 import com.haymel.chess.engine.game.white.MakeWhiteKingSideCastlingMove;
@@ -169,6 +171,7 @@ public final class MakeMove {	//TODO unit test
 			MakeBlackMove.make(game, move);
 			break;
 		case pawn:
+			MakeBlackPawnMove.make(game, move);
 			break;
 		case pawnDoubleStep:
 			MakeBlackPawnDoubleStepMove.make(game, move);
@@ -193,7 +196,7 @@ public final class MakeMove {	//TODO unit test
 			break;
 		}
 
-		assert activeColor() == white; 
+		assert activeColor() == white : format("move %s", move); 
 	}
 
 	private void undoBlackMove() {
@@ -206,6 +209,7 @@ public final class MakeMove {	//TODO unit test
 			MakeBlackMove.undo(game, undo.move(), undo.moved());
 			break;
 		case pawn:
+			MakeBlackPawnMove.undo(game, undo.move());
 			break;
 		case pawnDoubleStep:
 			MakeBlackPawnDoubleStepMove.undo(game, undo.move());

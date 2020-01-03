@@ -45,7 +45,7 @@ public final class BlackMoves {		//TODO unit test
 		assert pieces != null;
 		assert epField != null;
 		assert pieces.size() > 0;
-		assert epField == removed || epField.rank() == 5;
+		assert epField == removed || epField.rank() == 2 : String.format("wrong enpassant field: %s", epField);
 		
 		int size = pieces.size();
 		for(int i = 0; i < size; i++)

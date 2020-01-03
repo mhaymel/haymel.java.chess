@@ -112,20 +112,20 @@ public class GameWhiteStartPosMakeAndUndoTest {
 	}
 	
 	private void black() {
-//		Board board = game.board();
-//		PieceList pieces = game.blackPieces();
-//		Moves moves = new Moves();
-//		BlackMoves blackMoves = new BlackMoves(board, moves);
-//		blackMoves.generate(pieces, game.enPassant());
-//		
-//		MakeMove makeMove = new MakeMove(game);
-//		int size = moves.size();
-//		for(int i = 0; i < size; i++) {
-//			Move move = moves.move(i);
-//			makeMove.makeMove(move);
-////			white();
-//			makeMove.undoMove();
-//		}
+		Board board = game.board();
+		PieceList pieces = game.blackPieces();
+		Moves moves = new Moves();
+		BlackMoves blackMoves = new BlackMoves(board, moves);
+		blackMoves.generate(pieces, game.enPassant());
+		
+		MakeMove makeMove = new MakeMove(game);
+		int size = moves.size();
+		for(int i = 0; i < size; i++) {
+			Move move = moves.move(i);
+			makeMove.makeMove(move);
+//			white();
+			makeMove.undoMove();
+		}
 	}
 
 	private Set<Move> movesAsSet(Moves moves) {
