@@ -55,17 +55,20 @@ public class MakeBlackCaptureMoveTest3 {
 	public void makeAndUndo() {
 		game.assertVerify();
 		game.halfMoveClock(13);
+		game.fullMoveNumber(5);
 
 		Move e8e7 = new Move(e8, e7, capture, whiteRook);
 		
 		moveMaker.makeMove(e8e7);
 		game.assertVerify();
 		assertThat(blackKing.moved(), is(true));
+		assertThat(game.fullMoveNumber(), is(6));
 		
 		moveMaker.undoMove();
 		game.assertVerify();
 		assertThat(blackKing.moved(), is(false));
 		assertThat(whiteRook.moved(), is(true));
+		assertThat(game.fullMoveNumber(), is(5));
 	}
 
 }

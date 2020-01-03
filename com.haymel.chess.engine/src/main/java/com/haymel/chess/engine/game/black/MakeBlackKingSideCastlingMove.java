@@ -49,6 +49,7 @@ public final class MakeBlackKingSideCastlingMove {
 		
 		game.push(move, false);
 		game.incHalfMoveClock();
+		game.incFullMoveNumber();
 		game.activeColorWhite();
 
 		assert game.activeColor() == white; 

@@ -11,6 +11,7 @@ import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
 
 import com.haymel.chess.engine.game.black.MakeBlackCaptureMove;
+import com.haymel.chess.engine.game.black.MakeBlackEnpassantMove;
 import com.haymel.chess.engine.game.black.MakeBlackKingSideCastlingMove;
 import com.haymel.chess.engine.game.black.MakeBlackMove;
 import com.haymel.chess.engine.game.white.MakeWhiteCaptureMove;
@@ -176,6 +177,7 @@ public final class MakeMove {	//TODO unit test
 		case capturePromotion:
 			break;
 		case enpassant:
+			MakeBlackEnpassantMove.make(game, move);
 			break;
 		case promotion:
 			break;
@@ -211,6 +213,7 @@ public final class MakeMove {	//TODO unit test
 		case capturePromotion:
 			break;
 		case enpassant:
+			MakeBlackEnpassantMove.undo(game, undo.move());
 			break;
 		case kingsideCastling:
 			MakeBlackKingSideCastlingMove.undo(game, undo.move());

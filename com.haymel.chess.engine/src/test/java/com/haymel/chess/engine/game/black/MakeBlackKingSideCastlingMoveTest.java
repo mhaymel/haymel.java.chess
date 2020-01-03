@@ -59,6 +59,8 @@ public class MakeBlackKingSideCastlingMoveTest {
 	
 	@Test
 	public void makeAndUndo() {
+		game.fullMoveNumber(5);
+
 		Move e8g8 = new Move(e8, g8, kingsideCastling);
 		
 		moveMaker.makeMove(e8g8);
@@ -73,7 +75,7 @@ public class MakeBlackKingSideCastlingMoveTest {
 		assertThat(game.piece(h8).free(), is(true));
 		
 		assertThat(game.halfMoveClock(), is(1));
-		assertThat(game.fullMoveNumber(), is(1));
+		assertThat(game.fullMoveNumber(), is(6));
 		assertThat(game.enPassant(), is(removed));
 		
 		moveMaker.undoMove();
@@ -86,7 +88,7 @@ public class MakeBlackKingSideCastlingMoveTest {
 		assertThat(game.piece(h8).moved(), is(false));
 		assertThat(game.piece(h8), is(rook));
 		assertThat(game.halfMoveClock(), is(0));
-		assertThat(game.fullMoveNumber(), is(1));
+		assertThat(game.fullMoveNumber(), is(5));
 		assertThat(game.enPassant(), is(removed));
 	}
 

@@ -139,6 +139,16 @@ public final class Game {	//TODO unit test
 		return fullMoveNumber;
 	}
 
+	public void fullMoveNumber(int fullMoveNumber) {
+		assert fullMoveNumber > 0;
+		this.fullMoveNumber = fullMoveNumber;
+	}
+
+	public void incFullMoveNumber() {
+		fullMoveNumber++;
+	}
+
+	
 	public void addBlack(Piece piece) {
 		assert piece != null;
 		assert piece.black();
