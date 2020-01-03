@@ -5,7 +5,7 @@
  * @author: Markus.Heumel
  *
  */
-package com.haymel.chess.engine.game;
+package com.haymel.chess.engine.game.white;
 
 import static com.haymel.chess.engine.board.Field.e1;
 import static com.haymel.chess.engine.board.Field.f1;
@@ -14,12 +14,13 @@ import static com.haymel.chess.engine.board.Field.h1;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
 
+import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.piece.Piece;
 
-final class MakeWhiteKingSideCastlingMove {
+public final class MakeWhiteKingSideCastlingMove {
 
-	static void make(Game game, Move move) {
+	public static void make(Game game, Move move) {
 		assert game != null;
 		assert move != null;
 		assert game.assertVerify();
@@ -60,14 +61,16 @@ final class MakeWhiteKingSideCastlingMove {
 		assert game.assertVerify();
 	}
 
-	static void undo(Game game, Move move) {
+	public static void undo(Game game, Move move) {
 		assert game != null;
 		assert move != null;
 		assert game.assertVerify();
 		assert game.piece(e1).free();
 		assert game.piece(h1).free();
 		assert game.piece(g1).whiteKing();
+		assert game.piece(g1).moved();
 		assert game.piece(f1).whiteRook();
+		assert game.piece(f1).moved();
 
 		Piece king = game.piece(g1);
 		Piece rook = game.piece(f1);

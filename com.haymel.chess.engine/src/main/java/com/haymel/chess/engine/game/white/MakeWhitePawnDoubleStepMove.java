@@ -5,27 +5,27 @@
  * @author: Markus.Heumel
  *
  */
-package com.haymel.chess.engine.game;
+package com.haymel.chess.engine.game.white;
 
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
-import static com.haymel.chess.engine.moves.MoveType.pawn;
+import static com.haymel.chess.engine.moves.MoveType.pawnDoubleStep;
 
+import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.piece.Piece;
 
-final class MakeWhitePawnMove {		//TODO unit test
+public final class MakeWhitePawnDoubleStepMove {		//TODO unit test
 
-	static void make(Game game, Move move) {
+	public static void make(Game game, Move move) {
 		assert game != null;
 		assert move != null;
 		assert game.assertVerify();
 		assert game.activeColor() == white; 
-		assert move.type() == pawn;
+		assert move.type() == pawnDoubleStep;
 		assert game.piece(move.from()).whitePawn();
 		assert game.piece(move.to()).free();
-		assert move.from().rank() != 0;
-		assert move.to().rank() != 7;
+		assert move.from().rank() == 1;
 		
 		Piece piece = game.piece(move.from());
 		game.clear(move.from());
@@ -34,6 +34,7 @@ final class MakeWhitePawnMove {		//TODO unit test
 		
 		game.push(move);
 		
+		game.enPassant(move.from().up());
 		game.resetHalfMoveClock();
 		game.activeColorBlack();
 
@@ -43,7 +44,7 @@ final class MakeWhitePawnMove {		//TODO unit test
 		assert game.assertVerify();
 	}
 
-	static void undo(Game game, Move move) {
+	public static void undo(Game game, Move move) {
 		assert game != null;
 		assert move != null;
 		assert game.assertVerify();

@@ -10,6 +10,17 @@ package com.haymel.chess.engine.game;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
 
+import com.haymel.chess.engine.game.black.MakeBlackCaptureMove;
+import com.haymel.chess.engine.game.black.MakeBlackKingSideCastlingMove;
+import com.haymel.chess.engine.game.black.MakeBlackMove;
+import com.haymel.chess.engine.game.white.MakeWhiteCaptureMove;
+import com.haymel.chess.engine.game.white.MakeWhiteEnpassantMove;
+import com.haymel.chess.engine.game.white.MakeWhiteKingSideCastlingMove;
+import com.haymel.chess.engine.game.white.MakeWhiteMove;
+import com.haymel.chess.engine.game.white.MakeWhitePawnDoubleStepMove;
+import com.haymel.chess.engine.game.white.MakeWhitePawnMove;
+import com.haymel.chess.engine.game.white.MakeWhitePromotionMove;
+import com.haymel.chess.engine.game.white.MakeWhiteQueenSideCastlingMove;
 import com.haymel.chess.engine.moves.Move;
 
 public final class MakeMove {	//TODO unit test
@@ -153,20 +164,23 @@ public final class MakeMove {	//TODO unit test
 		
 		switch(move.type()) {
 		case normal:
+			MakeBlackMove.make(game, move);
 			break;
 		case pawn:
 			break;
 		case pawnDoubleStep:
 			break;
 		case capture:
+			MakeBlackCaptureMove.make(game, move);		
 			break;
 		case capturePromotion:
 			break;
 		case enpassant:
 			break;
-		case kingsideCastling:
-			break;
 		case promotion:
+			break;
+		case kingsideCastling:
+			MakeBlackKingSideCastlingMove.make(game, move);
 			break;
 		case queensideCastling:
 			break;
@@ -185,18 +199,21 @@ public final class MakeMove {	//TODO unit test
 		
 		switch(undo.move().type()) {
 		case normal:
+			MakeBlackMove.undo(game, undo.move(), undo.moved());
 			break;
 		case pawn:
 			break;
 		case pawnDoubleStep:
 			break;
 		case capture:
+			MakeBlackCaptureMove.undo(game, undo.move(), undo.moved());		
 			break;
 		case capturePromotion:
 			break;
 		case enpassant:
 			break;
 		case kingsideCastling:
+			MakeBlackKingSideCastlingMove.undo(game, undo.move());
 			break;
 		case queensideCastling:
 			break;

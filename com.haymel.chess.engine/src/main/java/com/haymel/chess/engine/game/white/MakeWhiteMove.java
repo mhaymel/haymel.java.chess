@@ -5,18 +5,19 @@
  * @author: Markus.Heumel
  *
  */
-package com.haymel.chess.engine.game;
+package com.haymel.chess.engine.game.white;
 
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
 import static com.haymel.chess.engine.moves.MoveType.normal;
 
+import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.piece.Piece;
 
-final class MakeWhiteMove {
+public final class MakeWhiteMove {
 
-	static void make(Game game, Move move) {
+	public static void make(Game game, Move move) {
 		assert game != null;
 		assert move != null;
 		assert game.assertVerify();
@@ -44,7 +45,7 @@ final class MakeWhiteMove {
 		assert game.assertVerify();
 	}
 
-	static void undo(Game game, Move move, boolean moved) {
+	public static void undo(Game game, Move move, boolean moved) {
 		assert game != null;
 		assert move != null;
 		assert game.assertVerify();

@@ -155,6 +155,15 @@ public final class Game {	//TODO unit test
 		
 		blackPieces.remove(piece);
 	}
+
+	public void removeWhite(Piece piece) {
+		assert piece != null;
+		assert piece.white();
+		assert !piece.whiteKing();
+		assert whitePieces.contains(piece);
+		
+		whitePieces.remove(piece);
+	}
 	
 	public boolean containsBlackPiece(Piece piece) {
 		assert piece != null;

@@ -51,40 +51,27 @@ import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.game.GameStartPos;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.Moves;
+import com.haymel.chess.engine.moves.black.BlackMoves;
 import com.haymel.chess.engine.moves.white.WhiteMoves;
 
 public class GameWhiteStartPosMakeAndUndoTest {
 
-	private Moves moves;
 	private Game game;
 	
 	@Before
 	public void setup() {
-		moves = new Moves();
 		game = new GameStartPos().startPos();
 	}
 	
 	@Test
 	public void testStartPos() {
-		Board board = game.board();
-		PieceList whitePieces = game.whitePieces();
-		WhiteMoves whiteMoves = new WhiteMoves(board, moves);
-		whiteMoves.generate(whitePieces, removed);
-		
-		MakeMove makeMove = new MakeMove(game);
-		int size = moves.size();
-		for(int i = 0; i < size; i++) {
-			Move move = moves.move(i);
-			makeMove.makeMove(move);
-			makeMove.undoMove();
-		}
-		
-		moves = new Moves();
-		whiteMoves = new WhiteMoves(board, moves);
-		whiteMoves.generate(whitePieces, removed);
+		white();
+		Moves moves = new Moves();
+		WhiteMoves whiteMoves = new WhiteMoves(game.board(), moves);
+		whiteMoves.generate(game.whitePieces(), game.enPassant());
 		
 		assertThat(moves.size(), is(20));
-		Set<Move> result = movesAsSet();
+		Set<Move> result = movesAsSet(moves);
 		assertThat(result.contains(new Move(a2, a4, pawnDoubleStep)), is(true));
 		assertThat(result.contains(new Move(b2, b4, pawnDoubleStep)), is(true));
 		assertThat(result.contains(new Move(c2, c4, pawnDoubleStep)), is(true));
@@ -107,7 +94,41 @@ public class GameWhiteStartPosMakeAndUndoTest {
 		assertThat(result.contains(new Move(g1, h3)), is(true));
 	}
 
-	private Set<Move> movesAsSet() {
+	private void white() {
+		Board board = game.board();
+		PieceList pieces = game.whitePieces();
+		Moves moves = new Moves();
+		WhiteMoves whiteMoves = new WhiteMoves(board, moves);
+		whiteMoves.generate(pieces, removed);
+		
+		MakeMove makeMove = new MakeMove(game);
+		int size = moves.size();
+		for(int i = 0; i < size; i++) {
+			Move move = moves.move(i);
+			makeMove.makeMove(move);
+			black();
+			makeMove.undoMove();
+		}
+	}
+	
+	private void black() {
+//		Board board = game.board();
+//		PieceList pieces = game.blackPieces();
+//		Moves moves = new Moves();
+//		BlackMoves blackMoves = new BlackMoves(board, moves);
+//		blackMoves.generate(pieces, game.enPassant());
+//		
+//		MakeMove makeMove = new MakeMove(game);
+//		int size = moves.size();
+//		for(int i = 0; i < size; i++) {
+//			Move move = moves.move(i);
+//			makeMove.makeMove(move);
+////			white();
+//			makeMove.undoMove();
+//		}
+	}
+
+	private Set<Move> movesAsSet(Moves moves) {
 		Set<Move> result = new HashSet<Move>(moves.size());
 
 		int size = moves.size();
