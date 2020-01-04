@@ -17,6 +17,8 @@ import static com.haymel.chess.engine.board.Field.d1;
 import static com.haymel.chess.engine.board.Field.d2;
 import static com.haymel.chess.engine.board.Field.e1;
 import static com.haymel.chess.engine.board.Field.e2;
+import static com.haymel.chess.engine.board.Field.e3;
+import static com.haymel.chess.engine.board.Field.e4;
 import static com.haymel.chess.engine.board.Field.f1;
 import static com.haymel.chess.engine.board.Field.f2;
 import static com.haymel.chess.engine.board.Field.g1;
@@ -31,6 +33,7 @@ import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 import static com.haymel.chess.engine.piece.PieceType.BlackQueen;
 import static com.haymel.chess.engine.piece.PieceType.BlackRook;
+import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -58,23 +61,33 @@ public class MakeBlackPromotionMoveTest {
 	}
 
 	private void testPromotion(Field from, Field to) {
-		testPromotion(from, to, BlackQueen);
-		testPromotion(from, to, BlackRook);
-		testPromotion(from, to, BlackBishop);
-		testPromotion(from, to, BlackKnight);
+		testPromotion(from, to, removed);
+		testPromotion(from, to, e3);
+	}	
+	
+	private void testPromotion(Field from, Field to, Field enpassant) {
+		testPromotion(from, to, BlackQueen, enpassant);
+		testPromotion(from, to, BlackRook, enpassant);
+		testPromotion(from, to, BlackBishop, enpassant);
+		testPromotion(from, to, BlackKnight, enpassant);
 	}
 	
-	private void testPromotion(Field from, Field to, PieceType promo) {
+	private void testPromotion(Field from, Field to, PieceType promo, Field enpassant) {
 		Game game = new Game();
 		MakeMove moveMaker = new MakeMove(game);
 
+		addPotentialEnpassant(game);
+
+		game.activeColorWhite();
+		game.enPassant(enpassant);
+		game.activeColorBlack();
+	
 		Piece piece = new Piece(BlackPawn);
 		piece.field(from);
 		game.addBlack(piece);
 		game.place(piece);
 		game.halfMoveClock(30);
 		game.fullMoveNumber(10);
-		game.activeColorBlack();
 		game.assertVerify();
 
 		Move e2e1 = new Move(from, to, promo);
@@ -99,8 +112,15 @@ public class MakeBlackPromotionMoveTest {
 		assertThat(game.containsBlackPiece(piece), is(true));
 		assertThat(game.halfMoveClock(), is(30));
 		assertThat(game.fullMoveNumber(), is(10));
-		assertThat(game.enPassant(), is(removed));
+		assertThat(game.enPassant(), is(enpassant));
 		assertThat(game.activeColor(), is(black));
 	}
-		
+
+	private void addPotentialEnpassant(Game game) {
+		Piece piece = new Piece(WhitePawn);
+		piece.field(e4);
+		game.addWhite(piece);
+		game.place(piece);
+	}
+
 }
