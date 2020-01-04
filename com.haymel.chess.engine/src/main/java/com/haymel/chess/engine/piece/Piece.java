@@ -168,4 +168,8 @@ public final class Piece {
 		return  type == WhiteKnight;
 	}
 
+	@Override
+	public String toString() {
+		return format("Piece(%s, %s)", type, field);
+	}
 }

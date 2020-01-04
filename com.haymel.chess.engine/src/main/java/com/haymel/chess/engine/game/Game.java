@@ -201,7 +201,7 @@ public final class Game {	//TODO unit test
 		for(int i = 0; i < size; i++) {
 			Piece piece = whitePieces.piece(i);
 			assert piece.white();
-			assert board.piece(piece.field()) == piece;
+			assert board.piece(piece.field()) == piece : piece.toString() + " != " + board.piece(piece.field());
 		}
 
 		size = blackPieces.size();
