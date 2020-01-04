@@ -18,6 +18,7 @@ import com.haymel.chess.engine.game.black.MakeBlackKingSideCastlingMove;
 import com.haymel.chess.engine.game.black.MakeBlackMove;
 import com.haymel.chess.engine.game.black.MakeBlackPawnDoubleStepMove;
 import com.haymel.chess.engine.game.black.MakeBlackPawnMove;
+import com.haymel.chess.engine.game.black.MakeBlackPromotionMove;
 import com.haymel.chess.engine.game.white.MakeWhiteCaptureMove;
 import com.haymel.chess.engine.game.white.MakeWhiteCapturePromotionMove;
 import com.haymel.chess.engine.game.white.MakeWhiteEnpassantMove;
@@ -190,6 +191,7 @@ public final class MakeMove {	//TODO unit test
 			MakeBlackEnpassantMove.make(game, move);
 			break;
 		case promotion:
+			MakeBlackPromotionMove.make(game, move);		
 			break;
 		case kingsideCastling:
 			MakeBlackKingSideCastlingMove.make(game, move);
@@ -234,6 +236,7 @@ public final class MakeMove {	//TODO unit test
 		case queensideCastling:
 			break;
 		case promotion:
+			MakeBlackPromotionMove.undo(game, undo.move());			
 			break;
 		default:
 			assert false : "unknown move type " + undo.move().type();
