@@ -188,6 +188,11 @@ public final class Game {	//TODO unit test
 	}
 	
 	public boolean assertVerify() {
+		assert doVerify();
+		return true;
+	}
+	
+	private boolean doVerify() {
 		assert board.assertVerify();
 		assert halfMoveClock >= 0;
 		assert fullMoveNumber > 0;

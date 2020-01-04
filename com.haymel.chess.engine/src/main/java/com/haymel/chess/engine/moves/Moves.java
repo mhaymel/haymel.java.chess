@@ -38,10 +38,13 @@ import com.haymel.chess.engine.piece.Piece;
 
 public class Moves {
 	
+	private int kingCaptureCount;
+	
 	private final ArrayList<Move> moves;
 	
 	public Moves() {
-		moves = new ArrayList<>();
+		moves = new ArrayList<>(200);
+		kingCaptureCount = 0;
 	}
 	
 	public void add(Field from, Field to) {
@@ -59,6 +62,9 @@ public class Moves {
 		assert piece.black() || piece.white();
 
 		moves.add(new Move(from, to, capture, piece));
+		
+		if (piece.blackKing() || piece.whiteKing())
+			kingCaptureCount++;
 	}
 
 	public void addPawnMove(Field from, Field to) {
@@ -106,6 +112,9 @@ public class Moves {
 		moves.add(new Move(from, to, piece, WhiteRook));
 		moves.add(new Move(from, to, piece, WhiteBishop));
 		moves.add(new Move(from, to, piece, WhiteKnight));
+
+		if (piece.blackKing() || piece.whiteKing())
+			kingCaptureCount++;
 	}
 
 	public void addBlackPromotion(Field from) {
@@ -132,6 +141,9 @@ public class Moves {
 		moves.add(new Move(from, to, piece, BlackRook));
 		moves.add(new Move(from, to, piece, BlackBishop));
 		moves.add(new Move(from, to, piece, BlackKnight));
+
+		if (piece.blackKing() || piece.whiteKing())
+			kingCaptureCount++;
 	}
 
 	public void addEnpassant(Field from, Field to, Piece captured) {
@@ -176,6 +188,10 @@ public class Moves {
 	
 	public Move move(int index) {
 		return moves.get(index);
+	}
+	
+	public int kingCaptureCount() {
+		return kingCaptureCount;
 	}
 
 }

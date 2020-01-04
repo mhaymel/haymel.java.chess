@@ -33,7 +33,6 @@ import static com.haymel.chess.engine.board.Field.g4;
 import static com.haymel.chess.engine.board.Field.h2;
 import static com.haymel.chess.engine.board.Field.h3;
 import static com.haymel.chess.engine.board.Field.h4;
-import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.moves.MoveType.pawn;
 import static com.haymel.chess.engine.moves.MoveType.pawnDoubleStep;
 import static org.hamcrest.CoreMatchers.is;
@@ -46,9 +45,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.haymel.chess.engine.board.Board;
+import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.board.PieceList;
-import com.haymel.chess.engine.game.Game;
-import com.haymel.chess.engine.game.GameStartPos;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.moves.black.BlackMoves;
@@ -57,15 +55,19 @@ import com.haymel.chess.engine.moves.white.WhiteMoves;
 public class GameWhiteStartPosMakeAndUndoTest {
 
 	private Game game;
+	private long count;
 	
 	@Before
 	public void setup() {
 		game = new GameStartPos().startPos();
+		count = 0;
 	}
 	
 	@Test
 	public void testStartPos() {
-		white(2);
+		white(4);
+		System.out.println("nodes:  " + count);
+		assertThat(count, is(197281L));
 		Moves moves = new Moves();
 		WhiteMoves whiteMoves = new WhiteMoves(game.board(), moves);
 		whiteMoves.generate(game.whitePieces(), game.enPassant());
@@ -95,15 +97,22 @@ public class GameWhiteStartPosMakeAndUndoTest {
 	}
 
 	private void white(int depth) {
-		if (depth == 0)
-			return;
 		
 		Board board = game.board();
 		PieceList pieces = game.whitePieces();
 		Moves moves = new Moves();
 		WhiteMoves whiteMoves = new WhiteMoves(board, moves);
-		whiteMoves.generate(pieces, removed);
+		whiteMoves.generate(pieces, game.enPassant());
 		
+		if (moves.kingCaptureCount() > 0)
+			return;
+		
+		if (depth == 0) {
+			count++;
+			return;
+		}
+		
+		Field enPassant = game.enPassant();
 		MakeMove makeMove = new MakeMove(game);
 		int size = moves.size();
 		for(int i = 0; i < size; i++) {
@@ -111,19 +120,26 @@ public class GameWhiteStartPosMakeAndUndoTest {
 			makeMove.makeMove(move);
 			black(depth - 1);
 			makeMove.undoMove();
+			assert enPassant == game.enPassant();
 		}
 	}
 	
 	private void black(int depth) {
-		if (depth == 0)
-			return;
-
 		Board board = game.board();
 		PieceList pieces = game.blackPieces();
 		Moves moves = new Moves();
 		BlackMoves blackMoves = new BlackMoves(board, moves);
 		blackMoves.generate(pieces, game.enPassant());
+
+		if (moves.kingCaptureCount() > 0)
+			return;
+
+		if (depth == 0) {
+			count++;
+			return;
+		}
 		
+		Field enPassant = game.enPassant();
 		MakeMove makeMove = new MakeMove(game);
 		int size = moves.size();
 		for(int i = 0; i < size; i++) {
@@ -131,6 +147,7 @@ public class GameWhiteStartPosMakeAndUndoTest {
 			makeMove.makeMove(move);
 			white(depth - 1);
 			makeMove.undoMove();
+			assert enPassant == game.enPassant();
 		}
 	}
 
