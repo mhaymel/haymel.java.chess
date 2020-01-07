@@ -17,9 +17,6 @@ import com.haymel.chess.engine.piece.Piece;
 
 public final class BlackMoves {		//TODO unit test
 
-	private final Board board;
-	private final Moves moves;
-	
 	private final BlackKingMoves kingMoves;
 	private final BlackRookMoves rookMoves;
 	private final BlackKnightMoves knightMoves;
@@ -31,8 +28,6 @@ public final class BlackMoves {		//TODO unit test
 		assert board != null;
 		assert moves != null;
 		
-		this.board = board;
-		this.moves = moves;
 		this.kingMoves = new BlackKingMoves(board, moves);
 		this.rookMoves = new BlackRookMoves(board, moves);
 		this.knightMoves = new BlackKnightMoves(board, moves);

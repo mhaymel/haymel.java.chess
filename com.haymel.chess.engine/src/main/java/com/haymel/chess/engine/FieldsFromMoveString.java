@@ -13,11 +13,11 @@ import static java.lang.String.format;
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.board.FieldFromString;
 
-class FieldFromMoveString {
+class FieldsFromMoveString {
 
 	private final String move;
 	
-	public FieldFromMoveString(String move) {
+	public FieldsFromMoveString(String move) {
 		nonNull(move, "move");
 		
 		if (move.length() != 4)

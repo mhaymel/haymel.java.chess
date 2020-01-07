@@ -5,7 +5,7 @@
  * @author: Markus.Heumel
  *
  */
-package com.haymel.chess.engine.board;
+package com.haymel.chess.engine.game;
 
 import static com.haymel.chess.engine.board.Field.a1;
 import static com.haymel.chess.engine.board.Field.a2;
@@ -52,15 +52,16 @@ import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
 import static com.haymel.chess.engine.piece.PieceType.WhiteQueen;
 import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
 
+import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.piece.Piece;
 
 public class StartposCreator {		//TODO unit test
 	
-	public final Board board;
+	public final Game game;
 	
-	public StartposCreator(Board board) {
-		assert board != null;
-		this.board = board;
+	public StartposCreator(Game game) {
+		assert game != null;
+		this.game = game;
 	}
 	
 	public void execute() {
@@ -70,7 +71,6 @@ public class StartposCreator {		//TODO unit test
 	}
 
 	private void clearBoard() {
-		board.reset();
 	}
 
 	private void placeWhitePieces() {
@@ -115,7 +115,14 @@ public class StartposCreator {		//TODO unit test
 
 	private Piece place(Field f, Piece piece) {
 		piece.field(f);
-		board.place(piece);
+		if (piece.white())
+			game.addWhite(piece);
+		else if (piece.black())
+			game.addBlack(piece);
+		else
+			assert false : piece.toString();
+			
+		game.place(piece);
 		return piece;
 	}
 		

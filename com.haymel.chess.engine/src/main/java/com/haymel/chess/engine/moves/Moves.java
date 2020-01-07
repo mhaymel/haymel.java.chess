@@ -27,6 +27,7 @@ import static com.haymel.chess.engine.piece.PieceType.WhiteBishop;
 import static com.haymel.chess.engine.piece.PieceType.WhiteKnight;
 import static com.haymel.chess.engine.piece.PieceType.WhiteQueen;
 import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
+import static com.haymel.util.Require.nonNull;
 import static java.lang.String.join;
 import static java.util.stream.Collectors.toList;
 
@@ -192,6 +193,19 @@ public class Moves {
 	
 	public int kingCaptureCount() {
 		return kingCaptureCount;
+	}
+	
+	public Move findMove(Field from, Field to) {
+		nonNull(from, "from");
+		nonNull(to, "to");
+		
+		int size = size();
+		for(int i = 0; i < size; i++) {
+			Move move = move(i);
+			if (move.from().equals(from) && move.to().equals(to))
+				return move;
+		}
+		return null;
 	}
 
 }

@@ -17,10 +17,32 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
+import com.haymel.util.exception.HaymelNullPointerException;
+
 public class FieldFromStringTest {
 
+	@Test(expected=HaymelNullPointerException.class)
+	public void constructorWithNullThrowsException() {
+		new FieldFromString(null);
+	}
+
+	@Test(expected=IllegalArgumentException.class)
+	public void constructorWithEmptyStringThrowsException() {
+		new FieldFromString("");
+	}
+
+	@Test(expected=IllegalArgumentException.class)
+	public void constructorWithWrongFirstCharacterThrowsException() {
+		new FieldFromString("k1");
+	}
+
+	@Test(expected=IllegalArgumentException.class)
+	public void constructorWithWrongSecondCharacterThrowsException() {
+		new FieldFromString("a9");
+	}
+	
 	@Test
-	public void test() {
+	public void testValidFields() {
 		test("e2", e2);
 		test("e4", e4);
 		test("a1", a1);

@@ -5,20 +5,16 @@
  * @author: Markus.Heumel
  *
  */
-package com.haymel.chess.engine.board;
-
-import static org.junit.Assert.*;
+package com.haymel.chess.engine.game;
 
 import org.junit.Test;
-
-import com.haymel.chess.engine.board.Board;
 
 public class StartposCreatorTest {
 
 	@Test
 	public void test() {
-		Board board = new Board();
-		new StartposCreator(board).execute();
+		Game game = new Game();
+		new StartposCreator(game).execute();
 	}
 
 }

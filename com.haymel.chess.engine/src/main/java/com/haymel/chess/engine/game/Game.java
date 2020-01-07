@@ -27,21 +27,20 @@ public final class Game {	//TODO unit test
 	private final List<Undo> undos = new ArrayList<>();
 	private final PieceList whitePieces = new PieceList();
 	private final PieceList blackPieces = new PieceList();
-	private final Board board = new Board();
+	private final Board board;
 	private ActiveColor activeColor;
 	private Field enPassant;
 	private int halfMoveClock;
 	private int fullMoveNumber;
 
 	public Game() {
-		this(new Board());
-	}
-	
-	public Game(Board board) {
+		this.board = new Board();
 		this.activeColor = white;
 		this.enPassant = removed;
 		this.halfMoveClock = 0;
 		this.fullMoveNumber = 1;
+		
+		assertVerify();
 	}
 
 	public void push(Move move) {

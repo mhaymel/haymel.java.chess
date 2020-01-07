@@ -15,12 +15,15 @@ import static com.haymel.chess.engine.board.Field.e3;
 import static com.haymel.chess.engine.board.Field.e4;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import com.haymel.chess.engine.piece.Piece;
+import com.haymel.util.exception.HaymelNullPointerException;
 
 public class MovesTest {
 
@@ -121,6 +124,32 @@ public class MovesTest {
 		
 		assertThat(moves.size(), is(2));
 		assertThat(moves.toString(), is("Moves(O-O, O-O-O)"));
+	}
+	
+	@Test(expected=HaymelNullPointerException.class)
+	public void findMoveWithNullAsFromThrowsException() {
+		moves.findMove(null, e2);
+	}
+	
+	@Test(expected=HaymelNullPointerException.class)
+	public void findMoveWithNullAsToThrowsException() {
+		moves.findMove(e2, null);
+	}
+
+	@Test
+	public void findMoveReturnsNullIfNoMoveWasFound() {
+		assertThat(moves.findMove(e2, e4), is(nullValue()));
+	}
+
+	@Test
+	public void findMoveReturnsTheRightMove() {
+		moves.add(e2, e4);
+		moves.add(e2, e3);
+
+		Move move = moves.findMove(e2, e4);
+		assertThat(move, is(notNullValue()));
+		assertThat(move.from(), is(e2));
+		assertThat(move.to(), is(e4));
 	}
 	
 }

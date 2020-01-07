@@ -14,11 +14,23 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
-public class FieldFromMoveStringTest {
+import com.haymel.util.exception.HaymelNullPointerException;
+
+public class FieldsFromMoveStringTest {
+
+	@Test(expected=HaymelNullPointerException.class)
+	public void constructorWithNullThrowsException() {
+		new FieldsFromMoveString(null);
+	}
+
+	@Test(expected=IllegalArgumentException.class)
+	public void constructorWithEmptyStringThrowsException() {
+		new FieldsFromMoveString("");
+	}
 
 	@Test
-	public void test() {
-		FieldFromMoveString fieldFromMoveString = new FieldFromMoveString("e2e4");
+	public void testValidValues() {
+		FieldsFromMoveString fieldFromMoveString = new FieldsFromMoveString("e2e4");
 		assertThat(fieldFromMoveString.from(), is(e2));
 		assertThat(fieldFromMoveString.to(), is(e4));
 	}
