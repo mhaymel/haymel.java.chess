@@ -11,7 +11,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.haymel.chess.engine.StartposCreator;
 import com.haymel.chess.engine.board.Board;
 
 public class StartposCreatorTest {

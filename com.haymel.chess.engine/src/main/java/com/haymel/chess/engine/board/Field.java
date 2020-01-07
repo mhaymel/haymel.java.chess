@@ -8,6 +8,7 @@
 package com.haymel.chess.engine.board;
 
 import static java.lang.Integer.MAX_VALUE;
+import static java.lang.String.format;
 
 public final class Field {
 
@@ -200,6 +201,17 @@ public final class Field {
 	@Override
 	public int hashCode() {
 		return position;
+	}
+
+	public static Field field(int file, int rank) {
+		if (file < 0 || file > 7 )
+			throw new IllegalArgumentException(format("file must be between 0 and 7 but is %s", file));
+
+		if (rank < 0 || rank > 7 )
+			throw new IllegalArgumentException(format("rank must be between 0 and 7 but is %s", rank));
+
+		
+		return fields[(rank + 2)*up + file + 2];
 	}
 	
 }

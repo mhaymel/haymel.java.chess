@@ -32,10 +32,14 @@ public final class Game {	//TODO unit test
 	private Field enPassant;
 	private int halfMoveClock;
 	private int fullMoveNumber;
-	
+
 	public Game() {
+		this(new Board());
+	}
+	
+	public Game(Board board) {
 		this.activeColor = white;
-		this.enPassant = Field.removed;
+		this.enPassant = removed;
 		this.halfMoveClock = 0;
 		this.fullMoveNumber = 1;
 	}

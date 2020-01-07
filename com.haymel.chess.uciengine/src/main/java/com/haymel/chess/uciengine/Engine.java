@@ -74,6 +74,5 @@ public class Engine extends com.haymel.chess.uci.Engine {
 			break;
 		}
 	}
-
 	
 }

@@ -5,7 +5,7 @@
  * @author: Markus.Heumel
  *
  */
-package com.haymel.chess.engine;
+package com.haymel.chess.engine.board;
 
 import static com.haymel.chess.engine.board.Field.a1;
 import static com.haymel.chess.engine.board.Field.a2;
@@ -52,8 +52,6 @@ import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
 import static com.haymel.chess.engine.piece.PieceType.WhiteQueen;
 import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
 
-import com.haymel.chess.engine.board.Board;
-import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.piece.Piece;
 
 public class StartposCreator {		//TODO unit test

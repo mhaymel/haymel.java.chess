@@ -7,6 +7,8 @@
  */
 package com.haymel.chess.engine.board;
 
+import static com.haymel.chess.engine.board.Field.a1;
+import static com.haymel.chess.engine.board.Field.a8;
 import static com.haymel.chess.engine.board.Field.c3;
 import static com.haymel.chess.engine.board.Field.c5;
 import static com.haymel.chess.engine.board.Field.d2;
@@ -14,8 +16,11 @@ import static com.haymel.chess.engine.board.Field.d6;
 import static com.haymel.chess.engine.board.Field.e4;
 import static com.haymel.chess.engine.board.Field.f2;
 import static com.haymel.chess.engine.board.Field.f6;
+import static com.haymel.chess.engine.board.Field.field;
 import static com.haymel.chess.engine.board.Field.g3;
 import static com.haymel.chess.engine.board.Field.g5;
+import static com.haymel.chess.engine.board.Field.h1;
+import static com.haymel.chess.engine.board.Field.h8;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
@@ -118,4 +123,14 @@ public class FieldTest {
 		assertThat(e4.rightDownDown(), is(f2));
 		assertThat(e4.leftDownDown(), is(d2));
 	}
+
+	@Test
+	public void fieldReturnsCorrectFieldForFileAndRank() {
+		assertThat(field(0, 0), is(a1));
+		assertThat(field(7, 7), is(h8));
+		assertThat(field(0, 7), is(a8));
+		assertThat(field(7, 0), is(h1));
+		assertThat(field(4, 3), is(e4));
+	}
+
 }

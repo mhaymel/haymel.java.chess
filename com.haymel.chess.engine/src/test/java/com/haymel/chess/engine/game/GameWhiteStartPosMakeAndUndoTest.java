@@ -35,6 +35,7 @@ import static com.haymel.chess.engine.board.Field.h3;
 import static com.haymel.chess.engine.board.Field.h4;
 import static com.haymel.chess.engine.moves.MoveType.pawn;
 import static com.haymel.chess.engine.moves.MoveType.pawnDoubleStep;
+import static java.lang.String.format;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -56,6 +57,7 @@ public class GameWhiteStartPosMakeAndUndoTest {
 
 	private Game game;
 	private long count;
+	private long maxDepth;
 	
 	@Before
 	public void setup() {
@@ -65,7 +67,8 @@ public class GameWhiteStartPosMakeAndUndoTest {
 	
 	@Test
 	public void testStartPos() {
-		white(4);
+		maxDepth = 4;
+		white(0);
 		System.out.println("nodes:  " + count);
 		assertThat(count, is(197281L));
 		Moves moves = new Moves();
@@ -107,7 +110,7 @@ public class GameWhiteStartPosMakeAndUndoTest {
 		if (moves.kingCaptureCount() > 0)
 			return;
 		
-		if (depth == 0) {
+		if (depth == maxDepth) {
 			count++;
 			return;
 		}
@@ -116,11 +119,18 @@ public class GameWhiteStartPosMakeAndUndoTest {
 		MakeMove makeMove = new MakeMove(game);
 		int size = moves.size();
 		for(int i = 0; i < size; i++) {
+		
+			if (depth == 0)
+				System.out.print(format("%s:  ", size - i));
+		
 			Move move = moves.move(i);
 			makeMove.makeMove(move);
-			black(depth - 1);
+			black(depth + 1);
 			makeMove.undoMove();
 			assert enPassant == game.enPassant();
+			
+			if (depth == 0)
+				System.out.println("     " + count);
 		}
 	}
 	
@@ -134,7 +144,7 @@ public class GameWhiteStartPosMakeAndUndoTest {
 		if (moves.kingCaptureCount() > 0)
 			return;
 
-		if (depth == 0) {
+		if (depth == maxDepth) {
 			count++;
 			return;
 		}
@@ -143,9 +153,13 @@ public class GameWhiteStartPosMakeAndUndoTest {
 		MakeMove makeMove = new MakeMove(game);
 		int size = moves.size();
 		for(int i = 0; i < size; i++) {
+			
+			if (depth == 1)
+				System.out.print(format("%s ", size - i));
+			
 			Move move = moves.move(i);
 			makeMove.makeMove(move);
-			white(depth - 1);
+			white(depth + 1);
 			makeMove.undoMove();
 			assert enPassant == game.enPassant();
 		}

@@ -1,0 +1,26 @@
+/***************************************************
+ * (c) Markus Heumel
+ *
+ * @date: 	07.01.2020
+ * @author: Markus.Heumel
+ *
+ */
+package com.haymel.chess.engine;
+import static com.haymel.chess.engine.board.Field.e2;
+import static com.haymel.chess.engine.board.Field.e4;
+import static org.hamcrest.CoreMatchers.is;
+
+import static org.junit.Assert.assertThat;
+
+import org.junit.Test;
+
+public class FieldFromMoveStringTest {
+
+	@Test
+	public void test() {
+		FieldFromMoveString fieldFromMoveString = new FieldFromMoveString("e2e4");
+		assertThat(fieldFromMoveString.from(), is(e2));
+		assertThat(fieldFromMoveString.to(), is(e4));
+	}
+
+}
