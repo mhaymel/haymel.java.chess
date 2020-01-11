@@ -25,4 +25,10 @@ public class EngineTest {
 		engine.move("d7d5");
 	}
 
+	@Test
+	public void e2e3_e7e5() {
+		engine.move("e2e3");
+		engine.move("e7e5");
+	}
+	
 }

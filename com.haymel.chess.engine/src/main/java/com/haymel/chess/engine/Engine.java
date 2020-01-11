@@ -45,6 +45,10 @@ public class Engine {
 		new MakeMove(game).makeMove(move);
 	}
 
+	public Game game() {
+		return game;
+	}
+	
 	private Moves blackMoves() {
 		Board board = game.board();
 		PieceList pieces = game.blackPieces();

@@ -123,7 +123,6 @@ public final class WhiteKingMoves {
 			moves.add(from, to);
 		}
 		else if (piece.black()) {
-			assert !piece.blackKing() : format("cannot capture black king %s", piece);	
 			moves.addCapture(from, to, piece);
 		}
 	}
