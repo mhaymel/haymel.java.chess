@@ -20,6 +20,9 @@ import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.board.PieceList;
 import com.haymel.chess.engine.moves.Move;
+import com.haymel.chess.engine.moves.Moves;
+import com.haymel.chess.engine.moves.black.BlackMoves;
+import com.haymel.chess.engine.moves.white.WhiteMoves;
 import com.haymel.chess.engine.piece.Piece;
 
 public final class Game {	//TODO unit test
@@ -151,7 +154,6 @@ public final class Game {	//TODO unit test
 		fullMoveNumber++;
 	}
 
-	
 	public void addBlack(Piece piece) {
 		assert piece != null;
 		assert piece.black();
@@ -188,6 +190,18 @@ public final class Game {	//TODO unit test
 		assert piece != null;
 		assert piece.white();
 		return whitePieces.contains(piece);
+	}
+	
+	public Moves blackMoves() {
+		Moves moves = new Moves();
+		new BlackMoves(board, moves).generate(blackPieces, enPassant);
+		return moves;
+	}
+
+	public Moves whiteMoves() {
+		Moves moves = new Moves();
+		new WhiteMoves(board, moves).generate(whitePieces, enPassant);
+		return moves;
 	}
 	
 	public boolean assertVerify() {

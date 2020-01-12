@@ -33,6 +33,7 @@ import static java.util.stream.Collectors.toList;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.piece.Piece;
@@ -100,7 +101,7 @@ public class Moves {
 		moves.add(new Move(from, to, WhiteKnight));
 	}
 
-	public void addWhiteCapturePromotion(Field from, Field to, Piece piece) {
+	public void addWhiteCapturePromotion(Field from, Field to, Piece piece) {		//TODO unit test
 		assert from != null;
 		assert to != null;
 		assert from != to;
@@ -195,17 +196,13 @@ public class Moves {
 		return kingCaptureCount;
 	}
 	
-	public Move findMove(Field from, Field to) {
+	public List<Move> findMoves(Field from, Field to) {
 		nonNull(from, "from");
 		nonNull(to, "to");
+		assert from != to;
 		
-		int size = size();
-		for(int i = 0; i < size; i++) {
-			Move move = move(i);
-			if (move.from().equals(from) && move.to().equals(to))
-				return move;
-		}
-		return null;
+		Predicate<Move> match = move -> (move.from() == from) && (move.to() == to);
+		return moves.stream().filter(match).collect(toList());
 	}
 
 }

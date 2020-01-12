@@ -10,14 +10,20 @@ package com.haymel.chess.engine.moves;
 import static com.haymel.chess.engine.board.Field.c5;
 import static com.haymel.chess.engine.board.Field.d4;
 import static com.haymel.chess.engine.board.Field.d5;
+import static com.haymel.chess.engine.board.Field.d8;
 import static com.haymel.chess.engine.board.Field.e2;
 import static com.haymel.chess.engine.board.Field.e3;
 import static com.haymel.chess.engine.board.Field.e4;
+import static com.haymel.chess.engine.board.Field.e7;
+import static com.haymel.chess.engine.board.Field.e8;
+import static com.haymel.chess.engine.moves.MoveType.capturePromotion;
+import static com.haymel.chess.engine.moves.MoveType.promotion;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
+import static com.haymel.chess.engine.piece.PieceType.BlackQueen;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
+
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -128,17 +134,17 @@ public class MovesTest {
 	
 	@Test(expected=HaymelNullPointerException.class)
 	public void findMoveWithNullAsFromThrowsException() {
-		moves.findMove(null, e2);
+		moves.findMoves(null, e2);
 	}
 	
 	@Test(expected=HaymelNullPointerException.class)
 	public void findMoveWithNullAsToThrowsException() {
-		moves.findMove(e2, null);
+		moves.findMoves(e2, null);
 	}
 
 	@Test
-	public void findMoveReturnsNullIfNoMoveWasFound() {
-		assertThat(moves.findMove(e2, e4), is(nullValue()));
+	public void findMoveReturnsEmptyListIfNoMoveWasFound() {
+		assertThat(moves.findMoves(e2, e4).size(), is(0));
 	}
 
 	@Test
@@ -146,10 +152,34 @@ public class MovesTest {
 		moves.add(e2, e4);
 		moves.add(e2, e3);
 
-		Move move = moves.findMove(e2, e4);
-		assertThat(move, is(notNullValue()));
+		List<Move> foundMoves = moves.findMoves(e2, e4);
+		assertThat(foundMoves.size(), is(1));
+		Move move = foundMoves.get(0);
 		assertThat(move.from(), is(e2));
 		assertThat(move.to(), is(e4));
+	}
+
+	@Test
+	public void findPromotionMoves() {
+		moves.addWhitePromotion(e7);
+
+		List<Move> foundMoves = moves.findMoves(e7, e8);
+		assertThat(foundMoves.size(), is(4));
+
+		for (Move move : foundMoves) 
+			assertThat(move.type(), is(promotion));
+	}
+	
+	@Test
+	public void findCapturePromotionMoves() {
+		Piece blackQueen = new Piece(BlackQueen);
+		moves.addWhiteCapturePromotion(e7, d8, blackQueen);;
+
+		List<Move> foundMoves = moves.findMoves(e7, d8);
+		assertThat(foundMoves.size(), is(4));
+
+		for (Move move : foundMoves) 
+			assertThat(move.type(), is(capturePromotion));
 	}
 	
 }

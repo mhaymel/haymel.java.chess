@@ -8,18 +8,19 @@
 
 package com.haymel.chess.engine;
 
+import static com.haymel.chess.engine.Promotion.Bishop;
+import static com.haymel.chess.engine.Promotion.Knight;
+import static com.haymel.chess.engine.Promotion.Queen;
+import static com.haymel.chess.engine.Promotion.Rook;
 import static com.haymel.chess.engine.game.ActiveColor.white;
 import static java.lang.String.format;
 
-import com.haymel.chess.engine.board.Board;
-import com.haymel.chess.engine.board.PieceList;
+import java.util.List;
+
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.game.MakeMove;
 import com.haymel.chess.engine.game.StartposCreator;
 import com.haymel.chess.engine.moves.Move;
-import com.haymel.chess.engine.moves.Moves;
-import com.haymel.chess.engine.moves.black.BlackMoves;
-import com.haymel.chess.engine.moves.white.WhiteMoves;
 
 public class Engine {
 
@@ -36,39 +37,102 @@ public class Engine {
 
 	public void move(String moveAsString) {
 		FieldsFromMoveString fields = new FieldsFromMoveString(moveAsString);
-	
-		Moves moves = (game.activeColor() == white) ? whiteMoves() : blackMoves();
-		Move move = moves.findMove(fields.from(), fields.to());
-		if (move == null)
-			throw new IllegalStateException(format("cannot find a move %s%s", fields.from(), fields.to()));
-		
-		new MakeMove(game).makeMove(move);
+		if (game.activeColor() == white)
+			moveWhite(fields);
+		else
+			moveBlack(fields);
 	}
 
 	public Game game() {
 		return game;
 	}
-	
-	private Moves blackMoves() {
-		Board board = game.board();
-		PieceList pieces = game.blackPieces();
-		Moves moves = new Moves();
-		BlackMoves black = new BlackMoves(board, moves);
-		black.generate(pieces, game.enPassant());
 
-		assert moves.kingCaptureCount() == 0;
-		return moves;
+	private void moveBlack(FieldsFromMoveString fields) {
+		List<Move> moves = game.blackMoves().findMoves(fields.from(), fields.to());
+		
+		if (moves.isEmpty())
+			throw new IllegalStateException(format("cannot find a move %s%s", fields.from(), fields.to()));
+		
+		if (fields.isPromotion()) {
+			make(blackPromotionMove(fields.promotion(), moves));
+		}
+		else {
+			assert moves.size() == 1;
+			make(moves.get(0));
+		}
 	}
 
-	private Moves whiteMoves() {
-		Board board = game.board();
-		PieceList pieces = game.whitePieces();
-		Moves moves = new Moves();
-		WhiteMoves whiteMoves = new WhiteMoves(board, moves);
-		whiteMoves.generate(pieces, game.enPassant());
+	private Move blackPromotionMove(Promotion promotion, List<Move> moves) {
+		for (Move move : moves) {
+			switch(move.pieceType()) {
+			case BlackQueen:
+				if (promotion == Queen)
+					return move;
+				break;
+			case BlackRook:
+				if (promotion == Rook)
+					return move;
+				break;
+			case BlackBishop:
+				if (promotion == Bishop)
+					return move;
+				break;
+			case BlackKnight:
+				if (promotion == Knight)
+					return move;
+				break;
+			default:
+				assert false : move.toString();
+				break;
+			}
+		}
+		return null;
+	}
 
-		assert moves.kingCaptureCount() == 0;
-		return moves;
+	private void moveWhite(FieldsFromMoveString fields) {
+		List<Move> moves = game.whiteMoves().findMoves(fields.from(), fields.to());
+
+		if (moves.isEmpty())
+			throw new IllegalStateException(format("cannot find a move %s%s", fields.from(), fields.to()));
+		
+		if (fields.isPromotion()) {
+			make(whitePromotionMove(fields.promotion(), moves));
+		}
+		else {
+			assert moves.size() == 1;
+			make(moves.get(0));
+		}
+	}
+
+	private Move whitePromotionMove(Promotion promotion, List<Move> moves) {
+		for (Move move : moves) {
+			switch(move.pieceType()) {
+			case WhiteQueen:
+				if (promotion == Queen)
+					return move;
+				break;
+			case WhiteRook:
+				if (promotion == Rook)
+					return move;
+				break;
+			case WhiteBishop:
+				if (promotion == Bishop)
+					return move;
+				break;
+			case WhiteKnight:
+				if (promotion == Knight)
+					return move;
+				break;
+			default:
+				assert false : move.toString();
+				break;
+			}
+		}
+		return null;
+	}
+
+	private void make(Move move) {
+		new MakeMove(game).makeMove(move);
 	}
 
 }
