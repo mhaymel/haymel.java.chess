@@ -123,7 +123,7 @@ public class Move {
 	
 	@Override
 	public int hashCode() {			//TODO unit test
-		return Objects.hash(from, to, type);
+		return Objects.hash(type, from, to, capturedPiece, pieceType);
 	}
 	
 	@Override			
@@ -140,7 +140,8 @@ public class Move {
 			from.equals(that.from) && 
 			to.equals(that.to) && 
 			type == that.type &&
-			capturedPiece == that.capturedPiece;
+			capturedPiece.equals(that.capturedPiece) &&
+			pieceType == that.pieceType;
 	}
 
 	public Piece capturedPiece() {

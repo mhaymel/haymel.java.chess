@@ -5,9 +5,7 @@
  * @author: Markus.Heumel
  *
  */
-package com.haymel.chess.engine.game;
-
-import static org.junit.Assert.*;
+package com.haymel.chess.engine.search;
 
 import org.junit.Test;
 
@@ -27,11 +25,25 @@ public class SearchTest {
 	public void testWhiteStarts1() {
 		Engine engine = new Engine();
 //		for(;;) {
-			Search search = new Search(engine.game());
-			Move move = search.execute(1);
+		SearchImpl search = new SearchImpl(engine.game());
+			Move move = search.execute(4);
 			String moveAsString = move.from().toString()+ move.to().toString();
 			System.out.println(moveAsString);
 			engine.move(moveAsString);
-		}
-//	}
+//		}
+	}
+	
+	@Test
+	public void test1() {
+		Engine engine = new Engine();
+		String[] moves = "e2e4 e7e6 d2d4 d8f6 g1f3".split(" ");
+		for (String move : moves)
+			engine.move(move);
+		
+		SearchImpl search = new SearchImpl(engine.game());
+		Move move = search.execute(1);
+		String moveAsString = move.from().toString()+ move.to().toString();
+		System.out.println(moveAsString);
+	}
+	
 }

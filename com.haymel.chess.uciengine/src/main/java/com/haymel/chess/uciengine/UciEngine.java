@@ -11,21 +11,25 @@ import static com.haymel.util.Require.nonNull;
 
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.function.Consumer;
+import java.util.function.IntConsumer;
 
 import com.haymel.chess.engine.Engine;
-import com.haymel.chess.engine.game.Search;
+import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.moves.Move;
+import com.haymel.chess.engine.search.BestMove;
+import com.haymel.chess.engine.search.CurrentMove;
+import com.haymel.chess.engine.search.IterativeSearch;
+import com.haymel.chess.engine.search.NodeStatistics;
+import com.haymel.chess.engine.search.SearchExecutor;
 import com.haymel.chess.uci.moves.Moves;
+import com.haymel.chess.uci.moves.MovesImpl;
+import com.haymel.chess.uci.result.Infos;
 
 public class UciEngine extends com.haymel.chess.uci.Engine {
 
-	private Engine engine;
-	
-	public static void main(String[] args) throws InterruptedException {
-		UciEngine engine = new UciEngine(System.in, System.out);
-		engine.start();
-		Thread.sleep(Long.MAX_VALUE);
-	}
+	private Game game;
+	private SearchExecutor executor;
 	
 	public UciEngine(InputStream in, PrintStream out) {
 		super(nonNull(in, "in"), nonNull(out, "out"));
@@ -44,18 +48,73 @@ public class UciEngine extends com.haymel.chess.uci.Engine {
 	}
 	
 	@Override
-	public void positionStart(Moves moves) {
-		engine = new Engine();
+	public void positionStart(Moves moves) { 
+		Engine engine = new Engine();
 		for (String move: moves.value()) {
 			engine.move(move);
 		}
+		
+		game = engine.game();
 	}
 	
 	@Override
-	public void go(int wtimeInSeconds, int btimeInSeconds, int wincInSeconds, int bincInSeconds) {
-		Search search = new Search(engine.game());
-		Move move = search.execute(4);
-		bestmove(move.from().toString() + move.to().toString());
+	public void go(int wtimeInMilliSeconds, int btimeInMilliSeconds, int wincInMilliSeconds, int bincInMilliSeconds) {
+		stop();
+
+		IterativeSearch search = new IterativeSearch(game, currentMoveConsumer(), depthConsumer(), bestMoveConsumer2());
+		executor = new SearchExecutor(search, bestMoveConsumer(), nodeStatisticConsumer());
+		executor.go(wtimeInMilliSeconds, btimeInMilliSeconds);
+	}
+	
+	private Consumer<BestMove> bestMoveConsumer2() {
+		return (bm) -> info(new Infos().scorecp(bm.value()).pv(new MovesImpl().add(asString(bm.move()))));
+	}
+
+	private Consumer<Move> bestMoveConsumer() {
+		return (move) -> {
+			if (move == null)
+				bestmove("0000");
+			else
+				bestmove(asString(move));
+		};
+	}
+	
+	private Consumer<NodeStatistics> nodeStatisticConsumer() {
+		return (s) -> info(new Infos().nps(s.nodesPerSecond()).nodes(s.nodeCount()));
+	}
+	
+	private Consumer<CurrentMove> currentMoveConsumer() {
+		return (cm) -> currentMove(cm); 
+	}
+	
+	private void currentMove(CurrentMove currentMove) {
+		info(
+			new Infos()
+				.currmovenumber(currentMove.current())
+				.currmove(asString(currentMove.move())));
+	}
+	
+	private static String asString(Move move) {
+		return move.from().toString() + move.to().toString();
+	}
+
+	private IntConsumer depthConsumer() {
+		return (depth) -> info(new Infos().depth(depth));
+	}
+	
+	@Override
+	public synchronized void stop() {
+		if (executor == null)
+			return;
+		
+		executor.stop();
+		executor = null;
+	}
+	
+	public static void main(String[] args) throws InterruptedException {
+		UciEngine engine = new UciEngine(System.in, System.out);
+		engine.start();
+		Thread.sleep(Long.MAX_VALUE);
 	}
 	
 }

@@ -5,27 +5,26 @@
  * @author: Markus.Heumel
  *
  */
-package com.haymel.chess.engine.game;
+package com.haymel.chess.engine.search;
 
 import static com.haymel.util.Require.nonNull;
 import static java.lang.Integer.MAX_VALUE;
 import static java.lang.Integer.MIN_VALUE;
 
-import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.board.PieceList;
+import com.haymel.chess.engine.game.Game;
+import com.haymel.chess.engine.game.MakeMove;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.Moves;
-import com.haymel.chess.engine.moves.black.BlackMoves;
-import com.haymel.chess.engine.moves.white.WhiteMoves;
 import com.haymel.chess.engine.piece.PieceType;
 
-public class Search {
+public class SearchImpl {
 
 	private final Game game;
 	private int maxDepth;
 	private Move bestMove;
 	
-	public Search(Game game) {
+	public SearchImpl(Game game) {
 		this.game = nonNull(game, "game");
 		this.bestMove = null; 
 	}
@@ -45,22 +44,18 @@ public class Search {
 			assert false;
 		}
 		
-//		out.println(format("bestmove: %s, value: %s", bestMove, value));
+		System.out.println(String.format("bestmove: %s, value: %s", bestMove, value));
 		return bestMove;
 	}
 
 	private int white(int depth) {
-		Board board = game.board();
-		PieceList pieces = game.whitePieces();
-		Moves moves = new Moves();
-		WhiteMoves whiteMoves = new WhiteMoves(board, moves);
-		whiteMoves.generate(pieces, game.enPassant());
+		Moves moves = (depth < maxDepth) ? game.whiteMoves() : game.whiteCaptureMoves();
 		
 		if (moves.kingCaptureCount() > 0)
 			return MAX_VALUE - depth;
 		
 		if (depth == maxDepth)
-			return evaluate(game) + moves.size();
+			return evaluate(game);
 		
 		int maxValue = MIN_VALUE + depth;
 		MakeMove makeMove = new MakeMove(game);
@@ -88,17 +83,13 @@ public class Search {
 	}
 
 	private int black(int depth) {
-		Board board = game.board();
-		PieceList pieces = game.blackPieces();
-		Moves moves = new Moves();
-		BlackMoves blackMoves = new BlackMoves(board, moves);
-		blackMoves.generate(pieces, game.enPassant());
+		Moves moves = game.blackMoves();
 
 		if (moves.kingCaptureCount() > 0)
 			return MIN_VALUE + depth;
 		
 		if (depth == maxDepth)
-			return evaluate(game) - moves.size();
+			return evaluate(game);
 		
 		int minValue = MAX_VALUE - depth;
 		MakeMove makeMove = new MakeMove(game);
@@ -106,8 +97,8 @@ public class Search {
 		for(int i = 0; i < size; i++) {
 			Move move = moves.move(i);
 			
-//			if (depth == 0)
-//				out.println(format("%s: current: %s, best: %s, value: %s", size - i, move.toString(), bestMove, minValue));
+			if (depth == 0)
+				System.out.println(String.format("%s: current: %s, best: %s, value: %s", size - i, move.toString(), bestMove, minValue));
 			
 			makeMove.makeMove(move);
 			
@@ -120,7 +111,6 @@ public class Search {
 				}
 			}
 						
-			white(depth + 1);
 			makeMove.undoMove();
 		}
 		
@@ -206,5 +196,5 @@ public class Search {
 		
 		return value;
 	}
-	
+
 }

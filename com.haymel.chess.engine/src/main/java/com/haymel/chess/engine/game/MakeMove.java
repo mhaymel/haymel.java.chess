@@ -46,7 +46,7 @@ public final class MakeMove {	//TODO unit test
 		assert game.assertVerify();
 		assert 
 			activeColor() == white && game.piece(move.from()).white() || 
-			activeColor() == black && game.piece(move.from()).black();
+			activeColor() == black && game.piece(move.from()).black()      : "" + activeColor() + " " + move.toString();
 		
 		switch(activeColor()) {
 		case black:

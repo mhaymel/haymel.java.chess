@@ -35,10 +35,12 @@ public class Engine implements Command, Result {
 		commandWorker.start();
 	}
 	
+	@Override
 	public void stop() {
 		commandWorker.stop();
 	}
 	
+	@Override
 	public void idname(String name) {
 		result.idname(name);
 	}
@@ -136,17 +138,17 @@ public class Engine implements Command, Result {
 	}
 
 	@Override
-	public void go(int wtimeInSeconds, int btimeInSeconds, int wincInSeconds, int bincInSeconds) {
+	public void go(int wtimeInMilliSeconds, int btimeInMilliSeconds, int wincInMilliSeconds, int bincInMilliSeconds) {
 	}
 
 	@Override
-	public void go(int wtimeInSeconds, int btimeInSeconds, int wincInSeconds, int bincInSeconds, int movestogo) {
+	public void go(int wtimeInMilliSeconds, int btimeInMilliSeconds, int wincInMilliSeconds, int bincInMilliSeconds, int movestogo) { 
 	}
 
 	@Override
-	public void goPonder(int wtimeInSeconds, int btimeInSeconds, int wincInSeconds, int bincInSeconds) {
+	public void goPonder(int wtimeInMilliSeconds, int btimeInMilliSeconds, int wincInMilliSeconds, int bincInMilliSeconds) {
 	}
-
+	
 	@Override
 	public void goMovetime(int timeInMilliSeconds) {
 	}
@@ -188,5 +190,5 @@ public class Engine implements Command, Result {
 	private static void log(String msg) {
 		System.err.println("ERR: " + msg);
 	}
-	
+
 }

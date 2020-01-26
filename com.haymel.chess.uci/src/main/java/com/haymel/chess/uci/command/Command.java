@@ -223,14 +223,14 @@ public interface Command {
 
 	//go wtime 100000 winc 1000 btime 100000 binc 1000
 	//go wtime 100000 btime 100000 winc 1000 binc 1000
-	void go(int wtimeInSeconds, int btimeInSeconds, int wincInSeconds, int bincInSeconds);
+	void go(int wtimeInMilliSeconds, int btimeInMilliSeconds, int wincInMilliSeconds, int bincInMilliSeconds);
 
 	//go wtime 100000 btime 100000 winc 1000 binc 1000 movestogo 40
-	void go(int wtimeInSeconds, int btimeInSeconds, int wincInSeconds, int bincInSeconds, int movestogo);
+	void go(int wtimeInMilliSeconds, int btimeInMilliSeconds, int wincInMilliSeconds, int bincInMilliSeconds, int movestogo);
 
 	//go ponder wtime 100000 winc 1000 btime 100000 binc 1000
 	//go ponder wtime 100000 btime 100000 winc 1000 binc 1000
-	void goPonder(int wtimeInSeconds, int btimeInSeconds, int wincInSeconds, int bincInSeconds);
+	void goPonder(int wtimeInMilliSeconds, int btimeInMilliSeconds, int wincInMilliSeconds, int bincInMilliSeconds);
 	
 	//go movetime 30000
 	void goMovetime(int timeInMilliSeconds);
