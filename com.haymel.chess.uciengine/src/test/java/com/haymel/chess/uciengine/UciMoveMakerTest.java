@@ -5,7 +5,7 @@
  * @author: Markus.Heumel
  *
  */
-package com.haymel.chess.engine;
+package com.haymel.chess.uciengine;
 
 import static com.haymel.chess.engine.board.Field.d1;
 import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
@@ -18,25 +18,32 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
-public class EngineTest {
+import com.haymel.chess.engine.game.Game;
+import com.haymel.chess.engine.game.StartposCreator;
+import com.haymel.chess.uciengine.UciMoveMaker;
 
-	private Engine engine;
+public class UciMoveMakerTest {
+
+	private UciMoveMaker uciMoveMaker;
+	private Game game;
 	
 	@Before
 	public void setup() {
-		engine = new Engine();
+		game = new Game();
+		new StartposCreator(game).execute();
+		uciMoveMaker = new UciMoveMaker(game);
 	}
 	
 	@Test
 	public void e2e4_d7d5() {
-		engine.move("e2e4");
-		engine.move("d7d5");
+		uciMoveMaker.move("e2e4");
+		uciMoveMaker.move("d7d5");
 	}
 
 	@Test
 	public void e2e3_e7e5() {
-		engine.move("e2e3");
-		engine.move("e7e5");
+		uciMoveMaker.move("e2e3");
+		uciMoveMaker.move("e7e5");
 	}
 	
 	@Test
@@ -52,9 +59,9 @@ public class EngineTest {
 		).split(" ");
 	
 		for (String move : moves) 
-			engine.move(move);
+			uciMoveMaker.move(move);
 		
-		assertThat(engine.game().board().piece(d1).type(), is(BlackQueen));
+		assertThat(game.board().piece(d1).type(), is(BlackQueen));
 	}
 	
 	@Test
@@ -70,9 +77,9 @@ public class EngineTest {
 		).split(" ");
 	
 		for (String move : moves) 
-			engine.move(move);
+			uciMoveMaker.move(move);
 
-		assertThat(engine.game().board().piece(d1).type(), is(BlackRook));
+		assertThat(game.board().piece(d1).type(), is(BlackRook));
 	}
 
 	@Test
@@ -88,9 +95,9 @@ public class EngineTest {
 				).split(" ");
 		
 		for (String move : moves) 
-			engine.move(move);
+			uciMoveMaker.move(move);
 
-		assertThat(engine.game().board().piece(d1).type(), is(BlackBishop));
+		assertThat(game.board().piece(d1).type(), is(BlackBishop));
 	}
 	
 	@Test
@@ -106,8 +113,8 @@ public class EngineTest {
 				).split(" ");
 		
 		for (String move : moves) 
-			engine.move(move);
+			uciMoveMaker.move(move);
 
-		assertThat(engine.game().board().piece(d1).type(), is(BlackKnight));
+		assertThat(game.board().piece(d1).type(), is(BlackKnight));
 	}
 }

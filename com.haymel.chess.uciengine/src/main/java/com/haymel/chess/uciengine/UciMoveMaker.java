@@ -6,48 +6,39 @@
  *
  */
 
-package com.haymel.chess.engine;
+package com.haymel.chess.uciengine;
 
-import static com.haymel.chess.engine.Promotion.Bishop;
-import static com.haymel.chess.engine.Promotion.Knight;
-import static com.haymel.chess.engine.Promotion.Queen;
-import static com.haymel.chess.engine.Promotion.Rook;
 import static com.haymel.chess.engine.game.ActiveColor.white;
+import static com.haymel.chess.uciengine.Promotion.Bishop;
+import static com.haymel.chess.uciengine.Promotion.Knight;
+import static com.haymel.chess.uciengine.Promotion.Queen;
+import static com.haymel.chess.uciengine.Promotion.Rook;
+import static com.haymel.util.Require.nonNull;
 import static java.lang.String.format;
 
 import java.util.List;
 
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.game.MakeMove;
-import com.haymel.chess.engine.game.StartposCreator;
 import com.haymel.chess.engine.moves.Move;
 
-public class Engine {
+public class UciMoveMaker {
 
-	private Game game;
+	private final Game game;
 	
-	public Engine() {
-		startpos();
+	public UciMoveMaker(Game game) {
+		this.game = nonNull(game, "game");
 	}
 	
-	private void startpos() {
-		game = new Game();
-		new StartposCreator(game).execute();
-	}
-
 	public void move(String moveAsString) {
-		FieldsFromMoveString fields = new FieldsFromMoveString(moveAsString);
+		FieldsFromUciMoveString fields = new FieldsFromUciMoveString(moveAsString);
 		if (game.activeColor() == white)
 			moveWhite(fields);
 		else
 			moveBlack(fields);
 	}
 
-	public Game game() {
-		return game;
-	}
-
-	private void moveBlack(FieldsFromMoveString fields) {
+	private void moveBlack(FieldsFromUciMoveString fields) {
 		List<Move> moves = game.blackMoves().findMoves(fields.from(), fields.to());
 		
 		if (moves.isEmpty())
@@ -89,7 +80,7 @@ public class Engine {
 		return null;
 	}
 
-	private void moveWhite(FieldsFromMoveString fields) {
+	private void moveWhite(FieldsFromUciMoveString fields) {
 		List<Move> moves = game.whiteMoves().findMoves(fields.from(), fields.to());
 
 		if (moves.isEmpty())

@@ -20,21 +20,31 @@ public class IterativeSearch implements Search {
 	private long nodeCount;
 	private final Game game;
 	private volatile boolean stop;
-	private final SearchAlphaBeta search;
+	private final SearchAlphaBeta2 search;
 	private final IntConsumer depthConsumer;
-	private final Consumer<BestMove> bestMoveConsumer;
 	
 	public IterativeSearch(Game game, Consumer<CurrentMove> currentMoveConsumer, IntConsumer depthConsumer, Consumer<BestMove> bestMoveConsumer) {
 		this.nodeCount = 0;
 		this.game = nonNull(game, "game");
 		this.stop = false;
-		this.search = new SearchAlphaBeta(game, currentMoveConsumer);
+		this.search = new SearchAlphaBeta2(game, currentMoveConsumer, bestMoveConsumer);
 		this.depthConsumer = nonNull(depthConsumer, "depthConsumer");
-		this.bestMoveConsumer = nonNull(bestMoveConsumer, "bestMoveConsumer");
 	}
 	
+
 	@Override
 	public Move execute(int wtimeInMilliSeconds, int btimeInMilliSeconds) {
+		try {
+			return doExecute(wtimeInMilliSeconds, btimeInMilliSeconds);
+		}
+		catch(Throwable e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	
+	private Move doExecute(int wtimeInMilliSeconds, int btimeInMilliSeconds) {
 		nodeCount = 0;
 		stop = false;
 		long maxCalcTime = new TimeCalculator(game, wtimeInMilliSeconds, btimeInMilliSeconds).value();
@@ -42,15 +52,16 @@ public class IterativeSearch implements Search {
 		
 		depthConsumer.accept(1);
 		BestMove bestMove = search.execute(1);
-		bestMoveConsumer.accept(bestMove);
 		updateNodeCount();
 		
 		for(int depth = 2; ; depth++) {
 			depthConsumer.accept(depth);
 			bestMove = search.execute(depth);
-			bestMoveConsumer.accept(bestMove);
 			updateNodeCount();
-			if (bestMove.move() == null || stop)
+			if (bestMove == null)
+				return null;
+			
+			if (stop)
 				return bestMove.move();
 			
 			if (!timeLeft(maxCalcTime, now() - start, depth)) 

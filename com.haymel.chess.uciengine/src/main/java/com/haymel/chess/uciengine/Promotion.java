@@ -5,14 +5,14 @@
  * @author: Markus.Heumel
  *
  */
-package com.haymel.chess.engine;
+package com.haymel.chess.uciengine;
 
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
 
 import java.util.Optional;
 
-public enum Promotion {
+enum Promotion {
 	
 	Queen,
 	Rook,

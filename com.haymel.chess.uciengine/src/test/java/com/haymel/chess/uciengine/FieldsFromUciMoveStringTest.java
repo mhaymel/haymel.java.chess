@@ -5,44 +5,45 @@
  * @author: Markus.Heumel
  *
  */
-package com.haymel.chess.engine;
-import static com.haymel.chess.engine.Promotion.Bishop;
-import static com.haymel.chess.engine.Promotion.Knight;
-import static com.haymel.chess.engine.Promotion.Queen;
-import static com.haymel.chess.engine.Promotion.Rook;
+package com.haymel.chess.uciengine;
 import static com.haymel.chess.engine.board.Field.d1;
 import static com.haymel.chess.engine.board.Field.d2;
 import static com.haymel.chess.engine.board.Field.e2;
 import static com.haymel.chess.engine.board.Field.e4;
+import static com.haymel.chess.uciengine.Promotion.Bishop;
+import static com.haymel.chess.uciengine.Promotion.Knight;
+import static com.haymel.chess.uciengine.Promotion.Queen;
+import static com.haymel.chess.uciengine.Promotion.Rook;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
+import com.haymel.chess.uciengine.FieldsFromUciMoveString;
 import com.haymel.util.exception.HaymelNullPointerException;
 
-public class FieldsFromMoveStringTest {
+public class FieldsFromUciMoveStringTest {
 
 	@Test(expected=HaymelNullPointerException.class)
 	public void constructorWithNullThrowsException() {
-		new FieldsFromMoveString(null);
+		new FieldsFromUciMoveString(null);
 	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void constructorWithEmptyStringThrowsException() {
-		new FieldsFromMoveString("");
+		new FieldsFromUciMoveString("");
 	}
 
 	@Test
 	public void testValidValues() {
-		FieldsFromMoveString fieldFromMoveString = new FieldsFromMoveString("e2e4");
+		FieldsFromUciMoveString fieldFromMoveString = new FieldsFromUciMoveString("e2e4");
 		assertThat(fieldFromMoveString.from(), is(e2));
 		assertThat(fieldFromMoveString.to(), is(e4));
 	}
 
 	@Test
 	public void promotionQueen() {
-		FieldsFromMoveString fieldFromMoveString = new FieldsFromMoveString("d2d1q");
+		FieldsFromUciMoveString fieldFromMoveString = new FieldsFromUciMoveString("d2d1q");
 		assertThat(fieldFromMoveString.from(), is(d2));
 		assertThat(fieldFromMoveString.to(), is(d1));
 		assertThat(fieldFromMoveString.isPromotion(), is(true));
@@ -51,7 +52,7 @@ public class FieldsFromMoveStringTest {
 
 	@Test
 	public void promotionRook() {
-		FieldsFromMoveString fieldFromMoveString = new FieldsFromMoveString("d2d1r");
+		FieldsFromUciMoveString fieldFromMoveString = new FieldsFromUciMoveString("d2d1r");
 		assertThat(fieldFromMoveString.from(), is(d2));
 		assertThat(fieldFromMoveString.to(), is(d1));
 		assertThat(fieldFromMoveString.isPromotion(), is(true));
@@ -60,7 +61,7 @@ public class FieldsFromMoveStringTest {
 
 	@Test
 	public void promotionBishop() {
-		FieldsFromMoveString fieldFromMoveString = new FieldsFromMoveString("d2d1b");
+		FieldsFromUciMoveString fieldFromMoveString = new FieldsFromUciMoveString("d2d1b");
 		assertThat(fieldFromMoveString.from(), is(d2));
 		assertThat(fieldFromMoveString.to(), is(d1));
 		assertThat(fieldFromMoveString.isPromotion(), is(true));
@@ -69,7 +70,7 @@ public class FieldsFromMoveStringTest {
 
 	@Test
 	public void promotionKnight() {
-		FieldsFromMoveString fieldFromMoveString = new FieldsFromMoveString("d2d1n");
+		FieldsFromUciMoveString fieldFromMoveString = new FieldsFromUciMoveString("d2d1n");
 		assertThat(fieldFromMoveString.from(), is(d2));
 		assertThat(fieldFromMoveString.to(), is(d1));
 		assertThat(fieldFromMoveString.isPromotion(), is(true));
@@ -78,18 +79,18 @@ public class FieldsFromMoveStringTest {
 	
 	@Test
 	public void isPromotionReturnsFalseIfMoveIsNoPromotion() {
-		FieldsFromMoveString fieldFromMoveString = new FieldsFromMoveString("d2d1");
+		FieldsFromUciMoveString fieldFromMoveString = new FieldsFromUciMoveString("d2d1");
 		assertThat(fieldFromMoveString.isPromotion(), is(false));
 	}
 	
 	@Test(expected=IllegalStateException.class)
 	public void promotionThrowsExceptionIfMoveIsNoPromotion() {
-		new FieldsFromMoveString("d2d1").promotion();
+		new FieldsFromUciMoveString("d2d1").promotion();
 	}
 
 	@Test(expected=IllegalStateException.class)
 	public void promotionThrowsExceptionIfMoveContainsWrongCharacterForPromotion() {
-		new FieldsFromMoveString("d2d1z").promotion();
+		new FieldsFromUciMoveString("d2d1z").promotion();
 	}
 
 }

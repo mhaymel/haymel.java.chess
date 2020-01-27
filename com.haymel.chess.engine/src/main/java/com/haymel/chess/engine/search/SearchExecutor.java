@@ -25,7 +25,7 @@ import com.haymel.chess.engine.moves.Move;
 
 public class SearchExecutor {
 
-	private static final long nodesPerSecCalcPeriodInMillis = 2000;
+	private static final long nodesPerSecCalcPeriodInMillis = 5000;
 	private final Search search;
 	private final Consumer<Move> bestMove;
 	private final Consumer<NodeStatistics> nodeStatistic;

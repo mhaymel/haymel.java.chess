@@ -11,25 +11,30 @@ import static com.haymel.util.Require.nonNull;
 
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 
-import com.haymel.chess.engine.Engine;
 import com.haymel.chess.engine.game.Game;
+import com.haymel.chess.engine.game.StartposCreator;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.search.BestMove;
 import com.haymel.chess.engine.search.CurrentMove;
 import com.haymel.chess.engine.search.IterativeSearch;
 import com.haymel.chess.engine.search.NodeStatistics;
 import com.haymel.chess.engine.search.SearchExecutor;
+import com.haymel.chess.engine.search.Variant;
 import com.haymel.chess.uci.moves.Moves;
-import com.haymel.chess.uci.moves.MovesImpl;
 import com.haymel.chess.uci.result.Infos;
 
 public class UciEngine extends com.haymel.chess.uci.Engine {
 
 	private Game game;
 	private SearchExecutor executor;
+	private final AtomicInteger depth = new AtomicInteger(0);
+	private final AtomicLong nodeCount = new AtomicLong(0);
+	private final AtomicLong nodesPerSecond = new AtomicLong(0);
 	
 	public UciEngine(InputStream in, PrintStream out) {
 		super(nonNull(in, "in"), nonNull(out, "out"));
@@ -49,27 +54,52 @@ public class UciEngine extends com.haymel.chess.uci.Engine {
 	
 	@Override
 	public void positionStart(Moves moves) { 
-		Engine engine = new Engine();
-		for (String move: moves.value()) {
-			engine.move(move);
-		}
-		
-		game = engine.game();
+		game = createStartpos();
+
+		UciMoveMaker uciMoveMaker = new UciMoveMaker(game);
+		for (String move: moves.value())
+			uciMoveMaker.move(move);
+	}
+	
+	private static Game createStartpos() {
+		Game game = new Game();
+		new StartposCreator(game).execute();
+		return game;
 	}
 	
 	@Override
 	public void go(int wtimeInMilliSeconds, int btimeInMilliSeconds, int wincInMilliSeconds, int bincInMilliSeconds) {
 		stop();
 
+		resetStatistic();
+		
 		IterativeSearch search = new IterativeSearch(game, currentMoveConsumer(), depthConsumer(), bestMoveConsumer2());
 		executor = new SearchExecutor(search, bestMoveConsumer(), nodeStatisticConsumer());
 		executor.go(wtimeInMilliSeconds, btimeInMilliSeconds);
 	}
 	
-	private Consumer<BestMove> bestMoveConsumer2() {
-		return (bm) -> info(new Infos().scorecp(bm.value()).pv(new MovesImpl().add(asString(bm.move()))));
+	private void resetStatistic() {
+		depth.set(0);
+		nodeCount.set(0);
+		nodesPerSecond.set(0);
 	}
 
+	private Consumer<BestMove> bestMoveConsumer2() {
+		return (bm) -> {
+			info(
+				new Infos()
+					.scorecp(bm.value())
+					.depth(depth.get())
+					.nodes(nodeCount.get())
+					.nps(nodesPerSecond.get())
+					.pv(movesFrom(bm.variant())));
+		};
+	}
+
+	private Moves movesFrom(Variant variant) {
+		return new MovesFromVariant(variant).value();
+	}
+	
 	private Consumer<Move> bestMoveConsumer() {
 		return (move) -> {
 			if (move == null)
@@ -80,9 +110,15 @@ public class UciEngine extends com.haymel.chess.uci.Engine {
 	}
 	
 	private Consumer<NodeStatistics> nodeStatisticConsumer() {
-		return (s) -> info(new Infos().nps(s.nodesPerSecond()).nodes(s.nodeCount()));
+		return (s) -> nodeStatistics(s);
 	}
 	
+	private void nodeStatistics(NodeStatistics s) {
+		nodeCount.set(s.nodeCount());
+		nodesPerSecond.set(s.nodesPerSecond());
+		info(new Infos().nps(s.nodesPerSecond()).nodes(s.nodeCount()));
+	}
+
 	private Consumer<CurrentMove> currentMoveConsumer() {
 		return (cm) -> currentMove(cm); 
 	}
@@ -95,13 +131,18 @@ public class UciEngine extends com.haymel.chess.uci.Engine {
 	}
 	
 	private static String asString(Move move) {
-		return move.from().toString() + move.to().toString();
+		return new StringFromMove(move).value();
 	}
 
 	private IntConsumer depthConsumer() {
-		return (depth) -> info(new Infos().depth(depth));
+		return (depth) -> depth(depth);
 	}
 	
+	private void depth(int depth) {
+		this.depth.set(depth);
+		info(new Infos().depth(depth));
+	}
+
 	@Override
 	public synchronized void stop() {
 		if (executor == null)

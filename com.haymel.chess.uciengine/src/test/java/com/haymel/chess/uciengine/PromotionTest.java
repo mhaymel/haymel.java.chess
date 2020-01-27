@@ -5,10 +5,12 @@
  * @author: Markus.Heumel
  *
  */
-import static com.haymel.chess.engine.Promotion.Bishop;
-import static com.haymel.chess.engine.Promotion.Knight;
-import static com.haymel.chess.engine.Promotion.Queen;
-import static com.haymel.chess.engine.Promotion.Rook;
+package com.haymel.chess.uciengine;
+
+import static com.haymel.chess.uciengine.Promotion.Bishop;
+import static com.haymel.chess.uciengine.Promotion.Knight;
+import static com.haymel.chess.uciengine.Promotion.Queen;
+import static com.haymel.chess.uciengine.Promotion.Rook;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -16,7 +18,7 @@ import java.util.Optional;
 
 import org.junit.Test;
 
-import com.haymel.chess.engine.Promotion;
+import com.haymel.chess.uciengine.Promotion;
 
 public class PromotionTest {
 

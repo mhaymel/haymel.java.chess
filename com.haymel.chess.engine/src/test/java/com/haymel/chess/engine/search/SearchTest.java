@@ -7,13 +7,25 @@
  */
 package com.haymel.chess.engine.search;
 
+import org.junit.Before;
 import org.junit.Test;
 
-import com.haymel.chess.engine.Engine;
+import com.haymel.chess.engine.game.Game;
+import com.haymel.chess.engine.game.MakeMove;
+import com.haymel.chess.engine.game.StartposCreator;
 import com.haymel.chess.engine.moves.Move;
 
 public class SearchTest {
 
+	private Game game;
+	
+	@Before
+	public void setup() {
+		game = new Game();
+		new StartposCreator(game).execute();
+	}
+	
+	
 //	@Test
 //	public void testWhiteStarts() {
 //		Game game = new GameStartPos().startPos();
@@ -23,27 +35,25 @@ public class SearchTest {
 //
 	@Test
 	public void testWhiteStarts1() {
-		Engine engine = new Engine();
 //		for(;;) {
-		SearchImpl search = new SearchImpl(engine.game());
+		SearchImpl search = new SearchImpl(game);
 			Move move = search.execute(4);
 			String moveAsString = move.from().toString()+ move.to().toString();
 			System.out.println(moveAsString);
-			engine.move(moveAsString);
+			new MakeMove(game).makeMove(move);
 //		}
 	}
 	
-	@Test
-	public void test1() {
-		Engine engine = new Engine();
-		String[] moves = "e2e4 e7e6 d2d4 d8f6 g1f3".split(" ");
-		for (String move : moves)
-			engine.move(move);
-		
-		SearchImpl search = new SearchImpl(engine.game());
-		Move move = search.execute(1);
-		String moveAsString = move.from().toString()+ move.to().toString();
-		System.out.println(moveAsString);
-	}
+//	@Test
+//	public void test1() {
+//		String[] moves = "e2e4 e7e6 d2d4 d8f6 g1f3".split(" ");
+//		for (String move : moves)
+//			uciMoveMaker.move(move);
+//		
+//		SearchImpl search = new SearchImpl(game);
+//		Move move = search.execute(1);
+//		String moveAsString = move.from().toString()+ move.to().toString();
+//		System.out.println(moveAsString);
+//	}
 	
 }

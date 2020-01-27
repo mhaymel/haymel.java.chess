@@ -5,7 +5,7 @@
  * @author: Markus.Heumel
  *
  */
-package com.haymel.chess.engine;
+package com.haymel.chess.uciengine;
 
 import static com.haymel.util.Require.nonNull;
 import static java.lang.String.format;
@@ -15,11 +15,11 @@ import java.util.Optional;
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.board.FieldFromString;
 
-final class FieldsFromMoveString {
+final class FieldsFromUciMoveString {
 
 	private final String move;
 	
-	public FieldsFromMoveString(String move) {
+	public FieldsFromUciMoveString(String move) {
 		nonNull(move, "move");
 		
 		if (move.length() != 4 && move.length() != 5)
@@ -53,4 +53,5 @@ final class FieldsFromMoveString {
 		
 		return promotion.get();
 	}
+	
 }

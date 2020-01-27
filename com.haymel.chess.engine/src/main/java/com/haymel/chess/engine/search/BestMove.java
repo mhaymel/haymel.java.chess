@@ -7,21 +7,26 @@
  */
 package com.haymel.chess.engine.search;
 
+import static com.haymel.util.Require.nonNull;
+
 import com.haymel.chess.engine.moves.Move;
-import com.haymel.util.Require;
 
-public class BestMove {
+public class BestMove {		//TODO unit test
 
-	private final Move move;
+	private final Variant variant;
 	private final int value;
 	
-	public BestMove(Move move, int value) {
-		this.move = Require.nonNull(move, "move");
+	public BestMove(Variant variant, int value) {
+		this.variant = nonNull(variant, "variant");
 		this.value = value;
 	}
 	
 	public Move move() {
-		return move;
+		return variant.move();
+	}
+	
+	public Variant variant() {
+		return variant;
 	}
 	
 	public int value() {
