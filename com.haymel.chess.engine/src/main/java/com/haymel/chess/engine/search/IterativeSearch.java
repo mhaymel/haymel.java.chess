@@ -43,7 +43,6 @@ public class IterativeSearch implements Search {
 		}
 	}
 	
-	
 	private Move doExecute(int wtimeInMilliSeconds, int btimeInMilliSeconds) {
 		nodeCount = 0;
 		stop = false;
@@ -86,7 +85,7 @@ public class IterativeSearch implements Search {
 	}
 
 	private boolean timeLeft(long maxCalcTime, long elapsed, int depth) {
-//		System.out.println("elapsed: " + elapsed + "    maxCalcTime: " + maxCalcTime);
+		System.out.println("elapsed: " + elapsed + "    maxCalcTime: " + maxCalcTime);
 		if (elapsed >= maxCalcTime)
 			return false;
 		

@@ -12,5 +12,7 @@ import java.util.List;
 public interface Moves {
 	
 	List<String> value();
+
+	Moves[] moves();
 	
 }

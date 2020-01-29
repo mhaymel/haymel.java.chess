@@ -49,6 +49,10 @@ public class Moves {
 		kingCaptureCount = 0;
 	}
 	
+	public Move[] moves() {
+		return moves.toArray(new Move[moves.size()]);
+	}
+	
 	public void add(Field from, Field to) {
 		assert from != null;
 		assert to != null;
