@@ -31,7 +31,6 @@ public class IterativeSearch implements Search {
 		this.depthConsumer = nonNull(depthConsumer, "depthConsumer");
 	}
 	
-
 	@Override
 	public Move execute(int wtimeInMilliSeconds, int btimeInMilliSeconds) {
 		try {
@@ -54,8 +53,9 @@ public class IterativeSearch implements Search {
 		updateNodeCount();
 		
 		for(int depth = 2; ; depth++) {
+			Move[] pv = new MovesFromVariant(bestMove.variant()).value();
 			depthConsumer.accept(depth);
-			bestMove = search.execute(depth);
+			bestMove = search.execute(depth, pv);
 			updateNodeCount();
 			if (bestMove == null)
 				return null;

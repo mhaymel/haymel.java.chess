@@ -7,6 +7,7 @@
  */
 package com.haymel.chess.engine.search;
 
+import static com.haymel.chess.engine.search.PieceValue.pieceValue;
 import static com.haymel.util.Require.nonNull;
 import static java.lang.String.format;
 
@@ -19,7 +20,6 @@ import com.haymel.chess.engine.game.MakeMove;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.MoveType;
 import com.haymel.chess.engine.moves.Moves;
-import com.haymel.chess.engine.piece.PieceType;
 
 public class SearchAlphaBeta2 {
 
@@ -33,7 +33,8 @@ public class SearchAlphaBeta2 {
 	private final AtomicLong nodeCount;
 	private final Consumer<CurrentMove> currentMoveConsumer;
 	private final Consumer<BestMove> bestMoveConsumer;
-//	private int maxSelDepth;
+	private int maxSelDepth;
+	private Move[] principalVariation;
 	
 	public SearchAlphaBeta2(Game game, Consumer<CurrentMove> currentMoveConsumer, Consumer<BestMove> bestMoveConsumer) {
 		this.game = nonNull(game, "game");
@@ -43,10 +44,14 @@ public class SearchAlphaBeta2 {
 		this.currentMoveConsumer = nonNull(currentMoveConsumer, "currentMoveConsumer");
 		this.bestMoveConsumer = nonNull(bestMoveConsumer, "bestMoveConsumer");
 	}
+
+	public BestMove execute(int depth) {
+		return execute(depth, null);
+	}
 	
-	public BestMove execute(int depth) {		//TODO remove try catch
+	public BestMove execute(int depth, Move[] principalVariation) {		//TODO remove try catch 
 		try {
-			return doExecute(depth);
+			return doExecute(depth, principalVariation);
 		}
 		catch (Exception e) {
 			System.err.println(e);
@@ -55,12 +60,13 @@ public class SearchAlphaBeta2 {
 		}
 	}
 
-	private BestMove doExecute(int depth) {
+	private BestMove doExecute(int depth, Move[] principalVariation) {
 		stop = false;
 		nodeCount.getAndSet(0);
 		bestMove = null; 
 		maxDepth = depth;
-//		maxSelDepth = depth;
+		maxSelDepth = depth;
+		this.principalVariation = principalVariation;
 		
 		switch(game.activeColor()) {
 		case black:
@@ -93,8 +99,8 @@ public class SearchAlphaBeta2 {
 		if (moves.kingCaptureCount() > 0)
 			return;
 
-	    Move[] sortedMoves = new SortWhiteMoves(moves.moves()).sort();
-//	    Move[] sortedMoves = moves.moves();
+		final int depth = 0;
+	    Move[] sortedMoves = new SortWhiteMoves(moves.moves(), principal(depth)).sort();
 		MakeMove makeMove = new MakeMove(game);
 		int size = sortedMoves.length;
 		
@@ -105,7 +111,7 @@ public class SearchAlphaBeta2 {
 			
 			Variant v = new Variant(move);
 			makeMove.makeMove(move);
-			int score = black(1, alpha, beta, v);
+			int score = black(depth + 1, alpha, beta, v);
 			makeMove.undoMove();
 			
 			if (score >= beta) 
@@ -128,10 +134,9 @@ public class SearchAlphaBeta2 {
 		
 		Moves moves = game.whiteMoves();
 		if (moves.kingCaptureCount() > 0)
-			return MAX_VALUE - depth;
+			return MAX_VALUE - depth + 1;
 
-	    Move[] sortedMoves = new SortWhiteMoves(moves.moves()).sort();
-//	    Move[] sortedMoves = moves.moves();
+	    Move[] sortedMoves = new SortWhiteMoves(moves.moves(), principal(depth)).sort();
 		MakeMove makeMove = new MakeMove(game);
 		int size = sortedMoves.length;
 		
@@ -158,14 +163,12 @@ public class SearchAlphaBeta2 {
 	private int whiteQuiet(int depth, int alpha, int beta, Variant variant) {
 		assert depth >= maxDepth;
 		
-//		if (depth > maxSelDepth) {
-//			maxSelDepth = depth;
-//			System.out.println("#############      maxSelDepth: " + maxSelDepth);
-//		}
+		if (depth > maxSelDepth)
+			maxSelDepth = depth;
 		
 		Moves moves = game.whiteCaptureMoves();
 		if (moves.kingCaptureCount() > 0)
-			return MAX_VALUE - depth;
+			return MAX_VALUE - depth + 1;
 		
 		int stand_pat = evaluate();
 		if (stand_pat >= beta)
@@ -174,8 +177,7 @@ public class SearchAlphaBeta2 {
 	    if (alpha < stand_pat)
 	        alpha = stand_pat;
 
-	    Move[] sortedMoves = new SortWhiteMoves(moves.moves()).sort();
-//	    Move[] sortedMoves = moves.moves();
+	    Move[] sortedMoves = new SortWhiteMoves(moves.moves(), principal(depth)).sort();
 		MakeMove makeMove = new MakeMove(game);
 		int size = sortedMoves.length;
 		
@@ -205,8 +207,8 @@ public class SearchAlphaBeta2 {
 		if (moves.kingCaptureCount() > 0)
 			return;
 		
-	    Move[] sortedMoves = new SortWhiteMoves(moves.moves()).sort();
-//	    Move[] sortedMoves = moves.moves();
+		final int depth = 0;
+	    Move[] sortedMoves = new SortWhiteMoves(moves.moves(), principal(depth)).sort();
 		MakeMove makeMove = new MakeMove(game);
 		int size = sortedMoves.length;
 		
@@ -217,7 +219,7 @@ public class SearchAlphaBeta2 {
 			
 			Variant v = new Variant(move);
 			makeMove.makeMove(move);
-			int score = white(1, alpha, beta, v);
+			int score = white(depth + 1, alpha, beta, v);
 			makeMove.undoMove();
 
 			if (score <= alpha) 
@@ -240,13 +242,12 @@ public class SearchAlphaBeta2 {
 		
 		Moves moves = game.blackMoves();
 		if (moves.kingCaptureCount() > 0)
-			return MIN_VALUE + depth;
+			return MIN_VALUE + depth - 1;
 		
 		if (depth >= maxDepth || stop)
 			return evaluate();
 		
-	    Move[] sortedMoves = new SortWhiteMoves(moves.moves()).sort();
-//	    Move[] sortedMoves = moves.moves();
+	    Move[] sortedMoves = new SortWhiteMoves(moves.moves(), principal(depth)).sort();
 		MakeMove makeMove = new MakeMove(game);
 		int size = sortedMoves.length;
 		
@@ -273,14 +274,12 @@ public class SearchAlphaBeta2 {
 	private int blackQuiet(int depth, int alpha, int beta, Variant variant) {
 		assert depth >= maxDepth;
 		
-//		if (depth > maxSelDepth) {
-//			maxSelDepth = depth;
-//			System.out.println("#############      maxSelDepth: " + maxSelDepth);
-//		}
+		if (depth > maxSelDepth) 
+			maxSelDepth = depth;
 		
 		Moves moves = game.blackCaptureMoves();
 		if (moves.kingCaptureCount() > 0)
-			return MIN_VALUE + depth;
+			return MIN_VALUE + depth - 1;
 
 		int stand_pat = evaluate();
 		if (stand_pat <= alpha)
@@ -289,8 +288,7 @@ public class SearchAlphaBeta2 {
 		if (beta > stand_pat)
 	        beta = stand_pat;
 		
-	    Move[] sortedMoves = new SortWhiteMoves(moves.moves()).sort();
-//	    Move[] sortedMoves = moves.moves();
+	    Move[] sortedMoves = new SortWhiteMoves(moves.moves(), principal(depth)).sort();
 		MakeMove makeMove = new MakeMove(game);
 		int size = sortedMoves.length;
 
@@ -317,11 +315,11 @@ public class SearchAlphaBeta2 {
 	
 	private int evaluate() {
 		nodeCount.incrementAndGet();
-		return pieceValues(game.whitePieces(), game.blackPieces());
+		return pieceValues(game.whitePieces()) - pieceValues(game.blackPieces());
 	}
 
 	private void bestMove(Variant variant, int value) {
-		bestMove = new BestMove(variant, value);
+		bestMove = new BestMove(variant, value, maxDepth, maxSelDepth);
 		bestMoveConsumer.accept(bestMove);
 	}
 
@@ -337,80 +335,28 @@ public class SearchAlphaBeta2 {
 		return true;
 	}
 	
-	private int pieceValues(PieceList whitePieces, PieceList blackPieces) {
+	private int pieceValues(PieceList pieces) {
 		int value = 0;
-		int size = whitePieces.size();
-		for(int i = 0; i < size; i++) {
-			switch(whitePieces.piece(i).type()) {
-			case WhitePawn:
-				value += 100;
-				break;
-			case WhiteKnight:
-				value += 300;
-				break;
-			case WhiteBishop:
-				value += 300;
-				break;
-			case WhiteQueen:
-				value += 1200;
-				break;
-			case WhiteRook:
-				value += 500;
-				break;
-
-			case WhiteKing:
-				break;
-				
-			case BlackBishop:
-			case BlackKing:
-			case BlackKnight:
-			case BlackPawn:
-			case BlackQueen:
-			case BlackRook:
-			case Border:
-			case Free:
-			default:
-				assert false;
-			}
-		}
-		
-		size = blackPieces.size();
-		for(int i = 0; i < size; i++) {
-			PieceType type = blackPieces.piece(i).type();
-			switch(type) {
-			case BlackPawn:
-				value -= 100;
-				break;
-			case BlackKnight:
-				value -= 300;
-				break;
-			case BlackBishop:
-				value -= 300;
-				break;
-			case BlackRook:
-				value -= 500;
-				break;
-			case BlackQueen:
-				value -= 1200;
-				break;
-
-			case BlackKing:
-				break;
-
-			case WhiteBishop:
-			case WhiteKnight:
-			case WhitePawn:
-			case WhiteQueen:
-			case WhiteRook:
-			case WhiteKing:
-			case Free:
-			case Border:
-			default:
-				assert false : type;
-			}
-		}
+		int size = pieces.size();
+		for(int i = 0; i < size; i++) 
+			value += pieceValue(pieces.piece(i).type());
 		
 		return value;
+	}
+	
+	private Move principal(int depth) {
+		if (principalVariation == null)
+			return null;
+		
+		assert depth < principalVariation.length;
+		
+		try {
+			return principalVariation[depth];
+		}
+		finally {
+			if (depth + 1 == principalVariation.length)
+				principalVariation = null;
+		}
 	}
 
 }

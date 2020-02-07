@@ -1,14 +1,13 @@
 - improve time management
 - improve stopping of search
 - correct stale mate handling
-- reuse of pv for sort ordering
-- provide selective deep via uci
 - report future mate via uci
 - unit tests
 - refactor IterativeSearch
 - refactor SearchAlphaBeta/SearchAlphaBeta2
 - refactor SearchExecutor
-- correct reporting of nodes and nps even for low depth (currently 0)
+- correct reporting of nodes and nps even for lower depth (currently nodes and nps are 0)
+- implement FEN support
 
 
 

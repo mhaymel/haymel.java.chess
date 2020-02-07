@@ -35,11 +35,6 @@ public class MovesImpl implements Moves, SimpleClassNameMixin {
 	}
 
 	@Override
-	public Moves[] moves() {
-		return moves.toArray(new Moves[moves.size()]);
-	}
-	
-	@Override
 	public boolean equals(Object obj) {
 		if (! (obj instanceof MovesImpl))
 			return false;

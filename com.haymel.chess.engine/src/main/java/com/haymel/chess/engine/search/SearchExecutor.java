@@ -64,8 +64,7 @@ public class SearchExecutor {
 		try {
 			submit.get(MAX_VALUE, TimeUnit.HOURS);
 		} 
-		catch (InterruptedException | ExecutionException | TimeoutException e) {
-			// TODO Auto-generated catch block
+		catch (InterruptedException | ExecutionException | TimeoutException e) {		// TODO Auto-generated catch block 
 			e.printStackTrace();
 		}
 		

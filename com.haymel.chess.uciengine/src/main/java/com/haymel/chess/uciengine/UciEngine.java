@@ -11,7 +11,6 @@ import static com.haymel.util.Require.nonNull;
 
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Consumer;
 import java.util.function.IntConsumer;
@@ -32,7 +31,6 @@ public class UciEngine extends com.haymel.chess.uci.Engine {
 
 	private Game game;
 	private SearchExecutor executor;
-	private final AtomicInteger depth = new AtomicInteger(0);
 	private final AtomicLong nodeCount = new AtomicLong(0);
 	private final AtomicLong nodesPerSecond = new AtomicLong(0);
 	
@@ -79,7 +77,6 @@ public class UciEngine extends com.haymel.chess.uci.Engine {
 	}
 	
 	private void resetStatistic() {
-		depth.set(0);
 		nodeCount.set(0);
 		nodesPerSecond.set(0);
 	}
@@ -89,7 +86,8 @@ public class UciEngine extends com.haymel.chess.uci.Engine {
 			info(
 				new Infos()
 					.scorecp(bm.value())
-					.depth(depth.get())
+					.depth(bm.depth())
+					.seldepth(bm.selDepth())
 					.nodes(nodeCount.get())
 					.nps(nodesPerSecond.get())
 					.pv(movesFrom(bm.variant())));
@@ -139,7 +137,6 @@ public class UciEngine extends com.haymel.chess.uci.Engine {
 	}
 	
 	private void depth(int depth) {
-		this.depth.set(depth);
 		info(new Infos().depth(depth));
 	}
 

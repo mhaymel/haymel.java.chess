@@ -13,6 +13,4 @@ public interface Moves {
 	
 	List<String> value();
 
-	Moves[] moves();
-	
 }

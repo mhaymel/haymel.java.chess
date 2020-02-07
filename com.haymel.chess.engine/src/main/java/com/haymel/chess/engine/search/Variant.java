@@ -33,7 +33,7 @@ public class Variant {			//TODO unit test
 		if (size > 1) 
 			System.arraycopy(variant.moves, 0, moves, 1, variant.moves.length);
 		}
-		catch(ArrayIndexOutOfBoundsException e) {
+		catch(ArrayIndexOutOfBoundsException e) {		//TODO remove
 			throw e;
 		}
 		
