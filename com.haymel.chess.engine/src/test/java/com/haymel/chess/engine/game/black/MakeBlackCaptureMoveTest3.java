@@ -35,14 +35,12 @@ public class MakeBlackCaptureMoveTest3 {
 		game = new Game();
 		moveMaker = new MakeMove(game);
 		
-		blackKing = new Piece(BlackKing);
-		blackKing.field(e8);
+		blackKing = new Piece(BlackKing, e8);
 		blackKing.setMoved(false);
 		game.addBlack(blackKing);
 		game.place(blackKing);
 
-		whiteRook = new Piece(WhiteRook);
-		whiteRook.field(e7);
+		whiteRook = new Piece(WhiteRook, e7);
 		whiteRook.setMoved(true);
 		game.addWhite(whiteRook);
 		game.place(whiteRook);

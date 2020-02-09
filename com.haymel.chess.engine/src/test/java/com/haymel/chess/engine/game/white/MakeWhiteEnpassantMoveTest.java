@@ -40,8 +40,7 @@ public class MakeWhiteEnpassantMoveTest {
 		game = new Game();
 		moveMaker = new MakeMove(game);
 		
-		whitePawn = new Piece(WhitePawn);
-		whitePawn.field(c5);
+		whitePawn = new Piece(WhitePawn, c5);
 		game.addWhite(whitePawn);
 		game.place(whitePawn);
 		game.assertVerify();
@@ -51,8 +50,7 @@ public class MakeWhiteEnpassantMoveTest {
 	public void makeAndUndoRightEnpassant() {
 		game.assertVerify();
 
-		Piece blackPawn = new Piece(BlackPawn);
-		blackPawn.field(d5);
+		Piece blackPawn = new Piece(BlackPawn, d5);
 		game.addBlack(blackPawn);
 		game.place(blackPawn);
 
@@ -94,8 +92,7 @@ public class MakeWhiteEnpassantMoveTest {
 	public void makeAndUndoLeftEnpassant() {
 		game.assertVerify();
 
-		Piece blackPawn = new Piece(BlackPawn);
-		blackPawn.field(b5);
+		Piece blackPawn = new Piece(BlackPawn, b5);
 		game.addBlack(blackPawn);
 		game.place(blackPawn);
 

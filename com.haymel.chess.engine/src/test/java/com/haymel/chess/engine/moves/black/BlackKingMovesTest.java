@@ -51,6 +51,7 @@ import static com.haymel.chess.engine.board.Field.h5;
 import static com.haymel.chess.engine.board.Field.h6;
 import static com.haymel.chess.engine.board.Field.h7;
 import static com.haymel.chess.engine.board.Field.h8;
+import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.moves.MoveType.capture;
 import static com.haymel.chess.engine.moves.MoveType.kingsideCastling;
 import static com.haymel.chess.engine.moves.MoveType.queensideCastling;
@@ -87,7 +88,7 @@ public class BlackKingMovesTest {
 	private Moves moves;
 	private Board board;
 	private BlackKingMoves kingMoves;
-	private Piece king = new Piece(BlackKing);
+	private Piece king = new Piece(BlackKing, removed);
 	
 	@Before
 	public void setup() {
@@ -1038,8 +1039,7 @@ public class BlackKingMovesTest {
 	}
 
 	private Piece piece(Field f, PieceType t) {
-		Piece p = new Piece(t);
-		p.field(f);
+		Piece p = new Piece(t, f);
 		board.place(p);
 		return p;
 	}
@@ -1053,8 +1053,7 @@ public class BlackKingMovesTest {
 	}
 
 	private void place(Field f, PieceType t) {
-		Piece piece = new Piece(t);
-		piece.field(f);
+		Piece piece = new Piece(t, f);
 		board.place(piece);
 	}
 
@@ -1066,8 +1065,7 @@ public class BlackKingMovesTest {
 	}
 	
 	private Piece rook(Field f) {
-		Piece p = new Piece(BlackRook);
-		p.field(f);
+		Piece p = new Piece(BlackRook, f);
 		board.place(p);
 		return p;
 	}

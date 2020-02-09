@@ -38,14 +38,12 @@ public class MakeWhiteCaptureMoveTest1 {
 		game = new Game();
 		moveMaker = new MakeMove(game);
 		
-		whiteKnight = new Piece(WhiteKnight);
-		whiteKnight.field(a1);
+		whiteKnight = new Piece(WhiteKnight, a1);
 		whiteKnight.setMoved(false);
 		game.addWhite(whiteKnight);
 		game.place(whiteKnight);
 
-		blackPawn = new Piece(BlackPawn);
-		blackPawn.field(c2);
+		blackPawn = new Piece(BlackPawn, c2);
 		game.addBlack(blackPawn);
 		game.place(blackPawn);
 		game.assertVerify();
@@ -83,8 +81,7 @@ public class MakeWhiteCaptureMoveTest1 {
 	public void enPassantIsSetCorrectly() {
 		game.assertVerify();
 
-		Piece blackEnpassantPawn = new Piece(BlackPawn);
-		blackEnpassantPawn.field(a5);
+		Piece blackEnpassantPawn = new Piece(BlackPawn, a5);
 		game.addBlack(blackEnpassantPawn);
 		game.place(blackEnpassantPawn);
 		game.activeColorBlack();

@@ -119,8 +119,7 @@ public final class GameStartPos {	//TODO unit test
 	}
 
 	private Piece piece(PieceType type, Field field) {
-		Piece piece = new Piece(type);
-		piece.field(field);
+		Piece piece = new Piece(type, field);
 		piece.setMoved(false);
 		return piece;
 	}

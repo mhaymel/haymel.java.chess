@@ -31,10 +31,12 @@ public class PieceValue {		//TODO unit test
 		case BlackQueen:
 			return 1200;
 		
-		case Border:
-		case Free:
 		case WhiteKing:
 		case BlackKing:
+			return 0;
+
+		case Border:
+		case Free:
 		default:
 			assert false;
 			return 0;

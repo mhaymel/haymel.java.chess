@@ -262,8 +262,7 @@ public class D1AttackedTest {
 	}
 	
 	private Piece piece(Field f, PieceType t) {
-		Piece p = new Piece(t);
-		p.field(f);
+		Piece p = new Piece(t, f);
 		board.place(p);
 		return p;
 	}

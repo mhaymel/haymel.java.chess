@@ -54,4 +54,8 @@ public final class PieceList {	//TODO unit test
 		return pieces.contains(p);
 	}
 	
+	public void clear() {
+		pieces.clear();
+	}
+	
 }

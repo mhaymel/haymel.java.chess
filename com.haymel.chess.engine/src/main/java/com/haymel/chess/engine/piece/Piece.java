@@ -38,14 +38,15 @@ public final class Piece {
 	private Field field; 
 	private boolean moved;
 
-	public static final Piece border = new Piece(Border);
-	public static final Piece free = new Piece(Free);
+	public static final Piece border = new Piece(Border, removed);
+	public static final Piece free = new Piece(Free, removed);
 	
-	public Piece(PieceType type) {
+	public Piece(PieceType type, Field field) {
 		assert type != null;
+		assert field != null;
 		
 		this.type = type;
-		field = removed;
+		this.field = field;
 		moved = true;
 	}
 	
@@ -103,6 +104,9 @@ public final class Piece {
 		assert field == removed || type != WhitePawn || (field.rank() != 0 && field.rank() != 7) : format("a white pawn must not be placed on file 1 or 8. The value of field is %s", field);
 		assert field == removed || type != BlackPawn || (field.rank() != 0 && field.rank() != 7) : format("a black pawn must not be placed on file 1 or 8. The value of field is %s", field);
 		
+		assert !border() || field == removed;
+		assert !free() || field == removed;
+				
 		this.field = field;
 	}
 

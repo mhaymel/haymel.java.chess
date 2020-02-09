@@ -38,8 +38,7 @@ public class MakeWhiteMoveTest {
 	
 	@Test
 	public void makeAndUndo() {
-		Piece king = new Piece(WhiteKing);
-		king.field(e1);
+		Piece king = new Piece(WhiteKing, e1);
 		king.setMoved(false);
 		game.addWhite(king);
 		game.place(king);
@@ -66,15 +65,13 @@ public class MakeWhiteMoveTest {
 	@Test
 	public void enPassantIsSetCorrectly() {
 		
-		Piece blackEnpassantPawn = new Piece(BlackPawn);
-		blackEnpassantPawn.field(a5);
+		Piece blackEnpassantPawn = new Piece(BlackPawn, a5);
 		game.addBlack(blackEnpassantPawn);
 		game.place(blackEnpassantPawn);
 		game.activeColorBlack();
 		game.enPassant(a6);
 		
-		Piece king = new Piece(WhiteKing);
-		king.field(e1);
+		Piece king = new Piece(WhiteKing, e1);
 		king.setMoved(false);
 		game.addWhite(king);
 		game.place(king);
@@ -92,8 +89,7 @@ public class MakeWhiteMoveTest {
 	
 	@Test
 	public void movedIsSetCorrectly() {
-		Piece king = new Piece(WhiteKing);
-		king.field(e1);
+		Piece king = new Piece(WhiteKing, e1);
 		king.setMoved(true);
 		game.addWhite(king);
 		game.place(king);

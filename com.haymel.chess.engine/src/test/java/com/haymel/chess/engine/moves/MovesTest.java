@@ -64,7 +64,7 @@ public class MovesTest {
 	
 	@Test
 	public void addOneCapture() {
-		Piece blackPawn = new Piece(BlackPawn);
+		Piece blackPawn = new Piece(BlackPawn, d5);
 		moves.addCapture(e4, d5, blackPawn);
 		
 		assertThat(moves.size(), is(1));
@@ -73,8 +73,8 @@ public class MovesTest {
 
 	@Test
 	public void addTwoCaptures() {
-		Piece blackPawn1 = new Piece(BlackPawn);
-		Piece blackPawn2 = new Piece(BlackPawn);
+		Piece blackPawn1 = new Piece(BlackPawn, d5);
+		Piece blackPawn2 = new Piece(BlackPawn, c5);
 		moves.addCapture(e4, d5, blackPawn1);
 		moves.addCapture(d4, c5, blackPawn2);
 		
@@ -172,8 +172,8 @@ public class MovesTest {
 	
 	@Test
 	public void findCapturePromotionMoves() {
-		Piece blackQueen = new Piece(BlackQueen);
-		moves.addWhiteCapturePromotion(e7, d8, blackQueen);;
+		Piece blackQueen = new Piece(BlackQueen, d8);
+		moves.addWhiteCapturePromotion(e7, d8, blackQueen);
 
 		List<Move> foundMoves = moves.findMoves(e7, d8);
 		assertThat(foundMoves.size(), is(4));

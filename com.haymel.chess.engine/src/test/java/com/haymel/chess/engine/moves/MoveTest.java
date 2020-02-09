@@ -18,6 +18,7 @@ import static com.haymel.chess.engine.board.Field.e2;
 import static com.haymel.chess.engine.board.Field.e4;
 import static com.haymel.chess.engine.board.Field.e8;
 import static com.haymel.chess.engine.board.Field.g1;
+import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.moves.MoveType.capture;
 import static com.haymel.chess.engine.moves.MoveType.enpassant;
 import static com.haymel.chess.engine.moves.MoveType.kingsideCastling;
@@ -45,8 +46,8 @@ public class MoveTest {
 	
 	@Before
 	public void setup() {
-		capturedWhitePiece = new Piece(WhiteRook);
-		capturedBlackPiece = new Piece(BlackRook);
+		capturedWhitePiece = new Piece(WhiteRook, removed);
+		capturedBlackPiece = new Piece(BlackRook, removed);
 	}
 	
 	@Test

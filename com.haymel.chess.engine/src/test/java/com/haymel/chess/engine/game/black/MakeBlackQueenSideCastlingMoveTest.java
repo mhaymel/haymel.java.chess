@@ -43,14 +43,12 @@ public class MakeBlackQueenSideCastlingMoveTest {
 		game = new Game();
 		moveMaker = new MakeMove(game);
 
-		king = new Piece(BlackKing);
-		king.field(e8);
+		king = new Piece(BlackKing, e8);
 		king.setMoved(false);
 		game.addBlack(king);
 		game.place(king);
 		
-		rook = new Piece(BlackRook);
-		rook.field(a8);
+		rook = new Piece(BlackRook, a8);
 		rook.setMoved(false);
 		game.addBlack(rook);
 		game.place(rook);
@@ -107,14 +105,13 @@ public class MakeBlackQueenSideCastlingMoveTest {
 	}
 	
 	private void addPotentialEnpassant(Game game) {
-		Piece piece = new Piece(WhitePawn);
-		piece.field(e4);
+		Piece piece = new Piece(WhitePawn, e4);
 		game.addWhite(piece);
 		game.place(piece);
 	}
 	
-//	@Test
-//	public void enPassantIsSetCorrectly() {
+//	@Test				
+//	public void enPassantIsSetCorrectly() {						//TODO ???
 //		Piece blackEnpassantPawn = new Piece(BlackPawn);
 //		blackEnpassantPawn.field(a5);
 //		game.addBlack(blackEnpassantPawn);

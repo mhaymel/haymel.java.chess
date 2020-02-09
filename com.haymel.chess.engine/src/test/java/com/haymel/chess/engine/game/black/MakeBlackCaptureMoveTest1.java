@@ -10,6 +10,7 @@ package com.haymel.chess.engine.game.black;
 import static com.haymel.chess.engine.board.Field.a1;
 import static com.haymel.chess.engine.board.Field.c2;
 import static com.haymel.chess.engine.board.Field.h3;
+import static com.haymel.chess.engine.board.Field.h4;
 import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.moves.MoveType.capture;
 import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
@@ -38,14 +39,12 @@ public class MakeBlackCaptureMoveTest1 {
 		game = new Game();
 		moveMaker = new MakeMove(game);
 		
-		blackKnight = new Piece(BlackKnight);
-		blackKnight.field(a1);
+		blackKnight = new Piece(BlackKnight, a1);
 		blackKnight.setMoved(false);
 		game.addBlack(blackKnight);
 		game.place(blackKnight);
 
-		whitePawn = new Piece(WhitePawn);
-		whitePawn.field(c2);
+		whitePawn = new Piece(WhitePawn, c2);
 		game.addWhite(whitePawn);
 		game.place(whitePawn);
 		game.assertVerify();
@@ -86,8 +85,7 @@ public class MakeBlackCaptureMoveTest1 {
 	public void enPassantIsSetCorrectly() {
 		game.assertVerify();
 
-		Piece whiteEnpassantPawn = new Piece(WhitePawn);
-		whiteEnpassantPawn.field(Field.h4);
+		Piece whiteEnpassantPawn = new Piece(WhitePawn, h4);
 		game.addWhite(whiteEnpassantPawn);
 		game.place(whiteEnpassantPawn);
 		game.activeColorWhite();

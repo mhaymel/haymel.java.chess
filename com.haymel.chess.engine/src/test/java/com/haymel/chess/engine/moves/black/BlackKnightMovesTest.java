@@ -26,6 +26,7 @@ import static com.haymel.chess.engine.board.Field.g5;
 import static com.haymel.chess.engine.board.Field.g6;
 import static com.haymel.chess.engine.board.Field.h1;
 import static com.haymel.chess.engine.board.Field.h8;
+import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.moves.MoveType.capture;
 import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
@@ -51,7 +52,7 @@ public class BlackKnightMovesTest {
 	private Moves moves;
 	private Board board;
 	private BlackKnightMoves knightMoves;
-	private Piece knight = new Piece(BlackKnight);
+	private Piece knight = new Piece(BlackKnight, removed);
 	
 	@Before
 	public void setup() {
@@ -180,8 +181,7 @@ public class BlackKnightMovesTest {
 	}
 	
 	private Piece piece(Field f, PieceType t) {
-		Piece p = new Piece(t);
-		p.field(f);
+		Piece p = new Piece(t, f);
 		board.place(p);
 		return p;
 	}

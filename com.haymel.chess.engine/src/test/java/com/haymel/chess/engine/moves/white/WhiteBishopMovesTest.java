@@ -29,6 +29,7 @@ import static com.haymel.chess.engine.board.Field.g7;
 import static com.haymel.chess.engine.board.Field.h1;
 import static com.haymel.chess.engine.board.Field.h7;
 import static com.haymel.chess.engine.board.Field.h8;
+import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.moves.MoveType.capture;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 import static com.haymel.chess.engine.piece.PieceType.WhiteBishop;
@@ -54,7 +55,7 @@ public class WhiteBishopMovesTest {
 	private Moves moves;
 	private Board board;
 	private WhiteBishopMoves bishopMoves;
-	private Piece bishop = new Piece(WhiteBishop);
+	private Piece bishop = new Piece(WhiteBishop, removed);
 	
 	@Before
 	public void setup() {
@@ -145,8 +146,7 @@ public class WhiteBishopMovesTest {
 	}
 	
 	private Piece piece(Field f, PieceType t) {
-		Piece p = new Piece(t);
-		p.field(f);
+		Piece p = new Piece(t, f);
 		board.place(p);
 		return p;
 	}

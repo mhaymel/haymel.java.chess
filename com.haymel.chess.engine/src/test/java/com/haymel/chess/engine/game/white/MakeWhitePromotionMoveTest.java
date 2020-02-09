@@ -82,8 +82,7 @@ public class MakeWhitePromotionMoveTest {
 		game.enPassant(enpassant);
 		game.activeColorWhite();
 		
-		Piece piece = new Piece(WhitePawn);
-		piece.field(from);
+		Piece piece = new Piece(WhitePawn, from);
 		game.addWhite(piece);
 		game.place(piece);
 		game.halfMoveClock(30);
@@ -117,8 +116,7 @@ public class MakeWhitePromotionMoveTest {
 	}
 
 	private void addPotentialEnpassant(Game game) {
-		Piece piece = new Piece(BlackPawn);
-		piece.field(e5);
+		Piece piece = new Piece(BlackPawn, e5);
 		game.addBlack(piece);
 		game.place(piece);
 	}

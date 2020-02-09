@@ -54,6 +54,7 @@ import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
 
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.piece.Piece;
+import com.haymel.chess.engine.piece.PieceType;
 
 public class StartposCreator {		//TODO unit test
 	
@@ -65,56 +66,57 @@ public class StartposCreator {		//TODO unit test
 	}
 	
 	public void execute() {
-		clearBoard();
+		resetBoard();
 		placeWhitePieces();
 		placeBlackPieces();
 	}
 
-	private void clearBoard() {
+	private void resetBoard() {
+		game.reset();
 	}
 
 	private void placeWhitePieces() {
-		place(a2, new Piece(WhitePawn));
-		place(b2, new Piece(WhitePawn));
-		place(c2, new Piece(WhitePawn));
-		place(d2, new Piece(WhitePawn));
-		place(e2, new Piece(WhitePawn));
-		place(f2, new Piece(WhitePawn));
-		place(g2, new Piece(WhitePawn));
-		place(h2, new Piece(WhitePawn));
+		place(a2, WhitePawn);
+		place(b2, WhitePawn);
+		place(c2, WhitePawn);
+		place(d2, WhitePawn);
+		place(e2, WhitePawn);
+		place(f2, WhitePawn);
+		place(g2, WhitePawn);
+		place(h2, WhitePawn);
 		
-		place(a1, new Piece(WhiteRook)).setMoved(false);
-		place(b1, new Piece(WhiteKnight));
-		place(c1, new Piece(WhiteBishop));
-		place(d1, new Piece(WhiteQueen));
-		place(e1, new Piece(WhiteKing)).setMoved(false);
-		place(f1, new Piece(WhiteBishop));
-		place(g1, new Piece(WhiteKnight));
-		place(h1, new Piece(WhiteRook)).setMoved(false);
+		place(a1, WhiteRook).setMoved(false);
+		place(b1, WhiteKnight);
+		place(c1, WhiteBishop);
+		place(d1, WhiteQueen);
+		place(e1, WhiteKing).setMoved(false);
+		place(f1, WhiteBishop);
+		place(g1, WhiteKnight);
+		place(h1, WhiteRook).setMoved(false);
 	}
 
 	private void placeBlackPieces() {
-		place(a7, new Piece(BlackPawn));
-		place(b7, new Piece(BlackPawn));
-		place(c7, new Piece(BlackPawn));
-		place(d7, new Piece(BlackPawn));
-		place(e7, new Piece(BlackPawn));
-		place(f7, new Piece(BlackPawn));
-		place(g7, new Piece(BlackPawn));
-		place(h7, new Piece(BlackPawn));
+		place(a7, BlackPawn);
+		place(b7, BlackPawn);
+		place(c7, BlackPawn);
+		place(d7, BlackPawn);
+		place(e7, BlackPawn);
+		place(f7, BlackPawn);
+		place(g7, BlackPawn);
+		place(h7, BlackPawn);
 
-		place(a8, new Piece(BlackRook)).setMoved(false);
-		place(b8, new Piece(BlackKnight));
-		place(c8, new Piece(BlackBishop));
-		place(d8, new Piece(BlackQueen));
-		place(e8, new Piece(BlackKing)).setMoved(false);
-		place(f8, new Piece(BlackBishop));
-		place(g8, new Piece(BlackKnight));
-		place(h8, new Piece(BlackRook)).setMoved(false);
+		place(a8, BlackRook).setMoved(false);
+		place(b8, BlackKnight);
+		place(c8, BlackBishop);
+		place(d8, BlackQueen);
+		place(e8, BlackKing).setMoved(false);
+		place(f8, BlackBishop);
+		place(g8, BlackKnight);
+		place(h8, BlackRook).setMoved(false);
 	}
 
-	private Piece place(Field f, Piece piece) {
-		piece.field(f);
+	private Piece place(Field field, PieceType type) {
+		Piece piece = new Piece(type, field);
 		if (piece.white())
 			game.addWhite(piece);
 		else if (piece.black())

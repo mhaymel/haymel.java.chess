@@ -38,12 +38,12 @@ public class SearchAlphaBetaTest {
 //
 	@Test
 	public void testWhiteStarts1() {
-//		for(;;) {
-//			SearchAlphaBeta search = new SearchAlphaBeta(game, currentMoveConsumer());
-//			Move move = search.execute(1).move();
-//			System.out.println(asString(move));
-//			new MakeMove(game).makeMove(move);
-//		}
+		for(int i = 0; i < 10; i++) {
+			SearchAlphaBeta2 search = new SearchAlphaBeta2(game, currentMoveConsumer(), bestMoveConsumer());
+			Move move = search.execute(5).move();
+			System.out.println(asString(move));
+			new MakeMove(game).makeMove(move);
+		}
 	}
 	
 //	@Test
@@ -59,6 +59,10 @@ public class SearchAlphaBetaTest {
 //	}
 	
 	
+	private Consumer<BestMove> bestMoveConsumer() {
+		return (bm) -> System.out.println(asString(bm.move()));
+	}
+
 	private Consumer<CurrentMove> currentMoveConsumer() {
 		return (cm) -> currentMove(cm); 
 	}

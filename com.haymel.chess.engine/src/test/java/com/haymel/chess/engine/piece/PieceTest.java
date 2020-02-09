@@ -53,7 +53,7 @@ public class PieceTest {
 	
 	@Test
 	public void testWhitePawn() {
-		Piece piece = new Piece(WhitePawn);
+		Piece piece = new Piece(WhitePawn, removed);
 
 		assertThat(piece.type(), is(WhitePawn));
 		assertThat(piece.black(), is(false));
@@ -71,7 +71,7 @@ public class PieceTest {
 
 	@Test
 	public void testWhiteRook() {
-		Piece piece = new Piece(WhiteRook);
+		Piece piece = new Piece(WhiteRook, removed);
 		
 		assertThat(piece.type(), is(WhiteRook));
 		assertThat(piece.black(), is(false));
@@ -99,7 +99,7 @@ public class PieceTest {
 	
 	@Test
 	public void testWhiteKnight() {
-		Piece piece = new Piece(WhiteKnight);
+		Piece piece = new Piece(WhiteKnight, removed);
 
 		assertThat(piece.type(), is(WhiteKnight));
 		assertThat(piece.black(), is(false));
@@ -117,7 +117,7 @@ public class PieceTest {
 
 	@Test
 	public void testWhiteBishop() {
-		Piece piece = new Piece(WhiteBishop);
+		Piece piece = new Piece(WhiteBishop, removed);
 
 		assertThat(piece.type(), is(WhiteBishop));
 		assertThat(piece.black(), is(false));
@@ -135,7 +135,7 @@ public class PieceTest {
 
 	@Test
 	public void testWhiteQueen() {
-		Piece piece = new Piece(WhiteQueen);
+		Piece piece = new Piece(WhiteQueen, removed);
 
 		assertThat(piece.type(), is(WhiteQueen));
 		assertThat(piece.black(), is(false));
@@ -153,7 +153,7 @@ public class PieceTest {
 
 	@Test
 	public void testWhiteKing() {
-		Piece piece = new Piece(WhiteKing);
+		Piece piece = new Piece(WhiteKing, removed);
 
 		assertThat(piece.type(), is(WhiteKing));
 		assertThat(piece.black(), is(false));
@@ -176,7 +176,7 @@ public class PieceTest {
 	
 	@Test
 	public void testBlackPawn() {
-		Piece piece = new Piece(BlackPawn);
+		Piece piece = new Piece(BlackPawn, removed);
 
 		assertThat(piece.type(), is(BlackPawn));
 		assertThat(piece.black(), is(true));
@@ -194,7 +194,7 @@ public class PieceTest {
 	
 	@Test
 	public void testBlackRook() {
-		Piece piece = new Piece(BlackRook);
+		Piece piece = new Piece(BlackRook, removed);
 		
 		assertThat(piece.type(), is(BlackRook));
 		assertThat(piece.black(), is(true));
@@ -222,7 +222,7 @@ public class PieceTest {
 	
 	@Test
 	public void testBlackKnight() {
-		Piece piece = new Piece(BlackKnight);
+		Piece piece = new Piece(BlackKnight, removed);
 
 		assertThat(piece.type(), is(BlackKnight));
 		assertThat(piece.black(), is(true));
@@ -240,7 +240,7 @@ public class PieceTest {
 
 	@Test
 	public void testBlackBishop() {
-		Piece piece = new Piece(BlackBishop);
+		Piece piece = new Piece(BlackBishop, removed);
 
 		assertThat(piece.type(), is(BlackBishop));
 		assertThat(piece.black(), is(true));
@@ -258,7 +258,7 @@ public class PieceTest {
 
 	@Test
 	public void testBlackQueen() {
-		Piece piece = new Piece(BlackQueen);
+		Piece piece = new Piece(BlackQueen, removed);
 
 		assertThat(piece.type(), is(BlackQueen));
 		assertThat(piece.black(), is(true));
@@ -276,7 +276,7 @@ public class PieceTest {
 
 	@Test
 	public void testBlackKing() {
-		Piece piece = new Piece(BlackKing);
+		Piece piece = new Piece(BlackKing, removed);
 
 		assertThat(piece.type(), is(BlackKing));
 		assertThat(piece.black(), is(true));

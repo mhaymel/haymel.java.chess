@@ -62,13 +62,11 @@ public class MakeBlackPawnCapturePromotionMoveTest {
 	}
 	
 	private void test(Field from, Field to, PieceType promo) {
-		Piece whitePiece = new Piece(WhiteKnight);
-		whitePiece.field(to);
+		Piece whitePiece = new Piece(WhiteKnight, to);
 		game.addWhite(whitePiece);
 		game.place(whitePiece);
 		
-		Piece piece = new Piece(BlackPawn);
-		piece.field(from);
+		Piece piece = new Piece(BlackPawn, from);
 		game.addBlack(piece);
 		game.place(piece);
 		game.halfMoveClock(30);

@@ -42,8 +42,7 @@ public class MakeBlackPawnDoubleStepMoveTest {
 	
 	@Test
 	public void e2DoubleStepMove() {
-		Piece piece = new Piece(BlackPawn);
-		piece.field(e7);
+		Piece piece = new Piece(BlackPawn, e7);
 		game.addBlack(piece);
 		game.place(piece);
 		game.halfMoveClock(30);
@@ -76,16 +75,14 @@ public class MakeBlackPawnDoubleStepMoveTest {
 	@Test
 	public void e2DoubleStepMoveEnPassantResetted() {
 		game.activeColorWhite();
-		Piece piece = new Piece(WhitePawn);
-		piece.field(e4);
+		Piece piece = new Piece(WhitePawn, e4);
 		game.addWhite(piece);
 		game.place(piece);
 		game.enPassant(e3);
 		game.activeColorBlack();
 		
 
-		piece = new Piece(BlackPawn);
-		piece.field(e7);
+		piece = new Piece(BlackPawn, e7);
 		game.addBlack(piece);
 		game.place(piece);
 		game.halfMoveClock(30);

@@ -41,14 +41,12 @@ public class MakeBlackKingSideCastlingMoveTest {
 		game = new Game();
 		moveMaker = new MakeMove(game);
 
-		king = new Piece(BlackKing);
-		king.field(e8);
+		king = new Piece(BlackKing, e8);
 		king.setMoved(false);
 		game.addBlack(king);
 		game.place(king);
 		
-		rook = new Piece(BlackRook);
-		rook.field(h8);
+		rook = new Piece(BlackRook, h8);
 		rook.setMoved(false);
 		game.addBlack(rook);
 		game.place(rook);
@@ -94,8 +92,7 @@ public class MakeBlackKingSideCastlingMoveTest {
 
 	@Test
 	public void enPassantIsSetCorrectly() {
-		Piece whiteEnpassantPawn = new Piece(WhitePawn);
-		whiteEnpassantPawn.field(a4);
+		Piece whiteEnpassantPawn = new Piece(WhitePawn, a4);
 		game.addWhite(whiteEnpassantPawn);
 		game.place(whiteEnpassantPawn);
 		game.activeColorWhite();

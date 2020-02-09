@@ -42,8 +42,7 @@ public class MakeBlackPawnMoveTest {
 	
 	@Test
 	public void e7e6() {
-		Piece piece = new Piece(BlackPawn);
-		piece.field(e7);
+		Piece piece = new Piece(BlackPawn, e7);
 		game.addBlack(piece);
 		game.place(piece);
 		game.halfMoveClock(30);
@@ -75,8 +74,7 @@ public class MakeBlackPawnMoveTest {
 	
 	@Test
 	public void e6e5() {
-		Piece piece = new Piece(BlackPawn);
-		piece.field(e6);
+		Piece piece = new Piece(BlackPawn, e6);
 		game.addBlack(piece);
 		game.place(piece);
 		game.halfMoveClock(30);
@@ -109,15 +107,13 @@ public class MakeBlackPawnMoveTest {
 	@Test
 	public void e6e5ResetsEnpassant() {
 		game.activeColorWhite();
-		Piece piece = new Piece(WhitePawn);
-		piece.field(e4);
+		Piece piece = new Piece(WhitePawn, e4);
 		game.addWhite(piece);
 		game.place(piece);
 		game.enPassant(e3);
 		
 		game.activeColorBlack();
-		piece = new Piece(BlackPawn);
-		piece.field(e6);
+		piece = new Piece(BlackPawn, e6);
 		game.addBlack(piece);
 		game.place(piece);
 		game.halfMoveClock(30);

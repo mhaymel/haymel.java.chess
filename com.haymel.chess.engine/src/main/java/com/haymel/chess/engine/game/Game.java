@@ -27,7 +27,7 @@ import com.haymel.chess.engine.moves.white.WhiteMoves;
 import com.haymel.chess.engine.moves.white.capture.WhiteCaptureMoves;
 import com.haymel.chess.engine.piece.Piece;
 
-public final class Game {	//TODO unit test
+public final class Game {	//TODO unit test and refactor
 
 	private final List<Undo> undos = new ArrayList<>();
 	private final PieceList whitePieces = new PieceList();
@@ -40,14 +40,22 @@ public final class Game {	//TODO unit test
 
 	public Game() {
 		this.board = new Board();
-		this.activeColor = white;
-		this.enPassant = removed;
-		this.halfMoveClock = 0;
-		this.fullMoveNumber = 1;
-		
+		reset();
 		assertVerify();
 	}
 
+	public void reset() {
+		board.reset();
+		activeColor = white;
+		enPassant = removed;
+		halfMoveClock = 0;
+		fullMoveNumber = 1;
+		undos.clear();
+		whitePieces.clear();
+		
+		assertVerify();
+	}
+	
 	public void push(Move move) {
 		push(move, true);
 	}

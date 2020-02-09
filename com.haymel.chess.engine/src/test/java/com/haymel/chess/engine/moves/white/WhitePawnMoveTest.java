@@ -362,7 +362,7 @@ public class WhitePawnMoveTest {
 	}
 	
 	private Piece piece(Field f, PieceType t) {
-		Piece p = new Piece(t);
+		Piece p = new Piece(t, removed);
 		p.field(f);
 		board.place(p);
 		return p;

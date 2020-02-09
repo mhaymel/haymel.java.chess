@@ -23,7 +23,7 @@ import java.util.function.Consumer;
 
 import com.haymel.chess.engine.moves.Move;
 
-public class SearchExecutor {
+public class SearchExecutor {	//TODO unit test, refactor
 
 	private static final long nodesPerSecCalcPeriodInMillis = 100;
 	private final Search search;
