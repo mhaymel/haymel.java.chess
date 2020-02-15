@@ -164,14 +164,6 @@ public final class Game {	//TODO unit test and refactor
 		fullMoveNumber++;
 	}
 
-	public void addBlack(Piece piece) {
-		assert piece != null;
-		assert piece.black();
-		assert !blackPieces.contains(piece);
-
-		blackPieces.add(piece);
-	}
-
 	public void removeBlack(Piece piece) {
 		assert piece != null;
 		assert piece.black();
@@ -272,6 +264,14 @@ public final class Game {	//TODO unit test and refactor
 		assert piece != null;
 		assert piece.white();
 		whitePieces.add(piece);
+	}
+
+	public void addBlack(Piece piece) {
+		assert piece != null;
+		assert piece.black();
+		assert !blackPieces.contains(piece);
+
+		blackPieces.add(piece);
 	}
 
 	public Board board() {

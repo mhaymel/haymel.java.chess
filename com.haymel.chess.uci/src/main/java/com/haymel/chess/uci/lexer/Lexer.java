@@ -62,7 +62,7 @@ public class Lexer {
 	private static String[] extracted(String line) {
 		String trimmed = line.trim();
 		
-		return  trimmed.isEmpty() ? empty : trimmed.split("\\s+");
+		return trimmed.isEmpty() ? empty : trimmed.split("\\s+");
 	}
 	
 	@Override

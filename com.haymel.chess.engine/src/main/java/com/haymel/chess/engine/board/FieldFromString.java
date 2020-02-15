@@ -8,7 +8,7 @@
 package com.haymel.chess.engine.board;
 
 import static com.haymel.util.Require.nonNull;
-import static java.lang.String.format;
+import static com.haymel.util.exception.HaymelIllegalArgumentException.throwIAE;
 
 public class FieldFromString {
 
@@ -27,16 +27,17 @@ public class FieldFromString {
 	private static String verify(String fieldAsString) {
 		nonNull(fieldAsString, "fieldAsString");
 		if (fieldAsString.length() != 2)
-			throw new IllegalArgumentException(format("fieldAsString must have a length of 2 but is '%s'", fieldAsString));
+			return throwIAE("fieldAsString must have a length of 2 but is '%s'", fieldAsString);
 			
 		char c1 = fieldAsString.charAt(0);
 		if (c1 < 'a' || c1 > 'h') 
-			throw new IllegalArgumentException(format("first character must be 'a-h' but is '%s' in '%s'", c1, fieldAsString));
+			return throwIAE("first character of enpassant field must be 'a-h' but is '%s' in '%s'", c1, fieldAsString);
 		
 		char c2 = fieldAsString.charAt(1);
 		if (c2 < '1' || c2 > '8') 
-			throw new IllegalArgumentException(format("second character must be '1-8' but is '%s' in '%s'", c2, fieldAsString));
+			return throwIAE("second character of enpassant field must be '1-8' but is '%s' in '%s'", c2, fieldAsString);
 
 		return fieldAsString;
 	}
+	
 }

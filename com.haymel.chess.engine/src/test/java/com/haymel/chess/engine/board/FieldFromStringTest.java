@@ -17,6 +17,7 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
+import com.haymel.util.exception.HaymelIllegalArgumentException;
 import com.haymel.util.exception.HaymelNullPointerException;
 
 public class FieldFromStringTest {
@@ -26,17 +27,17 @@ public class FieldFromStringTest {
 		new FieldFromString(null);
 	}
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected=HaymelIllegalArgumentException.class)
 	public void constructorWithEmptyStringThrowsException() {
 		new FieldFromString("");
 	}
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected=HaymelIllegalArgumentException.class)
 	public void constructorWithWrongFirstCharacterThrowsException() {
 		new FieldFromString("k1");
 	}
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected=HaymelIllegalArgumentException.class)
 	public void constructorWithWrongSecondCharacterThrowsException() {
 		new FieldFromString("a9");
 	}
