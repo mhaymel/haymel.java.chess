@@ -25,7 +25,7 @@ import com.haymel.chess.engine.moves.Move;
 
 public class SearchExecutor {	//TODO unit test, refactor
 
-	private static final long nodesPerSecCalcPeriodInMillis = 100;
+	private static final long nodesPerSecCalcPeriodInMillis = 500;
 	private final Search search;
 	private final Consumer<Move> bestMove;
 	private final Consumer<NodeStatistics> nodeStatistic;

@@ -7,12 +7,10 @@
 - refactor SearchAlphaBeta/SearchAlphaBeta2
 - refactor SearchExecutor
 - correct reporting of nodes and nps even for lower depth (currently nodes and nps are 0)
-- implement FEN support
 - implement 50 moves rule
 - implement 3 malige stellungswiederholung
 - report value of position with correct sign:
 		less then zero, if position of engine is worse 
 		no matter which color the engine plays  
 		
-- perftest für kiwipete
 - slow unit tests für perftest für diverse stellungen

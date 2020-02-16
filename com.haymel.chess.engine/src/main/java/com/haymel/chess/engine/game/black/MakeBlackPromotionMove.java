@@ -73,7 +73,7 @@ public final class MakeBlackPromotionMove {
 		assert move.to().rank() == 0;
 		assert move.from().file() == move.to().file();
 		assert game.halfMoveClock() >= 0;
-		assert game.fullMoveNumber() >= 2;
+		assert game.fullMoveNumber() >= 1;
 		assert game.containsBlackPiece(game.piece(move.to()));
 	
 		Piece piece = game.piece(move.to());

@@ -15,6 +15,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 
+import com.haymel.chess.engine.fen.GameFromFEN;
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.game.StartposCreator;
 import com.haymel.chess.engine.moves.Move;
@@ -53,7 +54,17 @@ public class UciEngine extends com.haymel.chess.uci.Engine {
 	@Override
 	public void positionStart(Moves moves) { 
 		game = createStartpos();
+		makeMoves(moves);
+	}
 
+	@Override
+	public void positionFen(String fen, Moves moves) {
+		game = new Game();
+		new GameFromFEN(game, fen).execute();
+		makeMoves(moves);
+	}
+
+	private void makeMoves(Moves moves) {
 		UciMoveMaker uciMoveMaker = new UciMoveMaker(game);
 		for (String move: moves.value())
 			uciMoveMaker.move(move);
