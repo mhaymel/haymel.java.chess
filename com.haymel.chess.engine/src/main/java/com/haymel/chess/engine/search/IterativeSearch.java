@@ -20,15 +20,15 @@ public class IterativeSearch implements Search {
 	private long nodeCount;
 	private final Game game;
 	private volatile boolean stop;
-	private final SearchAlphaBeta2 search;
 	private final IntConsumer depthConsumer;
+	private SearchAlphaBeta2 search;
 	
 	public IterativeSearch(Game game, Consumer<CurrentMove> currentMoveConsumer, IntConsumer depthConsumer, Consumer<BestMove> bestMoveConsumer) {
 		this.nodeCount = 0;
 		this.game = nonNull(game, "game");
 		this.stop = false;
-		this.search = new SearchAlphaBeta2(game, currentMoveConsumer, bestMoveConsumer);
 		this.depthConsumer = nonNull(depthConsumer, "depthConsumer");
+		search = new SearchAlphaBeta2(game, currentMoveConsumer, bestMoveConsumer);
 	}
 	
 	@Override
@@ -96,7 +96,6 @@ public class IterativeSearch implements Search {
 			return true;
 		
 		double factor = Math.pow(elapsed, 1.0/depth);
-//		System.out.println("factor: " + factor);
 		
 		return maxCalcTime / elapsed > factor;
 	}

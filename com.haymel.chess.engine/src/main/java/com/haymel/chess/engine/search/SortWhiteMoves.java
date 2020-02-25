@@ -14,19 +14,30 @@ import static java.lang.Integer.MAX_VALUE;
 import java.util.Arrays;
 import java.util.Comparator;
 
+import com.haymel.chess.engine.board.Field;
+import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.MoveType;
+import com.haymel.chess.engine.piece.PieceType;
 
-public class SortWhiteMoves {
+public class SortWhiteMoves {		//TODO refactor, unit test
 
 	private final static int VALUE_PV = 0;
 	private final static int VALUE_CAPTURE = 10_000;
 	private final static int VALUE_DEFAULT = MAX_VALUE;
 	
+	private final static int VALUE_PAWN_e_d = VALUE_DEFAULT - 10;
+	private final static int VALUE_KNIGHT_BISHOP = VALUE_DEFAULT - 8;
+	private final static int VALUE_ROOK = VALUE_DEFAULT - 7;
+	private final static int VALUE_PAWN = VALUE_DEFAULT - 6;
+	private final static int VALUE_QUEEN = VALUE_DEFAULT - 5;
+	
+	private final Game game;
 	private final Move[] moves;
 	private final Move pv;
 	
-	public SortWhiteMoves(Move[] moves, Move pv) {
+	public SortWhiteMoves(Game game, Move[] moves, Move pv) {
+		this.game = nonNull(game, "game");
 		this.moves = nonNull(moves, "moves");
 		this.pv = pv;	// pv can be null
 	}
@@ -44,7 +55,33 @@ public class SortWhiteMoves {
 		if (isCapture(move))
 			return VALUE_CAPTURE - pieceValue(move.capturedPiece().type());
 		
-		return VALUE_DEFAULT;
+		PieceType type = game.piece(move.from()).type();
+		switch(type) {
+		case WhitePawn:
+		case BlackPawn:
+			if (move.from().file() == Field.e1.file() || move.from().file() == Field.d1.file())
+				return VALUE_PAWN_e_d;
+			return VALUE_PAWN;
+		
+		case WhiteBishop:
+		case BlackBishop:
+		case WhiteKnight:
+		case BlackKnight:
+			return VALUE_KNIGHT_BISHOP;
+		
+		case WhiteRook:
+		case BlackRook:
+			return VALUE_ROOK;
+			
+			
+		case WhiteQueen:
+		case BlackQueen:
+			return VALUE_QUEEN;
+
+		default:
+			return VALUE_DEFAULT;
+		}
+		
 	}
 	
 	private static boolean isCapture(Move move) {

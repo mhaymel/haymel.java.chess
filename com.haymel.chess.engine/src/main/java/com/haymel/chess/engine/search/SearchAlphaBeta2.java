@@ -15,6 +15,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Consumer;
 
 import com.haymel.chess.engine.board.PieceList;
+import com.haymel.chess.engine.game.ActiveColor;
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.game.MakeMove;
 import com.haymel.chess.engine.moves.Move;
@@ -35,6 +36,7 @@ public class SearchAlphaBeta2 {
 	private final Consumer<BestMove> bestMoveConsumer;
 	private int maxSelDepth;
 	private Move[] principalVariation;
+	private ActiveColor activeColor;
 	
 	public SearchAlphaBeta2(Game game, Consumer<CurrentMove> currentMoveConsumer, Consumer<BestMove> bestMoveConsumer) {
 		this.game = nonNull(game, "game");
@@ -67,8 +69,9 @@ public class SearchAlphaBeta2 {
 		maxDepth = depth;
 		maxSelDepth = depth;
 		this.principalVariation = principalVariation;
+		activeColor = game.activeColor();
 		
-		switch(game.activeColor()) {
+		switch(activeColor) {
 		case black:
 			black(MIN_VALUE, MAX_VALUE);
 			break;
@@ -100,7 +103,7 @@ public class SearchAlphaBeta2 {
 			return;
 
 		final int depth = 0;
-	    Move[] sortedMoves = new SortWhiteMoves(moves.moves(), principal(depth)).sort();
+	    Move[] sortedMoves = new SortWhiteMoves(game, moves.moves(), principal(depth)).sort();
 		MakeMove makeMove = new MakeMove(game);
 		int size = sortedMoves.length;
 		
@@ -136,7 +139,7 @@ public class SearchAlphaBeta2 {
 		if (moves.kingCaptureCount() > 0)
 			return MAX_VALUE - depth + 1;
 
-	    Move[] sortedMoves = new SortWhiteMoves(moves.moves(), principal(depth)).sort();
+	    Move[] sortedMoves = new SortWhiteMoves(game, moves.moves(), principal(depth)).sort();
 		MakeMove makeMove = new MakeMove(game);
 		int size = sortedMoves.length;
 		
@@ -177,7 +180,7 @@ public class SearchAlphaBeta2 {
 	    if (alpha < stand_pat)
 	        alpha = stand_pat;
 
-	    Move[] sortedMoves = new SortWhiteMoves(moves.moves(), principal(depth)).sort();
+	    Move[] sortedMoves = new SortWhiteMoves(game, moves.moves(), principal(depth)).sort();
 		MakeMove makeMove = new MakeMove(game);
 		int size = sortedMoves.length;
 		
@@ -208,7 +211,7 @@ public class SearchAlphaBeta2 {
 			return;
 		
 		final int depth = 0;
-	    Move[] sortedMoves = new SortWhiteMoves(moves.moves(), principal(depth)).sort();
+	    Move[] sortedMoves = new SortWhiteMoves(game, moves.moves(), principal(depth)).sort();
 		MakeMove makeMove = new MakeMove(game);
 		int size = sortedMoves.length;
 		
@@ -247,7 +250,7 @@ public class SearchAlphaBeta2 {
 		if (depth >= maxDepth || stop)
 			return evaluate();
 		
-	    Move[] sortedMoves = new SortWhiteMoves(moves.moves(), principal(depth)).sort();
+	    Move[] sortedMoves = new SortWhiteMoves(game, moves.moves(), principal(depth)).sort();
 		MakeMove makeMove = new MakeMove(game);
 		int size = sortedMoves.length;
 		
@@ -288,7 +291,7 @@ public class SearchAlphaBeta2 {
 		if (beta > stand_pat)
 	        beta = stand_pat;
 		
-	    Move[] sortedMoves = new SortWhiteMoves(moves.moves(), principal(depth)).sort();
+	    Move[] sortedMoves = new SortWhiteMoves(game, moves.moves(), principal(depth)).sort();
 		MakeMove makeMove = new MakeMove(game);
 		int size = sortedMoves.length;
 
@@ -315,11 +318,25 @@ public class SearchAlphaBeta2 {
 	
 	private int evaluate() {
 		nodeCount.incrementAndGet();
-		return pieceValues(game.whitePieces()) - pieceValues(game.blackPieces());
+		
+		int whiteValue = pieceValues(game.whitePieces());
+		int blackValue = pieceValues(game.blackPieces());
+		
+		int x = (whiteValue + blackValue)/100;
+
+		switch(activeColor) {
+		case black:
+			return whiteValue - blackValue + x;
+		case white:
+			return whiteValue - blackValue - x;
+		default:
+			return whiteValue - blackValue; 
+		}
+
 	}
 
 	private void bestMove(Variant variant, int value) {
-		bestMove = new BestMove(variant, value, maxDepth, maxSelDepth);
+		bestMove = new BestMove(variant, value, maxDepth, maxSelDepth, nodeCount.get());
 		bestMoveConsumer.accept(bestMove);
 	}
 

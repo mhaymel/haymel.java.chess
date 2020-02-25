@@ -19,9 +19,9 @@ import com.haymel.chess.engine.fen.GameFromFEN;
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.game.StartposCreator;
 import com.haymel.chess.engine.moves.Move;
-import com.haymel.chess.engine.search.BestMove;
 import com.haymel.chess.engine.search.CurrentMove;
 import com.haymel.chess.engine.search.IterativeSearch;
+import com.haymel.chess.engine.search.BestMove;
 import com.haymel.chess.engine.search.NodeStatistics;
 import com.haymel.chess.engine.search.SearchExecutor;
 import com.haymel.chess.engine.search.Variant;
@@ -99,7 +99,7 @@ public class UciEngine extends com.haymel.chess.uci.Engine {
 					.scorecp(bm.value())
 					.depth(bm.depth())
 					.seldepth(bm.selDepth())
-					.nodes(nodeCount.get())
+					.nodes(bm.nodes())
 					.nps(nodesPerSecond.get())
 					.pv(movesFrom(bm.variant())));
 		};

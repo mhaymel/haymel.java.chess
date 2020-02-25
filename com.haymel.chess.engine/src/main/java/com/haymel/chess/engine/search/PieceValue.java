@@ -7,6 +7,7 @@
  */
 package com.haymel.chess.engine.search;
 
+import com.haymel.chess.engine.board.PieceList;
 import com.haymel.chess.engine.piece.PieceType;
 
 public class PieceValue {		//TODO unit test
@@ -41,6 +42,15 @@ public class PieceValue {		//TODO unit test
 			assert false;
 			return 0;
 		}
+	}
+	
+	public static int pieceValue(PieceList pieces) {
+		int value = 0;
+		int size = pieces.size();
+		for(int i = 0; i < size; i++) 
+			value += pieceValue(pieces.piece(i).type());
+	
+		return value;
 	}
 	
 }

@@ -1,7 +1,7 @@
 /***************************************************
  * (c) Markus Heumel
  *
- * @date: 	25.01.2020
+ * @date: 	17.02.2020
  * @author: Markus.Heumel
  *
  */
@@ -12,18 +12,20 @@ import static com.haymel.util.Require.nonNull;
 
 import com.haymel.chess.engine.moves.Move;
 
-public class BestMove {		//TODO unit test
+public class BestMove {		//TODO rename, refactor, unit test
 
 	private final Variant variant;
 	private final int value;
 	private final int depth;
 	private final int selDepth;
+	private final long nodes;
 	
-	public BestMove(Variant variant, int value, int depth, int selDepth) {
+	public BestMove(Variant variant, int value, int depth, int selDepth, long nodes) {
 		this.variant = nonNull(variant, "variant");
 		this.value = value;
 		this.depth = greaterEqualZero(depth, "depth");
 		this.selDepth = greaterEqualZero(selDepth, "selDepth");
+		this.nodes = greaterEqualZero(nodes, "nodes");
 	}
 	
 	public Move move() {
@@ -41,9 +43,13 @@ public class BestMove {		//TODO unit test
 	public int depth() {
 		return depth;
 	}
-	
+
 	public int selDepth() {
 		return selDepth;
+	}
+	
+	public long nodes() {
+		return nodes;
 	}
 	
 }

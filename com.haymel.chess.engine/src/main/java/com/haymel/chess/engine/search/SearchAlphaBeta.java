@@ -267,6 +267,9 @@ public class SearchAlphaBeta {
 	}
 
 	private int pieceValues(PieceList whitePieces, PieceList blackPieces) {
+		
+		PieceValue.pieceValue(whitePieces);
+		PieceValue.pieceValue(blackPieces);
 		int value = 0;
 		int size = whitePieces.size();
 		for(int i = 0; i < size; i++) {
