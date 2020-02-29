@@ -10,6 +10,7 @@ package com.haymel.chess.engine.search;
 import static java.lang.String.format;
 
 import java.util.function.Consumer;
+import java.util.function.IntConsumer;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -38,12 +39,11 @@ public class SearchAlphaBetaTest {
 //
 	@Test
 	public void testWhiteStarts1() {
-		for(int i = 0; i < 10; i++) {
-			SearchAlphaBeta2 search = new SearchAlphaBeta2(game, currentMoveConsumer(), bestMoveConsumer());
-			Move move = search.execute(5).move();
-			System.out.println(asString(move));
-			new MakeMove(game).makeMove(move);
-		}
+		SearchInfo info = new SearchInfo(currentMoveConsumer(), bestMoveConsumer(), depthConsumer(), nodeStatisticsConsumer());
+		SearchAlphaBeta search = new SearchAlphaBeta(game, info, new NodeStatistics(nodeStatisticsConsumer()));
+		Move move = search.execute(8).move();
+		System.out.println("play: " + asString(move));
+		new MakeMove(game).makeMove(move);
 	}
 	
 //	@Test
@@ -59,16 +59,24 @@ public class SearchAlphaBetaTest {
 //	}
 	
 	
-	private Consumer<BestMove> bestMoveConsumer() {
-		return (bm) -> System.out.println(asString(bm.move()));
+	private Consumer<NodeStatistics> nodeStatisticsConsumer() {
+		return (ns) -> System.out.println("nodes: " + ns.count() + ", nps: " + ns.nps());
 	}
 
-	private Consumer<CurrentMove> currentMoveConsumer() {
+	private IntConsumer depthConsumer() {
+		return (int depth) -> System.out.println("depth: " + depth);
+	}
+
+	private Consumer<BestMove> bestMoveConsumer() {
+		return (bm) -> System.out.println("bestmove: " + asString(bm.move()));
+	}
+
+	private Consumer<AnalyzedMove> currentMoveConsumer() {
 		return (cm) -> currentMove(cm); 
 	}
 	
-	private void currentMove(CurrentMove move) {
-		System.out.println(format("%s: %s/%s", asString(move.move()), move.current(), move.count()));
+	private void currentMove(AnalyzedMove move) {
+		System.out.println(format("%s: %s/%s", asString(move.move()), move.moveNumber(), move.numberOfPossibleMoves()));
 	}
 
 	private static String asString(Move move) {

@@ -11,7 +11,6 @@ import static com.haymel.util.Require.nonNull;
 
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 
@@ -19,11 +18,12 @@ import com.haymel.chess.engine.fen.GameFromFEN;
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.game.StartposCreator;
 import com.haymel.chess.engine.moves.Move;
-import com.haymel.chess.engine.search.CurrentMove;
-import com.haymel.chess.engine.search.IterativeSearch;
+import com.haymel.chess.engine.search.AnalyzedMove;
 import com.haymel.chess.engine.search.BestMove;
+import com.haymel.chess.engine.search.IterativeSearch;
 import com.haymel.chess.engine.search.NodeStatistics;
 import com.haymel.chess.engine.search.SearchExecutor;
+import com.haymel.chess.engine.search.SearchInfo;
 import com.haymel.chess.engine.search.Variant;
 import com.haymel.chess.uci.moves.Moves;
 import com.haymel.chess.uci.result.Infos;
@@ -32,8 +32,6 @@ public class UciEngine extends com.haymel.chess.uci.Engine {
 
 	private Game game;
 	private SearchExecutor executor;
-	private final AtomicLong nodeCount = new AtomicLong(0);
-	private final AtomicLong nodesPerSecond = new AtomicLong(0);
 	
 	public UciEngine(InputStream in, PrintStream out) {
 		super(nonNull(in, "in"), nonNull(out, "out"));
@@ -80,16 +78,14 @@ public class UciEngine extends com.haymel.chess.uci.Engine {
 	public void go(int wtimeInMilliSeconds, int btimeInMilliSeconds, int wincInMilliSeconds, int bincInMilliSeconds) {
 		stop();
 
-		resetStatistic();
-		
-		IterativeSearch search = new IterativeSearch(game, currentMoveConsumer(), depthConsumer(), bestMoveConsumer2());
-		executor = new SearchExecutor(search, bestMoveConsumer(), nodeStatisticConsumer());
+		SearchInfo info = new SearchInfo(currentMoveConsumer(), bestMoveConsumer2(), depthConsumer(), nodeStatisticsConsumer());
+		IterativeSearch search = new IterativeSearch(game, info);
+		executor = new SearchExecutor(search, bestMoveConsumer());
 		executor.go(wtimeInMilliSeconds, btimeInMilliSeconds);
 	}
 	
-	private void resetStatistic() {
-		nodeCount.set(0);
-		nodesPerSecond.set(0);
+	private Consumer<NodeStatistics> nodeStatisticsConsumer() {
+		return (ns) -> info(new Infos().nps(ns.nps()).nodes(ns.count()));
 	}
 
 	private Consumer<BestMove> bestMoveConsumer2() {
@@ -99,8 +95,8 @@ public class UciEngine extends com.haymel.chess.uci.Engine {
 					.scorecp(bm.value())
 					.depth(bm.depth())
 					.seldepth(bm.selDepth())
-					.nodes(bm.nodes())
-					.nps(nodesPerSecond.get())
+					.nodes(bm.nodeStatistics().count())
+					.nps(bm.nodeStatistics().nps())
 					.pv(movesFrom(bm.variant())));
 		};
 	}
@@ -109,33 +105,24 @@ public class UciEngine extends com.haymel.chess.uci.Engine {
 		return new MovesFromVariant(variant).value();
 	}
 	
-	private Consumer<Move> bestMoveConsumer() {
+	private Consumer<BestMove> bestMoveConsumer() {
 		return (move) -> {
 			if (move == null)
 				bestmove("0000");
 			else
-				bestmove(asString(move));
+				bestmove(asString(move.move()));
 		};
 	}
 	
-	private Consumer<NodeStatistics> nodeStatisticConsumer() {
-		return (s) -> nodeStatistics(s);
-	}
-	
-	private void nodeStatistics(NodeStatistics s) {
-		nodeCount.set(s.nodeCount());
-		nodesPerSecond.set(s.nodesPerSecond());
-		info(new Infos().nps(s.nodesPerSecond()).nodes(s.nodeCount()));
-	}
 
-	private Consumer<CurrentMove> currentMoveConsumer() {
+	private Consumer<AnalyzedMove> currentMoveConsumer() {
 		return (cm) -> currentMove(cm); 
 	}
 	
-	private void currentMove(CurrentMove currentMove) {
+	private void currentMove(AnalyzedMove currentMove) {
 		info(
 			new Infos()
-				.currmovenumber(currentMove.current())
+				.currmovenumber(currentMove.moveNumber())
 				.currmove(asString(currentMove.move())));
 	}
 	

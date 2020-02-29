@@ -9,30 +9,23 @@ package com.haymel.chess.engine.search;
 
 import static com.haymel.util.Require.nonNull;
 
-import java.util.function.Consumer;
-import java.util.function.IntConsumer;
-
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.moves.Move;
 
 public class IterativeSearch implements Search {
 
-	private long nodeCount;
 	private final Game game;
 	private volatile boolean stop;
-	private final IntConsumer depthConsumer;
-	private SearchAlphaBeta2 search;
+	private SearchAlphaBeta search;
 	
-	public IterativeSearch(Game game, Consumer<CurrentMove> currentMoveConsumer, IntConsumer depthConsumer, Consumer<BestMove> bestMoveConsumer) {
-		this.nodeCount = 0;
+	public IterativeSearch(Game game, SearchInfo info) {
 		this.game = nonNull(game, "game");
 		this.stop = false;
-		this.depthConsumer = nonNull(depthConsumer, "depthConsumer");
-		search = new SearchAlphaBeta2(game, currentMoveConsumer, bestMoveConsumer);
+		search = new SearchAlphaBeta(game, info, new NodeStatistics(info.nodeStatisticsConsumer()));
 	}
 	
 	@Override
-	public Move execute(int wtimeInMilliSeconds, int btimeInMilliSeconds) {
+	public BestMove execute(int wtimeInMilliSeconds, int btimeInMilliSeconds) {
 		try {
 			return doExecute(wtimeInMilliSeconds, btimeInMilliSeconds);
 		}
@@ -42,46 +35,31 @@ public class IterativeSearch implements Search {
 		}
 	}
 	
-	private Move doExecute(int wtimeInMilliSeconds, int btimeInMilliSeconds) {
-		nodeCount = 0;
+	private BestMove doExecute(int wtimeInMilliSeconds, int btimeInMilliSeconds) {
 		stop = false;
 		long maxCalcTime = new TimeCalculator(game, wtimeInMilliSeconds, btimeInMilliSeconds).value();
 		long start = now();
 		
-		depthConsumer.accept(1);
 		BestMove bestMove = search.execute(1);
-		updateNodeCount();
 		
 		for(int depth = 2; ; depth++) {
 			Move[] pv = new MovesFromVariant(bestMove.variant()).value();
-			depthConsumer.accept(depth);
 			bestMove = search.execute(depth, pv);
-			updateNodeCount();
-			if (bestMove == null)
+			if (bestMove == null)						//TODO make use of class BestMove instead of using null
 				return null;
 			
 			if (stop)
-				return bestMove.move();
+				return bestMove;
 			
 			if (!timeLeft(maxCalcTime, now() - start, depth)) 
-				return bestMove.move();
+				return bestMove;
 		}
-	}
-
-	@Override
-	public synchronized long nodeCount() {
-		return nodeCount + search.nodeCount();
 	}
 
 	@Override
 	public void stop() {
 		search.stop();
 		stop = true;
-	}
-
-	private synchronized void updateNodeCount() {
-		nodeCount += search.nodeCount();
-		search.resetNodeCount();
 	}
 
 	private boolean timeLeft(long maxCalcTime, long elapsed, int depth) {

@@ -7,14 +7,10 @@
  */
 package com.haymel.chess.engine.search;
 
-import com.haymel.chess.engine.moves.Move;
-
 public interface Search {
 
-	Move execute(int wtimeInMilliSeconds, int btimeInMilliSeconds);
+	BestMove execute(int wtimeInMilliSeconds, int btimeInMilliSeconds);
 
-	long nodeCount();
-	
 	void stop();
 	
 }
