@@ -7,48 +7,45 @@
  */
 package com.haymel.chess.engine.search;
 
-import static com.haymel.util.Require.nonNull;
+public class NodesCalculator implements Nodes {		//TODO refactor, unit test
 
-import java.util.function.Consumer;
-
-public class NodeStatistics {		//TODO refactor, unit test
-
-	private static final int reportsPerSecond = 5;
+	private static final int reportsPerSecond = 1;
 	
-	private final Consumer<NodeStatistics> consumer;
 	private long count;
 	private long lastTimestamp;
 	private long lastCount;
 	private long nps = 100_000L;
-	
-	public NodeStatistics(Consumer<NodeStatistics> consumer) {
-		this.consumer = nonNull(consumer,  "npsConsumer");
+
+	public NodesCalculator() {
 		this.count = 0;
 		this.lastTimestamp = now();
 		this.lastCount = 0;
 	}
 	
-	public void inc() {
+	public boolean inc() {
 		count++;
 		
 		if (count % (nps / reportsPerSecond) != 0)
-			return;
+			return false;
 		
 		long now = now();
 
 		if (now == lastTimestamp)
-			return;
+			return false;
 		
 		nps = (count - lastCount)*1000 / (now - lastTimestamp);
 		lastTimestamp = now;
 		lastCount = count;
-		consumer.accept(this);
+		
+		return true;
 	}
 	
+	@Override
 	public long count() {
 		return count;
 	}
 
+	@Override
 	public long nps() {
 		return nps;
 	}

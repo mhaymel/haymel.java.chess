@@ -29,13 +29,8 @@ public class Variant {			//TODO unit test
 		assert variant.move != null;
 		moves[0] = variant.move;
 
-		try {
 		if (size > 1) 
 			System.arraycopy(variant.moves, 0, moves, 1, variant.moves.length);
-		}
-		catch(ArrayIndexOutOfBoundsException e) {		//TODO remove
-			throw e;
-		}
 		
 		assert verify();
 	}

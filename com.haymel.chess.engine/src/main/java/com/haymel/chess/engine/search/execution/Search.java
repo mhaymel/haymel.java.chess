@@ -5,11 +5,13 @@
  * @author: Markus.Heumel
  *
  */
-package com.haymel.chess.engine.search;
+package com.haymel.chess.engine.search.execution;
+
+import com.haymel.chess.engine.search.result.Result;
 
 public interface Search {
 
-	BestMove execute(int wtimeInMilliSeconds, int btimeInMilliSeconds);
+	Result execute(int wtimeInMilliSeconds, int btimeInMilliSeconds);
 
 	void stop();
 	

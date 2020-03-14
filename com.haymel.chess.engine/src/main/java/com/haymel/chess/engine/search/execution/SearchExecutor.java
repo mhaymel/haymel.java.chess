@@ -5,7 +5,7 @@
  * @author: Markus.Heumel
  *
  */
-package com.haymel.chess.engine.search;
+package com.haymel.chess.engine.search.execution;
 
 import static com.haymel.util.Require.nonNull;
 import static java.lang.Long.MAX_VALUE;
@@ -14,21 +14,22 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
 
+import com.haymel.chess.engine.search.result.Result;
+
 public class SearchExecutor {	//TODO unit test, refactor
 
 	private final Search search;
-	private final Consumer<BestMove> bestMove;
+	private final Consumer<Result> finished;
 	private final ExecutorService executor;
 	private Future<?> submit;
 	
-	public SearchExecutor(Search search, Consumer<BestMove> bestMove) {
+	public SearchExecutor(Search search, Consumer<Result> finished) {
 		this.search = nonNull(search, "search");
-		this.bestMove = nonNull(bestMove, "bestMove");
+		this.finished = nonNull(finished, "finished");
 		this.executor = Executors.newFixedThreadPool(1);
 	}
 	
@@ -54,7 +55,7 @@ public class SearchExecutor {	//TODO unit test, refactor
 	
 	private Runnable search(int wtimeInMilliSeconds, int btimeInMilliSeconds) {
 		return () -> {
-			bestMove.accept(search.execute(wtimeInMilliSeconds, btimeInMilliSeconds));
+			finished.accept(search.execute(wtimeInMilliSeconds, btimeInMilliSeconds));
 		};
 	}
 	

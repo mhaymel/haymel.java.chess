@@ -18,14 +18,14 @@ public class BestMove {		//TODO rename, refactor, unit test
 	private final int value;
 	private final int depth;
 	private final int selDepth;
-	private final NodeStatistics nodeStatistics;
+	private final Nodes nodes;
 	
-	public BestMove(Variant variant, int value, int depth, int selDepth, NodeStatistics nodeStatistics) {
+	public BestMove(Variant variant, int value, int depth, int selDepth, Nodes nodes) {
 		this.variant = nonNull(variant, "variant");
 		this.value = value;
 		this.depth = greaterEqualZero(depth, "depth");
 		this.selDepth = greaterEqualZero(selDepth, "selDepth");
-		this.nodeStatistics = nonNull(nodeStatistics, "nodeStatistics");
+		this.nodes = nonNull(nodes, "nodes");
 	}
 	
 	public Move move() {
@@ -48,8 +48,8 @@ public class BestMove {		//TODO rename, refactor, unit test
 		return selDepth;
 	}
 	
-	public NodeStatistics nodeStatistics() {
-		return nodeStatistics;
+	public Nodes nodes() {
+		return nodes;
 	}
 	
 }

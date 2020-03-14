@@ -52,6 +52,7 @@ public final class Game {	//TODO unit test and refactor
 		fullMoveNumber = 1;
 		undos.clear();
 		whitePieces.clear();
+		blackPieces.clear();
 		
 		assertVerify();
 	}

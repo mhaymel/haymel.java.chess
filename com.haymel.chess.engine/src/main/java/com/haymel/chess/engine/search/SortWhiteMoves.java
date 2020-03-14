@@ -20,7 +20,7 @@ import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.MoveType;
 import com.haymel.chess.engine.piece.PieceType;
 
-public class SortWhiteMoves {		//TODO refactor, unit test
+public class SortWhiteMoves implements Comparator<Move> {		//TODO refactor, unit test
 
 	private final static int VALUE_PV = 0;
 	private final static int VALUE_CAPTURE = 10_000;
@@ -43,8 +43,7 @@ public class SortWhiteMoves {		//TODO refactor, unit test
 	}
 	
 	public Move[] sort() {
-		Comparator<Move> comperator = (a, b) -> value(a) - value(b);
-		Arrays.sort(moves, comperator );
+		Arrays.sort(moves, this);
 		return moves;
 	}
 
@@ -60,8 +59,8 @@ public class SortWhiteMoves {		//TODO refactor, unit test
 		case WhitePawn:
 		case BlackPawn:
 			if (move.from().file() == Field.e1.file() || move.from().file() == Field.d1.file())
-				return VALUE_PAWN_e_d;
-			return VALUE_PAWN;
+				return VALUE_PAWN_e_d - doubleMove(move);
+			return VALUE_PAWN - doubleMove(move);
 		
 		case WhiteBishop:
 		case BlackBishop:
@@ -84,11 +83,20 @@ public class SortWhiteMoves {		//TODO refactor, unit test
 		
 	}
 	
+	private int doubleMove(Move move) {
+		return Math.abs(move.to().rank() - move.from().rank());
+	}
+
 	private static boolean isCapture(Move move) {
 		return  
 			move.type() == MoveType.capture ||
 			move.type() == MoveType.enpassant ||
 			move.type() == MoveType.capturePromotion;
+	}
+
+	@Override
+	public int compare(Move a, Move b) {
+		return value(a) - value(b);
 	}
 	
 }

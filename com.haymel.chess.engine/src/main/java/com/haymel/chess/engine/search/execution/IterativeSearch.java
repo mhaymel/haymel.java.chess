@@ -5,12 +5,22 @@
  * @author: Markus.Heumel
  *
  */
-package com.haymel.chess.engine.search;
+package com.haymel.chess.engine.search.execution;
 
+import static com.haymel.chess.engine.search.result.Result.invalidWhiteToMoveButMate;
 import static com.haymel.util.Require.nonNull;
 
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.moves.Move;
+import com.haymel.chess.engine.search.BestMove;
+import com.haymel.chess.engine.search.MovesFromVariant;
+import com.haymel.chess.engine.search.NodesCalculator;
+import com.haymel.chess.engine.search.SearchAlphaBeta;
+import com.haymel.chess.engine.search.SearchInfo;
+import com.haymel.chess.engine.search.TimeCalculator;
+import com.haymel.chess.engine.search.Variant;
+import com.haymel.chess.engine.search.result.Normal;
+import com.haymel.chess.engine.search.result.Result;
 
 public class IterativeSearch implements Search {
 
@@ -21,18 +31,17 @@ public class IterativeSearch implements Search {
 	public IterativeSearch(Game game, SearchInfo info) {
 		this.game = nonNull(game, "game");
 		this.stop = false;
-		search = new SearchAlphaBeta(game, info, new NodeStatistics(info.nodeStatisticsConsumer()));
+		search = new SearchAlphaBeta(game, info, new NodesCalculator());
 	}
 	
 	@Override
-	public BestMove execute(int wtimeInMilliSeconds, int btimeInMilliSeconds) {
-		try {
-			return doExecute(wtimeInMilliSeconds, btimeInMilliSeconds);
-		}
-		catch(Throwable e) {
-			e.printStackTrace();
-			throw e;
-		}
+	public Result execute(int wtimeInMilliSeconds, int btimeInMilliSeconds) {
+		BestMove bestMove = doExecute(wtimeInMilliSeconds, btimeInMilliSeconds);
+		if (bestMove == null)
+			return invalidWhiteToMoveButMate;
+		
+		Variant variant = bestMove.variant();
+		return new Normal(bestMove.value(), new MovesFromVariant(variant).value());
 	}
 	
 	private BestMove doExecute(int wtimeInMilliSeconds, int btimeInMilliSeconds) {

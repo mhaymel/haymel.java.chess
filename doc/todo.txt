@@ -1,7 +1,5 @@
 - improve time management
 - improve stopping of search
-- correct stale mate handling
-- report future mate via uci
 - unit tests
 - refactor IterativeSearch
 - refactor SearchAlphaBeta/SearchAlphaBeta2
@@ -18,3 +16,26 @@
 
 
 
+correct mate, stalemate handling
+--------------------------------	
+- report future mate via uci
+
+In folgenden situationen gibt es keinen bestmove:
+1) weiss am zug
+	a) weiss ist matt
+	b) weiss ist patt 
+	c) schwarz steht im schach (kann auch matt sein). 
+	
+	wenn schwarz patt wäre, weiss aber am zug ist und nicht a) oder b) gilt, 
+	gibt es einen bestmove.
+	
+2) schwarz am zug	
+	a) schwarz ist matt
+	b) schwarz ist patt 
+	c) weiss steht im schach (kann auch matt sein). 
+	
+	wenn weiss patt wäre, schwarz aber am zug ist und nicht a) oder b) gilt, 
+	gibt es einen bestmove.
+	
+	
+	

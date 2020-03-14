@@ -20,11 +20,13 @@ import com.haymel.chess.engine.game.StartposCreator;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.search.AnalyzedMove;
 import com.haymel.chess.engine.search.BestMove;
-import com.haymel.chess.engine.search.IterativeSearch;
-import com.haymel.chess.engine.search.NodeStatistics;
-import com.haymel.chess.engine.search.SearchExecutor;
+import com.haymel.chess.engine.search.Nodes;
 import com.haymel.chess.engine.search.SearchInfo;
 import com.haymel.chess.engine.search.Variant;
+import com.haymel.chess.engine.search.execution.IterativeSearch;
+import com.haymel.chess.engine.search.execution.SearchExecutor;
+import com.haymel.chess.engine.search.result.Result;
+import com.haymel.chess.engine.search.result.ResultType;
 import com.haymel.chess.uci.moves.Moves;
 import com.haymel.chess.uci.result.Infos;
 
@@ -80,11 +82,11 @@ public class UciEngine extends com.haymel.chess.uci.Engine {
 
 		SearchInfo info = new SearchInfo(currentMoveConsumer(), bestMoveConsumer2(), depthConsumer(), nodeStatisticsConsumer());
 		IterativeSearch search = new IterativeSearch(game, info);
-		executor = new SearchExecutor(search, bestMoveConsumer());
+		executor = new SearchExecutor(search, searchFinished());
 		executor.go(wtimeInMilliSeconds, btimeInMilliSeconds);
 	}
 	
-	private Consumer<NodeStatistics> nodeStatisticsConsumer() {
+	private Consumer<Nodes> nodeStatisticsConsumer() {
 		return (ns) -> info(new Infos().nps(ns.nps()).nodes(ns.count()));
 	}
 
@@ -95,8 +97,8 @@ public class UciEngine extends com.haymel.chess.uci.Engine {
 					.scorecp(bm.value())
 					.depth(bm.depth())
 					.seldepth(bm.selDepth())
-					.nodes(bm.nodeStatistics().count())
-					.nps(bm.nodeStatistics().nps())
+					.nodes(bm.nodes().count())
+					.nps(bm.nodes().nps())
 					.pv(movesFrom(bm.variant())));
 		};
 	}
@@ -105,16 +107,15 @@ public class UciEngine extends com.haymel.chess.uci.Engine {
 		return new MovesFromVariant(variant).value();
 	}
 	
-	private Consumer<BestMove> bestMoveConsumer() {
-		return (move) -> {
-			if (move == null)
-				bestmove("0000");
+	private Consumer<Result> searchFinished() {
+		return (result) -> {
+			if (result.type() == ResultType.Normal || result.type() == ResultType.MateInMoves)
+				bestmove(asString(result.moves()[0]));
 			else
-				bestmove(asString(move.move()));
+				bestmove("0000");
 		};
 	}
 	
-
 	private Consumer<AnalyzedMove> currentMoveConsumer() {
 		return (cm) -> currentMove(cm); 
 	}

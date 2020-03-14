@@ -17,13 +17,13 @@ public class SearchInfo {		//TODO rename, refactor, unit test
 	private final Consumer<AnalyzedMove> currentMoveConsumer;
 	private final Consumer<BestMove> bestMoveConsumer;
 	private final IntConsumer depthConsumer;
-	private final Consumer<NodeStatistics> nodeStatisticsConsumer;
+	private final Consumer<Nodes> nodesConsumer;
 
-	public SearchInfo(Consumer<AnalyzedMove> currentMoveConsumer, Consumer<BestMove> bestMoveConsumer, IntConsumer depthConsumer, Consumer<NodeStatistics> nodeStatisticsConsumer) {
+	public SearchInfo(Consumer<AnalyzedMove> currentMoveConsumer, Consumer<BestMove> bestMoveConsumer, IntConsumer depthConsumer, Consumer<Nodes> nodesConsumer) {
 		this.currentMoveConsumer = nonNull(currentMoveConsumer, "currentMoveConsumer");
 		this.bestMoveConsumer = nonNull(bestMoveConsumer, "bestMoveConsumer");
 		this.depthConsumer = nonNull(depthConsumer, "depthConsumer");
-		this.nodeStatisticsConsumer = nonNull(nodeStatisticsConsumer, "nodeStatisticsConsumer");
+		this.nodesConsumer = nonNull(nodesConsumer, "nodesConsumer");
 	}
 	
 	public void currentMove(AnalyzedMove move) {
@@ -38,8 +38,8 @@ public class SearchInfo {		//TODO rename, refactor, unit test
 		depthConsumer.accept(depth);
 	}
 	
-	public Consumer<NodeStatistics> nodeStatisticsConsumer() {
-		return nodeStatisticsConsumer;
+	public void nodes(Nodes nodes) {
+		nodesConsumer.accept(nodes);
 	}
-		
+	
 }

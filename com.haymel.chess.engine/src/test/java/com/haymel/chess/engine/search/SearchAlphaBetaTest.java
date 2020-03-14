@@ -15,6 +15,7 @@ import java.util.function.IntConsumer;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.haymel.chess.engine.fen.GameFromFEN;
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.game.MakeMove;
 import com.haymel.chess.engine.game.StartposCreator;
@@ -30,6 +31,17 @@ public class SearchAlphaBetaTest {
 		new StartposCreator(game).execute();
 	}
 	
+	@Test
+	public void mateInOne() {
+		String fen = "6k1/5ppp/8/8/8/8/8/3R2K1 w - - 0 1";
+		new GameFromFEN(game, fen).execute();
+		
+		SearchInfo info = new SearchInfo(currentMoveConsumer(), bestMoveConsumer(), depthConsumer(), nodeStatisticsConsumer());
+		SearchAlphaBeta search = new SearchAlphaBeta(game, info, new NodesCalculator());
+		BestMove bestMove = search.execute(2);
+		System.out.println("play: " + asString(bestMove.move()));
+	}
+	
 //	@Test
 //	public void testWhiteStarts() {
 //		Game game = new GameStartPos().startPos();
@@ -40,7 +52,7 @@ public class SearchAlphaBetaTest {
 	@Test
 	public void testWhiteStarts1() {
 		SearchInfo info = new SearchInfo(currentMoveConsumer(), bestMoveConsumer(), depthConsumer(), nodeStatisticsConsumer());
-		SearchAlphaBeta search = new SearchAlphaBeta(game, info, new NodeStatistics(nodeStatisticsConsumer()));
+		SearchAlphaBeta search = new SearchAlphaBeta(game, info, new NodesCalculator());
 		Move move = search.execute(8).move();
 		System.out.println("play: " + asString(move));
 		new MakeMove(game).makeMove(move);
@@ -59,7 +71,7 @@ public class SearchAlphaBetaTest {
 //	}
 	
 	
-	private Consumer<NodeStatistics> nodeStatisticsConsumer() {
+	private Consumer<Nodes> nodeStatisticsConsumer() {
 		return (ns) -> System.out.println("nodes: " + ns.count() + ", nps: " + ns.nps());
 	}
 
