@@ -9,7 +9,7 @@ package com.haymel.chess.engine.search;
 
 public class NodesCalculator implements Nodes {		//TODO refactor, unit test
 
-	private static final int reportsPerSecond = 1;
+	private static final double reportsPerSecond = 0.25d;
 	
 	private long count;
 	private long lastTimestamp;
@@ -25,7 +25,7 @@ public class NodesCalculator implements Nodes {		//TODO refactor, unit test
 	public boolean inc() {
 		count++;
 		
-		if (count % (nps / reportsPerSecond) != 0)
+		if (count % ((long)(nps / reportsPerSecond)) != 0)
 			return false;
 		
 		long now = now();

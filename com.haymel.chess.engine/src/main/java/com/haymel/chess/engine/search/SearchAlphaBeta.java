@@ -133,7 +133,8 @@ public class SearchAlphaBeta {
 			
 			if (score > alpha) {
 				alpha = score;
-				variant.add(v);
+				if (!isBlackMate(score))
+					variant.add(v);
 			}
 		}
 		
@@ -174,11 +175,16 @@ public class SearchAlphaBeta {
 			
 			if (score > alpha) {
 				alpha = score;
-				variant.add(v);
+				if (!isBlackMate(score))
+					variant.add(v);
 			}
 		}
 	    
 		return alpha;
+	}
+
+	private boolean isBlackMate(int score) {
+		return MIN_VALUE + 1 == score;
 	}
 	
 	private void black(int alpha, int beta) {
@@ -241,7 +247,8 @@ public class SearchAlphaBeta {
 			
 			if (score < beta) {
 				beta = score;
-				variant.add(v);
+				if (!isWhiteMate(score))
+					variant.add(v);
 			}
 		}
 		
@@ -282,11 +289,16 @@ public class SearchAlphaBeta {
 			
 			if (score < beta) {
 				beta = score;
-				variant.add(v);
+				if (!isWhiteMate(score))
+					variant.add(v);
 			}
 		}
 		
 		return beta;
+	}
+
+	private boolean isWhiteMate(int score) {
+		return MAX_VALUE - 1 == score;
 	}
 	
 	private int evaluate() {
