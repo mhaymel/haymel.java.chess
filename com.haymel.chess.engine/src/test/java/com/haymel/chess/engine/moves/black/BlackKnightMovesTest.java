@@ -58,13 +58,13 @@ public class BlackKnightMovesTest {
 	public void setup() {
 		moves = new Moves();
 		board = new Board();
-		knightMoves = new BlackKnightMoves(board, moves);
+		knightMoves = new BlackKnightMoves(board);
 	}
 	
 	@Test
 	public void testA1() {
 		knight(a1);
-		knightMoves.generate(knight);
+		knightMoves.generate(knight, moves);
 		
 		assertThat(moves.size(), is(2));
 		
@@ -76,7 +76,7 @@ public class BlackKnightMovesTest {
 	@Test
 	public void testH1() {
 		knight(h1);
-		knightMoves.generate(knight);
+		knightMoves.generate(knight, moves);
 		
 		assertThat(moves.size(), is(2));
 		
@@ -88,7 +88,7 @@ public class BlackKnightMovesTest {
 	@Test
 	public void testA8() {
 		knight(a8);
-		knightMoves.generate(knight);
+		knightMoves.generate(knight, moves);
 		
 		assertThat(moves.size(), is(2));
 		
@@ -100,7 +100,7 @@ public class BlackKnightMovesTest {
 	@Test
 	public void testH8() {
 		knight(h8);
-		knightMoves.generate(knight);
+		knightMoves.generate(knight, moves);
 		
 		assertThat(moves.size(), is(2));
 		
@@ -112,7 +112,7 @@ public class BlackKnightMovesTest {
 	@Test
 	public void testE4() {
 		knight(e4);
-		knightMoves.generate(knight);
+		knightMoves.generate(knight, moves);
 		
 		assertThat(moves.size(), is(8));
 		
@@ -138,7 +138,7 @@ public class BlackKnightMovesTest {
 		blackPawn(g5);
 		blackPawn(g3);
 		blackPawn(f2);
-		knightMoves.generate(knight);
+		knightMoves.generate(knight, moves);
 		
 		assertThat(moves.size(), is(0));
 	}
@@ -154,7 +154,7 @@ public class BlackKnightMovesTest {
 		whitePawn(g5);
 		whitePawn(g3);
 		whitePawn(f2);
-		knightMoves.generate(knight);
+		knightMoves.generate(knight, moves);
 		
 		assertThat(moves.size(), is(8));
 		Set<Move> result = movesAsSet();

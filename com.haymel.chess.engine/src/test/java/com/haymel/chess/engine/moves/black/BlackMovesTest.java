@@ -42,8 +42,8 @@ public class BlackMovesTest {
 	public void testStartPos() {
 		Board board = game.board();
 		PieceList blackPieces = game.blackPieces();
-		BlackMoves blackMoves = new BlackMoves(board, moves);
-		blackMoves.generate(blackPieces, removed);
+		BlackMoves blackMoves = new BlackMoves(board);
+		blackMoves.generate(blackPieces, removed, moves);
 		
 		assertThat(moves.size(), is(20));
 		Set<Move> result = movesAsSet();

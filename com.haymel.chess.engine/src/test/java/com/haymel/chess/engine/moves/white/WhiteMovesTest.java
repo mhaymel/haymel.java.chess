@@ -67,8 +67,8 @@ public class WhiteMovesTest {
 	public void testStartPos() {
 		Board board = game.board();
 		PieceList whitePieces = game.whitePieces();
-		WhiteMoves whiteMoves = new WhiteMoves(board, moves);
-		whiteMoves.generate(whitePieces, removed);
+		WhiteMoves whiteMoves = new WhiteMoves(board);
+		whiteMoves.generate(whitePieces, removed, moves);
 		
 		assertThat(moves.size(), is(20));
 		Set<Move> result = movesAsSet();

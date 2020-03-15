@@ -18,30 +18,28 @@ import com.haymel.chess.engine.piece.Piece;
 public final class BlackRookCaptureMoves {		//TODO unit test
 
 	private final Board board;
-	private final Moves moves;
 	
-	public BlackRookCaptureMoves(Board board, Moves moves) {
+	public BlackRookCaptureMoves(Board board) {
 		assert board != null;
-		assert moves != null;
 		
 		this.board = board;
-		this.moves = moves;
 	}
 	
-	public void generate(Piece piece) {
+	public void generate(Piece piece, Moves moves) {
 		assert piece != null;
+		assert moves != null;
 		assert piece.field() != removed;
 		assert board.piece(piece.field()) == piece;
 		assert piece.blackRook() : format("piece must be black rook but is %s", piece);
 
 		Field from = piece.field();
-		up(from);
-		down(from);
-		left(from);
-		right(from);
+		up(from, moves);
+		down(from, moves);
+		left(from, moves);
+		right(from, moves);
 	}
 
-	private void up(Field from) {
+	private void up(Field from, Moves moves) {
 		Field to = from.up();
 		Piece piece = board.piece(to);
 		while(piece.free()) {
@@ -52,7 +50,7 @@ public final class BlackRookCaptureMoves {		//TODO unit test
 			moves.addCapture(from, to, piece);
 	}
 
-	private void down(Field from) {
+	private void down(Field from, Moves moves) {
 		Field to = from.down();
 		Piece piece = board.piece(to);
 		while(piece.free()) {
@@ -63,7 +61,7 @@ public final class BlackRookCaptureMoves {		//TODO unit test
 			moves.addCapture(from, to, piece);
 	}
 
-	private void left(Field from) {
+	private void left(Field from, Moves moves) {
 		Field to = from.left();
 		Piece piece = board.piece(to);
 		while(piece.free()) {
@@ -74,7 +72,7 @@ public final class BlackRookCaptureMoves {		//TODO unit test
 			moves.addCapture(from, to, piece);
 	}
 
-	private void right(Field from) {
+	private void right(Field from, Moves moves) {
 		Field to = from.right();
 		Piece piece = board.piece(to);
 		while(piece.free()) {

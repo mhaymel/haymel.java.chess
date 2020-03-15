@@ -37,9 +37,17 @@ public final class Game {	//TODO unit test and refactor
 	private Field enPassant;
 	private int halfMoveClock;
 	private int fullMoveNumber;
+	private final WhiteMoves whiteMoves;
+	private final WhiteCaptureMoves whiteCaptureMoves;
+	private final BlackMoves blackMoves;
+	private final BlackCaptureMoves blackCaptureMoves;
 
 	public Game() {
 		this.board = new Board();
+		this.whiteMoves = new WhiteMoves(board);
+		this.whiteCaptureMoves = new WhiteCaptureMoves(board);
+		this.blackMoves = new BlackMoves(board);
+		this.blackCaptureMoves = new BlackCaptureMoves(board);
 		reset();
 		assertVerify();
 	}
@@ -197,25 +205,25 @@ public final class Game {	//TODO unit test and refactor
 	
 	public Moves whiteMoves() {
 		Moves moves = new Moves();
-		new WhiteMoves(board, moves).generate(whitePieces, enPassant);
+		whiteMoves.generate(whitePieces, enPassant, moves);
 		return moves;
 	}
 	
 	public Moves whiteCaptureMoves() {
 		Moves moves = new Moves();
-		new WhiteCaptureMoves(board, moves).generate(whitePieces, enPassant);
+		whiteCaptureMoves.generate(whitePieces, enPassant, moves);
 		return moves;
 	}
 	
 	public Moves blackMoves() {
 		Moves moves = new Moves();
-		new BlackMoves(board, moves).generate(blackPieces, enPassant);
+		blackMoves.generate(blackPieces, enPassant, moves);
 		return moves;
 	}
 
 	public Moves blackCaptureMoves() {
 		Moves moves = new Moves();
-		new BlackCaptureMoves(board, moves).generate(blackPieces, enPassant);
+		blackCaptureMoves.generate(blackPieces, enPassant, moves);
 		return moves;
 	}
 

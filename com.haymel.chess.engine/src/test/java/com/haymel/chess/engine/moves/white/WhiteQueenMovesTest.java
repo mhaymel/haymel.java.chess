@@ -82,13 +82,13 @@ public class WhiteQueenMovesTest {
 	public void setup() {
 		moves = new Moves();
 		board = new Board();
-		queenMoves = new WhiteQueenMoves(board, moves);
+		queenMoves = new WhiteQueenMoves(board);
 	}
 	
 	@Test
 	public void testA1() {
 		queen(a1);
-		queenMoves.generate(queen);
+		queenMoves.generate(queen, moves);
 		
 		assertThat(moves.size(), is(21));
 		
@@ -119,7 +119,7 @@ public class WhiteQueenMovesTest {
 	@Test
 	public void testE4() {
 		queen(e4);
-		queenMoves.generate(queen);
+		queenMoves.generate(queen, moves);
 		
 		assertThat(moves.size(), is(27));
 		
@@ -164,7 +164,7 @@ public class WhiteQueenMovesTest {
 		blackPawn(e3);
 		blackPawn(d4);
 		blackPawn(f4);
-		queenMoves.generate(queen);
+		queenMoves.generate(queen, moves);
 		
 		assertThat(moves.size(), is(8));
 		Set<Move> result = movesAsSet();
@@ -189,7 +189,7 @@ public class WhiteQueenMovesTest {
 		whitePawn(e3);
 		whitePawn(d4);
 		whitePawn(f4);
-		queenMoves.generate(queen);
+		queenMoves.generate(queen, moves);
 		
 		assertThat(moves.size(), is(0));
 	}

@@ -18,34 +18,32 @@ import com.haymel.chess.engine.piece.Piece;
 public final class WhiteQueenCaptureMoves {	//TODO unit test
 
 	private final Board board;
-	private final Moves moves;
 	
-	public WhiteQueenCaptureMoves(Board board, Moves moves) {
+	public WhiteQueenCaptureMoves(Board board) {
 		assert board != null;
-		assert moves != null;
 		
 		this.board = board;
-		this.moves = moves;
 	}
 	
-	public void generate(Piece piece) {
+	public void generate(Piece piece, Moves moves) {
 		assert piece != null;
+		assert moves != null;
 		assert piece.field() != removed;
 		assert board.piece(piece.field()) == piece;
 		assert piece.type() == WhiteQueen;
 
 		Field from = piece.field();
-		up(from);
-		down(from);
-		left(from);
-		right(from);
-		leftUp(from);
-		leftDown(from);
-		rightUp(from);
-		rightDown(from);
+		up(from, moves);
+		down(from, moves);
+		left(from, moves);
+		right(from, moves);
+		leftUp(from, moves);
+		leftDown(from, moves);
+		rightUp(from, moves);
+		rightDown(from, moves);
 	}
 
-	private void up(Field from) {
+	private void up(Field from, Moves moves) {
 		Field to = from.up();
 		Piece piece = board.piece(to);
 		while(piece.free()) {
@@ -56,7 +54,7 @@ public final class WhiteQueenCaptureMoves {	//TODO unit test
 			moves.addCapture(from, to, piece);
 	}
 
-	private void down(Field from) {
+	private void down(Field from, Moves moves) {
 		Field to = from.down();
 		Piece piece = board.piece(to);
 		while(piece.free()) {
@@ -67,7 +65,7 @@ public final class WhiteQueenCaptureMoves {	//TODO unit test
 			moves.addCapture(from, to, piece);
 	}
 
-	private void left(Field from) {
+	private void left(Field from, Moves moves) {
 		Field to = from.left();
 		Piece piece = board.piece(to);
 		while(piece.free()) {
@@ -78,7 +76,7 @@ public final class WhiteQueenCaptureMoves {	//TODO unit test
 			moves.addCapture(from, to, piece);
 	}
 
-	private void right(Field from) {
+	private void right(Field from, Moves moves) {
 		Field to = from.right();
 		Piece piece = board.piece(to);
 		while(piece.free()) {
@@ -89,7 +87,7 @@ public final class WhiteQueenCaptureMoves {	//TODO unit test
 			moves.addCapture(from, to, piece);
 	}
 
-	private void leftUp(Field from) {
+	private void leftUp(Field from, Moves moves) {
 		Field to = from.leftUp();
 		Piece piece = board.piece(to);
 		while(piece.free()) {
@@ -100,7 +98,7 @@ public final class WhiteQueenCaptureMoves {	//TODO unit test
 			moves.addCapture(from, to, piece);
 	}
 
-	private void leftDown(Field from) {
+	private void leftDown(Field from, Moves moves) {
 		Field to = from.leftDown();
 		Piece piece = board.piece(to);
 		while(piece.free()) {
@@ -111,7 +109,7 @@ public final class WhiteQueenCaptureMoves {	//TODO unit test
 			moves.addCapture(from, to, piece);
 	}
 
-	private void rightUp(Field from) {
+	private void rightUp(Field from, Moves moves) {
 		Field to = from.rightUp();
 		Piece piece = board.piece(to);
 		while(piece.free()) {
@@ -122,7 +120,7 @@ public final class WhiteQueenCaptureMoves {	//TODO unit test
 			moves.addCapture(from, to, piece);
 	}
 
-	private void rightDown(Field from) {
+	private void rightDown(Field from, Moves moves) {
 		Field to = from.rightDown();
 		Piece piece = board.piece(to);
 		while(piece.free()) {

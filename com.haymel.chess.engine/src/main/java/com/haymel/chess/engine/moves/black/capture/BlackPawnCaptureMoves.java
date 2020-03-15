@@ -18,19 +18,17 @@ import com.haymel.chess.engine.piece.Piece;
 public final class BlackPawnCaptureMoves {
 	
 	private final Board board;
-	private final Moves moves;
 	
-	public BlackPawnCaptureMoves(Board board, Moves moves) {
+	public BlackPawnCaptureMoves(Board board) {
 		assert board != null;
-		assert moves != null;
 		
 		this.board = board;
-		this.moves = moves;
 	}
 	
-	public void generate(Piece piece, Field epField) {
+	public void generate(Piece piece, Field epField, Moves moves) {
 		assert piece != null;
 		assert epField != null;
+		assert moves != null;
 		assert epField == removed || epField.rank() == 2;
 		assert epField == removed || board.piece(epField.up()).whitePawn();
 		assert piece.field() != removed;
@@ -42,20 +40,20 @@ public final class BlackPawnCaptureMoves {
 		case 4:
 		case 5:
 		case 6:
-			capture(piece);
+			capture(piece, moves);
 			break;
 		case 1:
-			capturePromotion(piece);
+			capturePromotion(piece, moves);
 			break;
 		case 3:
-			enpassant(piece, epField);
+			enpassant(piece, epField, moves);
 			break;
 		default:
 			assert false;
 		}
 	}
 
-	private void enpassant(Piece piece, Field epField) {
+	private void enpassant(Piece piece, Field epField, Moves moves) {
 		assert piece.field().rank() == 3;
 		
 		Field from = piece.field();
@@ -64,30 +62,30 @@ public final class BlackPawnCaptureMoves {
 		if (leftDown.equals(epField))
 			moves.addEnpassant(from, leftDown, board.piece(epField.up()));
 		else
-			capture(from, leftDown);
+			capture(from, leftDown, moves);
 		
 		Field rightDown = from.rightDown();
 		if (rightDown.equals(epField))
 			moves.addEnpassant(from, rightDown, board.piece(epField.up()));
 		else
-			capture(from, rightDown);
+			capture(from, rightDown, moves);
 	}
 
-	private void capturePromotion(Piece piece) {
+	private void capturePromotion(Piece piece, Moves moves) {
 		assert piece.field().rank() == 1;
 
 		Field from = piece.field();
-		capturePromotion(from, from.leftDown());
-		capturePromotion(from, from.rightDown());
+		capturePromotion(from, from.leftDown(), moves);
+		capturePromotion(from, from.rightDown(), moves);
 	}
 	
-	private void capturePromotion(Field from, Field to) {
+	private void capturePromotion(Field from, Field to, Moves moves) {
 		Piece piece = board.piece(to);
 		if (piece.white())
 			moves.addBlackCapturePromotion(from, to, piece);
 	}
 
-	private void capture(Piece piece) {
+	private void capture(Piece piece, Moves moves) {
 		assert 
 			piece.field().rank() == 2 || 
 			piece.field().rank() == 4 || 
@@ -95,11 +93,11 @@ public final class BlackPawnCaptureMoves {
 			piece.field().rank() == 6;
 		
 		Field from = piece.field();
-		capture(from, from.leftDown());
-		capture(from, from.rightDown());
+		capture(from, from.leftDown(), moves);
+		capture(from, from.rightDown(), moves);
 	}
 
-	private void capture(Field from, Field to) {
+	private void capture(Field from, Field to, Moves moves) {
 		Piece piece = board.piece(to);
 		if (piece.white())
 			moves.addCapture(from, to, piece);

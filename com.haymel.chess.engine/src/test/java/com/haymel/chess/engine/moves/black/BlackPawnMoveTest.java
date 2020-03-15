@@ -77,12 +77,12 @@ public class BlackPawnMoveTest {
 	public void setup() {
 		moves = new Moves();
 		board = new Board();
-		pawnMoves = new BlackPawnMoves(board, moves);
+		pawnMoves = new BlackPawnMoves(board);
 	}
 	
 	@Test
 	public void testA7() {
-		pawnMoves.generate(blackPawn(a7), removed);
+		pawnMoves.generate(blackPawn(a7), removed, moves);
 		
 		assertThat(moves.size(), is(2));
 		
@@ -93,7 +93,7 @@ public class BlackPawnMoveTest {
 	
 	@Test
 	public void testB7() {
-		pawnMoves.generate(blackPawn(b7), removed);
+		pawnMoves.generate(blackPawn(b7), removed, moves);
 		
 		assertThat(moves.size(), is(2));
 		
@@ -104,7 +104,7 @@ public class BlackPawnMoveTest {
 	
 	@Test
 	public void testC7() {
-		pawnMoves.generate(blackPawn(c7), removed);
+		pawnMoves.generate(blackPawn(c7), removed, moves);
 		
 		assertThat(moves.size(), is(2));
 		
@@ -115,7 +115,7 @@ public class BlackPawnMoveTest {
 
 	@Test
 	public void testD7() {
-		pawnMoves.generate(blackPawn(d7), removed);
+		pawnMoves.generate(blackPawn(d7), removed, moves);
 		
 		assertThat(moves.size(), is(2));
 		
@@ -126,7 +126,7 @@ public class BlackPawnMoveTest {
 
 	@Test
 	public void testE7() {
-		pawnMoves.generate(blackPawn(e7), removed);
+		pawnMoves.generate(blackPawn(e7), removed, moves);
 		
 		assertThat(moves.size(), is(2));
 		
@@ -137,7 +137,7 @@ public class BlackPawnMoveTest {
 
 	@Test
 	public void testF7() {
-		pawnMoves.generate(blackPawn(f7), removed);
+		pawnMoves.generate(blackPawn(f7), removed, moves);
 		
 		assertThat(moves.size(), is(2));
 		
@@ -148,7 +148,7 @@ public class BlackPawnMoveTest {
 
 	@Test
 	public void testG7() {
-		pawnMoves.generate(blackPawn(g7), removed);
+		pawnMoves.generate(blackPawn(g7), removed, moves);
 		
 		assertThat(moves.size(), is(2));
 		
@@ -159,7 +159,7 @@ public class BlackPawnMoveTest {
 	
 	@Test
 	public void testH7() {
-		pawnMoves.generate(blackPawn(h7), removed);
+		pawnMoves.generate(blackPawn(h7), removed, moves);
 		
 		assertThat(moves.size(), is(2));
 		
@@ -170,7 +170,7 @@ public class BlackPawnMoveTest {
 	
 	@Test
 	public void testE6() {
-		pawnMoves.generate(blackPawn(e6), removed);
+		pawnMoves.generate(blackPawn(e6), removed, moves);
 		
 		assertThat(moves.size(), is(1));
 		
@@ -181,21 +181,21 @@ public class BlackPawnMoveTest {
 	@Test
 	public void testE6MoveBlockedByBlackPiece() {
 		piece(e6, BlackBishop);
-		pawnMoves.generate(blackPawn(e7), removed);
+		pawnMoves.generate(blackPawn(e7), removed, moves);
 		assertThat(moves.size(), is(0));
 	}
 
 	@Test
 	public void testE6MoveBlockedByWhitePiece() {
 		piece(e6, WhiteBishop);
-		pawnMoves.generate(blackPawn(e7), removed);
+		pawnMoves.generate(blackPawn(e7), removed, moves);
 		assertThat(moves.size(), is(0));
 	}
 
 	@Test
 	public void testE7DoubleMovedBlockedByBlackPiece() {
 		piece(e5, BlackBishop);
-		pawnMoves.generate(blackPawn(e7), removed);
+		pawnMoves.generate(blackPawn(e7), removed, moves);
 		
 		assertThat(moves.size(), is(1));
 		
@@ -207,7 +207,7 @@ public class BlackPawnMoveTest {
 	public void testE2DoubleMovedBlockedByWhitePiece() {
 		piece(e5, WhiteBishop);
 		
-		pawnMoves.generate(blackPawn(e7), removed);
+		pawnMoves.generate(blackPawn(e7), removed, moves);
 		
 		assertThat(moves.size(), is(1));
 		
@@ -220,7 +220,7 @@ public class BlackPawnMoveTest {
 		piece(d6, WhiteBishop);
 		piece(f6, WhiteBishop);
 		
-		pawnMoves.generate(blackPawn(e7), removed);
+		pawnMoves.generate(blackPawn(e7), removed, moves);
 		
 		assertThat(moves.size(), is(4));
 		
@@ -236,7 +236,7 @@ public class BlackPawnMoveTest {
 		piece(d6, BlackBishop);
 		piece(f6, BlackBishop);
 		
-		pawnMoves.generate(blackPawn(e7), removed);
+		pawnMoves.generate(blackPawn(e7), removed, moves);
 		
 		assertThat(moves.size(), is(2));
 		
@@ -247,7 +247,7 @@ public class BlackPawnMoveTest {
 
 	@Test
 	public void testE2Promotion() {
-		pawnMoves.generate(blackPawn(e2), removed);
+		pawnMoves.generate(blackPawn(e2), removed, moves);
 		
 		assertThat(moves.size(), is(4));
 		
@@ -261,7 +261,7 @@ public class BlackPawnMoveTest {
 	@Test
 	public void testE2PromotionPreventedByBlackPiece() {
 		piece(e1, BlackBishop);
-		pawnMoves.generate(blackPawn(e2), removed);
+		pawnMoves.generate(blackPawn(e2), removed, moves);
 		
 		assertThat(moves.size(), is(0));
 	}
@@ -269,7 +269,7 @@ public class BlackPawnMoveTest {
 	@Test
 	public void testE2PromotionPreventedByWhitePiece() {
 		piece(e1, WhiteBishop);
-		pawnMoves.generate(blackPawn(e2), removed);
+		pawnMoves.generate(blackPawn(e2), removed, moves);
 		
 		assertThat(moves.size(), is(0));
 	}
@@ -278,7 +278,7 @@ public class BlackPawnMoveTest {
 	public void testE2CapturePromotionD1() {
 		piece(e1, WhiteBishop);
 		Piece captured = piece(d1, WhiteBishop);
-		pawnMoves.generate(blackPawn(e2), removed);
+		pawnMoves.generate(blackPawn(e2), removed, moves);
 		
 		assertThat(moves.size(), is(4));
 		
@@ -293,7 +293,7 @@ public class BlackPawnMoveTest {
 	public void testE7CapturePromotionF8() {
 		piece(e1, WhiteBishop);
 		Piece captured = piece(f1, WhiteBishop);
-		pawnMoves.generate(blackPawn(e2), removed);
+		pawnMoves.generate(blackPawn(e2), removed, moves);
 		
 		assertThat(moves.size(), is(4));
 		
@@ -308,7 +308,7 @@ public class BlackPawnMoveTest {
 	public void testPromotion() {
 		Piece capturedD1 = piece(d1, WhiteBishop);
 		Piece capturedF1 = piece(f1, WhiteBishop);
-		pawnMoves.generate(blackPawn(e2), removed);
+		pawnMoves.generate(blackPawn(e2), removed, moves);
 		
 		assertThat(moves.size(), is(12));
 		
@@ -330,7 +330,7 @@ public class BlackPawnMoveTest {
 	@Test
 	public void testEnPassantLeft() {
 		Piece whitePawn = piece(d4, WhitePawn);
-		pawnMoves.generate(blackPawn(e4), d3);
+		pawnMoves.generate(blackPawn(e4), d3, moves);
 		
 		assertThat(moves.size(), is(2));
 		
@@ -342,7 +342,7 @@ public class BlackPawnMoveTest {
 	@Test
 	public void testEnPassantRight() {
 		Piece whitePawn = piece(e4, WhitePawn);
-		pawnMoves.generate(blackPawn(d4), e3);
+		pawnMoves.generate(blackPawn(d4), e3, moves);
 		
 		assertThat(moves.size(), is(2));
 		

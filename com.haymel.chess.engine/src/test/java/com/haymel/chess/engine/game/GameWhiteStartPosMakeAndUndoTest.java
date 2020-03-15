@@ -72,8 +72,8 @@ public class GameWhiteStartPosMakeAndUndoTest {
 		System.out.println("nodes:  " + count);
 		assertThat(count, is(197281L));
 		Moves moves = new Moves();
-		WhiteMoves whiteMoves = new WhiteMoves(game.board(), moves);
-		whiteMoves.generate(game.whitePieces(), game.enPassant());
+		WhiteMoves whiteMoves = new WhiteMoves(game.board());
+		whiteMoves.generate(game.whitePieces(), game.enPassant(), moves);
 		
 		assertThat(moves.size(), is(20));
 		Set<Move> result = movesAsSet(moves);
@@ -104,8 +104,8 @@ public class GameWhiteStartPosMakeAndUndoTest {
 		Board board = game.board();
 		PieceList pieces = game.whitePieces();
 		Moves moves = new Moves();
-		WhiteMoves whiteMoves = new WhiteMoves(board, moves);
-		whiteMoves.generate(pieces, game.enPassant());
+		WhiteMoves whiteMoves = new WhiteMoves(board);
+		whiteMoves.generate(pieces, game.enPassant(), moves);
 		
 		if (moves.kingCaptureCount() > 0)
 			return;
@@ -138,8 +138,8 @@ public class GameWhiteStartPosMakeAndUndoTest {
 		Board board = game.board();
 		PieceList pieces = game.blackPieces();
 		Moves moves = new Moves();
-		BlackMoves blackMoves = new BlackMoves(board, moves);
-		blackMoves.generate(pieces, game.enPassant());
+		BlackMoves blackMoves = new BlackMoves(board);
+		blackMoves.generate(pieces, game.enPassant(), moves);
 
 		if (moves.kingCaptureCount() > 0)
 			return;

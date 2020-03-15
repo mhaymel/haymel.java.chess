@@ -29,41 +29,38 @@ import com.haymel.chess.engine.piece.Piece;
 public final class WhiteKingMoves {
 
 	private final Board board;
-	private final Moves moves;
 	
-	public WhiteKingMoves(Board board, Moves moves) {
+	public WhiteKingMoves(Board board) {
 		assert board != null;
-		assert moves != null;
-		
 		this.board = board;
-		this.moves = moves;
 	}
 	
-	public void generate(Piece king) {
+	public void generate(Piece king, Moves moves) {
 		assert king != null;
+		assert moves != null;
 		assert king.field() != removed;
 		assert board.piece(king.field()) == king;
 		assert king.whiteKing() : format("piece must be white king but is %s", king);
 
 		Field from = king.field();
 		
-		add(from, from.left());
-		add(from, from.right());
-		add(from, from.up());
-		add(from, from.down());
-		add(from, from.leftUp());
-		add(from, from.leftDown());
-		add(from, from.rightUp());
-		add(from, from.rightDown());
+		add(from, from.left(), moves);
+		add(from, from.right(), moves);
+		add(from, from.up(), moves);
+		add(from, from.down(), moves);
+		add(from, from.leftUp(), moves);
+		add(from, from.leftDown(), moves);
+		add(from, from.rightUp(), moves);
+		add(from, from.rightDown(), moves);
 		
 		if (king.moved())
 			return;
 		
-		kingSidecasteling(king);
-		queenSidecasteling(king);
+		kingSidecasteling(king, moves);
+		queenSidecasteling(king, moves);
 	}
 
-	private void kingSidecasteling(Piece king) {
+	private void kingSidecasteling(Piece king, Moves moves) {
 		assert king.field() == e1;
 		
 		if (!board.isFree(f1))
@@ -84,7 +81,7 @@ public final class WhiteKingMoves {
 		moves.addWhiteKingSideCastling();
 	}
 
-	private void queenSidecasteling(Piece king) {
+	private void queenSidecasteling(Piece king, Moves moves) {
 		assert king.field() == e1;
 
 		if (!board.isFree(d1))
@@ -116,7 +113,7 @@ public final class WhiteKingMoves {
 		return board.piece(f).whiteRook();
 	}
 
-	private void add(Field from, Field to) {
+	private void add(Field from, Field to, Moves moves) {
 		Piece piece = board.piece(to);
 		
 		if (piece.free()) {

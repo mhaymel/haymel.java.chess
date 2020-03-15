@@ -78,13 +78,13 @@ public class BlackRookMovesTest {
 	public void setup() {
 		moves = new Moves();
 		board = new Board();
-		rookMoves = new BlackRookMoves(board, moves);
+		rookMoves = new BlackRookMoves(board);
 	}
 	
 	@Test
 	public void testA1() {
 		rook(a1);
-		rookMoves.generate(rook);
+		rookMoves.generate(rook, moves);
 		
 		assertThat(moves.size(), is(14));
 		
@@ -108,7 +108,7 @@ public class BlackRookMovesTest {
 	@Test
 	public void testH8() {
 		rook(h8);
-		rookMoves.generate(rook);
+		rookMoves.generate(rook, moves);
 		
 		assertThat(moves.size(), is(14));
 		
@@ -133,7 +133,7 @@ public class BlackRookMovesTest {
 	@Test
 	public void testE4() {
 		rook(e4);
-		rookMoves.generate(rook);
+		rookMoves.generate(rook, moves);
 		
 		assertThat(moves.size(), is(14));
 		
@@ -161,7 +161,7 @@ public class BlackRookMovesTest {
 		whitePawn(e3);
 		whitePawn(d4);
 		whitePawn(f4);
-		rookMoves.generate(rook);
+		rookMoves.generate(rook, moves);
 		
 		assertThat(moves.size(), is(4));
 		Set<Move> result = movesAsSet();
@@ -178,7 +178,7 @@ public class BlackRookMovesTest {
 		blackPawn(e3);
 		blackPawn(d4);
 		blackPawn(f4);
-		rookMoves.generate(rook);
+		rookMoves.generate(rook, moves);
 		
 		assertThat(moves.size(), is(0));
 	}

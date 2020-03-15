@@ -18,18 +18,16 @@ import com.haymel.chess.engine.piece.PieceType;
 public final class WhitePawnCaptureMoves {	//TODO unit test
 	
 	private final Board board;
-	private final Moves moves;
 	
-	public WhitePawnCaptureMoves(Board board, Moves moves) {	
+	public WhitePawnCaptureMoves(Board board) {	
 		assert board != null;
-		assert moves != null;
 		
 		this.board = board;
-		this.moves = moves;
 	}
 	
-	public void generate(Piece piece, Field epField) {
+	public void generate(Piece piece, Field epField, Moves moves) {
 		assert piece != null;
+		assert moves != null;
 		assert epField != null;
 		assert epField == Field.removed || epField.rank() == 5;
 		assert epField == Field.removed || board.piece(epField.down()).blackPawn();
@@ -42,20 +40,20 @@ public final class WhitePawnCaptureMoves {	//TODO unit test
 		case 2:
 		case 3:
 		case 5:
-			capture(piece);
+			capture(piece, moves);
 			break;
 		case 4:
-			enpassant(piece, epField);
+			enpassant(piece, epField, moves);
 			break;
 		case 6:
-			capturePromotion(piece);
+			capturePromotion(piece, moves);
 			break;
 		default:
 			assert false;
 		}
 	}
 
-	private void enpassant(Piece piece, Field epField) {
+	private void enpassant(Piece piece, Field epField, Moves moves) {
 		assert piece.field().rank() == 4;
 		
 		Field from = piece.field();
@@ -64,30 +62,30 @@ public final class WhitePawnCaptureMoves {	//TODO unit test
 		if (leftUp.equals(epField))
 			moves.addEnpassant(from, leftUp, board.piece(epField.down()));
 		else
-			capture(from, leftUp);
+			capture(from, leftUp, moves);
 		
 		Field rightUp = from.rightUp();
 		if (rightUp.equals(epField))
 			moves.addEnpassant(from, rightUp, board.piece(epField.down()));
 		else
-			capture(from, rightUp);
+			capture(from, rightUp, moves);
 	}
 
-	private void capturePromotion(Piece piece) {
+	private void capturePromotion(Piece piece, Moves moves) {
 		assert piece.field().rank() == 6;
 
 		Field from = piece.field();
-		capturePromotion(from, from.leftUp());
-		capturePromotion(from, from.rightUp());
+		capturePromotion(from, from.leftUp(), moves);
+		capturePromotion(from, from.rightUp(), moves);
 	}
 
-	private void capturePromotion(Field from, Field to) {
+	private void capturePromotion(Field from, Field to, Moves moves) {
 		Piece piece = board.piece(to);
 		if (piece.black())
 			moves.addWhiteCapturePromotion(from, to, piece);
 	}
 
-	private void capture(Piece piece) {
+	private void capture(Piece piece, Moves moves) {
 		assert 
 			piece.field().rank() == 1 || 
 			piece.field().rank() == 2 || 
@@ -95,11 +93,11 @@ public final class WhitePawnCaptureMoves {	//TODO unit test
 			piece.field().rank() == 5;
 		
 		Field from = piece.field();
-		capture(from, from.leftUp());
-		capture(from, from.rightUp());
+		capture(from, from.leftUp(), moves);
+		capture(from, from.rightUp(), moves);
 	}
 
-	private void capture(Field from, Field to) {
+	private void capture(Field from, Field to, Moves moves) {
 		Piece piece = board.piece(to);
 		if (piece.black())
 			moves.addCapture(from, to, piece);

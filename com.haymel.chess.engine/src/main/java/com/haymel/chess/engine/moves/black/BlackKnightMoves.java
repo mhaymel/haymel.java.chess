@@ -18,35 +18,33 @@ import com.haymel.chess.engine.piece.Piece;
 public final class BlackKnightMoves {
 
 	private final Board board;
-	private final Moves moves;
 	
-	public BlackKnightMoves(Board board, Moves moves) {
+	public BlackKnightMoves(Board board) {
 		assert board != null;
-		assert moves != null;
 		
 		this.board = board;
-		this.moves = moves;
 	}
 	
-	public void generate(Piece piece) {
+	public void generate(Piece piece, Moves moves) {
 		assert piece != null;
+		assert moves != null;
 		assert piece.field() != removed;
 		assert board.piece(piece.field()) == piece;
 		assert piece.type() == BlackKnight;
 
 		Field from = piece.field();
 		
-		add(from, from.leftLeftUp());
-		add(from, from.leftDownDown());
-		add(from, from.rightRightUp());
-		add(from, from.rightRightDown());
-		add(from, from.rightDownDown());
-		add(from, from.leftUpUp());
-		add(from, from.rightUpUp());
-		add(from, from.leftLeftDown());
+		add(from, from.leftLeftUp(), moves);
+		add(from, from.leftDownDown(), moves);
+		add(from, from.rightRightUp(), moves);
+		add(from, from.rightRightDown(), moves);
+		add(from, from.rightDownDown(), moves);
+		add(from, from.leftUpUp(), moves);
+		add(from, from.rightUpUp(), moves);
+		add(from, from.leftLeftDown(), moves);
 	}
 
-	private void add(Field from, Field to) {
+	private void add(Field from, Field to, Moves moves) {
 		Piece piece = board.piece(to);
 		
 		if (piece.free()) {

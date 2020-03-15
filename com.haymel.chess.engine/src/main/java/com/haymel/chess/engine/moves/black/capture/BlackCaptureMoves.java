@@ -24,51 +24,52 @@ public final class BlackCaptureMoves {		//TODO unit test
 	private final BlackQueenCaptureMoves queenMoves;
 	private final BlackPawnCaptureMoves pawnMoves;
 	
-	public BlackCaptureMoves(Board board, Moves moves) {
+	public BlackCaptureMoves(Board board) {
 		assert board != null;
-		assert moves != null;
 		
-		this.kingMoves = new BlackKingCaptureMoves(board, moves);
-		this.rookMoves = new BlackRookCaptureMoves(board, moves);
-		this.knightMoves = new BlackKnightCaptureMoves(board, moves);
-		this.bishopMoves = new BlackBishopCaptureMoves(board, moves);
-		this.queenMoves = new BlackQueenCaptureMoves(board, moves);
-		this.pawnMoves = new BlackPawnCaptureMoves(board, moves);
+		this.kingMoves = new BlackKingCaptureMoves(board);
+		this.rookMoves = new BlackRookCaptureMoves(board);
+		this.knightMoves = new BlackKnightCaptureMoves(board);
+		this.bishopMoves = new BlackBishopCaptureMoves(board);
+		this.queenMoves = new BlackQueenCaptureMoves(board);
+		this.pawnMoves = new BlackPawnCaptureMoves(board);
 	}
 	
-	public void generate(PieceList pieces, Field epField) {
+	public void generate(PieceList pieces, Field epField, Moves moves) {
 		assert pieces != null;
 		assert epField != null;
+		assert moves != null;
 		assert pieces.size() > 0;
 		assert epField == removed || epField.rank() == 2 : String.format("wrong enpassant field: %s", epField);
+		assert !moves.kingCaptured();
 		
 		int size = pieces.size();
-		for(int i = 0; i < size; i++)
-			generate(pieces.piece(i), epField);
+		for(int i = 0; i < size && !moves.kingCaptured(); i++)
+			generate(pieces.piece(i), epField, moves);
 	}
 
-	private void generate(Piece piece, Field epField) {
+	private void generate(Piece piece, Field epField, Moves moves) {
 		assert piece != null;
 		assert piece.black();
 		
 		switch(piece.type()) {
 		case BlackPawn:
-			pawnMoves.generate(piece, epField);
+			pawnMoves.generate(piece, epField, moves);
 			break;
 		case BlackRook:
-			rookMoves.generate(piece);
+			rookMoves.generate(piece, moves);
 			break;
 		case BlackKnight:
-			knightMoves.generate(piece);
+			knightMoves.generate(piece, moves);
 			break;
 		case BlackBishop:
-			bishopMoves.generate(piece);
+			bishopMoves.generate(piece, moves);
 			break;
 		case BlackQueen:
-			queenMoves.generate(piece);
+			queenMoves.generate(piece, moves);
 			break;
 		case BlackKing:
-			kingMoves.generate(piece);
+			kingMoves.generate(piece, moves);
 			break;
 		default:
 			assert false;

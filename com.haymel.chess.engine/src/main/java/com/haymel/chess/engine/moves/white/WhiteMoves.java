@@ -24,51 +24,50 @@ public final class WhiteMoves {		//TODO unit test
 	private final WhiteQueenMoves queenMoves;
 	private final WhitePawnMoves pawnMoves;
 	
-	public WhiteMoves(Board board, Moves moves) {
+	public WhiteMoves(Board board) {
 		assert board != null;
-		assert moves != null;
 		
-		this.kingMoves = new WhiteKingMoves(board, moves);
-		this.rookMoves = new WhiteRookMoves(board, moves);
-		this.knightMoves = new WhiteKnightMoves(board, moves);
-		this.bishopMoves = new WhiteBishopMoves(board, moves);
-		this.queenMoves = new WhiteQueenMoves(board, moves);
-		this.pawnMoves = new WhitePawnMoves(board, moves);
+		this.kingMoves = new WhiteKingMoves(board);
+		this.rookMoves = new WhiteRookMoves(board);
+		this.knightMoves = new WhiteKnightMoves(board);
+		this.bishopMoves = new WhiteBishopMoves(board);
+		this.queenMoves = new WhiteQueenMoves(board);
+		this.pawnMoves = new WhitePawnMoves(board);
 	}
 	
-	public void generate(PieceList pieces, Field epField) {
+	public void generate(PieceList pieces, Field epField, Moves moves) {
 		assert pieces != null;
 		assert epField != null;
 		assert pieces.size() > 0;
 		assert epField == removed || epField.rank() == 5;
 		
 		int size = pieces.size();
-		for(int i = 0; i < size; i++)
-			generate(pieces.piece(i), epField);
+		for(int i = 0; i < size && !moves.kingCaptured(); i++)
+			generate(pieces.piece(i), epField, moves);
 	}
 
-	private void generate(Piece piece, Field epField) {
+	private void generate(Piece piece, Field epField, Moves moves) {
 		assert piece != null;
 		assert piece.white();
 		
 		switch(piece.type()) {
 		case WhitePawn:
-			pawnMoves.generate(piece, epField);
+			pawnMoves.generate(piece, epField, moves);
 			break;
 		case WhiteRook:
-			rookMoves.generate(piece);
+			rookMoves.generate(piece, moves);
 			break;
 		case WhiteKnight:
-			knightMoves.generate(piece);
+			knightMoves.generate(piece, moves);
 			break;
 		case WhiteBishop:
-			bishopMoves.generate(piece);
+			bishopMoves.generate(piece, moves);
 			break;
 		case WhiteQueen:
-			queenMoves.generate(piece);
+			queenMoves.generate(piece, moves);
 			break;
 		case WhiteKing:
-			kingMoves.generate(piece);
+			kingMoves.generate(piece, moves);
 			break;
 		default:
 			assert false;

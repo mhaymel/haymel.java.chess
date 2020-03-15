@@ -17,34 +17,32 @@ import com.haymel.chess.engine.piece.Piece;
 public final class WhiteKnightCaptureMoves {
 
 	private final Board board;
-	private final Moves moves;
 	
-	public WhiteKnightCaptureMoves(Board board, Moves moves) {	//TODO unit test
+	public WhiteKnightCaptureMoves(Board board) {	//TODO unit test
 		assert board != null;
-		assert moves != null;
 		
 		this.board = board;
-		this.moves = moves;
 	}
 	
-	public void generate(Piece knight) {
+	public void generate(Piece knight, Moves moves) {
 		assert knight != null;
+		assert moves != null;
 		assert knight.field() != removed;
 		assert board.piece(knight.field()) == knight;
 
 		Field from = knight.field();
 		
-		add(from, from.leftLeftUp());
-		add(from, from.leftDownDown());
-		add(from, from.rightRightUp());
-		add(from, from.rightRightDown());
-		add(from, from.rightDownDown());
-		add(from, from.leftUpUp());
-		add(from, from.rightUpUp());
-		add(from, from.leftLeftDown());
+		add(from, from.leftLeftUp(), moves);
+		add(from, from.leftDownDown(), moves);
+		add(from, from.rightRightUp(), moves);
+		add(from, from.rightRightDown(), moves);
+		add(from, from.rightDownDown(), moves);
+		add(from, from.leftUpUp(), moves);
+		add(from, from.rightUpUp(), moves);
+		add(from, from.leftLeftDown(), moves);
 	}
 
-	private void add(Field from, Field to) {
+	private void add(Field from, Field to, Moves moves) {
 		Piece piece = board.piece(to);
 		
 		if (piece.black()) 

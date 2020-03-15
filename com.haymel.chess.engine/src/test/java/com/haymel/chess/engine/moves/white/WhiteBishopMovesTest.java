@@ -61,13 +61,13 @@ public class WhiteBishopMovesTest {
 	public void setup() {
 		moves = new Moves();
 		board = new Board();
-		bishopMoves = new WhiteBishopMoves(board, moves);
+		bishopMoves = new WhiteBishopMoves(board);
 	}
 	
 	@Test
 	public void testA1() {
 		bishop(a1);
-		bishopMoves.generate(bishop);
+		bishopMoves.generate(bishop, moves);
 		
 		assertThat(moves.size(), is(7));
 		
@@ -84,7 +84,7 @@ public class WhiteBishopMovesTest {
 	@Test
 	public void testE4() {
 		bishop(e4);
-		bishopMoves.generate(bishop);
+		bishopMoves.generate(bishop, moves);
 		
 		assertThat(moves.size(), is(13));
 		
@@ -111,7 +111,7 @@ public class WhiteBishopMovesTest {
 		blackPawn(f3);
 		blackPawn(d3);
 		blackPawn(f5);
-		bishopMoves.generate(bishop);
+		bishopMoves.generate(bishop, moves);
 		
 		assertThat(moves.size(), is(4));
 		Set<Move> result = movesAsSet();
@@ -128,7 +128,7 @@ public class WhiteBishopMovesTest {
 		whitePawn(f3);
 		whitePawn(d3);
 		whitePawn(f5);
-		bishopMoves.generate(bishop);
+		bishopMoves.generate(bishop, moves);
 		
 		assertThat(moves.size(), is(0));
 	}

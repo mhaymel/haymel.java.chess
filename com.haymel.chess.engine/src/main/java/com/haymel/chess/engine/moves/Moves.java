@@ -200,6 +200,10 @@ public class Moves {
 		return kingCaptureCount;
 	}
 	
+	public boolean kingCaptured() {
+		return kingCaptureCount > 0;
+	};
+	
 	public List<Move> findMoves(Field from, Field to) {
 		nonNull(from, "from");
 		nonNull(to, "to");

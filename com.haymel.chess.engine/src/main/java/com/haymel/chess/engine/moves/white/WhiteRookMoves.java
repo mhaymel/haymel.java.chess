@@ -18,30 +18,28 @@ import com.haymel.chess.engine.piece.Piece;
 public final class WhiteRookMoves {
 
 	private final Board board;
-	private final Moves moves;
 	
-	public WhiteRookMoves(Board board, Moves moves) {
+	public WhiteRookMoves(Board board) {
 		assert board != null;
-		assert moves != null;
 		
 		this.board = board;
-		this.moves = moves;
 	}
 	
-	public void generate(Piece rook) {
+	public void generate(Piece rook, Moves moves) {
 		assert rook != null;
+		assert moves != null;
 		assert rook.field() != removed;
 		assert board.piece(rook.field()) == rook;
 		assert rook.whiteRook() : format("piece must be white rook but is %s", rook);
 
 		Field from = rook.field();
-		up(from);
-		down(from);
-		left(from);
-		right(from);
+		up(from, moves);
+		down(from, moves);
+		left(from, moves);
+		right(from, moves);
 	}
 
-	private void up(Field from) {
+	private void up(Field from, Moves moves) {
 		Field to = from.up();
 		Piece piece = board.piece(to);
 		while(piece.free()) {
@@ -53,7 +51,7 @@ public final class WhiteRookMoves {
 			moves.addCapture(from, to, piece);
 	}
 
-	private void down(Field from) {
+	private void down(Field from, Moves moves) {
 		Field to = from.down();
 		Piece piece = board.piece(to);
 		while(piece.free()) {
@@ -65,7 +63,7 @@ public final class WhiteRookMoves {
 			moves.addCapture(from, to, piece);
 	}
 
-	private void left(Field from) {
+	private void left(Field from, Moves moves) {
 		Field to = from.left();
 		Piece piece = board.piece(to);
 		while(piece.free()) {
@@ -77,7 +75,7 @@ public final class WhiteRookMoves {
 			moves.addCapture(from, to, piece);
 	}
 
-	private void right(Field from) {
+	private void right(Field from, Moves moves) {
 		Field to = from.right();
 		Piece piece = board.piece(to);
 		while(piece.free()) {

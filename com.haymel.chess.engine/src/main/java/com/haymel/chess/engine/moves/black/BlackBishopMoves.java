@@ -18,30 +18,28 @@ import com.haymel.chess.engine.piece.Piece;
 public final class BlackBishopMoves {
 	
 	private final Board board;
-	private final Moves moves;
 	
-	public BlackBishopMoves(Board board, Moves moves) {
+	public BlackBishopMoves(Board board) {
 		assert board != null;
-		assert moves != null;
 		
 		this.board = board;
-		this.moves = moves;
 	}
 	
-	public void generate(Piece piece) {
+	public void generate(Piece piece, Moves moves) {
 		assert piece != null;
+		assert moves != null;
 		assert piece.field() != removed;
 		assert board.piece(piece.field()) == piece;
 		assert piece.type() == BlackBishop;
 
 		Field from = piece.field();
-		leftUp(from);
-		leftDown(from);
-		rightUp(from);
-		rightDown(from);
+		leftUp(from, moves);
+		leftDown(from, moves);
+		rightUp(from, moves);
+		rightDown(from, moves);
 	}
 
-	private void leftUp(Field from) {
+	private void leftUp(Field from, Moves moves) {
 		Field to = from.leftUp();
 		Piece piece = board.piece(to);
 		while(piece.free()) {
@@ -53,7 +51,7 @@ public final class BlackBishopMoves {
 			moves.addCapture(from, to, piece);
 	}
 
-	private void leftDown(Field from) {
+	private void leftDown(Field from, Moves moves) {
 		Field to = from.leftDown();
 		Piece piece = board.piece(to);
 		while(piece.free()) {
@@ -65,7 +63,7 @@ public final class BlackBishopMoves {
 			moves.addCapture(from, to, piece);
 	}
 
-	private void rightUp(Field from) {
+	private void rightUp(Field from, Moves moves) {
 		Field to = from.rightUp();
 		Piece piece = board.piece(to);
 		while(piece.free()) {
@@ -77,7 +75,7 @@ public final class BlackBishopMoves {
 			moves.addCapture(from, to, piece);
 	}
 
-	private void rightDown(Field from) {
+	private void rightDown(Field from, Moves moves) {
 		Field to = from.rightDown();
 		Piece piece = board.piece(to);
 		while(piece.free()) {
