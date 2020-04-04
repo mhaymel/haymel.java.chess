@@ -7,6 +7,7 @@
  */
 package com.haymel.chess.engine.search.execution;
 
+import static com.haymel.chess.engine.search.SearchInfo.noopSearchInfo;
 import static com.haymel.chess.engine.search.result.Result.invalidWhiteToMoveButMate;
 import static com.haymel.util.Require.nonNull;
 
@@ -18,15 +19,17 @@ import com.haymel.chess.engine.search.NodesCalculator;
 import com.haymel.chess.engine.search.SearchAlphaBeta;
 import com.haymel.chess.engine.search.SearchInfo;
 import com.haymel.chess.engine.search.TimeCalculator;
-import com.haymel.chess.engine.search.Variant;
-import com.haymel.chess.engine.search.result.Normal;
 import com.haymel.chess.engine.search.result.Result;
 
-public class IterativeSearch implements Search {
+public class IterativeSearch implements Search {  	//TODO unit test
 
 	private final Game game;
 	private volatile boolean stop;
 	private SearchAlphaBeta search;
+	
+	public IterativeSearch(Game game) {
+		this(game, noopSearchInfo);
+	}
 	
 	public IterativeSearch(Game game, SearchInfo info) {
 		this.game = nonNull(game, "game");
@@ -40,8 +43,7 @@ public class IterativeSearch implements Search {
 		if (bestMove == null)
 			return invalidWhiteToMoveButMate;
 		
-		Variant variant = bestMove.variant();
-		return new Normal(bestMove.value(), new MovesFromVariant(variant).value());
+		return new ResultFromBestMove(game.activeColor(), bestMove).value();
 	}
 	
 	private BestMove doExecute(int wtimeInMilliSeconds, int btimeInMilliSeconds) {

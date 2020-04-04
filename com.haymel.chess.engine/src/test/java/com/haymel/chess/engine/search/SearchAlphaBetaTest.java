@@ -7,7 +7,8 @@
  */
 package com.haymel.chess.engine.search;
 
-import static java.lang.Integer.MIN_VALUE;
+import static com.haymel.chess.engine.search.SearchAlphaBeta.MAX_VALUE;
+import static com.haymel.chess.engine.search.SearchAlphaBeta.MIN_VALUE;
 import static java.lang.String.format;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -44,7 +45,7 @@ public class SearchAlphaBetaTest {
 		BestMove bestMove = search.execute(2);
 
 		assertThat(asString(bestMove.move()), is("d1d8"));
-		assertThat(bestMove.value(), is(Integer.MAX_VALUE - 1));
+		assertThat(bestMove.value(), is(MAX_VALUE - 1));
 		assertThat(bestMove.variant().size(), is(1));
 	}
 
@@ -63,13 +64,6 @@ public class SearchAlphaBetaTest {
 		bestMove.value();
 	}
 	
-//	@Test
-//	public void testWhiteStarts() {
-//		Game game = new GameStartPos().startPos();
-//		Search search = new Search(game);
-//		Move move = search.execute(4);
-//	}
-//
 	@Test
 	public void testWhiteStarts1() {
 		SearchInfo info = new SearchInfo(currentMoveConsumer(), bestMoveConsumer(), depthConsumer(), nodeStatisticsConsumer());

@@ -14,6 +14,8 @@ import java.util.function.IntConsumer;
 
 public class SearchInfo {		//TODO rename, refactor, unit test
 
+	public static final SearchInfo noopSearchInfo = new SearchInfo(x -> {}, x -> {}, x -> {}, x -> {});
+	
 	private final Consumer<AnalyzedMove> currentMoveConsumer;
 	private final Consumer<BestMove> bestMoveConsumer;
 	private final IntConsumer depthConsumer;

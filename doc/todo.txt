@@ -1,3 +1,4 @@
+- NodesCalculator: avoid division (%) by zero
 - improve time management
 - improve stopping of search
 - unit tests

@@ -21,7 +21,7 @@ public class BestMove {		//TODO rename, refactor, unit test
 	private final Nodes nodes;
 	
 	public BestMove(Variant variant, int value, int depth, int selDepth, Nodes nodes) {
-		this.variant = nonNull(variant, "variant");
+		this.variant = variant;
 		this.value = value;
 		this.depth = greaterEqualZero(depth, "depth");
 		this.selDepth = greaterEqualZero(selDepth, "selDepth");
@@ -50,6 +50,14 @@ public class BestMove {		//TODO rename, refactor, unit test
 	
 	public Nodes nodes() {
 		return nodes;
+	}
+	
+	public boolean blackWilBeMate() {				
+		return value > Integer.MAX_VALUE - 10000;	//TODO check if required and valid
+	}
+	
+	public boolean whiteWilBeMate() {
+		return value < Integer.MIN_VALUE + 10000;	//TODO check if required and valid
 	}
 	
 }

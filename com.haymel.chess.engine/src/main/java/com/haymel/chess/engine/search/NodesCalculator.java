@@ -14,7 +14,7 @@ public class NodesCalculator implements Nodes {		//TODO refactor, unit test
 	private long count;
 	private long lastTimestamp;
 	private long lastCount;
-	private long nps = 100_000L;
+	private long nps = 1L;
 
 	public NodesCalculator() {
 		this.count = 0;
@@ -25,7 +25,11 @@ public class NodesCalculator implements Nodes {		//TODO refactor, unit test
 	public boolean inc() {
 		count++;
 		
-		if (count % ((long)(nps / reportsPerSecond)) != 0)
+		long divider = (long)(nps / reportsPerSecond);
+		if (divider == 0)
+			return false;
+		
+		if (count % divider != 0)	
 			return false;
 		
 		long now = now();
