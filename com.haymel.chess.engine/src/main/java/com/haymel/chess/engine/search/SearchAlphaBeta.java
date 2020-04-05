@@ -411,11 +411,11 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 		return game.whiteMoves().kingCaptureCount() > 0;
 	}
 
-	private int blackMate(int depth) {
+	public static int blackMate(int depth) {
 		return MAX_VALUE - depth;
 	}
 
-	private int whiteMate(int depth) {
+	public static int whiteMate(int depth) {
 		return MIN_VALUE + depth;
 	}
 	
