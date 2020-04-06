@@ -31,9 +31,10 @@ import static com.haymel.util.Require.nonNull;
 import static java.lang.String.join;
 import static java.util.stream.Collectors.toList;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.piece.Piece;
@@ -42,22 +43,25 @@ public class Moves {
 	
 	private int kingCaptureCount;
 	
-	private final ArrayList<Move> moves;
+	private final Move[] moves;
+	private int index = 0;
 	
 	public Moves() {
-		moves = new ArrayList<>(200);
+		moves = new Move[500];
 		kingCaptureCount = 0;
 	}
 	
 	public Move[] moves() {
-		return moves.toArray(new Move[moves.size()]);
+		Move[] dest = new Move[index];
+		System.arraycopy(moves, 0, dest, 0, index);
+		return dest;
 	}
 	
 	public void add(Field from, Field to) {
 		assert from != null;
 		assert to != null;
 		assert from != to;
-		moves.add(new Move(from, to));
+		add(new Move(from, to));
 	}
 
 	public void addCapture(Field from, Field to, Piece piece) {
@@ -67,7 +71,7 @@ public class Moves {
 		assert !piece.free();
 		assert piece.black() || piece.white();
 
-		moves.add(new Move(from, to, capture, piece));
+		add(new Move(from, to, capture, piece));
 		
 		if (piece.blackKing() || piece.whiteKing())
 			kingCaptureCount++;
@@ -80,7 +84,7 @@ public class Moves {
 		assert to.rank() != 7;
 		assert from.rank() != 0;
 		
-		moves.add(new Move(from, to, pawn));
+		add(new Move(from, to, pawn));
 	}
 
 	public void addPawnDoubleStep(Field from, Field to) {
@@ -91,7 +95,7 @@ public class Moves {
 		assert to.rank() == 3 || to.rank() == 4;
 		assert from.file() == to.file();
 
-		moves.add(new Move(from, to, pawnDoubleStep));
+		add(new Move(from, to, pawnDoubleStep));
 	}
 
 	public void addWhitePromotion(Field from) {
@@ -99,10 +103,10 @@ public class Moves {
 		assert from.rank() == 6;
 		
 		Field to = from.up();
-		moves.add(new Move(from, to, WhiteQueen));
-		moves.add(new Move(from, to, WhiteRook));
-		moves.add(new Move(from, to, WhiteBishop));
-		moves.add(new Move(from, to, WhiteKnight));
+		add(new Move(from, to, WhiteQueen));
+		add(new Move(from, to, WhiteRook));
+		add(new Move(from, to, WhiteBishop));
+		add(new Move(from, to, WhiteKnight));
 	}
 
 	public void addWhiteCapturePromotion(Field from, Field to, Piece piece) {		//TODO unit test
@@ -114,10 +118,10 @@ public class Moves {
 		assert to.rank() == 7;
 		assert piece.black();
 		
-		moves.add(new Move(from, to, piece, WhiteQueen));
-		moves.add(new Move(from, to, piece, WhiteRook));
-		moves.add(new Move(from, to, piece, WhiteBishop));
-		moves.add(new Move(from, to, piece, WhiteKnight));
+		add(new Move(from, to, piece, WhiteQueen));
+		add(new Move(from, to, piece, WhiteRook));
+		add(new Move(from, to, piece, WhiteBishop));
+		add(new Move(from, to, piece, WhiteKnight));
 
 		if (piece.blackKing() || piece.whiteKing())
 			kingCaptureCount++;
@@ -128,10 +132,10 @@ public class Moves {
 		assert from.rank() == 1;
 		
 		Field to = from.down();
-		moves.add(new Move(from, to, BlackQueen));
-		moves.add(new Move(from, to, BlackRook));
-		moves.add(new Move(from, to, BlackBishop));
-		moves.add(new Move(from, to, BlackKnight));
+		add(new Move(from, to, BlackQueen));
+		add(new Move(from, to, BlackRook));
+		add(new Move(from, to, BlackBishop));
+		add(new Move(from, to, BlackKnight));
 	}
 
 	public void addBlackCapturePromotion(Field from, Field to, Piece piece) {
@@ -143,10 +147,10 @@ public class Moves {
 		assert to.rank() == 0;
 		assert piece.white();
 		
-		moves.add(new Move(from, to, piece, BlackQueen));
-		moves.add(new Move(from, to, piece, BlackRook));
-		moves.add(new Move(from, to, piece, BlackBishop));
-		moves.add(new Move(from, to, piece, BlackKnight));
+		add(new Move(from, to, piece, BlackQueen));
+		add(new Move(from, to, piece, BlackRook));
+		add(new Move(from, to, piece, BlackBishop));
+		add(new Move(from, to, piece, BlackKnight));
 
 		if (piece.blackKing() || piece.whiteKing())
 			kingCaptureCount++;
@@ -163,37 +167,45 @@ public class Moves {
 			from.rank() == 4 && to.rank() == 5 ||
 			from.rank() == 3 && to.rank() == 2;
 		
-		moves.add(new Move(from, to, enpassant, captured));
+		add(new Move(from, to, enpassant, captured));
 	}
 	
 	public void addWhiteKingSideCastling() {
-		moves.add(new Move(e1, g1, kingsideCastling));
+		add(new Move(e1, g1, kingsideCastling));
 	}
 
 	public void addWhiteQueenSideCastling() {
-		moves.add(new Move(e1, c1, queensideCastling));
+		add(new Move(e1, c1, queensideCastling));
 	}
 	
 	public void addBlackKingSideCastling() {
-		moves.add(new Move(e8, g8, kingsideCastling));
+		add(new Move(e8, g8, kingsideCastling));
 	}
 
 	public void addBlackQueenSideCastling() {
-		moves.add(new Move(e8, c8, queensideCastling));
+		add(new Move(e8, c8, queensideCastling));
 	}
 	
+	private void add(Move move) {
+		moves[index++] = move;
+	}
+
 	public int size() {
-		return moves.size();
+		return index;
 	}
 	
 	@Override
 	public String toString() {
-		List<String> strings = moves.stream().map(Move::toString).collect(toList());		
+		List<String> strings = movesStream().map(Move::toString).collect(toList());		
 		return String.format("Moves(%s)", join(", ", strings));
 	}
 	
+	private Stream<Move> movesStream() {
+		return Arrays.stream(moves());
+	}
+
 	public Move move(int index) {
-		return moves.get(index);
+		return moves[index];
 	}
 	
 	public int kingCaptureCount() {
@@ -210,7 +222,7 @@ public class Moves {
 		assert from != to;
 		
 		Predicate<Move> match = move -> (move.from() == from) && (move.to() == to);
-		return moves.stream().filter(match).collect(toList());
+		return movesStream().filter(match).collect(toList());
 	}
 
 }
