@@ -19,6 +19,9 @@ import com.haymel.chess.engine.game.MakeMove;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.MoveType;
 import com.haymel.chess.engine.moves.Moves;
+import com.haymel.chess.engine.search.movesorting.MoveIterator;
+import com.haymel.chess.engine.search.movesorting.MoveIteratorCreator;
+import com.haymel.chess.engine.search.movesorting.SimpleMoveIteratorCreator;
 
 public class SearchAlphaBeta {		//TODO refactor, unit test
 
@@ -33,21 +36,27 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 	private Move[] principalVariation;
 	private final NodesCalculator nodesCalculator;	
 	private final MakeMove makeMove;
+	private final MoveIteratorCreator moveIteratorCreator;
 
 	public SearchAlphaBeta(Game game) {
-		this(game, noopSearchInfo, new NodesCalculator());
+		this(game, noopSearchInfo, new NodesCalculator(), new SimpleMoveIteratorCreator());
 	}
 
 	public SearchAlphaBeta(Game game, SearchInfo info) {
-		this(game, info, new NodesCalculator());
+		this(game, info, new NodesCalculator(), new SimpleMoveIteratorCreator());
+	}
+
+	public SearchAlphaBeta(Game game, SearchInfo info, MoveIteratorCreator moveIteratorCreator) {
+		this(game, info, new NodesCalculator(), moveIteratorCreator);
 	}
 	
-	public SearchAlphaBeta(Game game, SearchInfo info, NodesCalculator nodesCalculator) {
+	public SearchAlphaBeta(Game game, SearchInfo info, NodesCalculator nodesCalculator, MoveIteratorCreator moveIteratorCreator) {
 		this.game = nonNull(game, "game");
 		this.stop = false;
 		this.info = nonNull(info, "info");
 		this.nodesCalculator = nonNull(nodesCalculator, "nodesCalculator");
 		this.makeMove = new MakeMove(game);
+		this.moveIteratorCreator = nonNull(moveIteratorCreator, "moveIteratorCreator");
 	}
 
 	public BestMove execute(int depth) {
@@ -80,15 +89,13 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 			return blackIsMate();
 		
 		final int depth = 0;
-	    Move[] sortedMoves = new SortWhiteMoves(game, moves.moves(), principal(depth)).sort();
-		int size = sortedMoves.length;
+		
+		MoveIterator moveIter = moveIteratorCreator.create(moves.moves(), 0, moves.size(), principal(depth));
+		
+		for(int i = 0; moveIter.hasNext(); i++) {
+			Move move = moveIter.next();
 
-		assert size > 0;
-
-		for(int i = 0; i < size; i++) {
-			Move move = sortedMoves[i];
-
-			currentMove(size, i, move);
+			currentMove(moves.size(), i, move);
 			
 			Variant v = new Variant(move);
 			makeMove.makeMove(move);
@@ -120,15 +127,11 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 		if (depth >= maxDepth)
 			return whiteQuiet(moves, depth, alpha, beta, variant);
 		
-	    Move[] sortedMoves = new SortWhiteMoves(game, moves.moves(), principal(depth)).sort();
-		int size = sortedMoves.length;
-
-		assert size > 0;
-
 		int validMovesCount = 0;
-		
-		for(int i = 0; i < size; i++) {
-			Move move = sortedMoves[i];
+		MoveIterator moveIter = moveIteratorCreator.create(moves.moves(), 0, moves.size(), principal(depth));
+
+		while(moveIter.hasNext()) {
+			Move move = moveIter.next();
 
 			Variant v = new Variant(move);
 			makeMove.makeMove(move);
@@ -174,11 +177,13 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 	    if (alpha < stand_pat)
 	        alpha = stand_pat;
 
-	    Move[] sortedMoves = new SortWhiteMoves(game, moves.moves(), principal(depth)).sort();
-		int size = sortedMoves.length;
-		
-		for(int i = 0; i < size; i++) {
-			Move move = sortedMoves[i];
+	    if (moves.size() == 0)
+	    	return alpha;
+	    
+		MoveIterator moveIter = moveIteratorCreator.create(moves.moves(), 0, moves.size(), principal(depth));
+
+		while(moveIter.hasNext()) {
+			Move move = moveIter.next();
 			if (!capture(move)) continue;
 
 			assert capture(move);
@@ -215,15 +220,13 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 			return whiteIsMate();
 
 		final int depth = 0;
-	    Move[] sortedMoves = new SortWhiteMoves(game, moves.moves(), principal(depth)).sort();
-		int size = sortedMoves.length;
-	
-		assert size > 0;
+
+		MoveIterator moveIter = moveIteratorCreator.create(moves.moves(), 0, moves.size(), principal(depth));
 		
-		for(int i = 0; i < size; i++) {
-			Move move = sortedMoves[i];
-			
-			currentMove(size, i, move);
+		for(int i = 0; moveIter.hasNext(); i++) {
+			Move move = moveIter.next();
+		
+			currentMove(moves.size(), i, move);
 			
 			Variant v = new Variant(move);
 			makeMove.makeMove(move);
@@ -258,16 +261,12 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 		if (depth >= maxDepth || stop)
 			return evaluate();
 		
-	    Move[] sortedMoves = new SortWhiteMoves(game, moves.moves(), principal(depth)).sort();
-		int size = sortedMoves.length;
-		
-		assert size > 0;
-
 		int validMovesCount = 0;
+		MoveIterator moveIter = moveIteratorCreator.create(moves.moves(), 0, moves.size(), principal(depth));
+
+		while(moveIter.hasNext()) {
+			Move move = moveIter.next();
 		
-		for(int i = 0; i < size; i++) {
-			Move move = sortedMoves[i];
-			
 			Variant v = new Variant(move);
 			makeMove.makeMove(move);
 			
@@ -313,7 +312,7 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 		if (beta > stand_pat)
 	        beta = stand_pat;
 	
-	    Move[] sortedMoves = new SortWhiteMoves(game, moves.moves(), principal(depth)).sort();
+	    Move[] sortedMoves = new SortWhiteMoves(game, moves.moves(), moves.size(), principal(depth)).sort();
 		int size = sortedMoves.length;
 
 		for(int i = 0; i < size; i++) {

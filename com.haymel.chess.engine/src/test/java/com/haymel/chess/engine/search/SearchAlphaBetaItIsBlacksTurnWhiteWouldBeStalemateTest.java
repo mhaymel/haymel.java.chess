@@ -7,20 +7,16 @@
  */
 package com.haymel.chess.engine.search;
 
-import static java.lang.String.format;
+import static com.haymel.chess.engine.search.SearchInfo.sysoutSearchInfo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
-
-import java.util.function.Consumer;
-import java.util.function.IntConsumer;
 
 import org.junit.Test;
 
 import com.haymel.chess.engine.fen.GameFromFEN;
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.game.MakeMove;
-import com.haymel.chess.engine.moves.Move;
 
 public class SearchAlphaBetaItIsBlacksTurnWhiteWouldBeStalemateTest {
 
@@ -42,8 +38,7 @@ public class SearchAlphaBetaItIsBlacksTurnWhiteWouldBeStalemateTest {
 		Game game = new Game();
 		new GameFromFEN(game, fen).execute();
 		
-		SearchInfo info = new SearchInfo(currentMoveConsumer(), bestMoveConsumer(), depthConsumer(), nodeStatisticsConsumer());
-		SearchAlphaBeta search = new SearchAlphaBeta(game, info, new NodesCalculator());
+		SearchAlphaBeta search = new SearchAlphaBeta(game, sysoutSearchInfo);
 		BestMove bestMove = search.execute(depth);
 
 		assertThat(bestMove.variant(), is(notNullValue()));
@@ -54,39 +49,4 @@ public class SearchAlphaBetaItIsBlacksTurnWhiteWouldBeStalemateTest {
 		assertThat(bestMove.variant(), is(notNullValue()));
 	}
 
-	private Consumer<Nodes> nodeStatisticsConsumer() {
-		return (ns) -> System.out.println("nodes: " + ns.count() + ", nps: " + ns.nps());
-	}
-
-	private IntConsumer depthConsumer() {
-		return (int depth) -> System.out.println("depth: " + depth);
-	}
-
-	private Consumer<BestMove> bestMoveConsumer() {
-		return (bm) -> System.out.println("bestmove: " + asString(bm.variant()) + ", value: " + bm.value());
-	}
-
-	private Consumer<AnalyzedMove> currentMoveConsumer() {
-		return (cm) -> currentMove(cm); 
-	}
-	
-	private void currentMove(AnalyzedMove move) {
-		System.out.println(format("%s: %s/%s", asString(move.move()), move.moveNumber(), move.numberOfPossibleMoves()));
-	}
-
-	private static String asString(Move move) {
-		return move.from().toString() + move.to().toString();
-	}
-	
-	private String asString(Variant variant) {
-		StringBuffer sb = new StringBuffer();
-		sb.append(asString(variant.move()));
-		
-		if (variant.moves() != null)
-			for(Move move: variant.moves()) 
-				sb.append(" ").append(asString(move));
-		
-		return sb.toString();
-	}
-	
 }

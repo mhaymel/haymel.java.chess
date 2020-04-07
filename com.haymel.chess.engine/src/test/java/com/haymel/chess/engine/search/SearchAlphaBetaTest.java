@@ -9,12 +9,9 @@ package com.haymel.chess.engine.search;
 
 import static com.haymel.chess.engine.search.SearchAlphaBeta.MAX_VALUE;
 import static com.haymel.chess.engine.search.SearchAlphaBeta.MIN_VALUE;
-import static java.lang.String.format;
+import static com.haymel.chess.engine.search.SearchInfo.sysoutSearchInfo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-
-import java.util.function.Consumer;
-import java.util.function.IntConsumer;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -40,8 +37,7 @@ public class SearchAlphaBetaTest {
 		String fen = "6k1/5ppp/8/8/8/8/8/3R2K1 w - - 0 1";
 		new GameFromFEN(game, fen).execute();
 		
-		SearchInfo info = new SearchInfo(currentMoveConsumer(), bestMoveConsumer(), depthConsumer(), nodeStatisticsConsumer());
-		SearchAlphaBeta search = new SearchAlphaBeta(game, info, new NodesCalculator());
+		SearchAlphaBeta search = new SearchAlphaBeta(game, sysoutSearchInfo);
 		BestMove bestMove = search.execute(2);
 
 		assertThat(asString(bestMove.move()), is("d1d8"));
@@ -53,8 +49,7 @@ public class SearchAlphaBetaTest {
 	public void whiteMateInOneHasAVariantOfLengthOne() {
 		String fen = "r6r/1p2k1pp/8/p4p2/1bb5/PP4N1/K4PPP/Q2q3R b - - 0 20";
 		new GameFromFEN(game, fen).execute();
-		SearchInfo info = new SearchInfo(currentMoveConsumer(), bestMoveConsumer(), depthConsumer(), nodeStatisticsConsumer());
-		SearchAlphaBeta search = new SearchAlphaBeta(game, info, new NodesCalculator());
+		SearchAlphaBeta search = new SearchAlphaBeta(game, sysoutSearchInfo);
 		BestMove bestMove = search.execute(2);
 		
 		assertThat(asString(bestMove.move()), is("d1b3"));
@@ -66,8 +61,7 @@ public class SearchAlphaBetaTest {
 	
 	@Test
 	public void testWhiteStarts1() {
-		SearchInfo info = new SearchInfo(currentMoveConsumer(), bestMoveConsumer(), depthConsumer(), nodeStatisticsConsumer());
-		SearchAlphaBeta search = new SearchAlphaBeta(game, info, new NodesCalculator());
+		SearchAlphaBeta search = new SearchAlphaBeta(game, sysoutSearchInfo);
 		Move move = search.execute(4).move();
 		System.out.println("play: " + asString(move));
 		new MakeMove(game).makeMove(move);
@@ -85,27 +79,6 @@ public class SearchAlphaBetaTest {
 //		System.out.println(moveAsString);
 //	}
 	
-	
-	private Consumer<Nodes> nodeStatisticsConsumer() {
-		return (ns) -> System.out.println("nodes: " + ns.count() + ", nps: " + ns.nps());
-	}
-
-	private IntConsumer depthConsumer() {
-		return (int depth) -> System.out.println("depth: " + depth);
-	}
-
-	private Consumer<BestMove> bestMoveConsumer() {
-		return (bm) -> System.out.println("bestmove: " + asString(bm.move()));
-	}
-
-	private Consumer<AnalyzedMove> currentMoveConsumer() {
-		return (cm) -> currentMove(cm); 
-	}
-	
-	private void currentMove(AnalyzedMove move) {
-		System.out.println(format("%s: %s/%s", asString(move.move()), move.moveNumber(), move.numberOfPossibleMoves()));
-	}
-
 	private static String asString(Move move) {
 		return move.from().toString() + move.to().toString();
 	}

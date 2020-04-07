@@ -31,7 +31,7 @@ import static com.haymel.util.Require.nonNull;
 import static java.lang.String.join;
 import static java.util.stream.Collectors.toList;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -47,14 +47,12 @@ public class Moves {
 	private int index = 0;
 	
 	public Moves() {
-		moves = new Move[500];
+		moves = new Move[200];
 		kingCaptureCount = 0;
 	}
 	
 	public Move[] moves() {
-		Move[] dest = new Move[index];
-		System.arraycopy(moves, 0, dest, 0, index);
-		return dest;
+		return moves;
 	}
 	
 	public void add(Field from, Field to) {
@@ -201,7 +199,10 @@ public class Moves {
 	}
 	
 	private Stream<Move> movesStream() {
-		return Arrays.stream(moves());
+		ArrayList<Move> list = new ArrayList<Move>(index);
+		for(int i = 0; i < index; i++)
+			list.add(moves[i]);
+		return list.stream();
 	}
 
 	public Move move(int index) {

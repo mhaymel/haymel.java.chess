@@ -19,6 +19,7 @@ import com.haymel.chess.engine.search.NodesCalculator;
 import com.haymel.chess.engine.search.SearchAlphaBeta;
 import com.haymel.chess.engine.search.SearchInfo;
 import com.haymel.chess.engine.search.TimeCalculator;
+import com.haymel.chess.engine.search.movesorting.SimpleMoveIteratorCreator;
 import com.haymel.chess.engine.search.result.Result;
 
 public class IterativeSearch implements Search {  	//TODO unit test
@@ -34,7 +35,7 @@ public class IterativeSearch implements Search {  	//TODO unit test
 	public IterativeSearch(Game game, SearchInfo info) {
 		this.game = nonNull(game, "game");
 		this.stop = false;
-		search = new SearchAlphaBeta(game, info, new NodesCalculator());
+		search = new SearchAlphaBeta(game, info, new NodesCalculator(), new SimpleMoveIteratorCreator());
 	}
 	
 	@Override

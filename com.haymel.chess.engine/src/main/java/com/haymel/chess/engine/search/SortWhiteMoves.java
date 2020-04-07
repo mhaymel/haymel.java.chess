@@ -8,7 +8,6 @@
 package com.haymel.chess.engine.search;
 
 import static com.haymel.chess.engine.search.PieceValue.pieceValue;
-import static com.haymel.util.Require.nonNull;
 import static java.lang.Integer.MAX_VALUE;
 
 import java.util.Arrays;
@@ -36,10 +35,16 @@ public class SortWhiteMoves implements Comparator<Move> {		//TODO refactor, unit
 	private final Move[] moves;
 	private final Move pv;
 	
-	public SortWhiteMoves(Game game, Move[] moves, Move pv) {
-		this.game = nonNull(game, "game");
-		this.moves = nonNull(moves, "moves");
+	public SortWhiteMoves(Game game, Move[] moves, int size, Move pv) {
+		assert game != null;
+		assert moves != null;
+		assert size >= 0 && size <= moves.length;
+		
+		this.game = game;
+		this.moves = new Move[size];
 		this.pv = pv;	// pv can be null
+		
+		System.arraycopy(moves, 0, this.moves, 0, size);
 	}
 	
 	public Move[] sort() {

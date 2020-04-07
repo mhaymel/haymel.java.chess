@@ -15,7 +15,9 @@
 
 - report correct number of possible moves via uci and the correct number of the currently analyzed move
 
-
+- stalemate: 4k3/4P3/3K4/8/8/8/8/8 w - - 3 1	
+	soll weiss schwarz patt setzen oder schwarz den weissen bauern schlagen lassen	
+	siehe IterativeSearchBlackStalemateTest
 
 correct mate, stalemate handling
 --------------------------------	
@@ -37,6 +39,4 @@ In folgenden situationen gibt es keinen bestmove:
 	
 	wenn weiss patt wäre, schwarz aber am zug ist und nicht a) oder b) gilt, 
 	gibt es einen bestmove.
-	
-	
-	
+
