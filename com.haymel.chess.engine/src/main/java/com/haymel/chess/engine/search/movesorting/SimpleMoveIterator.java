@@ -16,7 +16,7 @@ public class SimpleMoveIterator implements MoveIterator { //TODO unit test
 	private final int count;
 	private int index;
 	
-	public SimpleMoveIterator(Move[] moves, int start, int count, Move pv) { 
+	public SimpleMoveIterator(Move[] moves, int start, int count) { 
 		assert moves != null;
 		assert start >= 0 && start < moves.length;
 		assert count > 0;
@@ -29,12 +29,10 @@ public class SimpleMoveIterator implements MoveIterator { //TODO unit test
 	}
 
 	@Override
-	public boolean hasNext() {
-		return index < count;
-	}
-
-	@Override
 	public Move next() {
+		if (index >= count)
+			return null;
+		
 		return moves[start + index++];
 	}
 }

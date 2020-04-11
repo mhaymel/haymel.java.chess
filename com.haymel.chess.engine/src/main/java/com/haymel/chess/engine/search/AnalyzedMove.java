@@ -26,7 +26,7 @@ public class AnalyzedMove {		//TODO unit test
 		this.numberOfPossibleMoves = greaterThanZero(numberOfPossibleMoves, "numberOfPossibleMoves");
 		
 		if (moveNumber > numberOfPossibleMoves)
-			throwIAE("%s: %s must be less than or equal %s", moveNumber, numberOfPossibleMoves);
+			throwIAE("%s: %s must be less than or equal %s", move, moveNumber, numberOfPossibleMoves);
 	}
 	
 	public Move move() {

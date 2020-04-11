@@ -5,7 +5,7 @@
  * @author: Markus.Heumel
  *
  */
-package com.haymel.chess.engine.search;
+package com.haymel.chess.engine.search.movesorting;
 
 import static com.haymel.chess.engine.search.PieceValue.pieceValue;
 import static java.lang.Integer.MAX_VALUE;
@@ -19,7 +19,7 @@ import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.MoveType;
 import com.haymel.chess.engine.piece.PieceType;
 
-public class SortWhiteMoves implements Comparator<Move> {		//TODO refactor, unit test
+class SortMoves implements Comparator<Move> {		//TODO refactor, unit test
 
 	private final static int VALUE_PV = 0;
 	private final static int VALUE_CAPTURE = 10_000;
@@ -35,7 +35,7 @@ public class SortWhiteMoves implements Comparator<Move> {		//TODO refactor, unit
 	private final Move[] moves;
 	private final Move pv;
 	
-	public SortWhiteMoves(Game game, Move[] moves, int size, Move pv) {
+	public SortMoves(Game game, Move[] moves, int size, Move pv) {
 		assert game != null;
 		assert moves != null;
 		assert size >= 0 && size <= moves.length;

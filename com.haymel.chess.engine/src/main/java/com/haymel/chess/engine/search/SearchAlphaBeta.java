@@ -21,7 +21,7 @@ import com.haymel.chess.engine.moves.MoveType;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.search.movesorting.MoveIterator;
 import com.haymel.chess.engine.search.movesorting.MoveIteratorCreator;
-import com.haymel.chess.engine.search.movesorting.SimpleMoveIteratorCreator;
+import com.haymel.chess.engine.search.movesorting.PVMoveIteratorCreator;
 
 public class SearchAlphaBeta {		//TODO refactor, unit test
 
@@ -39,11 +39,11 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 	private final MoveIteratorCreator moveIteratorCreator;
 
 	public SearchAlphaBeta(Game game) {
-		this(game, noopSearchInfo, new NodesCalculator(), new SimpleMoveIteratorCreator());
+		this(game, noopSearchInfo, new NodesCalculator(), new PVMoveIteratorCreator());
 	}
 
 	public SearchAlphaBeta(Game game, SearchInfo info) {
-		this(game, info, new NodesCalculator(), new SimpleMoveIteratorCreator());
+		this(game, info, new NodesCalculator(), new PVMoveIteratorCreator());
 	}
 
 	public SearchAlphaBeta(Game game, SearchInfo info, MoveIteratorCreator moveIteratorCreator) {
@@ -60,11 +60,11 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 	}
 
 	public BestMove execute(int depth) {
-		info.searchDepth(depth);
 		return execute(depth, null);
 	}
 	
 	public BestMove execute(int depth, Move[] principalVariation) { 
+		info.searchDepth(depth);
 		return doExecute(depth, principalVariation);
 	}
 
@@ -92,10 +92,11 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 		
 		MoveIterator moveIter = moveIteratorCreator.create(moves.moves(), 0, moves.size(), principal(depth));
 		
-		for(int i = 0; moveIter.hasNext(); i++) {
-			Move move = moveIter.next();
-
+		Move move;
+		int i = 0;
+		while((move = moveIter.next()) != null) {
 			currentMove(moves.size(), i, move);
+			i++;
 			
 			Variant v = new Variant(move);
 			makeMove.makeMove(move);
@@ -130,9 +131,8 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 		int validMovesCount = 0;
 		MoveIterator moveIter = moveIteratorCreator.create(moves.moves(), 0, moves.size(), principal(depth));
 
-		while(moveIter.hasNext()) {
-			Move move = moveIter.next();
-
+		Move move;
+		while((move = moveIter.next()) != null) {
 			Variant v = new Variant(move);
 			makeMove.makeMove(move);
 
@@ -182,8 +182,8 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 	    
 		MoveIterator moveIter = moveIteratorCreator.create(moves.moves(), 0, moves.size(), principal(depth));
 
-		while(moveIter.hasNext()) {
-			Move move = moveIter.next();
+		Move move;
+		while((move = moveIter.next()) != null) {
 			if (!capture(move)) continue;
 
 			assert capture(move);
@@ -223,11 +223,12 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 
 		MoveIterator moveIter = moveIteratorCreator.create(moves.moves(), 0, moves.size(), principal(depth));
 		
-		for(int i = 0; moveIter.hasNext(); i++) {
-			Move move = moveIter.next();
-		
+		Move move;
+		int i = 0;
+		while((move = moveIter.next()) != null) {
 			currentMove(moves.size(), i, move);
-			
+			i++;
+
 			Variant v = new Variant(move);
 			makeMove.makeMove(move);
 			
@@ -264,8 +265,8 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 		int validMovesCount = 0;
 		MoveIterator moveIter = moveIteratorCreator.create(moves.moves(), 0, moves.size(), principal(depth));
 
-		while(moveIter.hasNext()) {
-			Move move = moveIter.next();
+		Move move;
+		while((move = moveIter.next()) != null) {
 		
 			Variant v = new Variant(move);
 			makeMove.makeMove(move);
@@ -312,13 +313,15 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 		if (beta > stand_pat)
 	        beta = stand_pat;
 	
-	    Move[] sortedMoves = new SortWhiteMoves(game, moves.moves(), moves.size(), principal(depth)).sort();
-		int size = sortedMoves.length;
+	    if (moves.size() == 0)
+	    	return beta;
 
-		for(int i = 0; i < size; i++) {
-			Move move = sortedMoves[i];
+	    MoveIterator moveIter = moveIteratorCreator.create(moves.moves(), 0, moves.size(), principal(depth));
+
+		Move move;
+		while((move = moveIter.next()) != null) {
 			if (!capture(move)) continue;
-			
+
 			assert capture(move);
 			
 			Variant v = new Variant(move);

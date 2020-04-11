@@ -11,8 +11,6 @@ import com.haymel.chess.engine.moves.Move;
 
 public interface MoveIterator {
 
-	boolean hasNext();
-	
 	Move next();
 	
 }

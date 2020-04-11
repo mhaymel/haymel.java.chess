@@ -9,11 +9,11 @@ package com.haymel.chess.engine.search.movesorting;
 
 import com.haymel.chess.engine.moves.Move;
 
-public class SimpleMoveIteratorCreator implements MoveIteratorCreator {	//TODO unit test
+class SimpleMoveIteratorCreator implements MoveIteratorCreator {	//TODO unit test
 
 	@Override
 	public MoveIterator create(Move[] move, int start, int count, Move pv) {
-		return new SimpleMoveIterator(move, start, count, pv);
+		return new SimpleMoveIterator(move, start, count);
 	}
 
 }

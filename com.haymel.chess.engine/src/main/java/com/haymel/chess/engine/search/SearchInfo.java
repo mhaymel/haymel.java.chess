@@ -22,6 +22,9 @@ public class SearchInfo {		//TODO rename, refactor, unit test
 	
 	public static final SearchInfo sysoutSearchInfo = 
 		new SearchInfo(currentMoveConsumer(), bestMoveConsumer(), depthConsumer(), nodeStatisticsConsumer());
+
+	public static final SearchInfo sysoutSearchInfoNoCurrentMoveNoNodeStatistics = 
+			new SearchInfo(x -> {}, bestMoveConsumer(), depthConsumer(), x -> {});
 	
 	private final Consumer<AnalyzedMove> currentMoveConsumer;
 	private final Consumer<BestMove> bestMoveConsumer;
