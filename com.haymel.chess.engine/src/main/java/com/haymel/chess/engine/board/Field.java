@@ -116,51 +116,51 @@ public final class Field {
 	}
 
 	public Field rightUp() {
-		return right().up();
+		return fields[position + 1 + up];
 	}
 
 	public Field rightDown() {
-		return right().down();
+		return fields[position + 1 - up];
 	}
 	
 	public Field leftUp() {
-		return left().up();
+		return fields[position - 1 + up];
 	}
 	
 	public Field leftDown() {
-		return left().down();
+		return fields[position - 1 - up];
 	}
 
 	public Field leftLeftUp() {
-		return left().leftUp();
+		return fields[position - 1 - 1 + up];
 	}
 	
 	public Field leftLeftDown() {
-		return left().leftDown();
+		return fields[position - 1 - 1 - up];
 	}
 	
 	public Field rightRightUp() {
-		return right().rightUp();
+		return fields[position + 1 + 1 + up];
 	}
 	
 	public Field rightRightDown() {
-		return right().rightDown();
+		return fields[position + 1 + 1 - up];
 	}
 	
 	public Field leftUpUp() {
-		return leftUp().up();
+		return fields[position - 1 + up + up];
 	}
 
 	public Field leftDownDown() {
-		return leftDown().down();
+		return fields[position - 1 - up - up];
 	}
 
 	public Field rightUpUp() {
-		return rightUp().up();
+		return fields[position + 1 + up + up];
 	}
 
 	public Field rightDownDown() {
-		return rightDown().down();
+		return fields[position + 1 - up - up];
 	}
 
 	@Override
