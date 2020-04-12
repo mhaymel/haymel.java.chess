@@ -8,7 +8,6 @@
 package com.haymel.chess.engine.search.execution;
 
 import static com.haymel.chess.engine.search.SearchInfo.noopSearchInfo;
-import static com.haymel.chess.engine.search.result.Result.invalidWhiteToMoveButMate;
 import static com.haymel.util.Require.nonNull;
 
 import com.haymel.chess.engine.game.Game;
@@ -20,7 +19,6 @@ import com.haymel.chess.engine.search.SearchAlphaBeta;
 import com.haymel.chess.engine.search.SearchInfo;
 import com.haymel.chess.engine.search.TimeCalculator;
 import com.haymel.chess.engine.search.movesorting.PVMoveIteratorCreator;
-import com.haymel.chess.engine.search.result.Result;
 
 public class IterativeSearch implements Search {  	//TODO unit test
 
@@ -39,26 +37,18 @@ public class IterativeSearch implements Search {  	//TODO unit test
 	}
 	
 	@Override
-	public Result execute(int wtimeInMilliSeconds, int btimeInMilliSeconds) {
-		BestMove bestMove = doExecute(wtimeInMilliSeconds, btimeInMilliSeconds);
-		if (bestMove == null)
-			return invalidWhiteToMoveButMate;
-		
-		return new ResultFromBestMove(game.activeColor(), bestMove).value();
-	}
-	
-	private BestMove doExecute(int wtimeInMilliSeconds, int btimeInMilliSeconds) {
+	public BestMove execute(int wtimeInMilliSeconds, int btimeInMilliSeconds) {
 		stop = false;
 		long maxCalcTime = new TimeCalculator(game, wtimeInMilliSeconds, btimeInMilliSeconds).value();
 		long start = now();
 		
 		BestMove bestMove = search.execute(1);
+		if (bestMove.mateOrStalemate())
+			return bestMove;
 		
 		for(int depth = 2; ; depth++) {
 			Move[] pv = new MovesFromVariant(bestMove.variant()).value();
 			bestMove = search.execute(depth, pv);
-			if (bestMove == null)						//TODO make use of class BestMove instead of using null
-				return null;
 			
 			if (stop)
 				return bestMove;

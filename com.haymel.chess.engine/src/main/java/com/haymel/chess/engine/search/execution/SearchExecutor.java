@@ -18,16 +18,16 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
 
-import com.haymel.chess.engine.search.result.Result;
+import com.haymel.chess.engine.search.BestMove;
 
 public class SearchExecutor {	//TODO unit test, refactor
 
 	private final Search search;
-	private final Consumer<Result> finished;
+	private final Consumer<BestMove> finished;
 	private final ExecutorService executor;
 	private Future<?> submit;
 	
-	public SearchExecutor(Search search, Consumer<Result> finished) {
+	public SearchExecutor(Search search, Consumer<BestMove> finished) {
 		this.search = nonNull(search, "search");
 		this.finished = nonNull(finished, "finished");
 		this.executor = Executors.newFixedThreadPool(1);

@@ -1,4 +1,3 @@
-- NodesCalculator: avoid division (%) by zero
 - improve time management
 - improve stopping of search
 - unit tests
@@ -7,36 +6,11 @@
 - refactor SearchExecutor
 - implement 50 moves rule
 - implement 3 malige stellungswiederholung
-- report value of position with correct sign:
-		less then zero, if position of engine is worse 
-		no matter which color the engine plays  
 		
 - slow unit tests für perftest für diverse stellungen
 
 - report correct number of possible moves via uci and the correct number of the currently analyzed move
 
-- stalemate: 4k3/4P3/3K4/8/8/8/8/8 w - - 3 1	
-	soll weiss schwarz patt setzen oder schwarz den weissen bauern schlagen lassen	
-	siehe IterativeSearchBlackStalemateTest
-
-correct mate, stalemate handling
---------------------------------	
-- report future mate via uci
-
-In folgenden situationen gibt es keinen bestmove:
-1) weiss am zug
-	a) weiss ist matt
-	b) weiss ist patt 
-	c) schwarz steht im schach (kann auch matt sein). 
-	
-	wenn schwarz patt wäre, weiss aber am zug ist und nicht a) oder b) gilt, 
-	gibt es einen bestmove.
-	
-2) schwarz am zug	
-	a) schwarz ist matt
-	b) schwarz ist patt 
-	c) weiss steht im schach (kann auch matt sein). 
-	
-	wenn weiss patt wäre, schwarz aber am zug ist und nicht a) oder b) gilt, 
-	gibt es einen bestmove.
+- correct reporting of moves till mate
+- info for mate / stalemate positions
 

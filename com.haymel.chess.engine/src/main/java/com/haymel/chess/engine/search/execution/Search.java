@@ -7,11 +7,11 @@
  */
 package com.haymel.chess.engine.search.execution;
 
-import com.haymel.chess.engine.search.result.Result;
+import com.haymel.chess.engine.search.BestMove;
 
 public interface Search {
 
-	Result execute(int wtimeInMilliSeconds, int btimeInMilliSeconds);
+	BestMove execute(int wtimeInMilliSeconds, int btimeInMilliSeconds);
 
 	void stop();
 	

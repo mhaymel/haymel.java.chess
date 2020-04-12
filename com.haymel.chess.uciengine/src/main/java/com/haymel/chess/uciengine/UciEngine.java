@@ -7,6 +7,7 @@
  */
 package com.haymel.chess.uciengine;
 
+import static com.haymel.chess.engine.game.ActiveColor.white;
 import static com.haymel.util.Require.nonNull;
 
 import java.io.InputStream;
@@ -25,8 +26,6 @@ import com.haymel.chess.engine.search.SearchInfo;
 import com.haymel.chess.engine.search.Variant;
 import com.haymel.chess.engine.search.execution.IterativeSearch;
 import com.haymel.chess.engine.search.execution.SearchExecutor;
-import com.haymel.chess.engine.search.result.Result;
-import com.haymel.chess.engine.search.result.ResultType;
 import com.haymel.chess.uci.moves.Moves;
 import com.haymel.chess.uci.result.Infos;
 
@@ -80,7 +79,7 @@ public class UciEngine extends com.haymel.chess.uci.Engine {
 	public void go(int wtimeInMilliSeconds, int btimeInMilliSeconds, int wincInMilliSeconds, int bincInMilliSeconds) {
 		stop();
 
-		SearchInfo info = new SearchInfo(currentMoveConsumer(), bestMoveConsumer2(), depthConsumer(), nodeStatisticsConsumer());
+		SearchInfo info = new SearchInfo(currentMoveConsumer(), bestMoveConsumer(), depthConsumer(), nodeStatisticsConsumer());
 		IterativeSearch search = new IterativeSearch(game, info);
 		executor = new SearchExecutor(search, searchFinished());
 		executor.go(wtimeInMilliSeconds, btimeInMilliSeconds);
@@ -90,11 +89,12 @@ public class UciEngine extends com.haymel.chess.uci.Engine {
 		return (ns) -> info(new Infos().nps(ns.nps()).nodes(ns.count()));
 	}
 
-	private Consumer<BestMove> bestMoveConsumer2() {
+	private Consumer<BestMove> bestMoveConsumer() {
+		int valueMultiplier = (game.activeColor() == white ? 1 : -1);
 		return (bm) -> {
 			info(
 				new Infos()
-					.scorecp(bm.value())
+					.scorecp(bm.value()*valueMultiplier)
 					.depth(bm.depth())
 					.seldepth(bm.selDepth())
 					.nodes(bm.nodes().count())
@@ -107,12 +107,14 @@ public class UciEngine extends com.haymel.chess.uci.Engine {
 		return new MovesFromVariant(variant).value();
 	}
 	
-	private Consumer<Result> searchFinished() {
-		return (result) -> {
-			if (result.type() == ResultType.Normal || result.type() == ResultType.MateInMoves)
-				bestmove(asString(result.moves()[0]));
-			else
-				bestmove("0000");
+	private Consumer<BestMove> searchFinished() {
+		return (bestMove) -> {
+			if (bestMove.variant() != null)
+				bestmove(asString(bestMove.move()));
+			else if (bestMove.value() == 0)
+				info(new Infos().string("stalemate"));
+			else 
+				info(new Infos().string("mate"));
 		};
 	}
 	

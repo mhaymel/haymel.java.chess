@@ -51,13 +51,9 @@ public class BestMove {		//TODO rename, refactor, unit test
 	public Nodes nodes() {
 		return nodes;
 	}
-	
-	public boolean blackWilBeMate() {				
-		return value > Integer.MAX_VALUE - 10000;	//TODO check if required and valid
-	}
-	
-	public boolean whiteWilBeMate() {
-		return value < Integer.MIN_VALUE + 10000;	//TODO check if required and valid
+
+	public boolean mateOrStalemate() {
+		return variant == null;
 	}
 	
 }

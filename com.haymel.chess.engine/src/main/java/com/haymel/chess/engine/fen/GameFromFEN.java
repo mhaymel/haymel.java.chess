@@ -29,12 +29,16 @@ public class GameFromFEN {
 	private final Game game;
 	private final String[] fields;
 	
+	public GameFromFEN(String fen) {
+		this(new Game(), fen);
+	}
+	
 	public GameFromFEN(Game game, String fen) {
 		this.game = nonNull(game, "game");
 		this.fields = split(nonEmpty(fen, "fen"));
 	}
 
-	public void execute() {
+	public Game execute() {
 		game.reset();
 		
 		handlePiecePlacement(fields[0]);
@@ -43,6 +47,7 @@ public class GameFromFEN {
 		handleEnpassant(fields[3]);
 		handleHalfmoveClock(fields[4]);
 		handleFullmoveNumber(fields[5]);
+		return game;
 	}
 
 	private void handleFullmoveNumber(String fullmoveNumber) {

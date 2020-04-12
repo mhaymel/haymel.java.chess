@@ -237,7 +237,7 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 				int score = white(whiteMoves, depth + 1, MIN_VALUE, beta, v);
 				if (score < beta) {
 					beta = score;
-					bestMove = new BestMove(v, score, maxDepth, maxSelDepth, nodesCalculator);
+					bestMove = newBestMove(v, score);
 					info.bestMoveConsumer(bestMove);
 				}
 			}
@@ -416,10 +416,17 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 		return game.whiteMoves().kingCaptureCount() > 0;
 	}
 
+	public static int blackMate() {
+		return blackMate(0);
+	}
+
 	public static int blackMate(int depth) {
 		return MAX_VALUE - depth;
 	}
 
+	public static int whiteMate() {
+		return whiteMate(0);
+	}
 	public static int whiteMate(int depth) {
 		return MIN_VALUE + depth;
 	}
