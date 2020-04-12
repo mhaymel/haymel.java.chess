@@ -39,11 +39,11 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 	private final MoveIteratorCreator moveIteratorCreator;
 
 	public SearchAlphaBeta(Game game) {
-		this(game, noopSearchInfo, new NodesCalculator(), new PVMoveIteratorCreator());
+		this(game, noopSearchInfo, new NodesCalculator(), new PVMoveIteratorCreator(game));
 	}
 
 	public SearchAlphaBeta(Game game, SearchInfo info) {
-		this(game, info, new NodesCalculator(), new PVMoveIteratorCreator());
+		this(game, info, new NodesCalculator(), new PVMoveIteratorCreator(game));
 	}
 
 	public SearchAlphaBeta(Game game, SearchInfo info, MoveIteratorCreator moveIteratorCreator) {

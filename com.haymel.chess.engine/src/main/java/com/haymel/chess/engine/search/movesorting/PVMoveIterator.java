@@ -7,23 +7,25 @@
  */
 package com.haymel.chess.engine.search.movesorting;
 
+import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.MoveType;
+import com.haymel.chess.engine.piece.Piece;
+import com.haymel.chess.engine.search.PieceValue;
 
-public class PVMoveIterator implements MoveIterator { //TODO unit test
+public class PVMoveIterator implements MoveIterator { //TODO refactor, unit test
 
 	private static final int statePv = 0;
-	private static final int stateWinningCaputres = 1;
+	private static final int stateCaptures = 1;
 	private static final int stateNormal = 2;
-	private static final int stateLosingCapture = 3;
 	
 	private static final int[] order = {
 		statePv,
-		stateWinningCaputres,
-		stateNormal, 
-		stateLosingCapture
+		stateCaptures,
+		stateNormal 
 	};
 	
+	private final Game game;
 	private final Move[] moves;
 	private final int start;
 	private final int count;
@@ -31,12 +33,14 @@ public class PVMoveIterator implements MoveIterator { //TODO unit test
 	private int index = 0;
 	private int state = 0;
 	
-	public PVMoveIterator(Move[] moves, int start, int count, Move pv) { 
+	public PVMoveIterator(Game game, Move[] moves, int start, int count, Move pv) { 
+		assert game != null;
 		assert moves != null;
 		assert start >= 0 && start < moves.length;
 		assert count > 0;
 		assert start + count <= moves.length;
 		
+		this.game = game;
 		this.moves = moves;
 		this.start = start;
 		this.count = count;
@@ -60,10 +64,9 @@ public class PVMoveIterator implements MoveIterator { //TODO unit test
 	
 	private Move find() {
 		switch(order[state]) {
-		case statePv: 				return pv();
-		case stateWinningCaputres: 	return nextWinningCapture();
-		case stateNormal:			return nextNormal();
-		case stateLosingCapture:	return nextLosingCapture();
+		case statePv: 			return pv();
+		case stateCaptures: 	return nextWinningCapture();
+		case stateNormal:		return nextNormal();
 		default:
 			assert false;
 		}
@@ -71,16 +74,44 @@ public class PVMoveIterator implements MoveIterator { //TODO unit test
 	}
 
 	private Move nextWinningCapture() {
-		for(int i = 0; i < count; i++) {
+		int i = 0;
+		Move foundMove = null;
+		int foundIndex = 0;
+		int foundValue = Integer.MIN_VALUE;
+		
+		while(i < count) {
 			Move move = move(i);
 			if (move != null && isCapture(move)) {
-				moveReset(i);
-				return move;
+				int value = captureValue(move);
+				if (value > foundValue) {
+					foundIndex = i;
+					foundValue = value;
+					foundMove = move;
+				}
 			}
+			i++;
 		}
-		return null;
+		
+		if (foundMove == null)
+			return null;
+
+		moveReset(foundIndex);
+		return foundMove;
 	}
 	
+	private int captureValue(Move move) {
+		assert isCapture(move);
+		
+		int aggressorValue = pieceValue(game.piece(move.from()));
+		int victimValue = pieceValue(move.capturedPiece());
+		
+		return victimValue - aggressorValue;
+	}
+
+	private static int pieceValue(Piece piece) {
+		return PieceValue.pieceValue(piece.type());
+	}
+
 	private Move nextNormal() {
 		while(index < count) {
 			Move move = move(index);
@@ -94,20 +125,6 @@ public class PVMoveIterator implements MoveIterator { //TODO unit test
 		return null;
 	}
 
-	private Move nextLosingCapture() {
-		while(index < count) {
-			Move move = move(index);
-			if (move != null) {
-				assert isCapture(move);
-				moveReset(index);
-				index++;
-				return move;
-			}
-			index++;
-		}
-		return null;
-	}
-	
 	private Move pv() {
 		if (pv == null) 
 			return null;

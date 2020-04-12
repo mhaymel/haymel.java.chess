@@ -35,7 +35,7 @@ public class IterativeSearch implements Search {  	//TODO unit test
 	public IterativeSearch(Game game, SearchInfo info) {
 		this.game = nonNull(game, "game");
 		this.stop = false;
-		search = new SearchAlphaBeta(game, info, new NodesCalculator(), new PVMoveIteratorCreator());
+		search = new SearchAlphaBeta(game, info, new NodesCalculator(), new PVMoveIteratorCreator(game));
 	}
 	
 	@Override

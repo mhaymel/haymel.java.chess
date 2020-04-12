@@ -7,10 +7,18 @@
  */
 package com.haymel.chess.engine.search.movesorting;
 
+import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.moves.Move;
 
 public class PVMoveIteratorCreator implements MoveIteratorCreator {	//TODO unit test
 
+	private final Game game;
+
+	public PVMoveIteratorCreator(Game game) {
+		assert game != null;
+		this.game = game;
+	}
+	
 	@Override
 	public MoveIterator create(Move[] moves, int start, int count, Move pv) {
 		assert moves != null;
@@ -18,7 +26,7 @@ public class PVMoveIteratorCreator implements MoveIteratorCreator {	//TODO unit 
 		assert count > 0;
 		assert start + count <= moves.length;
 		
-		return new PVMoveIterator(moves, start, count, pv);
+		return new PVMoveIterator(game, moves, start, count, pv);
 	}
 
 }
