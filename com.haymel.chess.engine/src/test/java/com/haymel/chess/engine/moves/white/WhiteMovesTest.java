@@ -45,7 +45,6 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.board.PieceList;
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.game.GameStartPos;
@@ -55,19 +54,17 @@ import com.haymel.chess.engine.moves.Moves;
 public class WhiteMovesTest {
 
 	private Moves moves;
-	private Game game;
 	
 	@Before
 	public void setup() {
 		moves = new Moves();
-		game = new GameStartPos().startPos();
 	}
 	
 	@Test
 	public void testStartPos() {
-		Board board = game.board();
+		Game game = new GameStartPos().startPos();
 		PieceList whitePieces = game.whitePieces();
-		WhiteMoves whiteMoves = new WhiteMoves(board);
+		WhiteMoves whiteMoves = new WhiteMoves(game.pieces());
 		whiteMoves.generate(whitePieces, removed, moves);
 		
 		assertThat(moves.size(), is(20));

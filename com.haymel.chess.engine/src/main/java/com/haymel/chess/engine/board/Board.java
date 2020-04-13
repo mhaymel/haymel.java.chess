@@ -10,61 +10,33 @@ package com.haymel.chess.engine.board;
 import static com.haymel.chess.engine.board.Field.up;
 import static com.haymel.chess.engine.piece.Piece.border;
 import static com.haymel.chess.engine.piece.Piece.free;
-import static java.lang.String.format;
 
 import com.haymel.chess.engine.piece.Piece;
 
 public final class Board {
 
-	public final Piece[] pieces = new Piece[up*up];
-	
-	public Board() {
-		reset();
+	public static Piece[] newBoard() {
+		return reset(new Piece[up*up]);
 	}
 	
-	private Piece piece(Field f) {
-		return pieces[f.position()];
-	}
-
-	public void place(Piece piece) {
-		assert !piece(piece.field()).border() : format("cannot place piece on border: %s", piece);
-		assert !piece.free() : format("piece.free() must return false for %s", piece);
-		assert (!piece.black() && piece.white()) || (piece.black() && !piece.white()): format("piece must be black or white %s", piece);
-		
-		pieces[piece.field().position()] = piece;
-	}
-
-	public void clear(Field f) {
-		assert !piece(f).border() : format("cannot clear border: %s", f);
-		pieces[f.position()] = free;
-	}
-	
-	public void reset() {		//TODO unit test
+	public static Piece[] reset(Piece[] pieces) {		//TODO unit test
 		for(int i = 0; i < pieces.length; i++)
 			pieces[i] = border;
 
 		Field f = Field.a1;
 		for(int i = 0; i < 8; i++) {
-			init(f);
+			init(f, pieces);
 			f = f.up();
 		}
+		
+		return pieces;
 	}
 	
-	public boolean isFree(Field f) {
-		assert f != null;
-		return piece(f).free();
-	}
-	
-	private void init(Field f) {
+	private static void init(Field f, Piece[] pieces) {
 		for(int i = 0; i < 8; i++) {
 			pieces[f.position()] = free;
 			f = f.right();
 		}
-	}
-
-	public boolean assertVerify() {
-		assert doVerify(pieces);
-		return true;
 	}
 
 	private static boolean doVerify(Piece[] pieces) {

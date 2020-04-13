@@ -19,13 +19,13 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.board.PieceList;
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.game.GameStartPos;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.Moves;
+import com.haymel.chess.engine.piece.Piece;
 
 public class BlackMovesTest {
 
@@ -40,9 +40,9 @@ public class BlackMovesTest {
 	
 	@Test
 	public void testStartPos() {
-		Board board = game.board();
+		Piece[] pieces = game.pieces();
 		PieceList blackPieces = game.blackPieces();
-		BlackMoves blackMoves = new BlackMoves(board);
+		BlackMoves blackMoves = new BlackMoves(pieces);
 		blackMoves.generate(blackPieces, removed, moves);
 		
 		assertThat(moves.size(), is(20));

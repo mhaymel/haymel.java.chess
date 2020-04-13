@@ -10,7 +10,6 @@ package com.haymel.chess.engine.moves.black;
 import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.piece.PieceType.BlackQueen;
 
-import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.piece.Piece;
@@ -19,10 +18,10 @@ public final class BlackQueenMoves {
 
 	private final Piece[] pieces;
 	
-	public BlackQueenMoves(Board board) {
-		assert board != null;
+	public BlackQueenMoves(Piece[] pieces) {
+		assert pieces != null;
 		
-		this.pieces = board.pieces;
+		this.pieces = pieces;
 	}
 	
 	public void generate(Piece piece, Moves moves) {

@@ -7,6 +7,7 @@
  */
 package com.haymel.chess.engine.moves.white;
 
+import static com.haymel.chess.engine.board.Board.newBoard;
 import static com.haymel.chess.engine.board.Field.a1;
 import static com.haymel.chess.engine.board.Field.a2;
 import static com.haymel.chess.engine.board.Field.a5;
@@ -64,7 +65,6 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.Moves;
@@ -74,15 +74,15 @@ import com.haymel.chess.engine.piece.PieceType;
 public class WhiteKingMovesTest {
 
 	private Moves moves;
-	private Board board;
 	private WhiteKingMoves kingMoves;
+	private Piece[] board;
 	private Piece king = new Piece(WhiteKing, removed);
 	
 	@Before
 	public void setup() {
 		moves = new Moves();
-		board = new Board();
-		kingMoves = new WhiteKingMoves(board.pieces);
+		board = newBoard();
+		kingMoves = new WhiteKingMoves(board);
 	}
 	
 	@Test
@@ -118,14 +118,14 @@ public class WhiteKingMovesTest {
 
 	@Test
 	public void testE4Capture() {
-		place(e5, BlackPawn);
-		place(f5, BlackPawn);
-		place(f4, BlackPawn);
-		place(f3, BlackPawn);
-		place(e3, BlackPawn);
-		place(d3, BlackPawn);
-		place(d4, BlackPawn);
-		place(d5, BlackPawn);
+		piece(e5, BlackPawn);
+		piece(f5, BlackPawn);
+		piece(f4, BlackPawn);
+		piece(f3, BlackPawn);
+		piece(e3, BlackPawn);
+		piece(d3, BlackPawn);
+		piece(d4, BlackPawn);
+		piece(d5, BlackPawn);
 		
 		king(e4);
 		kingMoves.generate(king, moves);
@@ -143,19 +143,19 @@ public class WhiteKingMovesTest {
 	}
 
 	private Move capture(Field from, Field to) {
-		return new Move(from, to, capture, board.pieces[to.position()]);
+		return new Move(from, to, capture, board[to.position()]);
 	}
 
 	@Test
 	public void testE4NoMove() {
-		place(e5, WhitePawn);
-		place(f5, WhitePawn);
-		place(f4, WhitePawn);
-		place(f3, WhitePawn);
-		place(e3, WhitePawn);
-		place(d3, WhitePawn);
-		place(d4, WhitePawn);
-		place(d5, WhitePawn);
+		piece(e5, WhitePawn);
+		piece(f5, WhitePawn);
+		piece(f4, WhitePawn);
+		piece(f3, WhitePawn);
+		piece(e3, WhitePawn);
+		piece(d3, WhitePawn);
+		piece(d4, WhitePawn);
+		piece(d5, WhitePawn);
 		
 		king(e4);
 		kingMoves.generate(king, moves);
@@ -276,7 +276,7 @@ public class WhiteKingMovesTest {
 		king(e1).setMoved(false);
 		rook(h1).setMoved(false);
 		
-		place(f1, WhiteBishop);
+		piece(f1, WhiteBishop);
 		kingMoves.generate(king, moves);
 		
 		Set<Move> result = movesAsSet();
@@ -1024,7 +1024,7 @@ public class WhiteKingMovesTest {
 
 	private Piece piece(Field f, PieceType t) {
 		Piece p = new Piece(t, f);
-		board.place(p);
+		board[p.field().position()] = p;
 		return p;
 	}
 	
@@ -1036,21 +1036,16 @@ public class WhiteKingMovesTest {
 		return new Move(e1, c1, queensideCastling);
 	}
 
-	private void place(Field f, PieceType t) {
-		Piece piece = new Piece(t, f);
-		board.place(piece);
-	}
-
 	private Piece king(Field f) {
 		king.field(f);
-		board.place(king);
+		board[king.field().position()] = king;
 		king.setMoved(true);
 		return king;
 	}
 	
 	private Piece rook(Field f) {
 		Piece p = new Piece(WhiteRook, f);
-		board.place(p);
+		board[p.field().position()] = p;
 		return p;
 	}
 	

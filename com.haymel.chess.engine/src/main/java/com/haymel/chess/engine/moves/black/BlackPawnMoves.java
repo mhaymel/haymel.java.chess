@@ -10,21 +10,17 @@ package com.haymel.chess.engine.moves.black;
 import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 
-import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.piece.Piece;
 
 public final class BlackPawnMoves {
 	
-	private final Board board;
 	private final Piece[] pieces;
 	
-	public BlackPawnMoves(Board board) {
-		assert board != null;
-		
-		this.board = board;
-		this.pieces = board.pieces;
+	public BlackPawnMoves(Piece[] pieces) {
+		assert pieces != null;
+		this.pieces = pieces;
 	}
 	
 	public void generate(Piece piece, Field epField, Moves moves) {
@@ -141,7 +137,7 @@ public final class BlackPawnMoves {
 	}
 
 	private boolean isFree(Field f) {
-		return board.isFree(f);
+		return pieces[f.position()].free();
 	}
 		
 }

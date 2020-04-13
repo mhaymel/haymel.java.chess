@@ -45,7 +45,6 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.board.PieceList;
 import com.haymel.chess.engine.moves.Move;
@@ -72,7 +71,7 @@ public class GameWhiteStartPosMakeAndUndoTest {
 		System.out.println("nodes:  " + count);
 		assertThat(count, is(197281L));
 		Moves moves = new Moves();
-		WhiteMoves whiteMoves = new WhiteMoves(game.board());
+		WhiteMoves whiteMoves = new WhiteMoves(game.pieces());
 		whiteMoves.generate(game.whitePieces(), game.enPassant(), moves);
 		
 		assertThat(moves.size(), is(20));
@@ -100,11 +99,9 @@ public class GameWhiteStartPosMakeAndUndoTest {
 	}
 
 	private void white(int depth) {
-		
-		Board board = game.board();
 		PieceList pieces = game.whitePieces();
 		Moves moves = new Moves();
-		WhiteMoves whiteMoves = new WhiteMoves(board);
+		WhiteMoves whiteMoves = new WhiteMoves(game.pieces());
 		whiteMoves.generate(pieces, game.enPassant(), moves);
 		
 		if (moves.kingCaptureCount() > 0)
@@ -135,10 +132,9 @@ public class GameWhiteStartPosMakeAndUndoTest {
 	}
 	
 	private void black(int depth) {
-		Board board = game.board();
 		PieceList pieces = game.blackPieces();
 		Moves moves = new Moves();
-		BlackMoves blackMoves = new BlackMoves(board);
+		BlackMoves blackMoves = new BlackMoves(game.pieces());
 		blackMoves.generate(pieces, game.enPassant(), moves);
 
 		if (moves.kingCaptureCount() > 0)

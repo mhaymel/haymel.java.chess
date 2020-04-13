@@ -10,26 +10,24 @@ package com.haymel.chess.engine.moves.black.capture;
 import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
 
-import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.piece.Piece;
 
 public final class BlackBishopCaptureMoves {	//TODO unit test
 	
-	private final Piece[] boardPieces;
+	private final Piece[] pieces;
 	
-	public BlackBishopCaptureMoves(Board board) {
-		assert board != null;
-		
-		this.boardPieces = board.pieces;
+	public BlackBishopCaptureMoves(Piece[] pieces) {
+		assert pieces != null;
+		this.pieces = pieces;
 	}
 	
 	public void generate(Piece piece, Moves moves) {
 		assert piece != null;
 		assert moves != null;
 		assert piece.field() != removed;
-		assert boardPieces[piece.field().position()] == piece;
+		assert pieces[piece.field().position()] == piece;
 		assert piece.type() == BlackBishop;
 
 		Field from = piece.field();
@@ -41,10 +39,10 @@ public final class BlackBishopCaptureMoves {	//TODO unit test
 
 	private void leftUp(Field from, Moves moves) {
 		Field to = from.leftUp();
-		Piece piece = boardPieces[to.position()];
+		Piece piece = pieces[to.position()];
 		while(piece.free()) {
 			to = to.leftUp();
-			piece = boardPieces[to.position()];
+			piece = pieces[to.position()];
 		}
 		if (piece.white()) 
 			moves.addCapture(from, to, piece);
@@ -52,10 +50,10 @@ public final class BlackBishopCaptureMoves {	//TODO unit test
 
 	private void leftDown(Field from, Moves moves) {
 		Field to = from.leftDown();
-		Piece piece = boardPieces[to.position()];
+		Piece piece = pieces[to.position()];
 		while(piece.free()) {
 			to = to.leftDown();
-			piece = boardPieces[to.position()];
+			piece = pieces[to.position()];
 		}
 		if (piece.white()) 
 			moves.addCapture(from, to, piece);
@@ -63,10 +61,10 @@ public final class BlackBishopCaptureMoves {	//TODO unit test
 
 	private void rightUp(Field from, Moves moves) {
 		Field to = from.rightUp();
-		Piece piece = boardPieces[to.position()];
+		Piece piece = pieces[to.position()];
 		while(piece.free()) {
 			to = to.rightUp();
-			piece = boardPieces[to.position()];
+			piece = pieces[to.position()];
 		}
 		if (piece.white()) 
 			moves.addCapture(from, to, piece);
@@ -74,10 +72,10 @@ public final class BlackBishopCaptureMoves {	//TODO unit test
 
 	private void rightDown(Field from, Moves moves) {
 		Field to = from.rightDown();
-		Piece piece = boardPieces[to.position()];
+		Piece piece = pieces[to.position()];
 		while(piece.free()) {
 			to = to.rightDown();
-			piece = boardPieces[to.position()];
+			piece = pieces[to.position()];
 		}
 		if (piece.white()) 
 			moves.addCapture(from, to, piece);

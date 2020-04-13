@@ -10,21 +10,17 @@ package com.haymel.chess.engine.moves.black.capture;
 import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.piece.PieceType.BlackQueen;
 
-import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.piece.Piece;
 
 public final class BlackQueenCaptureMoves {	//TODO unit test
 
-	private final Board board;
 	private final Piece[] pieces;
 	
-	public BlackQueenCaptureMoves(Board board) {
-		assert board != null;
-		
-		this.board = board;
-		this.pieces = board.pieces;
+	public BlackQueenCaptureMoves(Piece[] pieces) {
+		assert pieces != null;
+		this.pieces = pieces;
 	}
 	
 	public void generate(Piece piece, Moves moves) {
@@ -83,7 +79,7 @@ public final class BlackQueenCaptureMoves {	//TODO unit test
 		Piece piece = pieces[to.position()];
 		while(piece.free()) {
 			to = to.right();
-			piece = board.pieces[to.position()];
+			piece = pieces[to.position()];
 		}
 		if (piece.white()) 
 			moves.addCapture(from, to, piece);

@@ -10,7 +10,6 @@ package com.haymel.chess.engine.moves.black.capture;
 import static com.haymel.chess.engine.board.Field.removed;
 import static java.lang.String.format;
 
-import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.piece.Piece;
@@ -19,10 +18,9 @@ public final class BlackRookCaptureMoves {		//TODO unit test
 
 	private final Piece[] pieces;
 	
-	public BlackRookCaptureMoves(Board board) {
-		assert board != null;
-		
-		this.pieces = board.pieces;
+	public BlackRookCaptureMoves(Piece[] pieces) {
+		assert pieces != null;
+		this.pieces = pieces;
 	}
 	
 	public void generate(Piece piece, Moves moves) {

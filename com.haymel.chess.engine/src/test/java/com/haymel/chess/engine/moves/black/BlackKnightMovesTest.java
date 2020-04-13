@@ -50,14 +50,14 @@ import com.haymel.chess.engine.piece.PieceType;
 public class BlackKnightMovesTest {
 
 	private Moves moves;
-	private Board board;
+	private Piece[] board;
 	private BlackKnightMoves knightMoves;
 	private Piece knight = new Piece(BlackKnight, removed);
 	
 	@Before
 	public void setup() {
 		moves = new Moves();
-		board = new Board();
+		board = Board.newBoard();
 		knightMoves = new BlackKnightMoves(board);
 	}
 	
@@ -169,7 +169,7 @@ public class BlackKnightMovesTest {
 	}
 	
 	private Move capture(Field from, Field to) {
-		return new Move(from, to, capture, board.pieces[to.position()]);
+		return new Move(from, to, capture, board[to.position()]);
 	}
 	
 	private Piece blackPawn(Field f) {
@@ -182,13 +182,13 @@ public class BlackKnightMovesTest {
 	
 	private Piece piece(Field f, PieceType t) {
 		Piece p = new Piece(t, f);
-		board.place(p);
+		board[p.field().position()] = p;
 		return p;
 	}
 	
 	private void knight(Field f) {
 		knight.field(f);
-		board.place(knight);
+		board[knight.field().position()] = knight;
 	}
 	
 	private Set<Move> movesAsSet() {

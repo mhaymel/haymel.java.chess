@@ -20,7 +20,6 @@ import org.junit.Test;
 
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.game.StartposCreator;
-import com.haymel.chess.uciengine.UciMoveMaker;
 
 public class UciMoveMakerTest {
 
@@ -61,7 +60,7 @@ public class UciMoveMakerTest {
 		for (String move : moves) 
 			uciMoveMaker.move(move);
 		
-		assertThat(game.board().pieces[d1.position()].type(), is(BlackQueen));
+		assertThat(game.pieces()[d1.position()].type(), is(BlackQueen));
 	}
 	
 	@Test
@@ -79,7 +78,7 @@ public class UciMoveMakerTest {
 		for (String move : moves) 
 			uciMoveMaker.move(move);
 
-		assertThat(game.board().pieces[d1.position()].type(), is(BlackRook));
+		assertThat(game.pieces()[d1.position()].type(), is(BlackRook));
 	}
 
 	@Test
@@ -97,7 +96,7 @@ public class UciMoveMakerTest {
 		for (String move : moves) 
 			uciMoveMaker.move(move);
 
-		assertThat(game.board().pieces[d1.position()].type(), is(BlackBishop));
+		assertThat(game.pieces()[d1.position()].type(), is(BlackBishop));
 	}
 	
 	@Test
@@ -115,6 +114,6 @@ public class UciMoveMakerTest {
 		for (String move : moves) 
 			uciMoveMaker.move(move);
 
-		assertThat(game.board().pieces[d1.position()].type(), is(BlackKnight));
+		assertThat(game.pieces()[d1.position()].type(), is(BlackKnight));
 	}
 }

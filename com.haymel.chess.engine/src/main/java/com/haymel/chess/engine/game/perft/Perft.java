@@ -13,7 +13,6 @@ import static java.lang.String.format;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.board.PieceList;
 import com.haymel.chess.engine.game.ActiveColor;
@@ -45,10 +44,9 @@ public class Perft {
 	}
 
 	private void white(int depth) {
-		Board board = game.board();
 		PieceList pieces = game.whitePieces();
 		Moves moves = new Moves();
-		WhiteMoves whiteMoves = new WhiteMoves(board);
+		WhiteMoves whiteMoves = new WhiteMoves(game.pieces());
 		whiteMoves.generate(pieces, game.enPassant(), moves);
 		
 		if (moves.kingCaptureCount() > 0)
@@ -79,10 +77,9 @@ public class Perft {
 	}
 	
 	private void black(int depth) {
-		Board board = game.board();
 		PieceList pieces = game.blackPieces();
 		Moves moves = new Moves();
-		BlackMoves blackMoves = new BlackMoves(board);
+		BlackMoves blackMoves = new BlackMoves(game.pieces());
 		blackMoves.generate(pieces, game.enPassant(), moves);
 
 		if (moves.kingCaptureCount() > 0)

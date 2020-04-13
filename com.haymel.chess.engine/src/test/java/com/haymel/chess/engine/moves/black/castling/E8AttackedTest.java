@@ -46,11 +46,11 @@ import com.haymel.chess.engine.piece.PieceType;
 
 public class E8AttackedTest {
 
-	private Board board;
+	private Piece[] board;
 	
 	@Before
 	public void setup() {
-		board = new Board();
+		board = Board.newBoard();
 	}
 	
 	@Test
@@ -307,7 +307,7 @@ public class E8AttackedTest {
 	
 	private Piece piece(Field f, PieceType t) {
 		Piece p = new Piece(t, f);
-		board.place(p);
+		board[p.field().position()] = p;
 		return p;
 	}
 	

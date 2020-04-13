@@ -74,14 +74,14 @@ import com.haymel.chess.engine.piece.PieceType;
 public class WhiteQueenMovesTest {
 
 	private Moves moves;
-	private Board board;
+	private Piece[] board;
 	private WhiteQueenMoves queenMoves;
 	private Piece queen = new Piece(WhiteQueen, removed);
 	
 	@Before
 	public void setup() {
 		moves = new Moves();
-		board = new Board();
+		board = Board.newBoard();
 		queenMoves = new WhiteQueenMoves(board);
 	}
 	
@@ -195,7 +195,7 @@ public class WhiteQueenMovesTest {
 	}
 	
 	private Move capture(Field from, Field to) {
-		return new Move(from, to, capture, board.pieces[to.position()]);
+		return new Move(from, to, capture, board[to.position()]);
 	}
 	
 	private Piece blackPawn(Field f) {
@@ -208,13 +208,13 @@ public class WhiteQueenMovesTest {
 	
 	private Piece piece(Field f, PieceType t) {
 		Piece p = new Piece(t, f);
-		board.place(p);
+		board[p.field().position()] = p;
 		return p;
 	}
 	
 	private void queen(Field f) {
 		queen.field(f);
-		board.place(queen);
+		board[queen.field().position()] = queen;
 	}
 	
 	private Set<Move> movesAsSet() {

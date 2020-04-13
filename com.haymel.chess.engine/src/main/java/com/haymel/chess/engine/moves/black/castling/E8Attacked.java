@@ -23,85 +23,85 @@ import com.haymel.chess.engine.piece.Piece;
 
 public final class E8Attacked {
 
-	public static boolean e8Attacked(Board board) {
-		assert board != null;
-		assert board.assertVerify();
+	public static boolean e8Attacked(Piece[] pieces) {
+		assert pieces != null;
+		assert Board.assertVerify(pieces);
  
 		return 
-			e7e1(board) || 
-			d8a8(board) ||
-			f8h8(board) ||
-			d7a4(board) ||
-			f7h5(board) ||
-			knights(board) || 
-			pawns(board);
+			e7e1(pieces) || 
+			d8a8(pieces) ||
+			f8h8(pieces) ||
+			d7a4(pieces) ||
+			f7h5(pieces) ||
+			knights(pieces) || 
+			pawns(pieces);
 	}
 
-	static boolean e7e1(Board board) {
+	static boolean e7e1(Piece[] pieces) {
 		Field f = e7;
-		Piece piece = board.pieces[f.position()];
+		Piece piece = pieces[f.position()];
 		while(piece.free()) {
 			f = f.down();
-			piece = board.pieces[f.position()];
+			piece = pieces[f.position()];
 		}
 		
 		return piece.whiteRook() || piece.whiteQueen();
 	}
 	
-	static boolean d8a8(Board board) {
+	static boolean d8a8(Piece[] pieces) {
 		Field f = d8;
-		Piece piece = board.pieces[f.position()];
+		Piece piece = pieces[f.position()];
 		while(piece.free()) {
 			f = f.left();
-			piece = board.pieces[f.position()];
+			piece = pieces[f.position()];
 		}
 		
 		return piece.whiteRook() || piece.whiteQueen();
 	}
 	
-	static boolean f8h8(Board board) {
+	static boolean f8h8(Piece[] pieces) {
 		Field f = f8;
-		Piece piece = board.pieces[f.position()];
+		Piece piece = pieces[f.position()];
 		while(piece.free()) {
 			f = f.right();
-			piece = board.pieces[f.position()];
+			piece = pieces[f.position()];
 		}
 		
 		return piece.whiteRook() || piece.whiteQueen();
 	}
 	
-	static boolean d7a4(Board board) {
+	static boolean d7a4(Piece[] pieces) {
 		Field f = d7;
-		Piece piece = board.pieces[f.position()];
+		Piece piece = pieces[f.position()];
 		while(piece.free()) {
 			f = f.leftDown();
-			piece = board.pieces[f.position()];
+			piece = pieces[f.position()];
 		}
 		
 		return piece.whiteBishop() || piece.whiteQueen();
 	}
 	
-	static boolean f7h5(Board board) {
+	static boolean f7h5(Piece[] pieces) {
 		Field f = f7;
-		Piece piece = board.pieces[f.position()];
+		Piece piece = pieces[f.position()];
 		while(piece.free()) {
 			f = f.rightDown();
-			piece = board.pieces[f.position()];
+			piece = pieces[f.position()];
 		}
 		
 		return piece.whiteBishop() || piece.whiteQueen();
 	}
 	
-	static boolean knights(Board board) {
+	static boolean knights(Piece[] pieces) {
 		return 
-			board.pieces[c7.position()].whiteKnight() ||
-			board.pieces[d6.position()].whiteKnight() ||
-			board.pieces[f6.position()].whiteKnight() ||
-			board.pieces[g7.position()].whiteKnight();
+			pieces[c7.position()].whiteKnight() ||
+			pieces[d6.position()].whiteKnight() ||
+			pieces[f6.position()].whiteKnight() ||
+			pieces[g7.position()].whiteKnight();
 	}
 
-	static boolean pawns(Board board) {
-		return board.pieces[d7.position()].whitePawn() || board.pieces[f7.position()].whitePawn();
+	static boolean pawns(Piece[] pieces) {
+		return pieces[d7.position()].whitePawn() || pieces[f7.position()].whitePawn();
 	}
 
 }

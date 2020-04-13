@@ -7,6 +7,7 @@
  */
 package com.haymel.chess.engine.moves.black.castling;
 
+import static com.haymel.chess.engine.board.Board.newBoard;
 import static com.haymel.chess.engine.board.Field.a3;
 import static com.haymel.chess.engine.board.Field.b4;
 import static com.haymel.chess.engine.board.Field.d7;
@@ -35,18 +36,17 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.piece.Piece;
 import com.haymel.chess.engine.piece.PieceType;
 
 public class F8AttackedTest {
 
-	private Board board;
+	private Piece[] board;
 	
 	@Before
 	public void setup() {
-		board = new Board();
+		board = newBoard();
 	}
 	
 	@Test
@@ -261,7 +261,7 @@ public class F8AttackedTest {
 	
 	private Piece piece(Field f, PieceType t) {
 		Piece p = new Piece(t, f);
-		board.place(p);
+		board[p.field().position()] = p;
 		return p;
 	}
 	

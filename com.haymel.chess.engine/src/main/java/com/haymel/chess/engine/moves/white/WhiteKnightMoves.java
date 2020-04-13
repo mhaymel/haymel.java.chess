@@ -9,7 +9,6 @@ package com.haymel.chess.engine.moves.white;
 
 import static com.haymel.chess.engine.board.Field.removed;
 
-import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.piece.Piece;
@@ -18,10 +17,9 @@ public final class WhiteKnightMoves {
 
 	private final Piece[] pieces;
 	
-	public WhiteKnightMoves(Board board) {
-		assert board != null;
-		
-		this.pieces = board.pieces;
+	public WhiteKnightMoves(Piece[] pieces) {
+		assert pieces != null;
+		this.pieces = pieces;
 	}
 	
 	public void generate(Piece knight, Moves moves) {

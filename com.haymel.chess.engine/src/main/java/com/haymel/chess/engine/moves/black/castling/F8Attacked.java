@@ -30,62 +30,62 @@ public final class F8Attacked {
 	 * This will be checked in {@link E8Attacked#e8Attacked(Board)}.
 	 * 
 	 */
-	public static boolean f8Attacked(Board board) {
-		assert board != null;
-		assert board.assertVerify();
+	public static boolean f8Attacked(Piece[] pieces) {
+		assert pieces != null;
+		assert Board.assertVerify(pieces);
 		
 		return 
-			f7f1(board) || 
-			e7a3(board) ||
-			g7h6(board) ||
-			knights(board) || 
-			pawns(board) ||
-			board.pieces[g7.position()].whiteKing();
+			f7f1(pieces) || 
+			e7a3(pieces) ||
+			g7h6(pieces) ||
+			knights(pieces) || 
+			pawns(pieces) ||
+			pieces[g7.position()].whiteKing();
 	}
 
-	static boolean f7f1(Board board) {
+	static boolean f7f1(Piece[] pieces) {
 		Field f = f7;
-		Piece piece = board.pieces[f.position()];
+		Piece piece = pieces[f.position()];
 		while(piece.free()) {
 			f = f.down();
-			piece = board.pieces[f.position()];
+			piece = pieces[f.position()];
 		}
 		
 		return piece.whiteRook() || piece.whiteQueen();
 	}
 	
-	static boolean e7a3(Board board) {
+	static boolean e7a3(Piece[] pieces) {
 		Field f = e7;
-		Piece piece = board.pieces[f.position()];
+		Piece piece = pieces[f.position()];
 		while(piece.free()) {
 			f = f.leftDown();
-			piece = board.pieces[f.position()];
+			piece = pieces[f.position()];
 		}
 		
 		return piece.whiteBishop() || piece.whiteQueen();
 	}
 	
-	static boolean g7h6(Board board) {
+	static boolean g7h6(Piece[] pieces) {
 		Field f = g7;
-		Piece piece = board.pieces[f.position()];
+		Piece piece = pieces[f.position()];
 		while(piece.free()) {
 			f = f.rightDown();
-			piece = board.pieces[f.position()];
+			piece = pieces[f.position()];
 		}
 		
 		return piece.whiteBishop() || piece.whiteQueen();
 	}
 	
-	static boolean knights(Board board) {
+	static boolean knights(Piece[] pieces) {
 		return 
-			board.pieces[d7.position()].whiteKnight() ||
-			board.pieces[e6.position()].whiteKnight() ||
-			board.pieces[g6.position()].whiteKnight() ||
-			board.pieces[h7.position()].whiteKnight();
+			pieces[d7.position()].whiteKnight() ||
+			pieces[e6.position()].whiteKnight() ||
+			pieces[g6.position()].whiteKnight() ||
+			pieces[h7.position()].whiteKnight();
 	}
 
-	static boolean pawns(Board board) {
-		return board.pieces[e7.position()].whitePawn() || board.pieces[g7.position()].whitePawn();
+	static boolean pawns(Piece[] pieces) {
+		return pieces[e7.position()].whitePawn() || pieces[g7.position()].whitePawn();
 	}
 
 }

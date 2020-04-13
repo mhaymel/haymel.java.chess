@@ -7,6 +7,7 @@
  */
 package com.haymel.chess.engine.moves.black;
 
+import static com.haymel.chess.engine.board.Board.newBoard;
 import static com.haymel.chess.engine.board.Field.a5;
 import static com.haymel.chess.engine.board.Field.a6;
 import static com.haymel.chess.engine.board.Field.a7;
@@ -60,7 +61,6 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.Moves;
@@ -70,13 +70,13 @@ import com.haymel.chess.engine.piece.PieceType;
 public class BlackPawnMoveTest {
 
 	private Moves moves;
-	private Board board;
+	private Piece[] board;
 	private BlackPawnMoves pawnMoves;
 	
 	@Before
 	public void setup() {
 		moves = new Moves();
-		board = new Board();
+		board = newBoard();
 		pawnMoves = new BlackPawnMoves(board);
 	}
 	
@@ -352,7 +352,7 @@ public class BlackPawnMoveTest {
 	}
 	
 	private Move capture(Field from, Field to) {
-		return new Move(from, to, capture, board.pieces[to.position()]);
+		return new Move(from, to, capture, board[to.position()]);
 	}
 	
 	private Piece blackPawn(Field f) {
@@ -361,7 +361,7 @@ public class BlackPawnMoveTest {
 	
 	private Piece piece(Field f, PieceType t) {
 		Piece p = new Piece(t, f);
-		board.place(p);
+		board[p.field().position()] = p;
 		return p;
 	}
 

@@ -7,6 +7,7 @@
  */
 package com.haymel.chess.engine.moves.black;
 
+import static com.haymel.chess.engine.board.Board.newBoard;
 import static com.haymel.chess.engine.board.Field.a1;
 import static com.haymel.chess.engine.board.Field.a2;
 import static com.haymel.chess.engine.board.Field.a3;
@@ -60,7 +61,6 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.Moves;
@@ -70,14 +70,14 @@ import com.haymel.chess.engine.piece.PieceType;
 public class BlackRookMovesTest {
 
 	private Moves moves;
-	private Board board;
+	private Piece[] board;
 	private BlackRookMoves rookMoves;
 	private Piece rook = new Piece(BlackRook, removed);
 	
 	@Before
 	public void setup() {
 		moves = new Moves();
-		board = new Board();
+		board = newBoard();
 		rookMoves = new BlackRookMoves(board);
 	}
 	
@@ -184,7 +184,7 @@ public class BlackRookMovesTest {
 	}
 	
 	private Move capture(Field from, Field to) {
-		return new Move(from, to, capture, board.pieces[to.position()]);
+		return new Move(from, to, capture, board[to.position()]);
 	}
 	
 	private Piece blackPawn(Field f) {
@@ -197,14 +197,13 @@ public class BlackRookMovesTest {
 	
 	private Piece piece(Field f, PieceType t) {
 		Piece p = new Piece(t, f);
-		p.field(f);
-		board.place(p);
+		board[p.field().position()] = p;
 		return p;
 	}
 	
 	private void rook(Field f) {
 		rook.field(f);
-		board.place(rook);
+		board[rook.field().position()] = rook;
 	}
 	
 	private Set<Move> movesAsSet() {

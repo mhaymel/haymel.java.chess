@@ -20,7 +20,6 @@ import static com.haymel.chess.engine.moves.black.castling.E8Attacked.e8Attacked
 import static com.haymel.chess.engine.moves.black.castling.F8Attacked.f8Attacked;
 import static java.lang.String.format;
 
-import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.moves.black.castling.D8Attacked;
@@ -28,14 +27,11 @@ import com.haymel.chess.engine.piece.Piece;
 
 public final class BlackKingMoves {
 
-	private final Board board;
 	private final Piece[] pieces;
 	
-	public BlackKingMoves(Board board) {
-		assert board != null;
-		
-		this.board = board;
-		this.pieces = board.pieces;
+	public BlackKingMoves(Piece[] pieces) {
+		assert pieces != null;
+		this.pieces = pieces;
 	}
 	
 	public void generate(Piece king, Moves moves) {
@@ -66,19 +62,19 @@ public final class BlackKingMoves {
 	private void kingSidecasteling(Piece king, Moves moves) {
 		assert king.field() == e8;
 		
-		if (!board.isFree(f8))
+		if (!isFree(f8))
 			return;
 
-		if (!board.isFree(g8))
+		if (!isFree(g8))
 			return;
 		
 		if (isNoRookOrMoved(h8))
 			return;
 		
-		if (e8Attacked(board))
+		if (e8Attacked(pieces))
 			return;
 
-		if (f8Attacked(board))
+		if (f8Attacked(pieces))
 			return; 
 		
 		moves.addBlackKingSideCastling();
@@ -87,22 +83,22 @@ public final class BlackKingMoves {
 	private void queenSidecasteling(Piece king, Moves moves) {
 		assert king.field() == e8;
 
-		if (!board.isFree(d8))
+		if (!isFree(d8))
 			return;
 
-		if (!board.isFree(c8))
+		if (!isFree(c8))
 			return;
 
-		if (!board.isFree(b8))
+		if (!isFree(b8))
 			return;
 		
 		if (isNoRookOrMoved(a8))
 			return;
 		
-		if (e8Attacked(board))
+		if (e8Attacked(pieces))
 			return;
 		
-		if (D8Attacked.d8Attacked(board))
+		if (D8Attacked.d8Attacked(pieces))
 			return;
 
 		moves.addBlackQueenSideCastling();
@@ -130,5 +126,10 @@ public final class BlackKingMoves {
 	private boolean isNoRookOrMoved(Field f) {
 		return !isBlackRook(f) || isMoved(f);
 	}
+	
+	private boolean isFree(Field f) {
+		return pieces[f.position()].free();
+	}
+
 	
 }

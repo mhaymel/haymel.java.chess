@@ -10,7 +10,6 @@ package com.haymel.chess.engine.moves.black.capture;
 import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 
-import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.piece.Piece;
@@ -19,10 +18,9 @@ public final class BlackPawnCaptureMoves {
 	
 	private final Piece[] pieces;
 	
-	public BlackPawnCaptureMoves(Board board) {
-		assert board != null;
-		
-		this.pieces = board.pieces;
+	public BlackPawnCaptureMoves(Piece[] pieces) {
+		assert pieces != null;
+		this.pieces = pieces;
 	}
 	
 	public void generate(Piece piece, Field epField, Moves moves) {

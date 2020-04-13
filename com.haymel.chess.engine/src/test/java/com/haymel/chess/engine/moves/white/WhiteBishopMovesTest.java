@@ -53,14 +53,14 @@ import com.haymel.chess.engine.piece.PieceType;
 public class WhiteBishopMovesTest {
 
 	private Moves moves;
-	private Board board;
+	private Piece[] board;
 	private WhiteBishopMoves bishopMoves;
 	private Piece bishop = new Piece(WhiteBishop, removed);
 	
 	@Before
 	public void setup() {
 		moves = new Moves();
-		board = new Board();
+		board = Board.newBoard();
 		bishopMoves = new WhiteBishopMoves(board);
 	}
 	
@@ -134,7 +134,7 @@ public class WhiteBishopMovesTest {
 	}
 	
 	private Move capture(Field from, Field to) {
-		return new Move(from, to, capture, board.pieces[to.position()]);
+		return new Move(from, to, capture, board[to.position()]);
 	}
 	
 	private Piece blackPawn(Field f) {
@@ -147,13 +147,13 @@ public class WhiteBishopMovesTest {
 	
 	private Piece piece(Field f, PieceType t) {
 		Piece p = new Piece(t, f);
-		board.place(p);
+		board[p.field().position()] = p;
 		return p;
 	}
 	
 	private void bishop(Field f) {
 		bishop.field(f);
-		board.place(bishop);
+		board[bishop.field().position()] = bishop;
 	}
 	
 	private Set<Move> movesAsSet() {

@@ -9,7 +9,6 @@ package com.haymel.chess.engine.moves.white.capture;
 
 import static com.haymel.chess.engine.board.Field.removed;
 
-import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.piece.Piece;
@@ -19,10 +18,9 @@ public final class WhitePawnCaptureMoves {	//TODO unit test
 	
 	private final Piece[] pieces;
 	
-	public WhitePawnCaptureMoves(Board board) {	
-		assert board != null;
-		
-		this.pieces = board.pieces;
+	public WhitePawnCaptureMoves(Piece[] pieces) {	
+		assert pieces != null;
+		this.pieces = pieces;
 	}
 	
 	public void generate(Piece piece, Field epField, Moves moves) {

@@ -7,6 +7,7 @@
  */
 package com.haymel.chess.engine.moves.white;
 
+import static com.haymel.chess.engine.board.Board.newBoard;
 import static com.haymel.chess.engine.board.Field.a1;
 import static com.haymel.chess.engine.board.Field.a8;
 import static com.haymel.chess.engine.board.Field.b3;
@@ -40,7 +41,6 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.Moves;
@@ -50,14 +50,14 @@ import com.haymel.chess.engine.piece.PieceType;
 public class WhiteKnightMovesTest {
 
 	private Moves moves;
-	private Board board;
+	private Piece[] board;
 	private WhiteKnightMoves knightMoves;
 	private Piece knight = new Piece(WhiteKnight, removed);
 	
 	@Before
 	public void setup() {
 		moves = new Moves();
-		board = new Board();
+		board = newBoard();
 		knightMoves = new WhiteKnightMoves(board);
 	}
 	
@@ -169,7 +169,7 @@ public class WhiteKnightMovesTest {
 	}
 	
 	private Move capture(Field from, Field to) {
-		return new Move(from, to, capture, board.pieces[to.position()]);
+		return new Move(from, to, capture, board[to.position()]);
 	}
 	
 	private Piece blackPawn(Field f) {
@@ -183,13 +183,13 @@ public class WhiteKnightMovesTest {
 	private Piece piece(Field f, PieceType t) {
 		Piece p = new Piece(t, removed);
 		p.field(f);
-		board.place(p);
+		board[p.field().position()] = p;
 		return p;
 	}
 	
 	private void knight(Field f) {
 		knight.field(f);
-		board.place(knight);
+		board[knight.field().position()] = knight;
 	}
 	
 	private Set<Move> movesAsSet() {

@@ -21,7 +21,6 @@ import static com.haymel.chess.engine.moves.white.castling.E1Attacked.e1Attacked
 import static com.haymel.chess.engine.moves.white.castling.F1Attacked.f1Attacked;
 import static java.lang.String.format;
 
-import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.piece.Piece;
@@ -36,6 +35,8 @@ public final class WhiteKingMoves {
 	}
 	
 	public void generate(Piece king, Moves moves) {
+		if (pieces[king.field().position()] != king)
+			System.out.println(king);
 		assert king != null;
 		assert moves != null;
 		assert king.field() != removed;

@@ -9,7 +9,6 @@ package com.haymel.chess.engine.moves.white.capture;
 
 import static com.haymel.chess.engine.board.Field.removed;
 
-import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.board.PieceList;
 import com.haymel.chess.engine.moves.Moves;
@@ -24,15 +23,15 @@ public final class WhiteCaptureMoves {		//TODO unit test
 	private final WhiteQueenCaptureMoves queenMoves;
 	private final WhitePawnCaptureMoves pawnMoves;
 	
-	public WhiteCaptureMoves(Board board) {
-		assert board != null;
+	public WhiteCaptureMoves(Piece[] pieces) {
+		assert pieces != null;
 		
-		this.kingMoves = new WhiteKingCaptureMoves(board);
-		this.rookMoves = new WhiteRookCaptureMoves(board);
-		this.knightMoves = new WhiteKnightCaptureMoves(board);
-		this.bishopMoves = new WhiteBishopCaptureMoves(board);
-		this.queenMoves = new WhiteQueenCaptureMoves(board);
-		this.pawnMoves = new WhitePawnCaptureMoves(board);
+		this.kingMoves = new WhiteKingCaptureMoves(pieces);
+		this.rookMoves = new WhiteRookCaptureMoves(pieces);
+		this.knightMoves = new WhiteKnightCaptureMoves(pieces);
+		this.bishopMoves = new WhiteBishopCaptureMoves(pieces);
+		this.queenMoves = new WhiteQueenCaptureMoves(pieces);
+		this.pawnMoves = new WhitePawnCaptureMoves(pieces);
 	}
 	
 	public void generate(PieceList pieces, Field epField, Moves moves) {

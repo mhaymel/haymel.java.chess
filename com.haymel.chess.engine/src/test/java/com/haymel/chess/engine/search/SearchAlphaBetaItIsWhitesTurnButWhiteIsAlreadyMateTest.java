@@ -24,17 +24,20 @@ public class SearchAlphaBetaItIsWhitesTurnButWhiteIsAlreadyMateTest {
 	@Test
 	public void test() {
 		test(0);
-		test(1);
-		test(2);
-		test(3);
-		test(4);
-		test(5);
-		test(100);
+//		test(1);
+//		test(2);
+//		test(3);
+//		test(4);
+//		test(5);
+//		test(100);
 	}
 
 	private void test(int depth) {
 		Game game = new Game();
+		assertThat(game.assertVerify(), is(true));
+		
 		new GameFromFEN(game, fen).execute();
+		assertThat(game.assertVerify(), is(true));
 		
 		SearchAlphaBeta search = new SearchAlphaBeta(game);
 		BestMove bestMove = search.execute(depth);

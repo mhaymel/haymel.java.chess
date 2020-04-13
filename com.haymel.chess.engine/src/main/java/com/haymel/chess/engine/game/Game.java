@@ -7,11 +7,14 @@
  */
 package com.haymel.chess.engine.game;
 
+import static com.haymel.chess.engine.board.Board.newBoard;
 import static com.haymel.chess.engine.board.Field.a3;
 import static com.haymel.chess.engine.board.Field.a6;
 import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
+import static com.haymel.chess.engine.piece.Piece.free;
+import static java.lang.String.format;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +35,7 @@ public final class Game {	//TODO unit test and refactor
 	private final List<Undo> undos = new ArrayList<>();
 	private final PieceList whitePieces = new PieceList();
 	private final PieceList blackPieces = new PieceList();
-	private final Board board;
+	private Piece[] board;
 	private ActiveColor activeColor;
 	private Field enPassant;
 	private int halfMoveClock;
@@ -43,7 +46,7 @@ public final class Game {	//TODO unit test and refactor
 	private final BlackCaptureMoves blackCaptureMoves;
 
 	public Game() {
-		this.board = new Board();
+		this.board = newBoard();
 		this.whiteMoves = new WhiteMoves(board);
 		this.whiteCaptureMoves = new WhiteCaptureMoves(board);
 		this.blackMoves = new BlackMoves(board);
@@ -53,7 +56,7 @@ public final class Game {	//TODO unit test and refactor
 	}
 
 	public void reset() {
-		board.reset();
+		Board.reset(board);
 		activeColor = white;
 		enPassant = removed;
 		halfMoveClock = 0;
@@ -90,11 +93,12 @@ public final class Game {	//TODO unit test and refactor
 	}
 
 	public Piece piece(Field field) {
-		return board.pieces[field.position()];
+		return board[field.position()];
 	}
 
-	public void clear(Field field) {
-		board.clear(field);
+	public void clear(Field f) {
+		assert !board[f.position()].border() : format("cannot clear border: %s", f);
+		board[f.position()] = free;
 	}
 
 	public void place(Piece piece) {
@@ -104,7 +108,7 @@ public final class Game {	//TODO unit test and refactor
 			piece.black() && blackPieces.contains(piece) || 
 			piece.white() && whitePieces.contains(piece);
 		
-		board.place(piece);
+		board[piece.field().position()] = piece;
 	}
 
 	private void push(Undo undo) {
@@ -117,11 +121,11 @@ public final class Game {	//TODO unit test and refactor
 
 	public void enPassant(Field field) {
 		assert field != null;
-		assert field == removed || board.pieces[field.position()].free();
+		assert field == removed || board[field.position()].free();
 		assert 
 			field == removed ||
-			activeColor == white && field.rank() == a3.rank() && board.pieces[field.up().position()].whitePawn()||
-			activeColor == black && field.rank() == a6.rank() && board.pieces[field.down().position()].blackPawn();
+			activeColor == white && field.rank() == a3.rank() && board[field.up().position()].whitePawn()||
+			activeColor == black && field.rank() == a6.rank() && board[field.down().position()].blackPawn();
 		
 		enPassant = field;
 	}
@@ -204,6 +208,7 @@ public final class Game {	//TODO unit test and refactor
 	}
 	
 	public Moves whiteMoves() {
+		
 		Moves moves = new Moves();
 		whiteMoves.generate(whitePieces, enPassant, moves);
 		return moves;
@@ -233,7 +238,7 @@ public final class Game {	//TODO unit test and refactor
 	}
 	
 	private boolean doVerify() {
-		assert board.assertVerify();
+		assert Board.assertVerify(board);
 		assert halfMoveClock >= 0;
 		assert fullMoveNumber > 0;
 		
@@ -241,21 +246,21 @@ public final class Game {	//TODO unit test and refactor
 		for(int i = 0; i < size; i++) {
 			Piece piece = whitePieces.piece(i);
 			assert piece.white();
-			assert board.pieces[piece.field().position()] == piece : piece.toString() + " != " + board.pieces[piece.field().position()];
+			assert board[piece.field().position()] == piece : piece.toString() + " != " + board[piece.field().position()];
 		}
 
 		size = blackPieces.size();
 		for(int i = 0; i < size; i++) {
 			Piece piece = blackPieces.piece(i);
 			assert piece.black();
-			assert board.pieces[piece.field().position()] == piece;
+			assert board[piece.field().position()] == piece;
 		}
 		
 		Field fy = Field.a1;
 		for(int y = 0; y < 8; y++) {
 			Field fx = fy;
 			for(int x = 0; x < 8; x++) {
-				Piece p = board.pieces[fx.position()];
+				Piece p = board[fx.position()];
 				assert !p.border();
 				if (p.black()) 
 					assert blackPieces.contains(p);
@@ -283,16 +288,16 @@ public final class Game {	//TODO unit test and refactor
 		blackPieces.add(piece);
 	}
 
-	public Board board() {
-		return board;
-	}
-
 	public PieceList whitePieces() {
 		return whitePieces;
 	}
 
 	public PieceList blackPieces() {
 		return blackPieces;
+	}
+
+	public Piece[] pieces() {
+		return board;
 	}
 
 }

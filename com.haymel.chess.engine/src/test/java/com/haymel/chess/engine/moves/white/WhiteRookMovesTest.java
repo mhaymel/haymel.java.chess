@@ -70,15 +70,15 @@ import com.haymel.chess.engine.piece.PieceType;
 public class WhiteRookMovesTest {
 
 	private Moves moves;
-	private Board board;
 	private WhiteRookMoves rookMoves;
 	private Piece rook = new Piece(WhiteRook, removed);
+	private Piece[] pieces;
 	
 	@Before
 	public void setup() {
 		moves = new Moves();
-		board = new Board();
-		rookMoves = new WhiteRookMoves(board);
+		pieces = Board.newBoard();
+		rookMoves = new WhiteRookMoves(pieces);
 	}
 	
 	@Test
@@ -184,7 +184,7 @@ public class WhiteRookMovesTest {
 	}
 	
 	private Move capture(Field from, Field to) {
-		return new Move(from, to, capture, board.pieces[to.position()]);
+		return new Move(from, to, capture, pieces[to.position()]);
 	}
 	
 	private Piece blackPawn(Field f) {
@@ -197,13 +197,13 @@ public class WhiteRookMovesTest {
 	
 	private Piece piece(Field f, PieceType t) {
 		Piece p = new Piece(t, f);
-		board.place(p);
+		pieces[p.field().position()] = p;
 		return p;
 	}
 	
 	private void rook(Field f) {
 		rook.field(f);
-		board.place(rook);
+		pieces[rook.field().position()] = rook;
 	}
 	
 	private Set<Move> movesAsSet() {

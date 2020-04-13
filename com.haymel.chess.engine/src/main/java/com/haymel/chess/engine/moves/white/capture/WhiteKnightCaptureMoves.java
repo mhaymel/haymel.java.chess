@@ -9,7 +9,6 @@ package com.haymel.chess.engine.moves.white.capture;
 
 import static com.haymel.chess.engine.board.Field.removed;
 
-import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.piece.Piece;
@@ -18,10 +17,9 @@ public final class WhiteKnightCaptureMoves {
 
 	private final Piece[] pieces;
 	
-	public WhiteKnightCaptureMoves(Board board) {	//TODO unit test
-		assert board != null;
-		
-		this.pieces = board.pieces;
+	public WhiteKnightCaptureMoves(Piece[] pieces) {	//TODO unit test
+		assert pieces != null;
+		this.pieces = pieces;
 	}
 	
 	public void generate(Piece knight, Moves moves) {

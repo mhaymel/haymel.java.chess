@@ -7,6 +7,7 @@
  */
 package com.haymel.chess.engine.moves.black;
 
+import static com.haymel.chess.engine.board.Board.newBoard;
 import static com.haymel.chess.engine.board.Field.a1;
 import static com.haymel.chess.engine.board.Field.a8;
 import static com.haymel.chess.engine.board.Field.b1;
@@ -43,7 +44,6 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.Moves;
@@ -53,14 +53,14 @@ import com.haymel.chess.engine.piece.PieceType;
 public class BlackBishopMovesTest {
 
 	private Moves moves;
-	private Board board;
+	private Piece[] board;
 	private BlackBishopMoves bishopMoves;
 	private Piece bishop = new Piece(BlackBishop, removed);
 	
 	@Before
 	public void setup() {
 		moves = new Moves();
-		board = new Board();
+		board = newBoard();
 		bishopMoves = new BlackBishopMoves(board);
 	}
 	
@@ -134,7 +134,7 @@ public class BlackBishopMovesTest {
 	}
 	
 	private Move capture(Field from, Field to) {
-		return new Move(from, to, capture, board.pieces[to.position()]);
+		return new Move(from, to, capture, board[to.position()]);
 	}
 	
 	private Piece blackPawn(Field f) {
@@ -147,13 +147,13 @@ public class BlackBishopMovesTest {
 	
 	private Piece piece(Field f, PieceType t) {
 		Piece p = new Piece(t, f);
-		board.place(p);
+		board[p.field().position()] = p;
 		return p;
 	}
 	
 	private void bishop(Field f) {
 		bishop.field(f);
-		board.place(bishop);
+		board[bishop.field().position()] = bishop;
 	}
 	
 	private Set<Move> movesAsSet() {
