@@ -17,19 +17,19 @@ import com.haymel.chess.engine.piece.Piece;
 
 public final class BlackQueenMoves {
 
-	private final Board board;
+	private final Piece[] pieces;
 	
 	public BlackQueenMoves(Board board) {
 		assert board != null;
 		
-		this.board = board;
+		this.pieces = board.pieces;
 	}
 	
 	public void generate(Piece piece, Moves moves) {
 		assert piece != null;
 		assert moves != null;
 		assert piece.field() != removed;
-		assert board.piece(piece.field()) == piece;
+		assert pieces[piece.field().position()] == piece;
 		assert piece.type() == BlackQueen;
 
 		Field from = piece.field();
@@ -45,11 +45,11 @@ public final class BlackQueenMoves {
 
 	private void up(Field from, Moves moves) {
 		Field to = from.up();
-		Piece piece = board.piece(to);
+		Piece piece = pieces[to.position()];
 		while(piece.free()) {
 			moves.add(from, to);
 			to = to.up();
-			piece = board.piece(to);
+			piece = pieces[to.position()];
 		}
 		if (piece.white()) 
 			moves.addCapture(from, to, piece);
@@ -57,11 +57,11 @@ public final class BlackQueenMoves {
 
 	private void down(Field from, Moves moves) {
 		Field to = from.down();
-		Piece piece = board.piece(to);
+		Piece piece = pieces[to.position()];
 		while(piece.free()) {
 			moves.add(from, to);
 			to = to.down();
-			piece = board.piece(to);		
+			piece = pieces[to.position()];		
 		}
 		if (piece.white()) 
 			moves.addCapture(from, to, piece);
@@ -69,11 +69,11 @@ public final class BlackQueenMoves {
 
 	private void left(Field from, Moves moves) {
 		Field to = from.left();
-		Piece piece = board.piece(to);
+		Piece piece = pieces[to.position()];
 		while(piece.free()) {
 			moves.add(from, to);
 			to = to.left();
-			piece = board.piece(to);
+			piece = pieces[to.position()];
 		}
 		if (piece.white()) 
 			moves.addCapture(from, to, piece);
@@ -81,11 +81,11 @@ public final class BlackQueenMoves {
 
 	private void right(Field from, Moves moves) {
 		Field to = from.right();
-		Piece piece = board.piece(to);
+		Piece piece = pieces[to.position()];
 		while(piece.free()) {
 			moves.add(from, to);
 			to = to.right();
-			piece = board.piece(to);
+			piece = pieces[to.position()];
 		}
 		if (piece.white()) 
 			moves.addCapture(from, to, piece);
@@ -93,11 +93,11 @@ public final class BlackQueenMoves {
 
 	private void leftUp(Field from, Moves moves) {
 		Field to = from.leftUp();
-		Piece piece = board.piece(to);
+		Piece piece = pieces[to.position()];
 		while(piece.free()) {
 			moves.add(from, to);
 			to = to.leftUp();
-			piece = board.piece(to);
+			piece = pieces[to.position()];
 		}
 		if (piece.white()) 
 			moves.addCapture(from, to, piece);
@@ -105,11 +105,11 @@ public final class BlackQueenMoves {
 
 	private void leftDown(Field from, Moves moves) {
 		Field to = from.leftDown();
-		Piece piece = board.piece(to);
+		Piece piece = pieces[to.position()];
 		while(piece.free()) {
 			moves.add(from, to);
 			to = to.leftDown();
-			piece = board.piece(to);
+			piece = pieces[to.position()];
 		}
 		if (piece.white()) 
 			moves.addCapture(from, to, piece);
@@ -117,11 +117,11 @@ public final class BlackQueenMoves {
 
 	private void rightUp(Field from, Moves moves) {
 		Field to = from.rightUp();
-		Piece piece = board.piece(to);
+		Piece piece = pieces[to.position()];
 		while(piece.free()) {
 			moves.add(from, to);
 			to = to.rightUp();
-			piece = board.piece(to);
+			piece = pieces[to.position()];
 		}
 		if (piece.white()) 
 			moves.addCapture(from, to, piece);
@@ -129,11 +129,11 @@ public final class BlackQueenMoves {
 
 	private void rightDown(Field from, Moves moves) {
 		Field to = from.rightDown();
-		Piece piece = board.piece(to);
+		Piece piece = pieces[to.position()];
 		while(piece.free()) {
 			moves.add(from, to);
 			to = to.rightDown();
-			piece = board.piece(to);
+			piece = pieces[to.position()];
 		}
 		if (piece.white()) 
 			moves.addCapture(from, to, piece);

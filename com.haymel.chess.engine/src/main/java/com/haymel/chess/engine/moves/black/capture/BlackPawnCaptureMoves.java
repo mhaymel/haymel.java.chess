@@ -17,12 +17,12 @@ import com.haymel.chess.engine.piece.Piece;
 
 public final class BlackPawnCaptureMoves {
 	
-	private final Board board;
+	private final Piece[] pieces;
 	
 	public BlackPawnCaptureMoves(Board board) {
 		assert board != null;
 		
-		this.board = board;
+		this.pieces = board.pieces;
 	}
 	
 	public void generate(Piece piece, Field epField, Moves moves) {
@@ -30,9 +30,9 @@ public final class BlackPawnCaptureMoves {
 		assert epField != null;
 		assert moves != null;
 		assert epField == removed || epField.rank() == 2;
-		assert epField == removed || board.piece(epField.up()).whitePawn();
+		assert epField == removed || pieces[epField.up().position()].whitePawn();
 		assert piece.field() != removed;
-		assert board.piece(piece.field()) == piece;
+		assert pieces[piece.field().position()] == piece;
 		assert piece.type() == BlackPawn;
 		
 		switch(piece.field().rank()) {
@@ -60,13 +60,13 @@ public final class BlackPawnCaptureMoves {
 		
 		Field leftDown = from.leftDown();
 		if (leftDown.equals(epField))
-			moves.addEnpassant(from, leftDown, board.piece(epField.up()));
+			moves.addEnpassant(from, leftDown, pieces[epField.up().position()]);
 		else
 			capture(from, leftDown, moves);
 		
 		Field rightDown = from.rightDown();
 		if (rightDown.equals(epField))
-			moves.addEnpassant(from, rightDown, board.piece(epField.up()));
+			moves.addEnpassant(from, rightDown, pieces[epField.up().position()]);
 		else
 			capture(from, rightDown, moves);
 	}
@@ -80,7 +80,7 @@ public final class BlackPawnCaptureMoves {
 	}
 	
 	private void capturePromotion(Field from, Field to, Moves moves) {
-		Piece piece = board.piece(to);
+		Piece piece = pieces[to.position()];
 		if (piece.white())
 			moves.addBlackCapturePromotion(from, to, piece);
 	}
@@ -98,7 +98,7 @@ public final class BlackPawnCaptureMoves {
 	}
 
 	private void capture(Field from, Field to, Moves moves) {
-		Piece piece = board.piece(to);
+		Piece piece = pieces[to.position()];
 		if (piece.white())
 			moves.addCapture(from, to, piece);
 	}

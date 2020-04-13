@@ -18,11 +18,13 @@ import com.haymel.chess.engine.piece.PieceType;
 public final class WhitePawnMoves {
 	
 	private final Board board;
+	private final Piece[] pieces;
 	
 	public WhitePawnMoves(Board board) {
 		assert board != null;
 		
 		this.board = board;
+		this.pieces = board.pieces;
 	}
 	
 	public void generate(Piece piece, Field epField, Moves moves) {
@@ -30,9 +32,9 @@ public final class WhitePawnMoves {
 		assert moves != null;
 		assert epField != null;
 		assert epField == Field.removed || epField.rank() == 5;
-		assert epField == Field.removed || board.piece(epField.down()).blackPawn();
+		assert epField == Field.removed || pieces[epField.down().position()].blackPawn();
 		assert piece.field() != removed;
-		assert board.piece(piece.field()) == piece;
+		assert pieces[piece.field().position()] == piece;
 		assert piece.type() == PieceType.WhitePawn;
 		
 		switch(piece.field().rank()) {
@@ -65,13 +67,13 @@ public final class WhitePawnMoves {
 		
 		Field leftUp = from.leftUp();
 		if (leftUp.equals(epField))
-			moves.addEnpassant(from, leftUp, board.piece(epField.down()));
+			moves.addEnpassant(from, leftUp, pieces[epField.down().position()]);
 		else
 			capture(from, leftUp, moves);
 		
 		Field rightUp = from.rightUp();
 		if (rightUp.equals(epField))
-			moves.addEnpassant(from, rightUp, board.piece(epField.down()));
+			moves.addEnpassant(from, rightUp, pieces[epField.down().position()]);
 		else
 			capture(from, rightUp, moves);
 	}
@@ -93,7 +95,7 @@ public final class WhitePawnMoves {
 	}
 	
 	private void capturePromotion(Field from, Field to, Moves moves) {
-		Piece piece = board.piece(to);
+		Piece piece = pieces[to.position()];
 		if (piece.black())
 			moves.addWhiteCapturePromotion(from, to, piece);
 	}
@@ -133,7 +135,7 @@ public final class WhitePawnMoves {
 	}
 	
 	private void capture(Field from, Field to, Moves moves) {
-		Piece piece = board.piece(to);
+		Piece piece = pieces[to.position()];
 		if (piece.black())
 			moves.addCapture(from, to, piece);
 	}

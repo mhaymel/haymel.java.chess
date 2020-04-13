@@ -90,7 +90,7 @@ public final class Game {	//TODO unit test and refactor
 	}
 
 	public Piece piece(Field field) {
-		return board.piece(field);
+		return board.pieces[field.position()];
 	}
 
 	public void clear(Field field) {
@@ -117,11 +117,11 @@ public final class Game {	//TODO unit test and refactor
 
 	public void enPassant(Field field) {
 		assert field != null;
-		assert field == removed || board.piece(field).free();
+		assert field == removed || board.pieces[field.position()].free();
 		assert 
 			field == removed ||
-			activeColor == white && field.rank() == a3.rank() && board.piece(field.up()).whitePawn()||
-			activeColor == black && field.rank() == a6.rank() && board.piece(field.down()).blackPawn();
+			activeColor == white && field.rank() == a3.rank() && board.pieces[field.up().position()].whitePawn()||
+			activeColor == black && field.rank() == a6.rank() && board.pieces[field.down().position()].blackPawn();
 		
 		enPassant = field;
 	}
@@ -241,21 +241,21 @@ public final class Game {	//TODO unit test and refactor
 		for(int i = 0; i < size; i++) {
 			Piece piece = whitePieces.piece(i);
 			assert piece.white();
-			assert board.piece(piece.field()) == piece : piece.toString() + " != " + board.piece(piece.field());
+			assert board.pieces[piece.field().position()] == piece : piece.toString() + " != " + board.pieces[piece.field().position()];
 		}
 
 		size = blackPieces.size();
 		for(int i = 0; i < size; i++) {
 			Piece piece = blackPieces.piece(i);
 			assert piece.black();
-			assert board.piece(piece.field()) == piece;
+			assert board.pieces[piece.field().position()] == piece;
 		}
 		
 		Field fy = Field.a1;
 		for(int y = 0; y < 8; y++) {
 			Field fx = fy;
 			for(int x = 0; x < 8; x++) {
-				Piece p = board.piece(fx);
+				Piece p = board.pieces[fx.position()];
 				assert !p.border();
 				if (p.black()) 
 					assert blackPieces.contains(p);

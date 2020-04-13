@@ -17,19 +17,19 @@ import com.haymel.chess.engine.piece.Piece;
 
 public final class BlackKingCaptureMoves {		//TODO unit test
 
-	private final Board board;
+	private final Piece[] pieces;
 	
 	public BlackKingCaptureMoves(Board board) {
 		assert board != null;
 		
-		this.board = board;
+		this.pieces = board.pieces;
 	}
 	
 	public void generate(Piece king, Moves moves) {
 		assert king != null;
 		assert moves != null;
 		assert king.field() != removed;
-		assert board.piece(king.field()) == king;
+		assert pieces[king.field().position()] == king;
 		assert king.blackKing() : format("piece must be black king but is %s", king);
 
 		Field from = king.field();
@@ -45,7 +45,7 @@ public final class BlackKingCaptureMoves {		//TODO unit test
 	}
 
 	private void add(Field from, Field to, Moves moves) {
-		Piece piece = board.piece(to);
+		Piece piece = pieces[to.position()];
 		
 		if (piece.white()) 
 			moves.addCapture(from, to, piece);

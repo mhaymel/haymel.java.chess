@@ -44,180 +44,182 @@ import com.haymel.chess.engine.piece.PieceType;
 public class F1AttackedTest {
 
 	private Board board;
+	private Piece[] pieces;
 	
 	@Before
 	public void setup() {
 		board = new Board();
+		pieces = board.pieces;
 	}
 	
 	@Test
 	public void testEmptyBoard() {
-		assertThat(f1Attacked(board), is(false));
+		assertThat(f1Attacked(pieces), is(false));
 	}
 
 	@Test
 	public void testBlackPwanOnE2() {
 		blackPawn(e2);
-		assertThat(f1Attacked(board), is(true));
+		assertThat(f1Attacked(pieces), is(true));
 	}
 
 	@Test
 	public void testBlackPwanOnF2() {
 		blackPawn(f2);
-		assertThat(f1Attacked(board), is(false));
+		assertThat(f1Attacked(pieces), is(false));
 	}
 
 	@Test
 	public void testBlackPwanOnG2() {
 		blackPawn(g2);
-		assertThat(f1Attacked(board), is(true));
+		assertThat(f1Attacked(pieces), is(true));
 	}
 	
 	@Test
 	public void testWhitePwanOnE2() {
 		whitePawn(e2);
-		assertThat(f1Attacked(board), is(false));
+		assertThat(f1Attacked(pieces), is(false));
 	}
 
 	@Test
 	public void testWhitePwanOnF2() {
 		whitePawn(f2);
-		assertThat(f1Attacked(board), is(false));
+		assertThat(f1Attacked(pieces), is(false));
 	}
 
 	@Test
 	public void testWhitePwanOnG2() {
 		whitePawn(g2);
-		assertThat(f1Attacked(board), is(false));
+		assertThat(f1Attacked(pieces), is(false));
 	}
 	
 	@Test
 	public void testBlackKnightOnD2() {
 		blackKnight(d2);
-		assertThat(f1Attacked(board), is(true));
+		assertThat(f1Attacked(pieces), is(true));
 	}
 	
 	@Test
 	public void testBlackKnightOnE3() {
 		blackKnight(e3);
-		assertThat(f1Attacked(board), is(true));
+		assertThat(f1Attacked(pieces), is(true));
 	}
 	
 	@Test
 	public void testBlackKnightOnG3() {
 		blackKnight(g3);
-		assertThat(f1Attacked(board), is(true));
+		assertThat(f1Attacked(pieces), is(true));
 	}
 	
 	@Test
 	public void testBlackKnightOnH2() {
 		blackKnight(h2);
-		assertThat(f1Attacked(board), is(true));
+		assertThat(f1Attacked(pieces), is(true));
 	}
 	
 	@Test
 	public void testWhiteKnightOnD2() {
 		whiteKnight(d2);
-		assertThat(f1Attacked(board), is(false));
+		assertThat(f1Attacked(pieces), is(false));
 	}
 	
 	@Test
 	public void testWhiteKnightOnE3() {
 		whiteKnight(e3);
-		assertThat(f1Attacked(board), is(false));
+		assertThat(f1Attacked(pieces), is(false));
 	}
 	
 	@Test
 	public void testWhiteKnightOnG3() {
 		whiteKnight(g3);
-		assertThat(f1Attacked(board), is(false));
+		assertThat(f1Attacked(pieces), is(false));
 	}
 	
 	@Test
 	public void testWhiteKnightOnH2() {
 		whiteKnight(h2);
-		assertThat(f1Attacked(board), is(false));
+		assertThat(f1Attacked(pieces), is(false));
 	}
 	
 	@Test
 	public void testBlackRookOnF8() {
 		blackRook(f8);
-		assertThat(f1Attacked(board), is(true));
+		assertThat(f1Attacked(pieces), is(true));
 	}
 
 	@Test
 	public void testBlackQueenF8() {
 		blackQueen(f8);
-		assertThat(f1Attacked(board), is(true));
+		assertThat(f1Attacked(pieces), is(true));
 	}
 	
 	@Test
 	public void testBlackBishopF8() {
 		blackBishop(f8);
-		assertThat(f1Attacked(board), is(false));
+		assertThat(f1Attacked(pieces), is(false));
 	}
 	
 	@Test
 	public void testWhitePieceBlocksBlackRookOnF8() {
 		blackRook(f8);
 		whiteRook(f7);
-		assertThat(f1Attacked(board), is(false));
+		assertThat(f1Attacked(pieces), is(false));
 	}
 
 	@Test
 	public void testBlackBishopA6() {
 		blackBishop(a6);
-		assertThat(f1Attacked(board), is(true));
+		assertThat(f1Attacked(pieces), is(true));
 	}
 	
 	@Test
 	public void testBlackQueenA6() {
 		blackQueen(a6);
-		assertThat(f1Attacked(board), is(true));
+		assertThat(f1Attacked(pieces), is(true));
 	}
 	
 	@Test
 	public void testBlackRookA6() {
 		blackRook(a6);
-		assertThat(f1Attacked(board), is(false));
+		assertThat(f1Attacked(pieces), is(false));
 	}
 	
 	@Test
 	public void testWhitePieceBlocksBlackQueenA6() {
 		blackQueen(a6);
 		whiteBishop(b5);
-		assertThat(f1Attacked(board), is(false));
+		assertThat(f1Attacked(pieces), is(false));
 	}
 
 	@Test
 	public void testBlackBishopH3() {
 		blackBishop(h3);
-		assertThat(f1Attacked(board), is(true));
+		assertThat(f1Attacked(pieces), is(true));
 	}
 	
 	@Test
 	public void testBlackQueenH3() {
 		blackQueen(h3);
-		assertThat(f1Attacked(board), is(true));
+		assertThat(f1Attacked(pieces), is(true));
 	}
 	
 	@Test
 	public void testBlackRookH3() {
 		blackRook(h3);
-		assertThat(f1Attacked(board), is(false));
+		assertThat(f1Attacked(pieces), is(false));
 	}
 	
 	@Test
 	public void testWhitePieceBlocksBlackQueenH3() {
 		blackQueen(h3);
 		whiteBishop(g2);
-		assertThat(f1Attacked(board), is(false));
+		assertThat(f1Attacked(pieces), is(false));
 	}
 	
 	@Test
 	public void blackKingOnG2AttacksF1() {
 		blackKing(g2);
-		assertThat(f1Attacked(board), is(true));
+		assertThat(f1Attacked(pieces), is(true));
 	}
 
 	private Piece blackKing(Field f) {

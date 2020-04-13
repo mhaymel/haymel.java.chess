@@ -16,19 +16,19 @@ import com.haymel.chess.engine.piece.Piece;
 
 public final class WhiteKnightMoves {
 
-	private final Board board;
+	private final Piece[] pieces;
 	
 	public WhiteKnightMoves(Board board) {
 		assert board != null;
 		
-		this.board = board;
+		this.pieces = board.pieces;
 	}
 	
 	public void generate(Piece knight, Moves moves) {
 		assert knight != null;
 		assert moves != null;
 		assert knight.field() != removed;
-		assert board.piece(knight.field()) == knight;
+		assert pieces[knight.field().position()] == knight;
 
 		Field from = knight.field();
 		
@@ -43,7 +43,7 @@ public final class WhiteKnightMoves {
 	}
 
 	private void add(Field from, Field to, Moves moves) {
-		Piece piece = board.piece(to);
+		Piece piece = pieces[to.position()];
 		
 		if (piece.free()) {
 			moves.add(from, to);

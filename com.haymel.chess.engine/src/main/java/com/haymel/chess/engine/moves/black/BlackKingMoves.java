@@ -29,18 +29,20 @@ import com.haymel.chess.engine.piece.Piece;
 public final class BlackKingMoves {
 
 	private final Board board;
+	private final Piece[] pieces;
 	
 	public BlackKingMoves(Board board) {
 		assert board != null;
 		
 		this.board = board;
+		this.pieces = board.pieces;
 	}
 	
 	public void generate(Piece king, Moves moves) {
 		assert king != null;
 		assert moves != null;
 		assert king.field() != removed;
-		assert board.piece(king.field()) == king;
+		assert pieces[king.field().position()] == king;
 		assert king.blackKing() : format("piece must be black king but is %s", king);
 
 		Field from = king.field();
@@ -107,15 +109,15 @@ public final class BlackKingMoves {
 	}
 
 	private boolean isMoved(Field f) {
-		return board.piece(f).moved();
+		return pieces[f.position()].moved();
 	}
 
 	private boolean isBlackRook(Field f) {
-		return board.piece(f).blackRook();
+		return pieces[f.position()].blackRook();
 	}
 
 	private void add(Field from, Field to, Moves moves) {
-		Piece piece = board.piece(to);
+		Piece piece = pieces[to.position()];
 		
 		if (piece.free()) 
 			moves.add(from, to);

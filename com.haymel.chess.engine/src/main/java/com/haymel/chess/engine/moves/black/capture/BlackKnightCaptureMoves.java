@@ -17,19 +17,19 @@ import com.haymel.chess.engine.piece.Piece;
 
 public final class BlackKnightCaptureMoves {	//TODO unit test
 
-	private final Board board;
+	private final Piece[] pieces;
 	
 	public BlackKnightCaptureMoves(Board board) {
 		assert board != null;
 		
-		this.board = board;
+		this.pieces = board.pieces;
 	}
 	
 	public void generate(Piece piece, Moves moves) {
 		assert piece != null;
 		assert moves != null;
 		assert piece.field() != removed;
-		assert board.piece(piece.field()) == piece;
+		assert pieces[piece.field().position()] == piece;
 		assert piece.type() == BlackKnight;
 
 		Field from = piece.field();
@@ -45,7 +45,7 @@ public final class BlackKnightCaptureMoves {	//TODO unit test
 	}
 
 	private void add(Field from, Field to, Moves moves) {
-		Piece piece = board.piece(to);
+		Piece piece = pieces[to.position()];
 		
 		if (piece.white())
 			moves.addCapture(from, to, piece);

@@ -16,13 +16,13 @@ import com.haymel.chess.engine.piece.Piece;
 
 public final class Board {
 
-	private final Piece[] pieces = new Piece[up*up];
+	public final Piece[] pieces = new Piece[up*up];
 	
 	public Board() {
 		reset();
 	}
 	
-	public Piece piece(Field f) {
+	private Piece piece(Field f) {
 		return pieces[f.position()];
 	}
 
@@ -63,14 +63,19 @@ public final class Board {
 	}
 
 	public boolean assertVerify() {
-		assert doVerify();
+		assert doVerify(pieces);
 		return true;
 	}
 
-	private boolean doVerify() {
+	private static boolean doVerify(Piece[] pieces) {
 		for(int i = 0; i < pieces.length; i++) {
-			assert pieces[i].free() || pieces[i].border() || piece(pieces[i].field()) == pieces[i];
+			assert pieces[i].free() || pieces[i].border() || pieces[pieces[i].field().position()] == pieces[i];
 		}
+		return true;
+	}
+
+	public static boolean assertVerify(Piece[] pieces) {
+		assert doVerify(pieces);
 		return true;
 	}
 

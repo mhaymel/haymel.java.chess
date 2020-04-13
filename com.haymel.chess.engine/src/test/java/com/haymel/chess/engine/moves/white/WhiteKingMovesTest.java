@@ -82,7 +82,7 @@ public class WhiteKingMovesTest {
 	public void setup() {
 		moves = new Moves();
 		board = new Board();
-		kingMoves = new WhiteKingMoves(board);
+		kingMoves = new WhiteKingMoves(board.pieces);
 	}
 	
 	@Test
@@ -143,7 +143,7 @@ public class WhiteKingMovesTest {
 	}
 
 	private Move capture(Field from, Field to) {
-		return new Move(from, to, capture, board.piece(to));
+		return new Move(from, to, capture, board.pieces[to.position()]);
 	}
 
 	@Test

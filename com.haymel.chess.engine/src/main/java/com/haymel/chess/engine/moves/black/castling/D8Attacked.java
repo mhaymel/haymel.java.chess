@@ -40,15 +40,15 @@ public final class D8Attacked {
 			e7h4(board) ||
 			knights(board) || 
 			pawns(board) ||
-			board.piece(c7).whiteKing();
+			board.pieces[c7.position()].whiteKing();
 	}
 
 	static boolean d7d1(Board board) {
 		Field f = d7;
-		Piece piece = board.piece(f);
+		Piece piece = board.pieces[f.position()];
 		while(piece.free()) {
 			f = f.down();
-			piece = board.piece(f);
+			piece = board.pieces[f.position()];
 		}
 		
 		return piece.whiteRook() || piece.whiteQueen();
@@ -56,10 +56,10 @@ public final class D8Attacked {
 	
 	static boolean c7a5(Board board) {
 		Field f = c7;
-		Piece piece = board.piece(f);
+		Piece piece = board.pieces[f.position()];
 		while(piece.free()) {
 			f = f.leftDown();
-			piece = board.piece(f);
+			piece = board.pieces[f.position()];
 		}
 		
 		return piece.whiteBishop() || piece.whiteQueen();
@@ -67,10 +67,10 @@ public final class D8Attacked {
 	
 	static boolean e7h4(Board board) {
 		Field f = e7;
-		Piece piece = board.piece(f);
+		Piece piece = board.pieces[f.position()];
 		while(piece.free()) {
 			f = f.rightDown();
-			piece = board.piece(f);
+			piece = board.pieces[f.position()];
 		}
 		
 		return piece.whiteBishop() || piece.whiteQueen();
@@ -78,14 +78,14 @@ public final class D8Attacked {
 	
 	static boolean knights(Board board) {
 		return 
-			board.piece(b7).whiteKnight() ||
-			board.piece(c6).whiteKnight() ||
-			board.piece(e6).whiteKnight() ||
-			board.piece(f7).whiteKnight();
+			board.pieces[b7.position()].whiteKnight() ||
+			board.pieces[c6.position()].whiteKnight() ||
+			board.pieces[e6.position()].whiteKnight() ||
+			board.pieces[f7.position()].whiteKnight();
 	}
 
 	static boolean pawns(Board board) {
-		return board.piece(c7).whitePawn() || board.piece(e7).whitePawn();
+		return board.pieces[c7.position()].whitePawn() || board.pieces[e7.position()].whitePawn();
 	}
 
 }

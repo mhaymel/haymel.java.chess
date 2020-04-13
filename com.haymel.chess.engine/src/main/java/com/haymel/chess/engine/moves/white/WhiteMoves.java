@@ -27,7 +27,7 @@ public final class WhiteMoves {		//TODO unit test
 	public WhiteMoves(Board board) {
 		assert board != null;
 		
-		this.kingMoves = new WhiteKingMoves(board);
+		this.kingMoves = new WhiteKingMoves(board.pieces);
 		this.rookMoves = new WhiteRookMoves(board);
 		this.knightMoves = new WhiteKnightMoves(board);
 		this.bishopMoves = new WhiteBishopMoves(board);

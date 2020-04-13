@@ -26,7 +26,7 @@ public class BoardTest {	//TODO implement
 	
 	@Test
 	public void test() {
-		Piece elem = board.piece(Field.a1);
+		Piece elem = board.pieces[Field.a1.position()];
 		
 		assertThat(elem.free(), is(true));
 		assertThat(elem.black(), is(false));
@@ -35,7 +35,7 @@ public class BoardTest {	//TODO implement
 
 	@Test
 	public void testBorderElement() {
-		Piece elem = board.piece(Field.a1.left());
+		Piece elem = board.pieces[Field.a1.left().position()];
 		assertThat(elem.free(), is(false));
 		assertThat(elem.black(), is(false));
 		assertThat(elem.white(), is(false));

@@ -28,18 +28,18 @@ import com.haymel.chess.engine.piece.Piece;
 
 public final class WhiteKingMoves {
 
-	private final Board board;
+	private final Piece[] pieces;
 	
-	public WhiteKingMoves(Board board) {
-		assert board != null;
-		this.board = board;
+	public WhiteKingMoves(Piece[] pieces) {
+		assert pieces != null;
+		this.pieces = pieces;
 	}
 	
 	public void generate(Piece king, Moves moves) {
 		assert king != null;
 		assert moves != null;
 		assert king.field() != removed;
-		assert board.piece(king.field()) == king;
+		assert pieces[king.field().position()] == king;
 		assert king.whiteKing() : format("piece must be white king but is %s", king);
 
 		Field from = king.field();
@@ -63,19 +63,19 @@ public final class WhiteKingMoves {
 	private void kingSidecasteling(Piece king, Moves moves) {
 		assert king.field() == e1;
 		
-		if (!board.isFree(f1))
+		if (!isFree(f1))
 			return;
 
-		if (!board.isFree(g1))
+		if (!isFree(g1))
 			return;
 		
 		if (isNoRookOrMoved(h1))
 			return;
 		
-		if (e1Attacked(board))
+		if (e1Attacked(pieces))
 			return;
 
-		if (f1Attacked(board))
+		if (f1Attacked(pieces))
 			return; 
 		
 		moves.addWhiteKingSideCastling();
@@ -84,37 +84,37 @@ public final class WhiteKingMoves {
 	private void queenSidecasteling(Piece king, Moves moves) {
 		assert king.field() == e1;
 
-		if (!board.isFree(d1))
+		if (!isFree(d1))
 			return;
 
-		if (!board.isFree(c1))
+		if (!isFree(c1))
 			return;
 
-		if (!board.isFree(b1))
+		if (!isFree(b1))
 			return;
 		
 		if (isNoRookOrMoved(a1))
 			return;
 		
-		if (e1Attacked(board))
+		if (e1Attacked(pieces))
 			return;
 		
-		if (d1Attacked(board))
+		if (d1Attacked(pieces))
 			return;
 
 		moves.addWhiteQueenSideCastling();
 	}
 
 	private boolean isMoved(Field f) {
-		return board.piece(f).moved();
+		return pieces[f.position()].moved();
 	}
 
 	private boolean isWhiteRook(Field f) {
-		return board.piece(f).whiteRook();
+		return pieces[f.position()].whiteRook();
 	}
 
 	private void add(Field from, Field to, Moves moves) {
-		Piece piece = board.piece(to);
+		Piece piece = pieces[to.position()];
 		
 		if (piece.free()) {
 			moves.add(from, to);
@@ -128,4 +128,7 @@ public final class WhiteKingMoves {
 		return !isWhiteRook(f) || isMoved(f);
 	}
 	
+	private final boolean isFree(Field f) {
+		return pieces[f.position()].free();
+	}
 }

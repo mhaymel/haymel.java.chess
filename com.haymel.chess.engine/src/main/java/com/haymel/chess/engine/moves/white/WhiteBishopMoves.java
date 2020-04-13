@@ -17,19 +17,19 @@ import com.haymel.chess.engine.piece.Piece;
 
 public final class WhiteBishopMoves {
 	
-	private final Board board;
+	private final Piece[] pieces;
 	
 	public WhiteBishopMoves(Board board) {
 		assert board != null;
 		
-		this.board = board;
+		this.pieces = board.pieces;
 	}
 	
 	public void generate(Piece piece, Moves moves) {
 		assert piece != null;
 		assert moves != null;
 		assert piece.field() != removed;
-		assert board.piece(piece.field()) == piece;
+		assert pieces[piece.field().position()] == piece;
 		assert piece.type() == WhiteBishop;
 
 		Field from = piece.field();
@@ -41,11 +41,11 @@ public final class WhiteBishopMoves {
 
 	private void leftUp(Field from, Moves moves) {
 		Field to = from.leftUp();
-		Piece piece = board.piece(to);
+		Piece piece = pieces[to.position()];
 		while(piece.free()) {
 			moves.add(from, to);
 			to = to.leftUp();
-			piece = board.piece(to);
+			piece = pieces[to.position()];
 		}
 		if (piece.black()) 
 			moves.addCapture(from, to, piece);
@@ -53,11 +53,11 @@ public final class WhiteBishopMoves {
 
 	private void leftDown(Field from, Moves moves) {
 		Field to = from.leftDown();
-		Piece piece = board.piece(to);
+		Piece piece = pieces[to.position()];
 		while(piece.free()) {
 			moves.add(from, to);
 			to = to.leftDown();
-			piece = board.piece(to);
+			piece = pieces[to.position()];
 		}
 		if (piece.black()) 
 			moves.addCapture(from, to, piece);
@@ -65,11 +65,11 @@ public final class WhiteBishopMoves {
 
 	private void rightUp(Field from, Moves moves) {
 		Field to = from.rightUp();
-		Piece piece = board.piece(to);
+		Piece piece = pieces[to.position()];
 		while(piece.free()) {
 			moves.add(from, to);
 			to = to.rightUp();
-			piece = board.piece(to);
+			piece = pieces[to.position()];
 		}
 		if (piece.black()) 
 			moves.addCapture(from, to, piece);
@@ -77,11 +77,11 @@ public final class WhiteBishopMoves {
 
 	private void rightDown(Field from, Moves moves) {
 		Field to = from.rightDown();
-		Piece piece = board.piece(to);
+		Piece piece = pieces[to.position()];
 		while(piece.free()) {
 			moves.add(from, to);
 			to = to.rightDown();
-			piece = board.piece(to);
+			piece = pieces[to.position()];
 		}
 		if (piece.black()) 
 			moves.addCapture(from, to, piece);

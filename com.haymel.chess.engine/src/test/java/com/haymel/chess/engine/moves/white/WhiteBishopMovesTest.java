@@ -134,7 +134,7 @@ public class WhiteBishopMovesTest {
 	}
 	
 	private Move capture(Field from, Field to) {
-		return new Move(from, to, capture, board.piece(to));
+		return new Move(from, to, capture, board.pieces[to.position()]);
 	}
 	
 	private Piece blackPawn(Field f) {

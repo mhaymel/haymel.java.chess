@@ -95,7 +95,7 @@ public final class Field {
 		this.position = position;
 	}
 	
-	int position() {
+	public int position() {
 		return position;
 	}
 	
