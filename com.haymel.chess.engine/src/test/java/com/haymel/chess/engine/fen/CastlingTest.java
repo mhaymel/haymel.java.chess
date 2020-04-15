@@ -23,8 +23,6 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.haymel.chess.engine.board.Field;
-import com.haymel.chess.engine.fen.Castling;
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.piece.Piece;
 import com.haymel.chess.engine.piece.PieceType;
@@ -144,7 +142,7 @@ public class CastlingTest {
 		assertThat(blackRookH.moved(), is(false));
 	}
 	
-	private Piece create(PieceType type, Field field) {
+	private Piece create(PieceType type, int field) {
 		Piece piece = new Piece(type, field);
 		piece.setMoved(true);
 		if (piece.white())

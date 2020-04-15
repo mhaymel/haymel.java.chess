@@ -353,17 +353,17 @@ public class WhitePawnMoveTest {
 		assertThat(result.contains(new Move(e5, f6, enpassant, blackPawn)), is(true));
 	}
 	
-	private Move capture(Field from, Field to) {
-		return new Move(from, to, capture, board[to.position()]);
+	private Move capture(int from, int to) {
+		return new Move(from, to, capture, board[to]);
 	}
 	
-	private Piece whitePawn(Field f) {
-		return piece(f, WhitePawn);
+	private Piece whitePawn(int field) {
+		return piece(field, WhitePawn);
 	}
 	
-	private Piece piece(Field f, PieceType t) {
-		Piece p = new Piece(t, f);
-		board[p.field().position()] = p;
+	private Piece piece(int field, PieceType t) {
+		Piece p = new Piece(t, field);
+		board[p.field()] = p;
 		return p;
 	}
 

@@ -7,13 +7,16 @@
  */
 package com.haymel.chess.engine.search.movesorting;
 
+import static com.haymel.chess.engine.board.Field.d1;
+import static com.haymel.chess.engine.board.Field.e1;
+import static com.haymel.chess.engine.board.Field.file;
+import static com.haymel.chess.engine.board.Field.rank;
 import static com.haymel.chess.engine.search.PieceValue.pieceValue;
 import static java.lang.Integer.MAX_VALUE;
 
 import java.util.Arrays;
 import java.util.Comparator;
 
-import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.MoveType;
@@ -63,7 +66,7 @@ class SortMoves implements Comparator<Move> {		//TODO refactor, unit test
 		switch(type) {
 		case WhitePawn:
 		case BlackPawn:
-			if (move.from().file() == Field.e1.file() || move.from().file() == Field.d1.file())
+			if (file(move.from()) == file(e1) || file(move.from()) == file(d1))
 				return VALUE_PAWN_e_d - doubleMove(move);
 			return VALUE_PAWN - doubleMove(move);
 		
@@ -89,7 +92,7 @@ class SortMoves implements Comparator<Move> {		//TODO refactor, unit test
 	}
 	
 	private int doubleMove(Move move) {
-		return Math.abs(move.to().rank() - move.from().rank());
+		return Math.abs(rank(move.to()) - rank(move.from()));
 	}
 
 	private static boolean isCapture(Move move) {

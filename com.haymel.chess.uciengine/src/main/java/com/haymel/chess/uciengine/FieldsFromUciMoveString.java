@@ -12,7 +12,6 @@ import static java.lang.String.format;
 
 import java.util.Optional;
 
-import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.board.FieldFromString;
 
 final class FieldsFromUciMoveString {
@@ -28,12 +27,12 @@ final class FieldsFromUciMoveString {
 		this.move = move;
 	}
 	
-	public Field from() {
+	public int from() {
 		String from = move.substring(0, 2);
 		return new FieldFromString(from).value();
 	}
 	
-	public Field to() {
+	public int to() {
 		String to = move.substring(2, 4);
 		return new FieldFromString(to).value();
 	}

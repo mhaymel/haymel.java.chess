@@ -40,7 +40,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.haymel.chess.engine.board.Board;
-import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.piece.Piece;
 import com.haymel.chess.engine.piece.PieceType;
 
@@ -269,45 +268,45 @@ public class E8AttackedTest {
 		assertThat(e8Attacked(board), is(false));
 	}
 	
-	private Piece whiteQueen(Field f) {
-		return piece(f, WhiteQueen);
+	private Piece whiteQueen(int field) {
+		return piece(field, WhiteQueen);
 	}
 
-	private Piece blackPawn(Field f) {
-		return piece(f, BlackPawn);
+	private Piece blackPawn(int field) {
+		return piece(field, BlackPawn);
 	}
 	
-	private Piece blackRook(Field f) {
-		return piece(f, BlackRook);
+	private Piece blackRook(int field) {
+		return piece(field, BlackRook);
 	}
 
-	private Piece blackBishop(Field f) {
-		return piece(f, BlackBishop);
+	private Piece blackBishop(int field) {
+		return piece(field, BlackBishop);
 	}
 	
-	private Piece blackKnight(Field f) {
-		return piece(f, BlackKnight);
+	private Piece blackKnight(int field) {
+		return piece(field, BlackKnight);
 	}
 	
-	private Piece whitePawn(Field f) {
-		return piece(f, WhitePawn);
+	private Piece whitePawn(int field) {
+		return piece(field, WhitePawn);
 	}
 	
-	private Piece whiteBishop(Field f) {
-		return piece(f, WhiteBishop);
+	private Piece whiteBishop(int field) {
+		return piece(field, WhiteBishop);
 	}
 	
-	private Piece whiteKnight(Field f) {
-		return piece(f, WhiteKnight);
+	private Piece whiteKnight(int field) {
+		return piece(field, WhiteKnight);
 	}
 	
-	private Piece whiteRook(Field f) {
-		return piece(f, WhiteRook);
+	private Piece whiteRook(int field) {
+		return piece(field, WhiteRook);
 	}
 	
-	private Piece piece(Field f, PieceType t) {
-		Piece p = new Piece(t, f);
-		board[p.field().position()] = p;
+	private Piece piece(int field, PieceType t) {
+		Piece p = new Piece(t, field);
+		board[p.field()] = p;
 		return p;
 	}
 	

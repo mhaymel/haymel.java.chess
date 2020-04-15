@@ -7,7 +7,12 @@
  */
 package com.haymel.chess.engine.moves.white;
 
+import static com.haymel.chess.engine.board.Field.down;
+import static com.haymel.chess.engine.board.Field.leftUp;
+import static com.haymel.chess.engine.board.Field.rank;
 import static com.haymel.chess.engine.board.Field.removed;
+import static com.haymel.chess.engine.board.Field.rightUp;
+import static com.haymel.chess.engine.board.Field.up;
 
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.moves.Moves;
@@ -23,17 +28,16 @@ public final class WhitePawnMoves {
 		this.pieces = pieces;
 	}
 	
-	public void generate(Piece piece, Field epField, Moves moves) {
+	public void generate(Piece piece, int epField, Moves moves) {
 		assert piece != null;
 		assert moves != null;
-		assert epField != null;
-		assert epField == Field.removed || epField.rank() == 5;
-		assert epField == Field.removed || pieces[epField.down().position()].blackPawn();
+		assert epField == Field.removed || rank(epField) == 5;
+		assert epField == Field.removed || pieces[down(epField)].blackPawn();
 		assert piece.field() != removed;
-		assert pieces[piece.field().position()] == piece;
+		assert pieces[piece.field()] == piece;
 		assert piece.type() == PieceType.WhitePawn;
 		
-		switch(piece.field().rank()) {
+		switch(rank(piece.field())) {
 		case 1:
 			doubleStepMove(piece, moves);
 			break;
@@ -53,57 +57,57 @@ public final class WhitePawnMoves {
 		}
 	}
 
-	private void enpassant(Piece piece, Field epField, Moves moves) {
-		assert piece.field().rank() == 4;
+	private void enpassant(Piece piece, int epField, Moves moves) {
+		assert rank(piece.field()) == 4;
 		
-		Field from = piece.field();
-		Field to = from.up();
+		int from = piece.field();
+		int to = up(from);
 		if (isFree(to)) 
 			moves.addPawnMove(from, to);
 		
-		Field leftUp = from.leftUp();
-		if (leftUp.equals(epField))
-			moves.addEnpassant(from, leftUp, pieces[epField.down().position()]);
+		int leftUp = leftUp(from);
+		if (leftUp == epField)
+			moves.addEnpassant(from, leftUp, pieces[down(epField)]);
 		else
 			capture(from, leftUp, moves);
 		
-		Field rightUp = from.rightUp();
-		if (rightUp.equals(epField))
-			moves.addEnpassant(from, rightUp, pieces[epField.down().position()]);
+		int rightUp = Field.rightUp(from);
+		if (rightUp == epField)
+			moves.addEnpassant(from, rightUp, pieces[down(epField)]);
 		else
 			capture(from, rightUp, moves);
 	}
 
 	private void promotion(Piece piece, Moves moves) {
-		assert piece.field().rank() == 6;
+		assert rank(piece.field()) == 6;
 
-		Field from = piece.field();
-		Field to = from.up();
+		int from = piece.field();
+		int to = up(from);
 		if (isFree(to))
 			moves.addWhitePromotion(from);
 		
 		capturePromotion(from, moves);
 	}
 
-	private void capturePromotion(Field from, Moves moves) {
-		capturePromotion(from, from.leftUp(), moves);
-		capturePromotion(from, from.rightUp(), moves);
+	private void capturePromotion(int from, Moves moves) {
+		capturePromotion(from, leftUp(from), moves);
+		capturePromotion(from, rightUp(from), moves);
 	}
 	
-	private void capturePromotion(Field from, Field to, Moves moves) {
-		Piece piece = pieces[to.position()];
+	private void capturePromotion(int from, int to, Moves moves) {
+		Piece piece = pieces[to];
 		if (piece.black())
 			moves.addWhiteCapturePromotion(from, to, piece);
 	}
 
 	private void normal(Piece piece, Moves moves) {
 		assert 
-			piece.field().rank() == 2 || 
-			piece.field().rank() == 3 || 
-			piece.field().rank() == 5;
+			rank(piece.field()) == 2 || 
+			rank(piece.field()) == 3 || 
+			rank(piece.field()) == 5;
 		
-		Field from = piece.field();
-		Field to = from.up();
+		int from = piece.field();
+		int to = up(from);
 		if (isFree(to)) 
 			moves.addPawnMove(from, to);
 		
@@ -111,13 +115,13 @@ public final class WhitePawnMoves {
 	}
 
 	private void doubleStepMove(Piece piece, Moves moves) {
-		assert piece.field().rank() == 1;
+		assert rank(piece.field()) == 1;
 		
-		Field from = piece.field();
-		Field to = from.up();
+		int from = piece.field();
+		int to = up(from);
 		if (isFree(to)) {
 			moves.addPawnMove(from, to);
-			Field doubleTo = to.up();
+			int doubleTo = up(to);
 			if (isFree(doubleTo))
 				moves.addPawnDoubleStep(from, doubleTo);		
 		}
@@ -125,19 +129,19 @@ public final class WhitePawnMoves {
 		capture(from, moves);
 	}
 
-	private void capture(Field from, Moves moves) {
-		capture(from, from.leftUp(), moves);
-		capture(from, from.rightUp(), moves);
+	private void capture(int from, Moves moves) {
+		capture(from, leftUp(from), moves);
+		capture(from, rightUp(from), moves);
 	}
 	
-	private void capture(Field from, Field to, Moves moves) {
-		Piece piece = pieces[to.position()];
+	private void capture(int from, int to, Moves moves) {
+		Piece piece = pieces[to];
 		if (piece.black())
 			moves.addCapture(from, to, piece);
 	}
 
-	private boolean isFree(Field f) {
-		return pieces[f.position()].free();
+	private boolean isFree(int field) {
+		return pieces[field].free();
 	}
 		
 }

@@ -65,8 +65,6 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.haymel.chess.engine.board.Field;
-import com.haymel.chess.engine.fen.GameFromFEN;
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.piece.PieceType;
 import com.haymel.util.exception.HaymelIllegalArgumentException;
@@ -345,7 +343,7 @@ public class GameFromFENTest {
 		assertThat(game.fullMoveNumber(), is(2));
 	}
 	
-	private void assertPieces(PieceType type, Field field) {
+	private void assertPieces(PieceType type, int field) {
 		assertThat(game.piece(field).type(), is(type));
 		
 	}

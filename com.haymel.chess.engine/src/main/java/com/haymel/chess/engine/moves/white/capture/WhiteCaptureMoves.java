@@ -7,9 +7,9 @@
  */
 package com.haymel.chess.engine.moves.white.capture;
 
+import static com.haymel.chess.engine.board.Field.rank;
 import static com.haymel.chess.engine.board.Field.removed;
 
-import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.board.PieceList;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.piece.Piece;
@@ -34,12 +34,11 @@ public final class WhiteCaptureMoves {		//TODO unit test
 		this.pawnMoves = new WhitePawnCaptureMoves(pieces);
 	}
 	
-	public void generate(PieceList pieces, Field epField, Moves moves) {
+	public void generate(PieceList pieces, int epField, Moves moves) {
 		assert pieces != null;
 		assert moves != null;
-		assert epField != null;
 		assert pieces.size() > 0;
-		assert epField == removed || epField.rank() == 5;
+		assert epField == removed || rank(epField) == 5;
 		assert !moves.kingCaptured();
 		
 		int size = pieces.size();
@@ -47,7 +46,7 @@ public final class WhiteCaptureMoves {		//TODO unit test
 			generate(pieces.piece(i), epField, moves);
 	}
 
-	private void generate(Piece piece, Field epField, Moves moves) {
+	private void generate(Piece piece, int epField, Moves moves) {
 		assert piece != null;
 		assert piece.white();
 		

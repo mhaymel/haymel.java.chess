@@ -27,59 +27,59 @@ public final class BlackBishopMoves {
 		assert piece != null;
 		assert moves != null;
 		assert piece.field() != removed;
-		assert board[piece.field().position()] == piece;
+		assert board[piece.field()] == piece;
 		assert piece.type() == BlackBishop;
 
-		Field from = piece.field();
+		int from = piece.field();
 		leftUp(from, moves);
 		leftDown(from, moves);
 		rightUp(from, moves);
 		rightDown(from, moves);
 	}
 
-	private void leftUp(Field from, Moves moves) {
-		Field to = from.leftUp();
-		Piece piece = board[to.position()];
+	private void leftUp(int from, Moves moves) {
+		int to = Field.leftUp(from);
+		Piece piece = board[to];
 		while(piece.free()) {
 			moves.add(from, to);
-			to = to.leftUp();
-			piece = board[to.position()];
+			to = Field.leftUp(to);
+			piece = board[to];
 		}
 		if (piece.white()) 
 			moves.addCapture(from, to, piece);
 	}
 
-	private void leftDown(Field from, Moves moves) {
-		Field to = from.leftDown();
-		Piece piece = board[to.position()];
+	private void leftDown(int from, Moves moves) {
+		int to = Field.leftDown(from);
+		Piece piece = board[to];
 		while(piece.free()) {
 			moves.add(from, to);
-			to = to.leftDown();
-			piece = board[to.position()];
+			to = Field.leftDown(to);
+			piece = board[to];
 		}
 		if (piece.white()) 
 			moves.addCapture(from, to, piece);
 	}
 
-	private void rightUp(Field from, Moves moves) {
-		Field to = from.rightUp();
-		Piece piece = board[to.position()];
+	private void rightUp(int from, Moves moves) {
+		int to = Field.rightUp(from);
+		Piece piece = board[to];
 		while(piece.free()) {
 			moves.add(from, to);
-			to = to.rightUp();
-			piece = board[to.position()];
+			to = Field.rightUp(to);
+			piece = board[to];
 		}
 		if (piece.white()) 
 			moves.addCapture(from, to, piece);
 	}
 
-	private void rightDown(Field from, Moves moves) {
-		Field to = from.rightDown();
-		Piece piece = board[to.position()];
+	private void rightDown(int from, Moves moves) {
+		int to = Field.rightDown(from);
+		Piece piece = board[to];
 		while(piece.free()) {
 			moves.add(from, to);
-			to = to.rightDown();
-			piece = board[to.position()];
+			to = Field.rightDown(to);
+			piece = board[to];
 		}
 		if (piece.white()) 
 			moves.addCapture(from, to, piece);

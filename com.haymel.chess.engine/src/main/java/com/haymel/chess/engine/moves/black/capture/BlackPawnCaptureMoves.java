@@ -23,17 +23,16 @@ public final class BlackPawnCaptureMoves {
 		this.pieces = pieces;
 	}
 	
-	public void generate(Piece piece, Field epField, Moves moves) {
+	public void generate(Piece piece, int epField, Moves moves) {
 		assert piece != null;
-		assert epField != null;
 		assert moves != null;
-		assert epField == removed || epField.rank() == 2;
-		assert epField == removed || pieces[epField.up().position()].whitePawn();
+		assert epField == removed || Field.rank(epField) == 2;
+		assert epField == removed || pieces[Field.up(epField)].whitePawn();
 		assert piece.field() != removed;
-		assert pieces[piece.field().position()] == piece;
+		assert pieces[piece.field()] == piece;
 		assert piece.type() == BlackPawn;
 		
-		switch(piece.field().rank()) {
+		switch(Field.rank(piece.field())) {
 		case 2:
 		case 4:
 		case 5:
@@ -51,52 +50,51 @@ public final class BlackPawnCaptureMoves {
 		}
 	}
 
-	private void enpassant(Piece piece, Field epField, Moves moves) {
-		assert piece.field().rank() == 3;
+	private void enpassant(Piece piece, int epField, Moves moves) {
+		assert Field.rank(piece.field()) == 3;
 		
-		Field from = piece.field();
-		
-		Field leftDown = from.leftDown();
-		if (leftDown.equals(epField))
-			moves.addEnpassant(from, leftDown, pieces[epField.up().position()]);
+		int from = piece.field();
+		int leftDown = Field.leftDown(from);
+		if (leftDown == epField)
+			moves.addEnpassant(from, leftDown, pieces[Field.up(epField)]);
 		else
 			capture(from, leftDown, moves);
 		
-		Field rightDown = from.rightDown();
-		if (rightDown.equals(epField))
-			moves.addEnpassant(from, rightDown, pieces[epField.up().position()]);
+		int rightDown = Field.rightDown(from);
+		if (rightDown == epField)
+			moves.addEnpassant(from, rightDown, pieces[Field.up(epField)]);
 		else
 			capture(from, rightDown, moves);
 	}
 
 	private void capturePromotion(Piece piece, Moves moves) {
-		assert piece.field().rank() == 1;
+		assert Field.rank(piece.field()) == 1;
 
-		Field from = piece.field();
-		capturePromotion(from, from.leftDown(), moves);
-		capturePromotion(from, from.rightDown(), moves);
+		int from = piece.field();
+		capturePromotion(from, Field.leftDown(from), moves);
+		capturePromotion(from, Field.rightDown(from), moves);
 	}
 	
-	private void capturePromotion(Field from, Field to, Moves moves) {
-		Piece piece = pieces[to.position()];
+	private void capturePromotion(int from, int to, Moves moves) {
+		Piece piece = pieces[to];
 		if (piece.white())
 			moves.addBlackCapturePromotion(from, to, piece);
 	}
 
 	private void capture(Piece piece, Moves moves) {
 		assert 
-			piece.field().rank() == 2 || 
-			piece.field().rank() == 4 || 
-			piece.field().rank() == 5 || 
-			piece.field().rank() == 6;
+			Field.rank(piece.field()) == 2 || 
+			Field.rank(piece.field()) == 4 || 
+			Field.rank(piece.field()) == 5 || 
+			Field.rank(piece.field()) == 6;
 		
-		Field from = piece.field();
-		capture(from, from.leftDown(), moves);
-		capture(from, from.rightDown(), moves);
+		int from = piece.field();
+		capture(from, Field.leftDown(from), moves);
+		capture(from, Field.rightDown(from), moves);
 	}
 
-	private void capture(Field from, Field to, Moves moves) {
-		Piece piece = pieces[to.position()];
+	private void capture(int from, int to, Moves moves) {
+		Piece piece = pieces[to];
 		if (piece.white())
 			moves.addCapture(from, to, piece);
 	}

@@ -7,12 +7,14 @@
  */
 package com.haymel.chess.engine.search.execution;
 
+import static com.haymel.chess.engine.board.Field.fieldAsString;
 import static com.haymel.chess.engine.search.SearchInfo.sysoutSearchInfo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
+import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.fen.GameFromFEN;
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.moves.Move;
@@ -35,7 +37,7 @@ public class IterativeSearchBlackStalemateTest {
 	}
 
 	private static String asString(Move move) {
-		return move.from().toString() + move.to().toString();
+		return Field.fieldAsString(move.from()) + fieldAsString(move.to());
 	}
 	
 }

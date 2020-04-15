@@ -7,6 +7,8 @@
  */
 package com.haymel.chess.engine.game.white;
 
+import static com.haymel.chess.engine.board.Field.file;
+import static com.haymel.chess.engine.board.Field.rank;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
 import static com.haymel.chess.engine.moves.MoveType.promotion;
@@ -30,9 +32,9 @@ public final class MakeWhitePromotionMove {
 		assert move.type() == promotion;
 		assert game.piece(move.from()).whitePawn();
 		assert game.piece(move.to()).free();
-		assert move.from().rank() == 6;
-		assert move.to().rank() == 7;
-		assert move.from().file() == move.to().file();
+		assert rank(move.from()) == 6;
+		assert rank(move.to()) == 7;
+		assert file(move.from()) == file(move.to());
 		assert game.halfMoveClock() >= 0;
 		assert game.fullMoveNumber() >= 1;
 		assert 
@@ -67,9 +69,9 @@ public final class MakeWhitePromotionMove {
 		assert move.type() == promotion;
 		assert game.piece(move.to()).type() == move.pieceType();
 		assert game.piece(move.from()).free();
-		assert move.from().rank() == 6;
-		assert move.to().rank() == 7;
-		assert move.from().file() == move.to().file();
+		assert rank(move.from()) == 6;
+		assert rank(move.to()) == 7;
+		assert file(move.from()) == file(move.to());
 		assert game.halfMoveClock() >= 0;
 		assert game.fullMoveNumber() >= 1;
 		assert game.containsWhitePiece(game.piece(move.to()));

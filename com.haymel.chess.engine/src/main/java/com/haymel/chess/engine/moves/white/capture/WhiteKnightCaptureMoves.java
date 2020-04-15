@@ -7,9 +7,16 @@
  */
 package com.haymel.chess.engine.moves.white.capture;
 
+import static com.haymel.chess.engine.board.Field.leftDownDown;
+import static com.haymel.chess.engine.board.Field.leftLeftDown;
+import static com.haymel.chess.engine.board.Field.leftLeftUp;
+import static com.haymel.chess.engine.board.Field.leftUpUp;
 import static com.haymel.chess.engine.board.Field.removed;
+import static com.haymel.chess.engine.board.Field.rightDownDown;
+import static com.haymel.chess.engine.board.Field.rightRightDown;
+import static com.haymel.chess.engine.board.Field.rightRightUp;
+import static com.haymel.chess.engine.board.Field.rightUpUp;
 
-import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.piece.Piece;
 
@@ -26,22 +33,22 @@ public final class WhiteKnightCaptureMoves {
 		assert knight != null;
 		assert moves != null;
 		assert knight.field() != removed;
-		assert pieces[knight.field().position()] == knight;
+		assert pieces[knight.field()] == knight;
 
-		Field from = knight.field();
+		int from = knight.field();
 		
-		add(from, from.leftLeftUp(), moves);
-		add(from, from.leftDownDown(), moves);
-		add(from, from.rightRightUp(), moves);
-		add(from, from.rightRightDown(), moves);
-		add(from, from.rightDownDown(), moves);
-		add(from, from.leftUpUp(), moves);
-		add(from, from.rightUpUp(), moves);
-		add(from, from.leftLeftDown(), moves);
+		add(from, leftLeftUp(from), moves);
+		add(from, leftDownDown(from), moves);
+		add(from, rightRightUp(from), moves);
+		add(from, rightRightDown(from), moves);
+		add(from, rightDownDown(from), moves);
+		add(from, leftUpUp(from), moves);
+		add(from, rightUpUp(from), moves);
+		add(from, leftLeftDown(from), moves);
 	}
 
-	private void add(Field from, Field to, Moves moves) {
-		Piece piece = pieces[to.position()];
+	private void add(int from, int to, Moves moves) {
+		Piece piece = pieces[to];
 		
 		if (piece.black()) 
 			moves.addCapture(from, to, piece);

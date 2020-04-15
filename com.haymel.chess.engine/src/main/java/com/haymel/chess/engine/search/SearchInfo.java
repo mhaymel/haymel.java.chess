@@ -7,6 +7,7 @@
  */
 package com.haymel.chess.engine.search;
 
+import static com.haymel.chess.engine.board.Field.fieldAsString;
 import static com.haymel.util.Require.nonNull;
 import static java.lang.String.format;
 import static java.lang.System.out;
@@ -72,7 +73,7 @@ public class SearchInfo {		//TODO rename, refactor, unit test
 	}
 	
 	private static String asString(Move move) {
-		return move.from().toString() + move.to().toString();
+		return fieldAsString(move.from()) + fieldAsString(move.to());
 	}
 	
 	private static String asString(Variant variant) {

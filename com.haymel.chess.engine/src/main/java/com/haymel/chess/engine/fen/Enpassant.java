@@ -9,13 +9,14 @@ package com.haymel.chess.engine.fen;
 
 import static com.haymel.chess.engine.board.Field.a3;
 import static com.haymel.chess.engine.board.Field.a6;
+import static com.haymel.chess.engine.board.Field.fieldAsString;
+import static com.haymel.chess.engine.board.Field.rank;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
 import static com.haymel.util.Require.nonEmpty;
 import static com.haymel.util.Require.nonNull;
 import static com.haymel.util.exception.HaymelIllegalArgumentException.throwIAE;
 
-import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.board.FieldFromString;
 import com.haymel.chess.engine.game.Game;
 
@@ -34,33 +35,33 @@ class Enpassant {
 		if (fieldAsString.equals("-"))
 			return;
 
-		Field field = new FieldFromString(fieldAsString).value();
+		int field = new FieldFromString(fieldAsString).value();
 		
 		if (game.activeColor() == white)
 			handleWhite(field);
 		else 
 			handleBlack(field);
 		
-		if (game.activeColor() == white && field.rank() != a6.rank())
-			throwIAE("wrong enpassant field '%s' for active color white", field);
+		if (game.activeColor() == white && rank(field) != rank(a6))
+			throwIAE("wrong enpassant field '%s' for active color white", fieldAsString(field));
 			
-		if (game.activeColor() == black && field.rank() != a3.rank())
-			throwIAE("wrong enpassant field '%s' for active color white", field);
+		if (game.activeColor() == black && rank(field) != rank(a3))
+			throwIAE("wrong enpassant field '%s' for active color white", fieldAsString(field));
 
 	}
 
-	private void handleBlack(Field field) {
-		if (field.rank() != a3.rank())
-			throwIAE("wrong enpassant field '%s' for black", field);
+	private void handleBlack(int field) {
+		if (rank(field) != rank(a3))
+			throwIAE("wrong enpassant field '%s' for black", fieldAsString(field));
 
 		game.activeColorWhite();
 		game.enPassant(field);
 		game.activeColorBlack();	
 	}
 
-	private void handleWhite(Field field) {
-		if (field.rank() != a6.rank())
-			throwIAE("wrong enpassant field '%s' for white", field);
+	private void handleWhite(int field) {
+		if (rank(field) != rank(a6))
+			throwIAE("wrong enpassant field '%s' for white", fieldAsString(field));
 
 		game.activeColorBlack();	
 		game.enPassant(field);

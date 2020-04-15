@@ -61,7 +61,6 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.piece.Piece;
@@ -183,27 +182,27 @@ public class BlackRookMovesTest {
 		assertThat(moves.size(), is(0));
 	}
 	
-	private Move capture(Field from, Field to) {
-		return new Move(from, to, capture, board[to.position()]);
+	private Move capture(int from, int to) {
+		return new Move(from, to, capture, board[to]);
 	}
 	
-	private Piece blackPawn(Field f) {
-		return piece(f, BlackPawn);
+	private Piece blackPawn(int field) {
+		return piece(field, BlackPawn);
 	}
 	
-	private Piece whitePawn(Field f) {
-		return piece(f, WhitePawn);
+	private Piece whitePawn(int field) {
+		return piece(field, WhitePawn);
 	}
 	
-	private Piece piece(Field f, PieceType t) {
-		Piece p = new Piece(t, f);
-		board[p.field().position()] = p;
+	private Piece piece(int field, PieceType t) {
+		Piece p = new Piece(t, field);
+		board[p.field()] = p;
 		return p;
 	}
 	
-	private void rook(Field f) {
-		rook.field(f);
-		board[rook.field().position()] = rook;
+	private void rook(int field) {
+		rook.field(field);
+		board[rook.field()] = rook;
 	}
 	
 	private Set<Move> movesAsSet() {

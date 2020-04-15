@@ -7,6 +7,7 @@
  */
 package com.haymel.chess.engine.search;
 
+import static com.haymel.chess.engine.board.Field.fieldAsString;
 import static com.haymel.chess.engine.search.SearchAlphaBeta.MAX_VALUE;
 import static com.haymel.chess.engine.search.SearchAlphaBeta.MIN_VALUE;
 import static com.haymel.chess.engine.search.SearchInfo.sysoutSearchInfo;
@@ -80,7 +81,7 @@ public class SearchAlphaBetaTest {
 //	}
 	
 	private static String asString(Move move) {
-		return move.from().toString() + move.to().toString();
+		return fieldAsString(move.from()) + fieldAsString(move.to());
 	}
 	
 }

@@ -11,8 +11,12 @@ import static com.haymel.chess.engine.board.Field.c1;
 import static com.haymel.chess.engine.board.Field.c8;
 import static com.haymel.chess.engine.board.Field.e1;
 import static com.haymel.chess.engine.board.Field.e8;
+import static com.haymel.chess.engine.board.Field.file;
 import static com.haymel.chess.engine.board.Field.g1;
 import static com.haymel.chess.engine.board.Field.g8;
+import static com.haymel.chess.engine.board.Field.rank;
+import static com.haymel.chess.engine.board.Field.up;
+import static com.haymel.chess.engine.board.Field.valid;
 import static com.haymel.chess.engine.moves.MoveType.capture;
 import static com.haymel.chess.engine.moves.MoveType.enpassant;
 import static com.haymel.chess.engine.moves.MoveType.kingsideCastling;
@@ -28,6 +32,7 @@ import static com.haymel.chess.engine.piece.PieceType.WhiteKnight;
 import static com.haymel.chess.engine.piece.PieceType.WhiteQueen;
 import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
 import static com.haymel.util.Require.nonNull;
+import static java.lang.Math.abs;
 import static java.lang.String.join;
 import static java.util.stream.Collectors.toList;
 
@@ -55,16 +60,17 @@ public class Moves {
 		return moves;
 	}
 	
-	public void add(Field from, Field to) {
-		assert from != null;
-		assert to != null;
+	public void add(int from, int to) {
+		assert valid(from);
+		assert valid(to);
 		assert from != to;
+		
 		add(new Move(from, to));
 	}
 
-	public void addCapture(Field from, Field to, Piece piece) {
-		assert from != null;
-		assert to != null;
+	public void addCapture(int from, int to, Piece piece) {
+		assert valid(from);
+		assert valid(to);
 		assert from != to;
 		assert !piece.free();
 		assert piece.black() || piece.white();
@@ -75,45 +81,45 @@ public class Moves {
 			kingCaptureCount++;
 	}
 
-	public void addPawnMove(Field from, Field to) {
-		assert from != null;
-		assert to != null;
+	public void addPawnMove(int from, int to) {
+		assert valid(from);
+		assert valid(to);
 		assert from != to;
-		assert to.rank() != 7;
-		assert from.rank() != 0;
+		assert rank(to) != 7;
+		assert rank(from) != 0;
 		
 		add(new Move(from, to, pawn));
 	}
 
-	public void addPawnDoubleStep(Field from, Field to) {
-		assert from != null;
-		assert to != null;
+	public void addPawnDoubleStep(int from, int to) {
+		assert valid(from);
+		assert valid(to);
 		assert from != to;
-		assert from.rank() == 1 || from.rank() == 6;
-		assert to.rank() == 3 || to.rank() == 4;
-		assert from.file() == to.file();
+		assert rank(from) == 1 || rank(from) == 6;
+		assert rank(to) == 3 || rank(to) == 4;
+		assert file(from) == file(to);
 
 		add(new Move(from, to, pawnDoubleStep));
 	}
 
-	public void addWhitePromotion(Field from) {
-		assert from != null;
-		assert from.rank() == 6;
+	public void addWhitePromotion(int from) {
+		assert valid(from);
+		assert rank(from) == 6;
 		
-		Field to = from.up();
+		int to = up(from);
 		add(new Move(from, to, WhiteQueen));
 		add(new Move(from, to, WhiteRook));
 		add(new Move(from, to, WhiteBishop));
 		add(new Move(from, to, WhiteKnight));
 	}
 
-	public void addWhiteCapturePromotion(Field from, Field to, Piece piece) {		//TODO unit test
-		assert from != null;
-		assert to != null;
+	public void addWhiteCapturePromotion(int from, int to, Piece piece) {		//TODO unit test
+		assert valid(from);
+		assert valid(to);
 		assert from != to;
-		assert Math.abs(from.file() - to.file()) == 1;
-		assert from.rank() == 6;
-		assert to.rank() == 7;
+		assert Math.abs(file(from) - file(to)) == 1;
+		assert rank(from) == 6;
+		assert rank(to) == 7;
 		assert piece.black();
 		
 		add(new Move(from, to, piece, WhiteQueen));
@@ -125,24 +131,23 @@ public class Moves {
 			kingCaptureCount++;
 	}
 
-	public void addBlackPromotion(Field from) {
-		assert from != null;
-		assert from.rank() == 1;
+	public void addBlackPromotion(int from) {
+		assert valid(from);
+		assert rank(from) == 1;
 		
-		Field to = from.down();
+		int to = Field.down(from);
 		add(new Move(from, to, BlackQueen));
 		add(new Move(from, to, BlackRook));
 		add(new Move(from, to, BlackBishop));
 		add(new Move(from, to, BlackKnight));
 	}
 
-	public void addBlackCapturePromotion(Field from, Field to, Piece piece) {
-		assert from != null;
-		assert to != null;
-		assert from != to;
-		assert Math.abs(from.file() - to.file()) == 1;
-		assert from.rank() == 1;
-		assert to.rank() == 0;
+	public void addBlackCapturePromotion(int from, int to, Piece piece) {
+		assert valid(from);
+		assert valid(to);
+		assert abs(file(from) - file(to)) == 1;
+		assert rank(from) == 1;
+		assert rank(to) == 0;
 		assert piece.white();
 		
 		add(new Move(from, to, piece, BlackQueen));
@@ -154,16 +159,16 @@ public class Moves {
 			kingCaptureCount++;
 	}
 
-	public void addEnpassant(Field from, Field to, Piece captured) {
-		assert from != null;
-		assert to != null;
+	public void addEnpassant(int from, int to, Piece captured) {
+		assert valid(from);
+		assert valid(to);
 		assert captured != null;
 		assert captured.blackPawn() || captured.whitePawn();
 		assert from != to;
-		assert Math.abs(from.file() - to.file()) == 1;
+		assert Math.abs(file(from) - file(to)) == 1;
 		assert 
-			from.rank() == 4 && to.rank() == 5 ||
-			from.rank() == 3 && to.rank() == 2;
+			rank(from) == 4 && rank(to) == 5 ||
+			rank(from) == 3 && rank(to) == 2;
 		
 		add(new Move(from, to, enpassant, captured));
 	}
@@ -217,7 +222,7 @@ public class Moves {
 		return kingCaptureCount > 0;
 	};
 	
-	public List<Move> findMoves(Field from, Field to) {
+	public List<Move> findMoves(int from, int to) {
 		nonNull(from, "from");
 		nonNull(to, "to");
 		assert from != to;

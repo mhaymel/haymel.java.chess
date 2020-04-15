@@ -28,23 +28,23 @@ public final class BlackKnightMoves {
 		assert piece != null;
 		assert moves != null;
 		assert piece.field() != removed;
-		assert pieces[piece.field().position()] == piece;
+		assert pieces[piece.field()] == piece;
 		assert piece.type() == BlackKnight;
 
-		Field from = piece.field();
+		int from = piece.field();
 		
-		add(from, from.leftLeftUp(), moves);
-		add(from, from.leftDownDown(), moves);
-		add(from, from.rightRightUp(), moves);
-		add(from, from.rightRightDown(), moves);
-		add(from, from.rightDownDown(), moves);
-		add(from, from.leftUpUp(), moves);
-		add(from, from.rightUpUp(), moves);
-		add(from, from.leftLeftDown(), moves);
+		add(from, Field.leftLeftUp(from), moves);
+		add(from, Field.leftDownDown(from), moves);
+		add(from, Field.rightRightUp(from), moves);
+		add(from, Field.rightRightDown(from), moves);
+		add(from, Field.rightDownDown(from), moves);
+		add(from, Field.leftUpUp(from), moves);
+		add(from, Field.rightUpUp(from), moves);
+		add(from, Field.leftLeftDown(from), moves);
 	}
 
-	private void add(Field from, Field to, Moves moves) {
-		Piece piece = pieces[to.position()];
+	private void add(int from, int to, Moves moves) {
+		Piece piece = pieces[to];
 		
 		if (piece.free()) {
 			moves.add(from, to);

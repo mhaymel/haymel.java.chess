@@ -39,7 +39,6 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
-import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.game.MakeMove;
 import com.haymel.chess.engine.moves.Move;
@@ -60,19 +59,19 @@ public class MakeWhitePromotionMoveTest {
 		testPromotion(h7, h8);
 	}
 
-	private void testPromotion(Field from, Field to) {
+	private void testPromotion(int from, int to) {
 		testPromotion(from, to, removed);
 		testPromotion(from, to, e6);
 	}	
 	
-	private void testPromotion(Field from, Field to, Field enpassant) {
+	private void testPromotion(int from, int to, int enpassant) {
 		testPromotion(from, to, WhiteQueen, enpassant);
 		testPromotion(from, to, WhiteRook, enpassant);
 		testPromotion(from, to, WhiteBishop, enpassant);
 		testPromotion(from, to, WhiteKnight, enpassant);
 	}
 	
-	private void testPromotion(Field from, Field to, PieceType promo, Field enpassant) {
+	private void testPromotion(int from, int to, PieceType promo, int enpassant) {
 		Game game = new Game();
 		MakeMove moveMaker = new MakeMove(game);
 

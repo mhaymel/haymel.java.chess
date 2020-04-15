@@ -7,10 +7,17 @@
  */
 package com.haymel.chess.engine.moves.white.capture;
 
+import static com.haymel.chess.engine.board.Field.down;
+import static com.haymel.chess.engine.board.Field.left;
+import static com.haymel.chess.engine.board.Field.leftDown;
+import static com.haymel.chess.engine.board.Field.leftUp;
 import static com.haymel.chess.engine.board.Field.removed;
+import static com.haymel.chess.engine.board.Field.right;
+import static com.haymel.chess.engine.board.Field.rightDown;
+import static com.haymel.chess.engine.board.Field.rightUp;
+import static com.haymel.chess.engine.board.Field.up;
 import static java.lang.String.format;
 
-import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.piece.Piece;
 
@@ -28,23 +35,23 @@ public final class WhiteKingCaptureMoves {	//TODO unit test
 		assert king != null;
 		assert moves != null;
 		assert king.field() != removed;
-		assert pieces[king.field().position()] == king;
+		assert pieces[king.field()] == king;
 		assert king.whiteKing() : format("piece must be white king but is %s", king);
 
-		Field from = king.field();
+		int from = king.field();
 		
-		add(from, from.left(), moves);
-		add(from, from.right(), moves);
-		add(from, from.up(), moves);
-		add(from, from.down(), moves);
-		add(from, from.leftUp(), moves);
-		add(from, from.leftDown(), moves);
-		add(from, from.rightUp(), moves);
-		add(from, from.rightDown(), moves);
+		add(from, left(from), moves);
+		add(from, right(from), moves);
+		add(from, up(from), moves);
+		add(from, down(from), moves);
+		add(from, leftUp(from), moves);
+		add(from, leftDown(from), moves);
+		add(from, rightUp(from), moves);
+		add(from, rightDown(from), moves);
 	}
 
-	private void add(Field from, Field to, Moves moves) {
-		Piece piece = pieces[to.position()];
+	private void add(int from, int to, Moves moves) {
+		Piece piece = pieces[to];
 		
 		if (piece.black())
 			moves.addCapture(from, to, piece);

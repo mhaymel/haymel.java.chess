@@ -29,7 +29,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.haymel.chess.engine.piece.Piece;
-import com.haymel.util.exception.HaymelNullPointerException;
 
 public class MovesTest {
 
@@ -132,16 +131,6 @@ public class MovesTest {
 		assertThat(moves.toString(), is("Moves(O-O, O-O-O)"));
 	}
 	
-	@Test(expected=HaymelNullPointerException.class)
-	public void findMoveWithNullAsFromThrowsException() {
-		moves.findMoves(null, e2);
-	}
-	
-	@Test(expected=HaymelNullPointerException.class)
-	public void findMoveWithNullAsToThrowsException() {
-		moves.findMoves(e2, null);
-	}
-
 	@Test
 	public void findMoveReturnsEmptyListIfNoMoveWasFound() {
 		assertThat(moves.findMoves(e2, e4).size(), is(0));

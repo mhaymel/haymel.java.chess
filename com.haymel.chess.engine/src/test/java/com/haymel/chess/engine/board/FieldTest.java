@@ -8,120 +8,179 @@
 package com.haymel.chess.engine.board;
 
 import static com.haymel.chess.engine.board.Field.a1;
+import static com.haymel.chess.engine.board.Field.a2;
+import static com.haymel.chess.engine.board.Field.a3;
+import static com.haymel.chess.engine.board.Field.a4;
+import static com.haymel.chess.engine.board.Field.a5;
+import static com.haymel.chess.engine.board.Field.a6;
+import static com.haymel.chess.engine.board.Field.a7;
 import static com.haymel.chess.engine.board.Field.a8;
+import static com.haymel.chess.engine.board.Field.b1;
+import static com.haymel.chess.engine.board.Field.b2;
+import static com.haymel.chess.engine.board.Field.b3;
+import static com.haymel.chess.engine.board.Field.b4;
+import static com.haymel.chess.engine.board.Field.b5;
+import static com.haymel.chess.engine.board.Field.b6;
+import static com.haymel.chess.engine.board.Field.b7;
+import static com.haymel.chess.engine.board.Field.b8;
+import static com.haymel.chess.engine.board.Field.c1;
+import static com.haymel.chess.engine.board.Field.c2;
 import static com.haymel.chess.engine.board.Field.c3;
+import static com.haymel.chess.engine.board.Field.c4;
 import static com.haymel.chess.engine.board.Field.c5;
+import static com.haymel.chess.engine.board.Field.c6;
+import static com.haymel.chess.engine.board.Field.c7;
+import static com.haymel.chess.engine.board.Field.c8;
+import static com.haymel.chess.engine.board.Field.d1;
 import static com.haymel.chess.engine.board.Field.d2;
+import static com.haymel.chess.engine.board.Field.d3;
+import static com.haymel.chess.engine.board.Field.d4;
+import static com.haymel.chess.engine.board.Field.d5;
 import static com.haymel.chess.engine.board.Field.d6;
+import static com.haymel.chess.engine.board.Field.d7;
+import static com.haymel.chess.engine.board.Field.d8;
+import static com.haymel.chess.engine.board.Field.e1;
+import static com.haymel.chess.engine.board.Field.e2;
+import static com.haymel.chess.engine.board.Field.e3;
 import static com.haymel.chess.engine.board.Field.e4;
+import static com.haymel.chess.engine.board.Field.e5;
+import static com.haymel.chess.engine.board.Field.e6;
+import static com.haymel.chess.engine.board.Field.e7;
+import static com.haymel.chess.engine.board.Field.e8;
+import static com.haymel.chess.engine.board.Field.f1;
 import static com.haymel.chess.engine.board.Field.f2;
+import static com.haymel.chess.engine.board.Field.f3;
+import static com.haymel.chess.engine.board.Field.f4;
+import static com.haymel.chess.engine.board.Field.f5;
 import static com.haymel.chess.engine.board.Field.f6;
+import static com.haymel.chess.engine.board.Field.f7;
+import static com.haymel.chess.engine.board.Field.f8;
 import static com.haymel.chess.engine.board.Field.field;
+import static com.haymel.chess.engine.board.Field.fieldAsString;
+import static com.haymel.chess.engine.board.Field.g1;
+import static com.haymel.chess.engine.board.Field.g2;
 import static com.haymel.chess.engine.board.Field.g3;
+import static com.haymel.chess.engine.board.Field.g4;
 import static com.haymel.chess.engine.board.Field.g5;
+import static com.haymel.chess.engine.board.Field.g6;
+import static com.haymel.chess.engine.board.Field.g7;
+import static com.haymel.chess.engine.board.Field.g8;
 import static com.haymel.chess.engine.board.Field.h1;
+import static com.haymel.chess.engine.board.Field.h2;
+import static com.haymel.chess.engine.board.Field.h3;
+import static com.haymel.chess.engine.board.Field.h4;
+import static com.haymel.chess.engine.board.Field.h5;
+import static com.haymel.chess.engine.board.Field.h6;
+import static com.haymel.chess.engine.board.Field.h7;
 import static com.haymel.chess.engine.board.Field.h8;
+import static com.haymel.chess.engine.board.Field.leftDownDown;
+import static com.haymel.chess.engine.board.Field.leftLeftDown;
+import static com.haymel.chess.engine.board.Field.leftLeftUp;
+import static com.haymel.chess.engine.board.Field.leftUpUp;
+import static com.haymel.chess.engine.board.Field.rank;
+import static com.haymel.chess.engine.board.Field.rightDownDown;
+import static com.haymel.chess.engine.board.Field.rightRightDown;
+import static com.haymel.chess.engine.board.Field.rightRightUp;
+import static com.haymel.chess.engine.board.Field.rightUpUp;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
-
-import com.haymel.chess.engine.board.Field;
 
 public class FieldTest {
 
 	@Test
 	public void testToString() {
-		assertThat(Field.a1.toString(), is("a1"));
-		assertThat(Field.a2.toString(), is("a2"));
-		assertThat(Field.a3.toString(), is("a3"));
-		assertThat(Field.a4.toString(), is("a4"));
-		assertThat(Field.a5.toString(), is("a5"));
-		assertThat(Field.a6.toString(), is("a6"));
-		assertThat(Field.a7.toString(), is("a7"));
-		assertThat(Field.a8.toString(), is("a8"));
+		assertThat(fieldAsString(a1), is("a1"));
+		assertThat(fieldAsString(a2), is("a2"));
+		assertThat(fieldAsString(a3), is("a3"));
+		assertThat(fieldAsString(a4), is("a4"));
+		assertThat(fieldAsString(a5), is("a5"));
+		assertThat(fieldAsString(a6), is("a6"));
+		assertThat(fieldAsString(a7), is("a7"));
+		assertThat(fieldAsString(a8), is("a8"));
 
-		assertThat(Field.b1.toString(), is("b1"));
-		assertThat(Field.b2.toString(), is("b2"));
-		assertThat(Field.b3.toString(), is("b3"));
-		assertThat(Field.b4.toString(), is("b4"));
-		assertThat(Field.b5.toString(), is("b5"));
-		assertThat(Field.b6.toString(), is("b6"));
-		assertThat(Field.b7.toString(), is("b7"));
-		assertThat(Field.b8.toString(), is("b8"));
+		assertThat(fieldAsString(b1), is("b1"));
+		assertThat(fieldAsString(b2), is("b2"));
+		assertThat(fieldAsString(b3), is("b3"));
+		assertThat(fieldAsString(b4), is("b4"));
+		assertThat(fieldAsString(b5), is("b5"));
+		assertThat(fieldAsString(b6), is("b6"));
+		assertThat(fieldAsString(b7), is("b7"));
+		assertThat(fieldAsString(b8), is("b8"));
 		
-		assertThat(Field.c1.toString(), is("c1"));
-		assertThat(Field.c2.toString(), is("c2"));
-		assertThat(Field.c3.toString(), is("c3"));
-		assertThat(Field.c4.toString(), is("c4"));
-		assertThat(Field.c5.toString(), is("c5"));
-		assertThat(Field.c6.toString(), is("c6"));
-		assertThat(Field.c7.toString(), is("c7"));
-		assertThat(Field.c8.toString(), is("c8"));
+		assertThat(fieldAsString(c1), is("c1"));
+		assertThat(fieldAsString(c2), is("c2"));
+		assertThat(fieldAsString(c3), is("c3"));
+		assertThat(fieldAsString(c4), is("c4"));
+		assertThat(fieldAsString(c5), is("c5"));
+		assertThat(fieldAsString(c6), is("c6"));
+		assertThat(fieldAsString(c7), is("c7"));
+		assertThat(fieldAsString(c8), is("c8"));
 		
-		assertThat(Field.d1.toString(), is("d1"));
-		assertThat(Field.d2.toString(), is("d2"));
-		assertThat(Field.d3.toString(), is("d3"));
-		assertThat(Field.d4.toString(), is("d4"));
-		assertThat(Field.d5.toString(), is("d5"));
-		assertThat(Field.d6.toString(), is("d6"));
-		assertThat(Field.d7.toString(), is("d7"));
-		assertThat(Field.d8.toString(), is("d8"));
+		assertThat(fieldAsString(d1), is("d1"));
+		assertThat(fieldAsString(d2), is("d2"));
+		assertThat(fieldAsString(d3), is("d3"));
+		assertThat(fieldAsString(d4), is("d4"));
+		assertThat(fieldAsString(d5), is("d5"));
+		assertThat(fieldAsString(d6), is("d6"));
+		assertThat(fieldAsString(d7), is("d7"));
+		assertThat(fieldAsString(d8), is("d8"));
 		
-		assertThat(Field.e1.toString(), is("e1"));
-		assertThat(Field.e2.toString(), is("e2"));
-		assertThat(Field.e3.toString(), is("e3"));
-		assertThat(Field.e4.toString(), is("e4"));
-		assertThat(Field.e5.toString(), is("e5"));
-		assertThat(Field.e6.toString(), is("e6"));
-		assertThat(Field.e7.toString(), is("e7"));
-		assertThat(Field.e8.toString(), is("e8"));
+		assertThat(fieldAsString(e1), is("e1"));
+		assertThat(fieldAsString(e2), is("e2"));
+		assertThat(fieldAsString(e3), is("e3"));
+		assertThat(fieldAsString(e4), is("e4"));
+		assertThat(fieldAsString(e5), is("e5"));
+		assertThat(fieldAsString(e6), is("e6"));
+		assertThat(fieldAsString(e7), is("e7"));
+		assertThat(fieldAsString(e8), is("e8"));
 		
-		assertThat(Field.f1.toString(), is("f1"));
-		assertThat(Field.f2.toString(), is("f2"));
-		assertThat(Field.f3.toString(), is("f3"));
-		assertThat(Field.f4.toString(), is("f4"));
-		assertThat(Field.f5.toString(), is("f5"));
-		assertThat(Field.f6.toString(), is("f6"));
-		assertThat(Field.f7.toString(), is("f7"));
-		assertThat(Field.f8.toString(), is("f8"));
+		assertThat(fieldAsString(f1), is("f1"));
+		assertThat(fieldAsString(f2), is("f2"));
+		assertThat(fieldAsString(f3), is("f3"));
+		assertThat(fieldAsString(f4), is("f4"));
+		assertThat(fieldAsString(f5), is("f5"));
+		assertThat(fieldAsString(f6), is("f6"));
+		assertThat(fieldAsString(f7), is("f7"));
+		assertThat(fieldAsString(f8), is("f8"));
 		
-		assertThat(Field.g1.toString(), is("g1"));
-		assertThat(Field.g2.toString(), is("g2"));
-		assertThat(Field.g3.toString(), is("g3"));
-		assertThat(Field.g4.toString(), is("g4"));
-		assertThat(Field.g5.toString(), is("g5"));
-		assertThat(Field.g6.toString(), is("g6"));
-		assertThat(Field.g7.toString(), is("g7"));
-		assertThat(Field.g8.toString(), is("g8"));
+		assertThat(fieldAsString(g1), is("g1"));
+		assertThat(fieldAsString(g2), is("g2"));
+		assertThat(fieldAsString(g3), is("g3"));
+		assertThat(fieldAsString(g4), is("g4"));
+		assertThat(fieldAsString(g5), is("g5"));
+		assertThat(fieldAsString(g6), is("g6"));
+		assertThat(fieldAsString(g7), is("g7"));
+		assertThat(fieldAsString(g8), is("g8"));
 		
-		assertThat(Field.h1.toString(), is("h1"));
-		assertThat(Field.h2.toString(), is("h2"));
-		assertThat(Field.h3.toString(), is("h3"));
-		assertThat(Field.h4.toString(), is("h4"));
-		assertThat(Field.h5.toString(), is("h5"));
-		assertThat(Field.h6.toString(), is("h6"));
-		assertThat(Field.h7.toString(), is("h7"));
-		assertThat(Field.h8.toString(), is("h8"));
+		assertThat(fieldAsString(h1), is("h1"));
+		assertThat(fieldAsString(h2), is("h2"));
+		assertThat(fieldAsString(h3), is("h3"));
+		assertThat(fieldAsString(h4), is("h4"));
+		assertThat(fieldAsString(h5), is("h5"));
+		assertThat(fieldAsString(h6), is("h6"));
+		assertThat(fieldAsString(h7), is("h7"));
+		assertThat(fieldAsString(h8), is("h8"));
 	}
 
 	@Test
 	public void testFile() {
-		assertThat(Field.a1.rank(), is(0));
-		assertThat(Field.a2.rank(), is(1));
-		assertThat(Field.a8.rank(), is(7));
+		assertThat(rank(a1), is(0));
+		assertThat(rank(a2), is(1));
+		assertThat(rank(a8), is(7));
 	}
 	
 	@Test
 	public void knightMoves() {
-		assertThat(e4.leftLeftUp(), is(c5));
-		assertThat(e4.leftLeftDown(), is(c3));
-		assertThat(e4.leftUpUp(), is(d6));
-		assertThat(e4.rightUpUp(), is(f6));
-		assertThat(e4.rightRightUp(), is(g5));
-		assertThat(e4.rightRightDown(), is(g3));
-		assertThat(e4.rightDownDown(), is(f2));
-		assertThat(e4.leftDownDown(), is(d2));
+		assertThat(leftLeftUp(e4), is(c5));
+		assertThat(leftLeftDown(e4), is(c3));
+		assertThat(leftUpUp(e4), is(d6));
+		assertThat(rightUpUp(e4), is(f6));
+		assertThat(rightRightUp(e4), is(g5));
+		assertThat(rightRightDown(e4), is(g3));
+		assertThat(rightDownDown(e4), is(f2));
+		assertThat(leftDownDown(e4), is(d2));
 	}
 
 	@Test

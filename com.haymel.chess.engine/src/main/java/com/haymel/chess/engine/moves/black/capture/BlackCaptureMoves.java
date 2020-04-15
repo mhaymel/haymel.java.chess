@@ -7,6 +7,7 @@
  */
 package com.haymel.chess.engine.moves.black.capture;
 
+import static com.haymel.chess.engine.board.Field.fieldAsString;
 import static com.haymel.chess.engine.board.Field.removed;
 
 import com.haymel.chess.engine.board.Field;
@@ -34,12 +35,12 @@ public final class BlackCaptureMoves {		//TODO unit test
 		this.pawnMoves = new BlackPawnCaptureMoves(pieces);
 	}
 	
-	public void generate(PieceList pieces, Field epField, Moves moves) {
+	public void generate(PieceList pieces, int epField, Moves moves) {
 		assert pieces != null;
-		assert epField != null;
+		assert Field.valid(epField);
 		assert moves != null;
 		assert pieces.size() > 0;
-		assert epField == removed || epField.rank() == 2 : String.format("wrong enpassant field: %s", epField);
+		assert epField == removed || Field.rank(epField) == 2 : String.format("wrong enpassant field: %s", fieldAsString(epField));
 		assert !moves.kingCaptured();
 		
 		int size = pieces.size();
@@ -47,7 +48,7 @@ public final class BlackCaptureMoves {		//TODO unit test
 			generate(pieces.piece(i), epField, moves);
 	}
 
-	private void generate(Piece piece, Field epField, Moves moves) {
+	private void generate(Piece piece, int epField, Moves moves) {
 		assert piece != null;
 		assert piece.black();
 		

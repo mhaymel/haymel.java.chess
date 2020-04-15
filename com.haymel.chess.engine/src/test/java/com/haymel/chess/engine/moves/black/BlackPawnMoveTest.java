@@ -61,7 +61,6 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.piece.Piece;
@@ -351,17 +350,17 @@ public class BlackPawnMoveTest {
 		assertThat(result.contains(new Move(d4, e3, enpassant, whitePawn)), is(true));
 	}
 	
-	private Move capture(Field from, Field to) {
-		return new Move(from, to, capture, board[to.position()]);
+	private Move capture(int from, int to) {
+		return new Move(from, to, capture, board[to]);
 	}
 	
-	private Piece blackPawn(Field f) {
-		return piece(f, BlackPawn);
+	private Piece blackPawn(int field) {
+		return piece(field, BlackPawn);
 	}
 	
-	private Piece piece(Field f, PieceType t) {
-		Piece p = new Piece(t, f);
-		board[p.field().position()] = p;
+	private Piece piece(int field, PieceType t) {
+		Piece p = new Piece(t, field);
+		board[p.field()] = p;
 		return p;
 	}
 

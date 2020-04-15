@@ -106,19 +106,19 @@ public final class GameStartPos {	//TODO unit test
 		addBlack(PieceType.BlackRook, h8);
 	}
 	
-	private void addWhite(PieceType type, Field field) {
+	private void addWhite(PieceType type, int field) {
 		Piece piece = piece(type, field);
 		game.addWhite(piece);
 		game.place(piece);
 	}
 	
-	private void addBlack(PieceType type, Field field) {
+	private void addBlack(PieceType type, int field) {
 		Piece piece = piece(type, field);
 		game.addBlack(piece);
 		game.place(piece);
 	}
 
-	private Piece piece(PieceType type, Field field) {
+	private Piece piece(PieceType type, int field) {
 		Piece piece = new Piece(type, field);
 		piece.setMoved(false);
 		return piece;

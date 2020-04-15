@@ -10,7 +10,11 @@ package com.haymel.chess.engine.game;
 import static com.haymel.chess.engine.board.Board.newBoard;
 import static com.haymel.chess.engine.board.Field.a3;
 import static com.haymel.chess.engine.board.Field.a6;
+import static com.haymel.chess.engine.board.Field.rank;
 import static com.haymel.chess.engine.board.Field.removed;
+import static com.haymel.chess.engine.board.Field.right;
+import static com.haymel.chess.engine.board.Field.up;
+import static com.haymel.chess.engine.board.Field.valid;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
 import static com.haymel.chess.engine.piece.Piece.free;
@@ -37,7 +41,7 @@ public final class Game {	//TODO unit test and refactor
 	private final PieceList blackPieces = new PieceList();
 	private Piece[] board;
 	private ActiveColor activeColor;
-	private Field enPassant;
+	private int enPassant;
 	private int halfMoveClock;
 	private int fullMoveNumber;
 	private final WhiteMoves whiteMoves;
@@ -92,13 +96,14 @@ public final class Game {	//TODO unit test and refactor
 		return activeColor;
 	}
 
-	public Piece piece(Field field) {
-		return board[field.position()];
+	public Piece piece(int field) {
+		assert valid(field);
+		return board[field];
 	}
 
-	public void clear(Field f) {
-		assert !board[f.position()].border() : format("cannot clear border: %s", f);
-		board[f.position()] = free;
+	public void clear(int field) {
+		assert !board[field].border() : format("cannot clear border: %s", field);
+		board[field] = free;
 	}
 
 	public void place(Piece piece) {
@@ -108,7 +113,7 @@ public final class Game {	//TODO unit test and refactor
 			piece.black() && blackPieces.contains(piece) || 
 			piece.white() && whitePieces.contains(piece);
 		
-		board[piece.field().position()] = piece;
+		board[piece.field()] = piece;
 	}
 
 	private void push(Undo undo) {
@@ -119,18 +124,18 @@ public final class Game {	//TODO unit test and refactor
 		enPassant(removed);
 	}
 
-	public void enPassant(Field field) {
-		assert field != null;
-		assert field == removed || board[field.position()].free();
+	public void enPassant(int field) {
+		assert Field.valid(field);
+		assert field == removed || board[field].free();
 		assert 
 			field == removed ||
-			activeColor == white && field.rank() == a3.rank() && board[field.up().position()].whitePawn()||
-			activeColor == black && field.rank() == a6.rank() && board[field.down().position()].blackPawn();
+			activeColor == white && rank(field) == rank(a3) && board[Field.up(field)].whitePawn()||
+			activeColor == black && rank(field) == rank(a6) && board[Field.down(field)].blackPawn();
 		
 		enPassant = field;
 	}
 
-	public Field enPassant() {
+	public int enPassant() {
 		return enPassant;
 	}
 	
@@ -246,29 +251,29 @@ public final class Game {	//TODO unit test and refactor
 		for(int i = 0; i < size; i++) {
 			Piece piece = whitePieces.piece(i);
 			assert piece.white();
-			assert board[piece.field().position()] == piece : piece.toString() + " != " + board[piece.field().position()];
+			assert board[piece.field()] == piece : piece.toString() + " != " + board[piece.field()];
 		}
 
 		size = blackPieces.size();
 		for(int i = 0; i < size; i++) {
 			Piece piece = blackPieces.piece(i);
 			assert piece.black();
-			assert board[piece.field().position()] == piece;
+			assert board[piece.field()] == piece;
 		}
 		
-		Field fy = Field.a1;
+		int fy = Field.a1;
 		for(int y = 0; y < 8; y++) {
-			Field fx = fy;
+			int fx = fy;
 			for(int x = 0; x < 8; x++) {
-				Piece p = board[fx.position()];
+				Piece p = board[fx];
 				assert !p.border();
 				if (p.black()) 
 					assert blackPieces.contains(p);
 				else if (p.white())
 					assert whitePieces.contains(p);
-				fx = fx.right();
+				fx = right(fx);
 			}
-			fy = fy.up();
+			fy = up(fy);
 			
 		}
 		return true;

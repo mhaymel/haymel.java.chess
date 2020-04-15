@@ -26,10 +26,10 @@ public final class WhiteQueenMoves {
 		assert piece != null;
 		assert moves != null;
 		assert piece.field() != removed;
-		assert pieces[piece.field().position()] == piece;
+		assert pieces[piece.field()] == piece;
 		assert piece.type() == WhiteQueen;
 
-		Field from = piece.field();
+		int from = piece.field();
 		up(from, moves);
 		down(from, moves);
 		left(from, moves);
@@ -40,97 +40,97 @@ public final class WhiteQueenMoves {
 		rightDown(from, moves);
 	}
 
-	private void up(Field from, Moves moves) {
-		Field to = from.up();
-		Piece piece = pieces[to.position()];
+	private void up(int from, Moves moves) {
+		int to = Field.up(from);
+		Piece piece = pieces[to];
 		while(piece.free()) {
 			moves.add(from, to);
-			to = to.up();
-			piece = pieces[to.position()];
+			to = Field.up(to);
+			piece = pieces[to];
 		}
 		if (piece.black()) 
 			moves.addCapture(from, to, piece);
 	}
 
-	private void down(Field from, Moves moves) {
-		Field to = from.down();
-		Piece piece = pieces[to.position()];
+	private void down(int from, Moves moves) {
+		int to = Field.down(from);
+		Piece piece = pieces[to];
 		while(piece.free()) {
 			moves.add(from, to);
-			to = to.down();
-			piece = pieces[to.position()];		
+			to = Field.down(to);
+			piece = pieces[to];		
 		}
 		if (piece.black()) 
 			moves.addCapture(from, to, piece);
 	}
 
-	private void left(Field from, Moves moves) {
-		Field to = from.left();
-		Piece piece = pieces[to.position()];
+	private void left(int from, Moves moves) {
+		int to = Field.left(from);
+		Piece piece = pieces[to];
 		while(piece.free()) {
 			moves.add(from, to);
-			to = to.left();
-			piece = pieces[to.position()];
+			to = Field.left(to);
+			piece = pieces[to];
 		}
 		if (piece.black()) 
 			moves.addCapture(from, to, piece);
 	}
 
-	private void right(Field from, Moves moves) {
-		Field to = from.right();
-		Piece piece = pieces[to.position()];
+	private void right(int from, Moves moves) {
+		int to = Field.right(from);
+		Piece piece = pieces[to];
 		while(piece.free()) {
 			moves.add(from, to);
-			to = to.right();
-			piece = pieces[to.position()];
+			to = Field.right(to);
+			piece = pieces[to];
 		}
 		if (piece.black()) 
 			moves.addCapture(from, to, piece);
 	}
 
-	private void leftUp(Field from, Moves moves) {
-		Field to = from.leftUp();
-		Piece piece = pieces[to.position()];
+	private void leftUp(int from, Moves moves) {
+		int to = Field.leftUp(from);
+		Piece piece = pieces[to];
 		while(piece.free()) {
 			moves.add(from, to);
-			to = to.leftUp();
-			piece = pieces[to.position()];
+			to = Field.leftUp(to);
+			piece = pieces[to];
 		}
 		if (piece.black()) 
 			moves.addCapture(from, to, piece);
 	}
 
-	private void leftDown(Field from, Moves moves) {
-		Field to = from.leftDown();
-		Piece piece = pieces[to.position()];
+	private void leftDown(int from, Moves moves) {
+		int to = Field.leftDown(from);
+		Piece piece = pieces[to];
 		while(piece.free()) {
 			moves.add(from, to);
-			to = to.leftDown();
-			piece = pieces[to.position()];
+			to = Field.leftDown(to);
+			piece = pieces[to];
 		}
 		if (piece.black()) 
 			moves.addCapture(from, to, piece);
 	}
 
-	private void rightUp(Field from, Moves moves) {
-		Field to = from.rightUp();
-		Piece piece = pieces[to.position()];
+	private void rightUp(int from, Moves moves) {
+		int to = Field.rightUp(from);
+		Piece piece = pieces[to];
 		while(piece.free()) {
 			moves.add(from, to);
-			to = to.rightUp();
-			piece = pieces[to.position()];
+			to = Field.rightUp(to);
+			piece = pieces[to];
 		}
 		if (piece.black()) 
 			moves.addCapture(from, to, piece);
 	}
 
-	private void rightDown(Field from, Moves moves) {
-		Field to = from.rightDown();
-		Piece piece = pieces[to.position()];
+	private void rightDown(int from, Moves moves) {
+		int to = Field.rightDown(from);
+		Piece piece = pieces[to];
 		while(piece.free()) {
 			moves.add(from, to);
-			to = to.rightDown();
-			piece = pieces[to.position()];
+			to = Field.rightDown(to);
+			piece = pieces[to];
 		}
 		if (piece.black()) 
 			moves.addCapture(from, to, piece);

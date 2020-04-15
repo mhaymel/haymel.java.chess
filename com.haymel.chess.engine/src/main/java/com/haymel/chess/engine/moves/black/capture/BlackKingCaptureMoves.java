@@ -27,23 +27,23 @@ public final class BlackKingCaptureMoves {		//TODO unit test
 		assert king != null;
 		assert moves != null;
 		assert king.field() != removed;
-		assert pieces[king.field().position()] == king;
+		assert pieces[king.field()] == king;
 		assert king.blackKing() : format("piece must be black king but is %s", king);
 
-		Field from = king.field();
+		int from = king.field();
 		
-		add(from, from.left(), moves);
-		add(from, from.right(), moves);
-		add(from, from.up(), moves);
-		add(from, from.down(), moves);
-		add(from, from.leftUp(), moves);
-		add(from, from.leftDown(), moves);
-		add(from, from.rightUp(), moves);
-		add(from, from.rightDown(), moves);
+		add(from, Field.left(from), moves);
+		add(from, Field.right(from), moves);
+		add(from, Field.up(from), moves);
+		add(from, Field.down(from), moves);
+		add(from, Field.leftUp(from), moves);
+		add(from, Field.leftDown(from), moves);
+		add(from, Field.rightUp(from), moves);
+		add(from, Field.rightDown(from), moves);
 	}
 
-	private void add(Field from, Field to, Moves moves) {
-		Piece piece = pieces[to.position()];
+	private void add(int from, int to, Moves moves) {
+		Piece piece = pieces[to];
 		
 		if (piece.white()) 
 			moves.addCapture(from, to, piece);

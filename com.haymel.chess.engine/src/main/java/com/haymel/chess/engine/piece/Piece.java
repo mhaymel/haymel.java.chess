@@ -11,6 +11,7 @@ import static com.haymel.chess.engine.board.Field.a1;
 import static com.haymel.chess.engine.board.Field.a8;
 import static com.haymel.chess.engine.board.Field.e1;
 import static com.haymel.chess.engine.board.Field.e8;
+import static com.haymel.chess.engine.board.Field.fieldAsString;
 import static com.haymel.chess.engine.board.Field.h1;
 import static com.haymel.chess.engine.board.Field.h8;
 import static com.haymel.chess.engine.board.Field.removed;
@@ -35,15 +36,15 @@ import com.haymel.chess.engine.board.Field;
 public final class Piece {
 
 	private PieceType type;
-	private Field field; 
+	private int field; 
 	private boolean moved;
 
-	public static final Piece border = new Piece(Border, removed);
-	public static final Piece free = new Piece(Free, removed);
+	public static final Piece border = new Piece(Border, Field.removed);
+	public static final Piece free = new Piece(Free, Field.removed);
 	
-	public Piece(PieceType type, Field field) {
+	public Piece(PieceType type, int field) {
 		assert type != null;
-		assert field != null;
+		assert Field.valid(field);
 		
 		this.type = type;
 		this.field = field;
@@ -94,15 +95,15 @@ public final class Piece {
 		return type == Border;
 	}
 	
-	public Field field() {
+	public int field() {
 		return field;
 	}
 	
-	public void field(Field field) {
-		assert field != null;
+	public void field(int field) {
+		assert Field.valid(field);
 
-		assert field == removed || type != WhitePawn || (field.rank() != 0 && field.rank() != 7) : format("a white pawn must not be placed on file 1 or 8. The value of field is %s", field);
-		assert field == removed || type != BlackPawn || (field.rank() != 0 && field.rank() != 7) : format("a black pawn must not be placed on file 1 or 8. The value of field is %s", field);
+		assert field == removed || type != WhitePawn || (Field.rank(field) != 0 && Field.rank(field) != 7) : format("a white pawn must not be placed on file 1 or 8. The value of field is %s", field);
+		assert field == removed || type != BlackPawn || (Field.rank(field) != 0 && Field.rank(field) != 7) : format("a black pawn must not be placed on file 1 or 8. The value of field is %s", field);
 		
 		assert !border() || field == removed;
 		assert !free() || field == removed;
@@ -115,11 +116,11 @@ public final class Piece {
 	}
 
 	public void setMoved(boolean value) {
-		assert value || type != WhiteKing || field() == e1 : format("a white king which was not moved must be on field e1. The current value of field is %s", field()); 
-		assert value || type != WhiteRook || field() == a1 || field() == h1 : format("a white rook which was not moved must be on field a1 or h1. The current value of field is %s", field()); 
+		assert value || type != WhiteKing || field() == e1 : format("a white king which was not moved must be on field e1. The current value of field is %s", fieldAsString(field())); 
+		assert value || type != WhiteRook || field() == a1 || field() == h1 : format("a white rook which was not moved must be on field a1 or h1. The current value of field is %s", fieldAsString(field())); 
 		
-		assert value || type != BlackKing || field() == e8 : format("a black king which was not moved must be on field e8. The current value of field is %s", field()); 
-		assert value || type != BlackRook || field() == a8 || field() == h8 : format("a black rook which was not moved must be on field a8 or h8. The current value of field is %s", field()); 
+		assert value || type != BlackKing || field() == e8 : format("a black king which was not moved must be on field e8. The current value of field is %s", fieldAsString(field())); 
+		assert value || type != BlackRook || field() == a8 || field() == h8 : format("a black rook which was not moved must be on field a8 or h8. The current value of field is %s", fieldAsString(field())); 
 		
 		moved = value;
 	}
@@ -174,6 +175,6 @@ public final class Piece {
 
 	@Override
 	public String toString() {
-		return format("Piece(%s, %s)", type, field);
+		return format("Piece(%s, %s)", type, fieldAsString(field));
 	}
 }

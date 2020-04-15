@@ -7,6 +7,8 @@
  */
 package com.haymel.chess.engine.board;
 
+import static com.haymel.chess.engine.board.Field.a1;
+import static com.haymel.chess.engine.board.Field.left;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -19,7 +21,7 @@ public class BoardTest {	//TODO implement
 	
 	@Test
 	public void test() {
-		Piece piece = Board.newBoard()[Field.a1.position()];
+		Piece piece = Board.newBoard()[a1];
 		
 		assertThat(piece.free(), is(true));
 		assertThat(piece.black(), is(false));
@@ -28,7 +30,7 @@ public class BoardTest {	//TODO implement
 
 	@Test
 	public void testBorderElement() {
-		Piece piece = Board.newBoard()[Field.a1.left().position()];
+		Piece piece = Board.newBoard()[left(a1)];
 		assertThat(piece.free(), is(false));
 		assertThat(piece.black(), is(false));
 		assertThat(piece.white(), is(false));

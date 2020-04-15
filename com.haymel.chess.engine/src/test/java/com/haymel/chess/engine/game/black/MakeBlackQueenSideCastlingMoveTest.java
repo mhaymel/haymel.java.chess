@@ -25,7 +25,6 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.game.MakeMove;
 import com.haymel.chess.engine.moves.Move;
@@ -64,7 +63,7 @@ public class MakeBlackQueenSideCastlingMoveTest {
 		makeAndUndo(e3);
 	}
 
-	private void makeAndUndo(Field enpassant) {
+	private void makeAndUndo(int enpassant) {
 		addPotentialEnpassant(game);
 		game.activeColorWhite();
 		game.enPassant(enpassant);

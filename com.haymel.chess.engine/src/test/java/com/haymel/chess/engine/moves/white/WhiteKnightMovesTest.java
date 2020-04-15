@@ -41,7 +41,6 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.piece.Piece;
@@ -168,28 +167,28 @@ public class WhiteKnightMovesTest {
 		assertThat(result.contains(capture(e4, f2)), is(true));
 	}
 	
-	private Move capture(Field from, Field to) {
-		return new Move(from, to, capture, board[to.position()]);
+	private Move capture(int from, int to) {
+		return new Move(from, to, capture, board[to]);
 	}
 	
-	private Piece blackPawn(Field f) {
-		return piece(f, BlackPawn);
+	private Piece blackPawn(int field) {
+		return piece(field, BlackPawn);
 	}
 	
-	private Piece whitePawn(Field f) {
+	private Piece whitePawn(int f) {
 		return piece(f, WhitePawn);
 	}
 	
-	private Piece piece(Field f, PieceType t) {
+	private Piece piece(int field, PieceType t) {
 		Piece p = new Piece(t, removed);
-		p.field(f);
-		board[p.field().position()] = p;
+		p.field(field);
+		board[p.field()] = p;
 		return p;
 	}
 	
-	private void knight(Field f) {
-		knight.field(f);
-		board[knight.field().position()] = knight;
+	private void knight(int field) {
+		knight.field(field);
+		board[knight.field()] = knight;
 	}
 	
 	private Set<Move> movesAsSet() {

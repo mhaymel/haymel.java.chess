@@ -14,6 +14,8 @@ import static com.haymel.chess.engine.board.Field.d2;
 import static com.haymel.chess.engine.board.Field.e2;
 import static com.haymel.chess.engine.board.Field.e3;
 import static com.haymel.chess.engine.board.Field.f2;
+import static com.haymel.chess.engine.board.Field.leftUp;
+import static com.haymel.chess.engine.board.Field.up;
 
 import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.board.Field;
@@ -40,37 +42,37 @@ public final class D1Attacked {
 			e2h5(pieces) ||
 			knights(pieces) || 
 			pawns(pieces) ||
-			pieces[c2.position()].blackKing();
+			pieces[c2].blackKing();
 	}
 
 	static boolean d2d8(Piece[] pieces) {
-		Field f = d2;
-		Piece piece = pieces[f.position()];
+		int field = d2;
+		Piece piece = pieces[field];
 		while(piece.free()) {
-			f = f.up();
-			piece = pieces[f.position()];
+			field = up(field);
+			piece = pieces[field];
 		}
 		
 		return piece.blackRook() || piece.blackQueen();
 	}
 	
 	static boolean c2a4(Piece[] pieces) {
-		Field f = c2;
-		Piece piece = pieces[f.position()];
+		int field = c2;
+		Piece piece = pieces[field];
 		while(piece.free()) {
-			f = f.leftUp();
-			piece = pieces[f.position()];
+			field = leftUp(field);
+			piece = pieces[field];
 		}
 		
 		return piece.blackBishop() || piece.blackQueen();
 	}
 	
 	static boolean e2h5(Piece[] pieces) {
-		Field f = e2;
-		Piece piece = pieces[f.position()];
+		int field = e2;
+		Piece piece = pieces[field];
 		while(piece.free()) {
-			f = f.rightUp();
-			piece = pieces[f.position()];
+			field = Field.rightUp(field);
+			piece = pieces[field];
 		}
 		
 		return piece.blackBishop() || piece.blackQueen();
@@ -78,14 +80,14 @@ public final class D1Attacked {
 	
 	static boolean knights(Piece[] pieces) {
 		return 
-			pieces[b2.position()].blackKnight() ||
-			pieces[c3.position()].blackKnight() ||
-			pieces[e3.position()].blackKnight() ||
-			pieces[f2.position()].blackKnight();
+			pieces[b2].blackKnight() ||
+			pieces[c3].blackKnight() ||
+			pieces[e3].blackKnight() ||
+			pieces[f2].blackKnight();
 	}
 
 	static boolean pawns(Piece[] pieces) {
-		return pieces[c2.position()].blackPawn() || pieces[e2.position()].blackPawn();
+		return pieces[c2].blackPawn() || pieces[e2].blackPawn();
 	}
 
 }

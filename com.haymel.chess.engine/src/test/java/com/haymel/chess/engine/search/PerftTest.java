@@ -67,7 +67,7 @@ public class PerftTest {
 		perft(fen, 3, 9467);
 		perft(fen, 4, 422333);
 //		perft(fen, 5, 15833292);
-//		perft(fen, 6, 11030083);
+//		perft(fen, 6, 706045033L);
 	}
 
 	@Test
@@ -78,7 +78,7 @@ public class PerftTest {
 		perft(fen, 3, 9467);
 		perft(fen, 4, 422333);
 //		perft(fen, 5, 15833292);
-//		perft(fen, 6, 11030083);
+//		perft(fen, 6, 706045033L);
 	}
 
 	@Test

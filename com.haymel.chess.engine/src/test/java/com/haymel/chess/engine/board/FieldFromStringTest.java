@@ -51,9 +51,9 @@ public class FieldFromStringTest {
 		test("h8", h8);
 	}
 	
-	private void test(String s, Field f) {
-		Field field = new FieldFromString(s).value();
-		assertThat(field, is(f));
+	private void test(String s, int expectedField) {
+		int field = new FieldFromString(s).value();
+		assertThat(field, is(expectedField));
 	}
 
 }

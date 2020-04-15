@@ -77,7 +77,6 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.piece.Piece;
@@ -154,8 +153,8 @@ public class BlackKingMovesTest {
 		assertThat(result.contains(capture(e4, d5)), is(true));
 	}
 
-	private Move capture(Field from, Field to) {
-		return new Move(from, to, capture, board[to.position()]);
+	private Move capture(int from, int to) {
+		return new Move(from, to, capture, board[to]);
 	}
 
 	@Test
@@ -998,47 +997,47 @@ public class BlackKingMovesTest {
 		assertThat(result.contains(queenSideCastling()), is(false));
 	}
 	
-	private Piece whiteKing(Field f) {
+	private Piece whiteKing(int f) {
 		return piece(f, WhiteKing);
 	}
 	
-	private Piece whiteRook(Field f) {
+	private Piece whiteRook(int f) {
 		return piece(f, WhiteRook);
 	}
 
-	private Piece blackQueen(Field f) {
+	private Piece blackQueen(int f) {
 		return piece(f, BlackQueen);
 	}
 	
-	private Piece blackBishop(Field f) {
+	private Piece blackBishop(int f) {
 		return piece(f, BlackBishop);
 	}
 	
-	private Piece blackKnight(Field f) {
+	private Piece blackKnight(int f) {
 		return piece(f, BlackKnight);
 	}
 	
-	private Piece blackRook(Field f) {
+	private Piece blackRook(int f) {
 		return piece(f, BlackRook);
 	}
 	
-	private Piece blackPawn(Field f) {
+	private Piece blackPawn(int f) {
 		return piece(f, BlackPawn);
 	}
 	
-	private Piece whitePawn(Field f) {
+	private Piece whitePawn(int f) {
 		return piece(f, WhitePawn);
 	}
 	
-	private Piece whiteKnight(Field f) {
+	private Piece whiteKnight(int f) {
 		return piece(f, WhiteKnight);
 	}
 
-	private Piece whiteBishop(Field f) {
+	private Piece whiteBishop(int f) {
 		return piece(f, WhiteBishop);
 	}
 	
-	private Piece whiteQueen(Field f) {
+	private Piece whiteQueen(int f) {
 		return piece(f, WhiteQueen);
 	}
 
@@ -1050,15 +1049,15 @@ public class BlackKingMovesTest {
 		return new Move(e8, c8, queensideCastling);
 	}
 
-	private Piece piece(Field f, PieceType t) {
-		Piece p = new Piece(t, f);
-		board[p.field().position()] = p;
+	private Piece piece(int field, PieceType t) {
+		Piece p = new Piece(t, field);
+		board[p.field()] = p;
 		return p;
 	}
 	
-	private Piece king(Field f) {
-		king.field(f);
-		board[king.field().position()] = king;
+	private Piece king(int field) {
+		king.field(field);
+		board[king.field()] = king;
 		king.setMoved(true);
 		return king;
 	}

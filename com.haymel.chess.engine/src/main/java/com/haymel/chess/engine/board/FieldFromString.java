@@ -7,6 +7,7 @@
  */
 package com.haymel.chess.engine.board;
 
+import static com.haymel.chess.engine.board.Field.field;
 import static com.haymel.util.Require.nonNull;
 import static com.haymel.util.exception.HaymelIllegalArgumentException.throwIAE;
 
@@ -18,10 +19,10 @@ public class FieldFromString {
 		this.fieldAsString = verify(fieldAsString);
 	}
 
-	public Field value() {
+	public int value() {
 		int file = fieldAsString.charAt(0) - 'a';
 		int rank = fieldAsString.charAt(1) - '1';
-		return Field.field(file, rank);
+		return field(file, rank);
 	}
 	
 	private static String verify(String fieldAsString) {

@@ -60,7 +60,7 @@ public class UciMoveMakerTest {
 		for (String move : moves) 
 			uciMoveMaker.move(move);
 		
-		assertThat(game.pieces()[d1.position()].type(), is(BlackQueen));
+		assertThat(game.pieces()[d1].type(), is(BlackQueen));
 	}
 	
 	@Test
@@ -78,7 +78,7 @@ public class UciMoveMakerTest {
 		for (String move : moves) 
 			uciMoveMaker.move(move);
 
-		assertThat(game.pieces()[d1.position()].type(), is(BlackRook));
+		assertThat(game.pieces()[d1].type(), is(BlackRook));
 	}
 
 	@Test
@@ -96,7 +96,7 @@ public class UciMoveMakerTest {
 		for (String move : moves) 
 			uciMoveMaker.move(move);
 
-		assertThat(game.pieces()[d1.position()].type(), is(BlackBishop));
+		assertThat(game.pieces()[d1].type(), is(BlackBishop));
 	}
 	
 	@Test
@@ -114,6 +114,6 @@ public class UciMoveMakerTest {
 		for (String move : moves) 
 			uciMoveMaker.move(move);
 
-		assertThat(game.pieces()[d1.position()].type(), is(BlackKnight));
+		assertThat(game.pieces()[d1].type(), is(BlackKnight));
 	}
 }

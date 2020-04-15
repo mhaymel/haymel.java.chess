@@ -45,7 +45,6 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.board.PieceList;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.Moves;
@@ -112,7 +111,7 @@ public class GameWhiteStartPosMakeAndUndoTest {
 			return;
 		}
 		
-		Field enPassant = game.enPassant();
+		int enPassant = game.enPassant();
 		MakeMove makeMove = new MakeMove(game);
 		int size = moves.size();
 		for(int i = 0; i < size; i++) {
@@ -145,7 +144,7 @@ public class GameWhiteStartPosMakeAndUndoTest {
 			return;
 		}
 		
-		Field enPassant = game.enPassant();
+		int enPassant = game.enPassant();
 		MakeMove makeMove = new MakeMove(game);
 		int size = moves.size();
 		for(int i = 0; i < size; i++) {

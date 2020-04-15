@@ -7,6 +7,7 @@
  */
 package com.haymel.chess.engine.search;
 
+import static com.haymel.chess.engine.board.Field.fieldAsString;
 import static com.haymel.chess.engine.search.SearchAlphaBeta.blackMate;
 import static com.haymel.chess.engine.search.SearchAlphaBeta.whiteMate;
 import static com.haymel.util.Require.nonEmpty;
@@ -96,7 +97,7 @@ public class SearchAlphaBetaMateTest {
 	}
 
 	private static String asString(Move move) {
-		return move.from().toString() + move.to().toString();
+		return fieldAsString(move.from()) + fieldAsString(move.to());
 	}
 	
 	private String asString(Variant variant) {

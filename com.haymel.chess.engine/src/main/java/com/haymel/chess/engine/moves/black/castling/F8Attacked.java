@@ -8,12 +8,14 @@
 package com.haymel.chess.engine.moves.black.castling;
 
 import static com.haymel.chess.engine.board.Field.d7;
+import static com.haymel.chess.engine.board.Field.down;
 import static com.haymel.chess.engine.board.Field.e6;
 import static com.haymel.chess.engine.board.Field.e7;
 import static com.haymel.chess.engine.board.Field.f7;
 import static com.haymel.chess.engine.board.Field.g6;
 import static com.haymel.chess.engine.board.Field.g7;
 import static com.haymel.chess.engine.board.Field.h7;
+import static com.haymel.chess.engine.board.Field.leftDown;
 
 import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.board.Field;
@@ -40,37 +42,37 @@ public final class F8Attacked {
 			g7h6(pieces) ||
 			knights(pieces) || 
 			pawns(pieces) ||
-			pieces[g7.position()].whiteKing();
+			pieces[g7].whiteKing();
 	}
 
 	static boolean f7f1(Piece[] pieces) {
-		Field f = f7;
-		Piece piece = pieces[f.position()];
+		int field = f7;
+		Piece piece = pieces[field];
 		while(piece.free()) {
-			f = f.down();
-			piece = pieces[f.position()];
+			field = down(field);
+			piece = pieces[field];
 		}
 		
 		return piece.whiteRook() || piece.whiteQueen();
 	}
 	
 	static boolean e7a3(Piece[] pieces) {
-		Field f = e7;
-		Piece piece = pieces[f.position()];
+		int field = e7;
+		Piece piece = pieces[field];
 		while(piece.free()) {
-			f = f.leftDown();
-			piece = pieces[f.position()];
+			field = leftDown(field);
+			piece = pieces[field];
 		}
 		
 		return piece.whiteBishop() || piece.whiteQueen();
 	}
 	
 	static boolean g7h6(Piece[] pieces) {
-		Field f = g7;
-		Piece piece = pieces[f.position()];
+		int field = g7;
+		Piece piece = pieces[field];
 		while(piece.free()) {
-			f = f.rightDown();
-			piece = pieces[f.position()];
+			field = Field.rightDown(field);
+			piece = pieces[field];
 		}
 		
 		return piece.whiteBishop() || piece.whiteQueen();
@@ -78,14 +80,14 @@ public final class F8Attacked {
 	
 	static boolean knights(Piece[] pieces) {
 		return 
-			pieces[d7.position()].whiteKnight() ||
-			pieces[e6.position()].whiteKnight() ||
-			pieces[g6.position()].whiteKnight() ||
-			pieces[h7.position()].whiteKnight();
+			pieces[d7].whiteKnight() ||
+			pieces[e6].whiteKnight() ||
+			pieces[g6].whiteKnight() ||
+			pieces[h7].whiteKnight();
 	}
 
 	static boolean pawns(Piece[] pieces) {
-		return pieces[e7.position()].whitePawn() || pieces[g7.position()].whitePawn();
+		return pieces[e7].whitePawn() || pieces[g7].whitePawn();
 	}
 
 }

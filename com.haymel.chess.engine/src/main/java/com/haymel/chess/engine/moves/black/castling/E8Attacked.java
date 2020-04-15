@@ -11,11 +11,15 @@ import static com.haymel.chess.engine.board.Field.c7;
 import static com.haymel.chess.engine.board.Field.d6;
 import static com.haymel.chess.engine.board.Field.d7;
 import static com.haymel.chess.engine.board.Field.d8;
+import static com.haymel.chess.engine.board.Field.down;
 import static com.haymel.chess.engine.board.Field.e7;
 import static com.haymel.chess.engine.board.Field.f6;
 import static com.haymel.chess.engine.board.Field.f7;
 import static com.haymel.chess.engine.board.Field.f8;
 import static com.haymel.chess.engine.board.Field.g7;
+import static com.haymel.chess.engine.board.Field.left;
+import static com.haymel.chess.engine.board.Field.leftDown;
+import static com.haymel.chess.engine.board.Field.right;
 
 import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.board.Field;
@@ -38,55 +42,55 @@ public final class E8Attacked {
 	}
 
 	static boolean e7e1(Piece[] pieces) {
-		Field f = e7;
-		Piece piece = pieces[f.position()];
+		int field = e7;
+		Piece piece = pieces[field];
 		while(piece.free()) {
-			f = f.down();
-			piece = pieces[f.position()];
+			field = down(field);
+			piece = pieces[field];
 		}
 		
 		return piece.whiteRook() || piece.whiteQueen();
 	}
 	
 	static boolean d8a8(Piece[] pieces) {
-		Field f = d8;
-		Piece piece = pieces[f.position()];
+		int field = d8;
+		Piece piece = pieces[field];
 		while(piece.free()) {
-			f = f.left();
-			piece = pieces[f.position()];
+			field = left(field);
+			piece = pieces[field];
 		}
 		
 		return piece.whiteRook() || piece.whiteQueen();
 	}
 	
 	static boolean f8h8(Piece[] pieces) {
-		Field f = f8;
-		Piece piece = pieces[f.position()];
+		int field = f8;
+		Piece piece = pieces[field];
 		while(piece.free()) {
-			f = f.right();
-			piece = pieces[f.position()];
+			field = right(field);
+			piece = pieces[field];
 		}
 		
 		return piece.whiteRook() || piece.whiteQueen();
 	}
 	
 	static boolean d7a4(Piece[] pieces) {
-		Field f = d7;
-		Piece piece = pieces[f.position()];
+		int field = d7;
+		Piece piece = pieces[field];
 		while(piece.free()) {
-			f = f.leftDown();
-			piece = pieces[f.position()];
+			field = leftDown(field);
+			piece = pieces[field];
 		}
 		
 		return piece.whiteBishop() || piece.whiteQueen();
 	}
 	
 	static boolean f7h5(Piece[] pieces) {
-		Field f = f7;
-		Piece piece = pieces[f.position()];
+		int field = f7;
+		Piece piece = pieces[field];
 		while(piece.free()) {
-			f = f.rightDown();
-			piece = pieces[f.position()];
+			field = Field.rightDown(field);
+			piece = pieces[field];
 		}
 		
 		return piece.whiteBishop() || piece.whiteQueen();
@@ -94,14 +98,14 @@ public final class E8Attacked {
 	
 	static boolean knights(Piece[] pieces) {
 		return 
-			pieces[c7.position()].whiteKnight() ||
-			pieces[d6.position()].whiteKnight() ||
-			pieces[f6.position()].whiteKnight() ||
-			pieces[g7.position()].whiteKnight();
+			pieces[c7].whiteKnight() ||
+			pieces[d6].whiteKnight() ||
+			pieces[f6].whiteKnight() ||
+			pieces[g7].whiteKnight();
 	}
 
 	static boolean pawns(Piece[] pieces) {
-		return pieces[d7.position()].whitePawn() || pieces[f7.position()].whitePawn();
+		return pieces[d7].whitePawn() || pieces[f7].whitePawn();
 	}
 
 }

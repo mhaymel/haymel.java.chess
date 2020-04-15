@@ -15,18 +15,18 @@ final class Undo {			//TODO unit test
 	private final Move move;
 	private final boolean moved;
 	private ActiveColor activeColor;
-	private Field enPassant;
+	private int enPassant;
 	private int halfMoveClock;
 	private int fullMoveNumber;
 	
-	public Undo(Move move, ActiveColor activeColor, Field enPassant, int halfMoveClock, int fullMoveNumber) {
+	public Undo(Move move, ActiveColor activeColor, int enPassant, int halfMoveClock, int fullMoveNumber) {
 		this(move, true, activeColor, enPassant, halfMoveClock, fullMoveNumber);
 	}
 	
-	public Undo(Move move, boolean moved, ActiveColor activeColor, Field enPassant, int halfMoveClock, int fullMoveNumber) {
+	public Undo(Move move, boolean moved, ActiveColor activeColor, int enPassant, int halfMoveClock, int fullMoveNumber) {
 		assert move != null;
 		assert activeColor != null;
-		assert enPassant != null;
+		assert Field.valid(enPassant);
 		assert halfMoveClock >= 0;
 		assert fullMoveNumber >= 1;
 		
@@ -42,7 +42,7 @@ final class Undo {			//TODO unit test
 		return move;
 	}
 
-	public Field enPassant() {
+	public int enPassant() {
 		return enPassant;
 	}
 

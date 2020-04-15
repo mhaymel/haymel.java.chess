@@ -18,7 +18,6 @@ import static com.haymel.util.Require.nonNull;
 import static com.haymel.util.exception.HaymelException.throwHE;
 import static com.haymel.util.exception.HaymelIllegalArgumentException.throwIAE;
 
-import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.board.PieceList;
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.piece.Piece;
@@ -85,7 +84,7 @@ class Castling {
 		piece.setMoved(false);
 	}
 
-	private void whiteRook(Field field) {
+	private void whiteRook(int field) {
 		Piece piece = game.piece(field);
 		if (!piece.whiteRook()) 
 			throwHE("Piece on field %s must be a white rook but is %s", field, piece);
@@ -109,7 +108,7 @@ class Castling {
 		piece.setMoved(false);
 	}
 
-	private void blackRook(Field field) {
+	private void blackRook(int field) {
 		Piece piece = game.piece(field);
 		if (!piece.blackRook()) 
 			throwHE("Piece on field %s must be a white rook but is %s", field, piece);

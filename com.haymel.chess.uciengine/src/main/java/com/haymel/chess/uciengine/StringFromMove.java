@@ -7,6 +7,7 @@
  */
 package com.haymel.chess.uciengine;
 
+import static com.haymel.chess.engine.board.Field.fieldAsString;
 import static com.haymel.util.Require.nonNull;
 
 import com.haymel.chess.engine.moves.Move;
@@ -20,7 +21,7 @@ public class StringFromMove {		//TODO unit test
 	}
 	
 	public String value() {
-		return move.from().toString() + move.to().toString();
+		return fieldAsString(move.from()) + fieldAsString(move.to());
 	}
 
 }

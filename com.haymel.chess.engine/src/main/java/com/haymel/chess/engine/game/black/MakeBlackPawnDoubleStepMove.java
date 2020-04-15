@@ -7,6 +7,9 @@
  */
 package com.haymel.chess.engine.game.black;
 
+import static com.haymel.chess.engine.board.Field.down;
+import static com.haymel.chess.engine.board.Field.rank;
+import static com.haymel.chess.engine.board.Field.up;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
 import static com.haymel.chess.engine.moves.MoveType.pawnDoubleStep;
@@ -24,16 +27,16 @@ public final class MakeBlackPawnDoubleStepMove {
 		assert game.activeColor() == black; 
 		assert move.type() == pawnDoubleStep;
 		assert game.piece(move.from()).blackPawn();
-		assert game.piece(move.to().up()).free();
+		assert game.piece(up(move.to())).free();
 		assert game.piece(move.to()).free();
-		assert move.from().rank() == 6;
+		assert rank(move.from()) == 6;
 		
 		Piece piece = game.piece(move.from());
 		game.clear(move.from());
 		piece.field(move.to());
 		game.place(piece);
 		game.push(move);
-		game.enPassant(move.from().down());
+		game.enPassant(down(move.from()));
 		game.resetHalfMoveClock();
 		game.incFullMoveNumber();
 		game.activeColorWhite();
@@ -49,9 +52,9 @@ public final class MakeBlackPawnDoubleStepMove {
 		assert move != null;
 		assert game.assertVerify();
 		assert game.piece(move.to()).blackPawn();
-		assert game.piece(move.to().up()).free();
+		assert game.piece(up(move.to())).free();
 		assert game.piece(move.from()).free();
-		assert move.from().rank() == 6;
+		assert rank(move.from()) == 6;
 		assert game.activeColor() == black; 
 
 		Piece piece = game.piece(move.to());

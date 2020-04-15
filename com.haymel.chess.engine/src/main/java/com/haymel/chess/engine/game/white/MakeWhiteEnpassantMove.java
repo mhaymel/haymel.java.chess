@@ -7,6 +7,8 @@
  */
 package com.haymel.chess.engine.game.white;
 
+import static com.haymel.chess.engine.board.Field.down;
+import static com.haymel.chess.engine.board.Field.rank;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
 import static com.haymel.chess.engine.moves.MoveType.enpassant;
@@ -25,10 +27,10 @@ public final class MakeWhiteEnpassantMove {
 		assert move.type() == enpassant;
 		assert move.to() == game.enPassant();
 		assert game.piece(move.from()).whitePawn();
-		assert move.from().rank() == 4;
+		assert rank(move.from()) == 4;
 		assert game.piece(game.enPassant()).free();
-		assert game.piece(game.enPassant().down()).blackPawn();
-		assert game.piece(game.enPassant().down()) == move.capturedPiece();
+		assert game.piece(down(game.enPassant())).blackPawn();
+		assert game.piece(down(game.enPassant())) == move.capturedPiece();
 		assert game.containsBlackPiece(move.capturedPiece());
 		
 		Piece piece = game.piece(move.from());
@@ -59,7 +61,7 @@ public final class MakeWhiteEnpassantMove {
 		assert game.piece(move.to()).whitePawn();
 		assert game.piece(move.from()).free();
 		assert !game.containsBlackPiece(move.capturedPiece());
-		assert game.piece(game.enPassant().down()).free();
+		assert game.piece(down(game.enPassant())).free();
 		assert game.assertVerify();
 		
 		Piece piece = game.piece(move.to());
@@ -73,10 +75,10 @@ public final class MakeWhiteEnpassantMove {
 		assert game.activeColor() == white; 
 		assert move.to() == game.enPassant();
 		assert game.piece(move.from()).whitePawn();
-		assert move.from().rank() == 4;
+		assert rank(move.from()) == 4;
 		assert game.piece(game.enPassant()).free();
-		assert game.piece(game.enPassant().down()).blackPawn();
-		assert game.piece(game.enPassant().down()) == move.capturedPiece();
+		assert game.piece(down(game.enPassant())).blackPawn();
+		assert game.piece(down(game.enPassant())) == move.capturedPiece();
 		assert game.containsBlackPiece(move.capturedPiece());
 		assert game.assertVerify();
 	}

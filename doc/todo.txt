@@ -12,5 +12,11 @@
 - report correct number of possible moves via uci and the correct number of the currently analyzed move
 
 - correct reporting of moves till mate
-- info for mate / stalemate positions
 
+- Black | White PawnMoves / Capture:
+	use switch a2, b2 etc
+
+- assert Field.rank(from) == 1 || Field.rank(from) == 6;
+	instead of 1 a2_h2 etc
+
+- use StringFromMove instead of static methods in unit tests

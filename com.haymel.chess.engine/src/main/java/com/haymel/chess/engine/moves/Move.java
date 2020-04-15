@@ -7,6 +7,8 @@
  */
 package com.haymel.chess.engine.moves;
 
+import static com.haymel.chess.engine.board.Field.fieldAsString;
+import static com.haymel.chess.engine.board.Field.rank;
 import static com.haymel.chess.engine.moves.MoveType.capture;
 import static com.haymel.chess.engine.moves.MoveType.capturePromotion;
 import static com.haymel.chess.engine.moves.MoveType.enpassant;
@@ -30,34 +32,34 @@ import com.haymel.chess.engine.piece.PieceType;
 public class Move {
 	
 	private final MoveType type;
-	private final Field from;
-	private final Field to;
+	private final int from;
+	private final int to;
 	private final Piece capturedPiece;
 	private final PieceType pieceType;
 
-	public Move(Field from, Field to) {
+	public Move(int from, int to) {
 		this(from, to, normal);
 	}
 	
-	public Move(Field from, Field to, MoveType type) {
+	public Move(int from, int to, MoveType type) {
 		this(from, to, type, free, Free);
 	}	
 
-	public Move(Field from, Field to, MoveType type, Piece capturedPiece) {
+	public Move(int from, int to, MoveType type, Piece capturedPiece) {
 		this(from, to, type, capturedPiece, Free);
 	}
 	
-	public Move(Field from, Field to, PieceType pieceType) {
+	public Move(int from, int to, PieceType pieceType) {
 		this(from, to, promotion, free, pieceType);
 	}
 
-	public Move(Field from, Field to, Piece capturedPiece, PieceType promotion) {
+	public Move(int from, int to, Piece capturedPiece, PieceType promotion) {
 		this(from, to, capturePromotion, capturedPiece, promotion);
 	}
 	
-	private Move(Field from, Field to, MoveType type, Piece capturedPiece, PieceType promotion) {
-		assert from != null;
-		assert to != null;
+	private Move(int from, int to, MoveType type, Piece capturedPiece, PieceType promotion) {
+		assert Field.valid(from);
+		assert Field.valid(to);
 		assert from != to;
 		assert type != null;
 		assert capturedPiece != null;
@@ -76,8 +78,8 @@ public class Move {
 
 		assert 
 			promotion == Free || 
-			to.rank() == 0 || 
-			to.rank() == 7; 
+			rank(to) == 0 || 
+			rank(to) == 7; 
 				
 		this.from = from;
 		this.to = to;
@@ -86,11 +88,11 @@ public class Move {
 		this.pieceType = promotion;
 	}
 	
-	public Field from() {
+	public int from() {
 		return from;
 	}
 	
-	public Field to() {
+	public int to() {
 		return to;
 	}
 	
@@ -107,14 +109,14 @@ public class Move {
 		switch(type) {
 		case normal: 
 		case pawn:
-		case pawnDoubleStep:	return format("%s-%s", from, to);
+		case pawnDoubleStep:	return format("%s-%s", fieldAsString(from), fieldAsString(to));
 		
-		case capture: 			return format("%sx%s", from, to);
-		case enpassant:			return format("%sx%se.p.", from, to);
-		case capturePromotion:	return format("%sx%s%s", from, to, letterForPieceType(pieceType));
+		case capture: 			return format("%sx%s", fieldAsString(from), fieldAsString(to));
+		case enpassant:			return format("%sx%se.p.", fieldAsString(from), fieldAsString(to));
+		case capturePromotion:	return format("%sx%s%s", fieldAsString(from), fieldAsString(to), letterForPieceType(pieceType));
 		case kingsideCastling:	return "O-O";
 		case queensideCastling:	return "O-O-O";
-		case promotion:			return format("%s-%s%s", from, to, letterForPieceType(pieceType));
+		case promotion:			return format("%s-%s%s", fieldAsString(from), fieldAsString(to), letterForPieceType(pieceType));
 		default:
 			assert false;
 			throw new IllegalStateException(type.toString());
@@ -137,8 +139,8 @@ public class Move {
 		Move that = (Move)obj;
 		
 		return 
-			from.equals(that.from) && 
-			to.equals(that.to) && 
+			from == that.from && 
+			to == that.to && 
 			type == that.type &&
 			capturedPiece.equals(that.capturedPiece) &&
 			pieceType == that.pieceType;

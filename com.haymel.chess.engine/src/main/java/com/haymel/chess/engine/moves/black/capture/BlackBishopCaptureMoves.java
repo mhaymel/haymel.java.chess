@@ -27,55 +27,55 @@ public final class BlackBishopCaptureMoves {	//TODO unit test
 		assert piece != null;
 		assert moves != null;
 		assert piece.field() != removed;
-		assert pieces[piece.field().position()] == piece;
+		assert pieces[piece.field()] == piece;
 		assert piece.type() == BlackBishop;
 
-		Field from = piece.field();
+		int from = piece.field();
 		leftUp(from, moves);
 		leftDown(from, moves);
 		rightUp(from, moves);
 		rightDown(from, moves);
 	}
 
-	private void leftUp(Field from, Moves moves) {
-		Field to = from.leftUp();
-		Piece piece = pieces[to.position()];
+	private void leftUp(int from, Moves moves) {
+		int to = Field.leftUp(from);
+		Piece piece = pieces[to];
 		while(piece.free()) {
-			to = to.leftUp();
-			piece = pieces[to.position()];
+			to = Field.leftUp(to);
+			piece = pieces[to];
 		}
 		if (piece.white()) 
 			moves.addCapture(from, to, piece);
 	}
 
-	private void leftDown(Field from, Moves moves) {
-		Field to = from.leftDown();
-		Piece piece = pieces[to.position()];
+	private void leftDown(int from, Moves moves) {
+		int to = Field.leftDown(from);
+		Piece piece = pieces[to];
 		while(piece.free()) {
-			to = to.leftDown();
-			piece = pieces[to.position()];
+			to = Field.leftDown(to);
+			piece = pieces[to];
 		}
 		if (piece.white()) 
 			moves.addCapture(from, to, piece);
 	}
 
-	private void rightUp(Field from, Moves moves) {
-		Field to = from.rightUp();
-		Piece piece = pieces[to.position()];
+	private void rightUp(int from, Moves moves) {
+		int to = Field.rightUp(from);
+		Piece piece = pieces[to];
 		while(piece.free()) {
-			to = to.rightUp();
-			piece = pieces[to.position()];
+			to = Field.rightUp(to);
+			piece = pieces[to];
 		}
 		if (piece.white()) 
 			moves.addCapture(from, to, piece);
 	}
 
-	private void rightDown(Field from, Moves moves) {
-		Field to = from.rightDown();
-		Piece piece = pieces[to.position()];
+	private void rightDown(int from, Moves moves) {
+		int to = Field.rightDown(from);
+		Piece piece = pieces[to];
 		while(piece.free()) {
-			to = to.rightDown();
-			piece = pieces[to.position()];
+			to = Field.rightDown(to);
+			piece = pieces[to];
 		}
 		if (piece.white()) 
 			moves.addCapture(from, to, piece);

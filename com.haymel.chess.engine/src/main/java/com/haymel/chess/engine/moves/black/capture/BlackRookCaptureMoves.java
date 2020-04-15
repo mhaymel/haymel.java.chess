@@ -27,55 +27,55 @@ public final class BlackRookCaptureMoves {		//TODO unit test
 		assert piece != null;
 		assert moves != null;
 		assert piece.field() != removed;
-		assert pieces[piece.field().position()] == piece;
+		assert pieces[piece.field()] == piece;
 		assert piece.blackRook() : format("piece must be black rook but is %s", piece);
 
-		Field from = piece.field();
+		int from = piece.field();
 		up(from, moves);
 		down(from, moves);
 		left(from, moves);
 		right(from, moves);
 	}
 
-	private void up(Field from, Moves moves) {
-		Field to = from.up();
-		Piece piece = pieces[to.position()];
+	private void up(int from, Moves moves) {
+		int to = Field.up(from);
+		Piece piece = pieces[to];
 		while(piece.free()) {
-			to = to.up();
-			piece = pieces[to.position()];
+			to = Field.up(to);
+			piece = pieces[to];
 		}
 		if (piece.white()) 
 			moves.addCapture(from, to, piece);
 	}
 
-	private void down(Field from, Moves moves) {
-		Field to = from.down();
-		Piece piece = pieces[to.position()];
+	private void down(int from, Moves moves) {
+		int to = Field.down(from);
+		Piece piece = pieces[to];
 		while(piece.free()) {
-			to = to.down();
-			piece = pieces[to.position()];		
+			to = Field.down(to);
+			piece = pieces[to];		
 		}
 		if (piece.white()) 
 			moves.addCapture(from, to, piece);
 	}
 
-	private void left(Field from, Moves moves) {
-		Field to = from.left();
-		Piece piece = pieces[to.position()];
+	private void left(int from, Moves moves) {
+		int to = Field.left(from);
+		Piece piece = pieces[to];
 		while(piece.free()) {
-			to = to.left();
-			piece = pieces[to.position()];
+			to = Field.left(to);
+			piece = pieces[to];
 		}
 		if (piece.white()) 
 			moves.addCapture(from, to, piece);
 	}
 
-	private void right(Field from, Moves moves) {
-		Field to = from.right();
-		Piece piece = pieces[to.position()];
+	private void right(int from, Moves moves) {
+		int to = Field.right(from);
+		Piece piece = pieces[to];
 		while(piece.free()) {
-			to = to.right();
-			piece = pieces[to.position()];
+			to = Field.right(to);
+			piece = pieces[to];
 		}
 		if (piece.white()) 
 			moves.addCapture(from, to, piece);

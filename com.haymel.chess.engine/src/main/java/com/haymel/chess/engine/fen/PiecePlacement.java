@@ -30,7 +30,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.piece.Piece;
 import com.haymel.chess.engine.piece.PieceType;
 
@@ -85,7 +84,7 @@ public class PiecePlacement {
 	}
 
 	private Piece piece(int file, int rank, char c) {
-		Field field = field(file, rank);
+		int field = field(file, rank);
 		PieceType type = charToPieceType.get(c);
 
 		if (type == null)

@@ -13,7 +13,6 @@ import static java.lang.String.format;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.board.PieceList;
 import com.haymel.chess.engine.game.ActiveColor;
 import com.haymel.chess.engine.game.Game;
@@ -57,7 +56,7 @@ public class Perft {
 			return;
 		}
 		
-		Field enPassant = game.enPassant();
+		int enPassant = game.enPassant();
 		MakeMove makeMove = new MakeMove(game);
 		int size = moves.size();
 		for(int i = 0; i < size; i++) {
@@ -90,7 +89,7 @@ public class Perft {
 			return;
 		}
 		
-		Field enPassant = game.enPassant();
+		int enPassant = game.enPassant();
 		MakeMove makeMove = new MakeMove(game);
 		int size = moves.size();
 		for(int i = 0; i < size; i++) {

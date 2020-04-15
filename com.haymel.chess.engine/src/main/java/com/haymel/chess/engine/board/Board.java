@@ -7,6 +7,7 @@
  */
 package com.haymel.chess.engine.board;
 
+import static com.haymel.chess.engine.board.Field.right;
 import static com.haymel.chess.engine.board.Field.up;
 import static com.haymel.chess.engine.piece.Piece.border;
 import static com.haymel.chess.engine.piece.Piece.free;
@@ -23,25 +24,25 @@ public final class Board {
 		for(int i = 0; i < pieces.length; i++)
 			pieces[i] = border;
 
-		Field f = Field.a1;
+		int field = Field.a1;
 		for(int i = 0; i < 8; i++) {
-			init(f, pieces);
-			f = f.up();
+			init(field, pieces);
+			field = up(field);
 		}
 		
 		return pieces;
 	}
 	
-	private static void init(Field f, Piece[] pieces) {
+	private static void init(int field, Piece[] pieces) {
 		for(int i = 0; i < 8; i++) {
-			pieces[f.position()] = free;
-			f = f.right();
+			pieces[field] = free;
+			field = right(field);
 		}
 	}
 
 	private static boolean doVerify(Piece[] pieces) {
 		for(int i = 0; i < pieces.length; i++) {
-			assert pieces[i].free() || pieces[i].border() || pieces[pieces[i].field().position()] == pieces[i];
+			assert pieces[i].free() || pieces[i].border() || pieces[pieces[i].field()] == pieces[i];
 		}
 		return true;
 	}

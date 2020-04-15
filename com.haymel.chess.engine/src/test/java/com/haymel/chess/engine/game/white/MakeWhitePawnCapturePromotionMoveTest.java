@@ -23,7 +23,6 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.game.MakeMove;
 import com.haymel.chess.engine.moves.Move;
@@ -61,7 +60,7 @@ public class MakeWhitePawnCapturePromotionMoveTest {
 		test(e7, f8, WhiteRook);
 	}
 	
-	private void test(Field from, Field to, PieceType promo) {
+	private void test(int from, int to, PieceType promo) {
 		Piece blackPiece = new Piece(BlackKnight, to);
 		game.addBlack(blackPiece);
 		game.place(blackPiece);

@@ -7,6 +7,7 @@
  */
 package com.haymel.chess.engine.game.black;
 
+import static com.haymel.chess.engine.board.Field.rank;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
 import static com.haymel.chess.engine.moves.MoveType.pawn;
@@ -25,8 +26,8 @@ public final class MakeBlackPawnMove {
 		assert move.type() == pawn;
 		assert game.piece(move.from()).blackPawn();
 		assert game.piece(move.to()).free();
-		assert move.from().rank() != 7;
-		assert move.to().rank() != 0;
+		assert rank(move.from()) != 7;
+		assert rank(move.to()) != 0;
 		
 		Piece piece = game.piece(move.from());
 		game.clear(move.from());

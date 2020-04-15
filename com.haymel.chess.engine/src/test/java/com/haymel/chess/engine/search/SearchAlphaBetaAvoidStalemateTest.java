@@ -7,6 +7,7 @@
  */
 package com.haymel.chess.engine.search;
 
+import static com.haymel.chess.engine.board.Field.fieldAsString;
 import static com.haymel.chess.engine.search.SearchInfo.sysoutSearchInfo;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
@@ -80,7 +81,7 @@ public class SearchAlphaBetaAvoidStalemateTest {
 //	}
 	
 	private static String asString(Move move) {
-		return move.from().toString() + move.to().toString();
+		return fieldAsString(move.from()) + fieldAsString(move.to());
 	}
 	
 }
