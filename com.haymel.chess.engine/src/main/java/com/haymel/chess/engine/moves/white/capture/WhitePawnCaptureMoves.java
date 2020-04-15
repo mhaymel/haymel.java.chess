@@ -7,7 +7,23 @@
  */
 package com.haymel.chess.engine.moves.white.capture;
 
+import static com.haymel.chess.engine.board.Field.a5;
+import static com.haymel.chess.engine.board.Field.a7;
+import static com.haymel.chess.engine.board.Field.b5;
+import static com.haymel.chess.engine.board.Field.b7;
+import static com.haymel.chess.engine.board.Field.c5;
+import static com.haymel.chess.engine.board.Field.c7;
+import static com.haymel.chess.engine.board.Field.d5;
+import static com.haymel.chess.engine.board.Field.d7;
 import static com.haymel.chess.engine.board.Field.down;
+import static com.haymel.chess.engine.board.Field.e5;
+import static com.haymel.chess.engine.board.Field.e7;
+import static com.haymel.chess.engine.board.Field.f5;
+import static com.haymel.chess.engine.board.Field.f7;
+import static com.haymel.chess.engine.board.Field.g5;
+import static com.haymel.chess.engine.board.Field.g7;
+import static com.haymel.chess.engine.board.Field.h5;
+import static com.haymel.chess.engine.board.Field.h7;
 import static com.haymel.chess.engine.board.Field.leftUp;
 import static com.haymel.chess.engine.board.Field.rank;
 import static com.haymel.chess.engine.board.Field.removed;
@@ -36,21 +52,34 @@ public final class WhitePawnCaptureMoves {	//TODO unit test
 		assert pieces[piece.field()] == piece;
 		assert piece.type() == PieceType.WhitePawn;
 		
-		switch(rank(piece.field())) {
-		case 1:
-		case 2:
-		case 3:
-		case 5:
-			capture(piece, moves);
-			break;
-		case 4:
+		switch(piece.field()) {
+		case a5:
+		case b5:
+		case c5:
+		case d5:
+		case e5:
+		case f5:
+		case g5:
+		case h5:
 			enpassant(piece, epField, moves);
 			break;
-		case 6:
+		case a7:
+		case b7:
+		case c7:
+		case d7:
+		case e7:
+		case f7:
+		case g7:
+		case h7:
 			capturePromotion(piece, moves);
 			break;
 		default:
-			assert false;
+			assert 
+				rank(piece.field()) == 1 || rank(piece.field()) == 2 || 
+				rank(piece.field()) == 3 || rank(piece.field()) == 5;
+			
+			capture(piece, moves);
+			break;
 		}
 	}
 

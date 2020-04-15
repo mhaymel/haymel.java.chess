@@ -7,7 +7,31 @@
  */
 package com.haymel.chess.engine.moves.black;
 
+import static com.haymel.chess.engine.board.Field.a2;
+import static com.haymel.chess.engine.board.Field.a4;
+import static com.haymel.chess.engine.board.Field.a7;
+import static com.haymel.chess.engine.board.Field.b2;
+import static com.haymel.chess.engine.board.Field.b4;
+import static com.haymel.chess.engine.board.Field.b7;
+import static com.haymel.chess.engine.board.Field.c2;
+import static com.haymel.chess.engine.board.Field.c4;
+import static com.haymel.chess.engine.board.Field.c7;
+import static com.haymel.chess.engine.board.Field.d2;
+import static com.haymel.chess.engine.board.Field.d4;
+import static com.haymel.chess.engine.board.Field.d7;
 import static com.haymel.chess.engine.board.Field.down;
+import static com.haymel.chess.engine.board.Field.e2;
+import static com.haymel.chess.engine.board.Field.e4;
+import static com.haymel.chess.engine.board.Field.e7;
+import static com.haymel.chess.engine.board.Field.f2;
+import static com.haymel.chess.engine.board.Field.f4;
+import static com.haymel.chess.engine.board.Field.f7;
+import static com.haymel.chess.engine.board.Field.g2;
+import static com.haymel.chess.engine.board.Field.g4;
+import static com.haymel.chess.engine.board.Field.g7;
+import static com.haymel.chess.engine.board.Field.h2;
+import static com.haymel.chess.engine.board.Field.h4;
+import static com.haymel.chess.engine.board.Field.h7;
 import static com.haymel.chess.engine.board.Field.leftDown;
 import static com.haymel.chess.engine.board.Field.rank;
 import static com.haymel.chess.engine.board.Field.removed;
@@ -31,29 +55,51 @@ public final class BlackPawnMoves {
 	public void generate(Piece piece, int epField, Moves moves) {
 		assert piece != null;
 		assert moves != null;
-		assert epField == removed || Field.rank(epField) == 2;
-		assert epField == removed || pieces[Field.up(epField)].whitePawn();
+		assert epField == removed || rank(epField) == 2;
+		assert epField == removed || pieces[up(epField)].whitePawn();
 		assert piece.field() != removed;
 		assert pieces[piece.field()] == piece;
 		assert piece.type() == BlackPawn;
 		
-		switch(Field.rank(piece.field())) {
-		case 6:
+		switch(piece.field()) {
+		case a7:
+		case b7:
+		case c7:
+		case d7:
+		case e7:
+		case f7:
+		case g7:
+		case h7:
 			doubleStepMove(piece, moves);
 			break;
-		case 3:
+		case a4:
+		case b4:
+		case c4:
+		case d4:
+		case e4:
+		case f4:
+		case g4:
+		case h4:
 			enpassant(piece, epField, moves);
 			break;
-		case 1:
+		case a2:
+		case b2:
+		case c2:
+		case d2:
+		case e2:
+		case f2:
+		case g2:
+		case h2:
 			promotion(piece, moves);
 			break;
-		case 2:
-		case 4:
-		case 5:
+		default:
+			assert 
+				rank(piece.field()) == 2 || 
+				rank(piece.field()) == 4 || 
+				rank(piece.field()) == 5;
+
 			normal(piece, moves);
 			break;
-		default:
-			assert false;
 		}
 	}
 

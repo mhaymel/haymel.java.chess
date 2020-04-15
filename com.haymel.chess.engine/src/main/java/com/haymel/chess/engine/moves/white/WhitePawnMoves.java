@@ -7,17 +7,41 @@
  */
 package com.haymel.chess.engine.moves.white;
 
+import static com.haymel.chess.engine.board.Field.a2;
+import static com.haymel.chess.engine.board.Field.a5;
+import static com.haymel.chess.engine.board.Field.a7;
+import static com.haymel.chess.engine.board.Field.b2;
+import static com.haymel.chess.engine.board.Field.b5;
+import static com.haymel.chess.engine.board.Field.b7;
+import static com.haymel.chess.engine.board.Field.c2;
+import static com.haymel.chess.engine.board.Field.c5;
+import static com.haymel.chess.engine.board.Field.c7;
+import static com.haymel.chess.engine.board.Field.d2;
+import static com.haymel.chess.engine.board.Field.d5;
+import static com.haymel.chess.engine.board.Field.d7;
 import static com.haymel.chess.engine.board.Field.down;
+import static com.haymel.chess.engine.board.Field.e2;
+import static com.haymel.chess.engine.board.Field.e5;
+import static com.haymel.chess.engine.board.Field.e7;
+import static com.haymel.chess.engine.board.Field.f2;
+import static com.haymel.chess.engine.board.Field.f5;
+import static com.haymel.chess.engine.board.Field.f7;
+import static com.haymel.chess.engine.board.Field.g2;
+import static com.haymel.chess.engine.board.Field.g5;
+import static com.haymel.chess.engine.board.Field.g7;
+import static com.haymel.chess.engine.board.Field.h2;
+import static com.haymel.chess.engine.board.Field.h5;
+import static com.haymel.chess.engine.board.Field.h7;
 import static com.haymel.chess.engine.board.Field.leftUp;
 import static com.haymel.chess.engine.board.Field.rank;
 import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.board.Field.rightUp;
 import static com.haymel.chess.engine.board.Field.up;
+import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
 
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.piece.Piece;
-import com.haymel.chess.engine.piece.PieceType;
 
 public final class WhitePawnMoves {
 	
@@ -31,29 +55,47 @@ public final class WhitePawnMoves {
 	public void generate(Piece piece, int epField, Moves moves) {
 		assert piece != null;
 		assert moves != null;
-		assert epField == Field.removed || rank(epField) == 5;
-		assert epField == Field.removed || pieces[down(epField)].blackPawn();
+		assert epField == removed || rank(epField) == 5;
+		assert epField == removed || pieces[down(epField)].blackPawn();
 		assert piece.field() != removed;
 		assert pieces[piece.field()] == piece;
-		assert piece.type() == PieceType.WhitePawn;
+		assert piece.type() == WhitePawn;
 		
-		switch(rank(piece.field())) {
-		case 1:
+		switch(piece.field()) {
+		case a2:
+		case b2:
+		case c2:
+		case d2:
+		case e2:
+		case f2:
+		case g2:
+		case h2:
 			doubleStepMove(piece, moves);
 			break;
-		case 4:
+		case a5:
+		case b5:
+		case c5:
+		case d5:
+		case e5:
+		case f5:
+		case g5:
+		case h5:
 			enpassant(piece, epField, moves);
 			break;
-		case 6:
+		case a7:
+		case b7:
+		case c7:
+		case d7:
+		case e7:
+		case f7:
+		case g7:
+		case h7:
 			promotion(piece, moves);
 			break;
-		case 2:
-		case 3:
-		case 5:
+		default:
+			assert rank(piece.field()) == 2 || rank(piece.field()) == 3 || rank(piece.field()) == 5;
 			normal(piece, moves);
 			break;
-		default:
-			assert false;
 		}
 	}
 
