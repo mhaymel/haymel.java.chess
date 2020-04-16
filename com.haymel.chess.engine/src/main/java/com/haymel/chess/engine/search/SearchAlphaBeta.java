@@ -101,7 +101,7 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 			Variant v = new Variant(move);
 			makeMove.makeMove(move);
 			
-			Moves blackMoves = game.blackMoves();
+			Moves blackMoves = (depth + 1) < maxDepth ? game.blackMoves() : game.blackCaptureMoves();
 			if (blackMoves.kingCaptureCount() == 0) {
 				int score = black(blackMoves, depth + 1, alpha, MAX_VALUE, v);
 				if (score > alpha) {
@@ -136,7 +136,7 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 			Variant v = new Variant(move);
 			makeMove.makeMove(move);
 
-			Moves blackMoves = game.blackMoves();
+			Moves blackMoves = (depth + 1) < maxDepth ? game.blackMoves() : game.blackCaptureMoves();
 			if (blackMoves.kingCaptureCount() == 0) {
 				validMovesCount++;
 				int score = black(blackMoves, depth + 1, alpha, beta, v);
@@ -232,7 +232,7 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 			Variant v = new Variant(move);
 			makeMove.makeMove(move);
 			
-			Moves whiteMoves = game.whiteMoves();
+			Moves whiteMoves = (depth + 1) < maxDepth ? game.whiteMoves() : game.whiteCaptureMoves();
 			if (whiteMoves.kingCaptureCount() == 0) {
 				int score = white(whiteMoves, depth + 1, MIN_VALUE, beta, v);
 				if (score < beta) {
@@ -271,7 +271,7 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 			Variant v = new Variant(move);
 			makeMove.makeMove(move);
 			
-			Moves whiteMoves = game.whiteMoves();
+			Moves whiteMoves = (depth + 1) < maxDepth ? game.whiteMoves() : game.whiteCaptureMoves();
 			if (whiteMoves.kingCaptureCount() == 0) {
 				validMovesCount++;
 				int score = white(whiteMoves, depth + 1, alpha, beta, v);
