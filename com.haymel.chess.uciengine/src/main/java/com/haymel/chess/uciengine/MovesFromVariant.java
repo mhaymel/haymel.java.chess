@@ -7,18 +7,19 @@
  */
 package com.haymel.chess.uciengine;
 
+import static com.haymel.util.Require.nonNull;
+
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.search.Variant;
 import com.haymel.chess.uci.moves.Moves;
 import com.haymel.chess.uci.moves.MovesImpl;
-import com.haymel.util.Require;
 
 public class MovesFromVariant {		//TODO unit test
 
 	private final Variant variant;
 	
 	public MovesFromVariant(Variant variant) {
-		this.variant = Require.nonNull(variant, "variant");
+		this.variant = nonNull(variant, "variant");
 	}
 	
 	public Moves value() {

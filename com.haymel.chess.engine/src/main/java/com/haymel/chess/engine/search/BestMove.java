@@ -7,6 +7,8 @@
  */
 package com.haymel.chess.engine.search;
 
+import static com.haymel.chess.engine.search.SearchAlphaBeta.blackMate;
+import static com.haymel.chess.engine.search.SearchAlphaBeta.whiteMate;
 import static com.haymel.util.Require.greaterEqualZero;
 import static com.haymel.util.Require.nonNull;
 
@@ -56,4 +58,20 @@ public class BestMove {		//TODO rename, refactor, unit test
 		return variant == null;
 	}
 	
+	public boolean whiteWillBeMate() {
+		return value < whiteMate(1_000);
+	}
+	
+	public boolean blackWillBeMate() {
+		return value > blackMate(1_000);
+	}
+
+	public boolean futureMate() {
+		return whiteWillBeMate() || blackWillBeMate();
+	}
+
+	public int pliesTillMate() {
+		assert futureMate();
+		return value > blackMate(1_000) ? blackMate() - value : value - whiteMate(); 
+	}
 }

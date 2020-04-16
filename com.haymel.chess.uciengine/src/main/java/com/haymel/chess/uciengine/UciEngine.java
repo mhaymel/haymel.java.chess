@@ -7,7 +7,6 @@
  */
 package com.haymel.chess.uciengine;
 
-import static com.haymel.chess.engine.game.ActiveColor.white;
 import static com.haymel.util.Require.nonNull;
 
 import java.io.InputStream;
@@ -16,6 +15,7 @@ import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 
 import com.haymel.chess.engine.fen.GameFromFEN;
+import com.haymel.chess.engine.game.ActiveColor;
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.game.StartposCreator;
 import com.haymel.chess.engine.moves.Move;
@@ -23,7 +23,6 @@ import com.haymel.chess.engine.search.AnalyzedMove;
 import com.haymel.chess.engine.search.BestMove;
 import com.haymel.chess.engine.search.Nodes;
 import com.haymel.chess.engine.search.SearchInfo;
-import com.haymel.chess.engine.search.Variant;
 import com.haymel.chess.engine.search.execution.IterativeSearch;
 import com.haymel.chess.engine.search.execution.SearchExecutor;
 import com.haymel.chess.uci.moves.Moves;
@@ -90,21 +89,11 @@ public class UciEngine extends com.haymel.chess.uci.Engine {
 	}
 
 	private Consumer<BestMove> bestMoveConsumer() {
-		int valueMultiplier = (game.activeColor() == white ? 1 : -1);
-		return (bm) -> {
-			info(
-				new Infos()
-					.scorecp(bm.value()*valueMultiplier)
-					.depth(bm.depth())
-					.seldepth(bm.selDepth())
-					.nodes(bm.nodes().count())
-					.nps(bm.nodes().nps())
-					.pv(movesFrom(bm.variant())));
+		ActiveColor activeColor = game.activeColor();
+		
+		return (bm) -> { 
+			info(new InfosFromBestMove(activeColor, bm).value()); 
 		};
-	}
-
-	private Moves movesFrom(Variant variant) {
-		return new MovesFromVariant(variant).value();
 	}
 	
 	private Consumer<BestMove> searchFinished() {

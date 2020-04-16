@@ -25,7 +25,7 @@ import com.haymel.chess.engine.search.movesorting.PVMoveIteratorCreator;
 
 public class SearchAlphaBeta {		//TODO refactor, unit test
 
-	static final int MAX_VALUE =  1_000_000_100;
+	static final int MAX_VALUE =  1_001_000;
 	static final int MIN_VALUE = - MAX_VALUE;
 	
 	private final Game game;
@@ -427,6 +427,7 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 	public static int whiteMate() {
 		return whiteMate(0);
 	}
+	
 	public static int whiteMate(int depth) {
 		return MIN_VALUE + depth;
 	}
