@@ -20,9 +20,8 @@ public class SearchAlphaBetaQuietSearchTest {
 
 	@Test
 	public void whiteSetsBlackStalemate() {
-		Game game = new Game();
 		String fen = "rnbqkbnr/1pppppp1/7p/8/p1BPPB2/5N2/PPP2PPP/RN1QK2R b KQkq - 1 5 ";
-		new GameFromFEN(game, fen).execute();
+		Game game = new GameFromFEN(fen).execute();
 		
 		SearchAlphaBeta search = new SearchAlphaBeta(game, sysoutSearchInfo);
 		BestMove bestMove = search.execute(1);

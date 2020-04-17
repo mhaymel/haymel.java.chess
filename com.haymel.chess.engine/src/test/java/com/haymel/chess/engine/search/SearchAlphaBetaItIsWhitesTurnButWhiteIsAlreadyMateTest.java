@@ -19,7 +19,6 @@ import com.haymel.chess.engine.game.Game;
 
 public class SearchAlphaBetaItIsWhitesTurnButWhiteIsAlreadyMateTest {
 
-	private static final String fen = "3k4/8/8/8/8/8/5PPP/3r2K1 w - - 0 73";
 
 	@Test
 	public void test() {
@@ -33,10 +32,9 @@ public class SearchAlphaBetaItIsWhitesTurnButWhiteIsAlreadyMateTest {
 	}
 
 	private void test(int depth) {
-		Game game = new Game();
-		assertThat(game.assertVerify(), is(true));
-		
-		new GameFromFEN(game, fen).execute();
+		String fen = "3k4/8/8/8/8/8/5PPP/3r2K1 w - - 0 73";
+		Game game = new GameFromFEN(fen).execute();
+
 		assertThat(game.assertVerify(), is(true));
 		
 		SearchAlphaBeta search = new SearchAlphaBeta(game);

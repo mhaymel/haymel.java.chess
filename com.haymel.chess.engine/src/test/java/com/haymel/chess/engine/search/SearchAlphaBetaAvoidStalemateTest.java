@@ -12,28 +12,18 @@ import static com.haymel.chess.engine.search.SearchInfo.sysoutSearchInfo;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import com.haymel.chess.engine.fen.GameFromFEN;
 import com.haymel.chess.engine.game.Game;
-import com.haymel.chess.engine.game.StartposCreator;
 import com.haymel.chess.engine.moves.Move;
 
 public class SearchAlphaBetaAvoidStalemateTest {
 
-	private Game game;
-	
-	@Before
-	public void setup() {
-		game = new Game();
-		new StartposCreator(game).execute();
-	}
-
 	@Test
 	public void whiteSetsBlackStalemate() {
 		String fen = "3k4/8/3KP3/8/8/8/8/8 w - - 5 6";
-		new GameFromFEN(game, fen).execute();
+		Game game = new GameFromFEN(fen).execute();
 		
 		SearchAlphaBeta search = new SearchAlphaBeta(game, sysoutSearchInfo);
 		BestMove bestMove = search.execute(6);

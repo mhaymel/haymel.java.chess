@@ -18,8 +18,6 @@ import com.haymel.chess.engine.game.Game;
 
 public class SearchAlphaBetaItIsBlacksTurnButBlackIsAlreadyStalemateTest {
 
-	private static final String fen = "7k/4N3/8/5NN1/8/8/8/6K1 b - - 0 73";
-
 	@Test
 	public void test0() {
 		test(0);
@@ -56,8 +54,8 @@ public class SearchAlphaBetaItIsBlacksTurnButBlackIsAlreadyStalemateTest {
 	}
 	
 	private void test(int depth) {
-		Game game = new Game();
-		new GameFromFEN(game, fen).execute();
+		String fen = "7k/4N3/8/5NN1/8/8/8/6K1 b - - 0 73";
+		Game game = new GameFromFEN(fen).execute();
 		
 		SearchAlphaBeta search = new SearchAlphaBeta(game);
 		BestMove bestMove = search.execute(depth);

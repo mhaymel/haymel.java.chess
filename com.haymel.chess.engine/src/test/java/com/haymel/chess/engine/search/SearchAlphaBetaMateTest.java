@@ -52,12 +52,10 @@ public class SearchAlphaBetaMateTest {
     }
     
  	public SearchAlphaBetaMateTest(String fen, int depth, String pv, int value) {
- 		this.game = new Game();
  		this.depth = depth;
  		this.pv = nonEmpty(pv, "pv");
  		this.value = value;
-		new GameFromFEN(game, fen).execute();
- 		
+ 		this.game = new GameFromFEN(fen).execute();
  	}
 
 	@Test
