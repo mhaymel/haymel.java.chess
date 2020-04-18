@@ -9,14 +9,18 @@ package com.haymel.chess.engine.search;
 
 public class NodesCalculator implements Nodes {		//TODO refactor, unit test
 
-	private static final double reportsPerSecond = 0.25d;
-	
 	private long count;
 	private long lastTimestamp;
 	private long lastCount;
 	private long nps = 1L;
+	private final double reportsPerSecond;
 
 	public NodesCalculator() {
+		this(0.25);
+	}
+	
+	public NodesCalculator(double reportsPerSecond) {
+		this.reportsPerSecond = reportsPerSecond;
 		this.count = 0;
 		this.lastTimestamp = now();
 		this.lastCount = 0;

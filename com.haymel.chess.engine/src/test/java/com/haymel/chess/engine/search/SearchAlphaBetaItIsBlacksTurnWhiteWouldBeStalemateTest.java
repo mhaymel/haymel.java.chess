@@ -7,7 +7,7 @@
  */
 package com.haymel.chess.engine.search;
 
-import static com.haymel.chess.engine.search.SearchInfo.sysoutSearchInfo;
+import static com.haymel.chess.engine.search.SearchInfoImpl.sysoutSearchInfo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;

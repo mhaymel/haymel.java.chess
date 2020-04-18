@@ -8,7 +8,6 @@
 package com.haymel.chess.engine.search.execution;
 
 import static com.haymel.chess.engine.search.SearchAlphaBeta.blackMate;
-import static com.haymel.chess.engine.search.SearchInfo.sysoutSearchInfo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
@@ -27,7 +26,7 @@ public class IterativeSearchWhitesTurnBlackAlreadyMate {
 	public void test() {
 		Game game = new GameFromFEN(fen).execute();
 		
-		IterativeSearch search = new IterativeSearch(game, sysoutSearchInfo);
+		IterativeSearch search = new IterativeSearch(game);
 		BestMove bestMove = search.execute(10_000, 10_000);
 		
 		assertThat(bestMove.value(), is(blackMate()));

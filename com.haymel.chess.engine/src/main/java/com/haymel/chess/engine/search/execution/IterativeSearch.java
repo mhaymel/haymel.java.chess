@@ -31,9 +31,13 @@ public class IterativeSearch implements Search {  	//TODO unit test
 	}
 	
 	public IterativeSearch(Game game, SearchInfo info) {
+		this(game, info, new NodesCalculator());
+	}
+	
+	public IterativeSearch(Game game, SearchInfo info, NodesCalculator nodesCalculator) {
 		this.game = nonNull(game, "game");
 		this.stop = false;
-		search = new SearchAlphaBeta(game, info, new NodesCalculator(), new PVMoveIteratorCreator(game));
+		search = new SearchAlphaBeta(game, info, nodesCalculator, new PVMoveIteratorCreator(game));
 	}
 	
 	@Override
@@ -65,7 +69,6 @@ public class IterativeSearch implements Search {  	//TODO unit test
 	}
 
 	private boolean timeLeft(long maxCalcTime, long elapsed, int depth) {
-		System.out.println("elapsed: " + elapsed + "    maxCalcTime: " + maxCalcTime);
 		if (elapsed >= maxCalcTime)
 			return false;
 		

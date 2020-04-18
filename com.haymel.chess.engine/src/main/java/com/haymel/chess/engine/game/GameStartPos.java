@@ -46,7 +46,6 @@ import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
 import static com.haymel.chess.engine.piece.PieceType.WhiteQueen;
 import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
 
-import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.piece.Piece;
 import com.haymel.chess.engine.piece.PieceType;
 

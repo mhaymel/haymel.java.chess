@@ -24,7 +24,7 @@ import com.haymel.chess.engine.piece.Piece;
 
 public class GameFromFEN {
 	
-	private static final String initalFen =" rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+	public static final String initalFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 	private static final int numberOfFenFields = 6;
 	
 	private final Game game;

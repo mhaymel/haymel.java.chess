@@ -11,17 +11,14 @@ import static com.haymel.chess.engine.board.Field.fieldAsString;
 import static com.haymel.chess.engine.fen.GameFromFEN.gameFromInitialFen;
 import static com.haymel.chess.engine.search.SearchAlphaBeta.MAX_VALUE;
 import static com.haymel.chess.engine.search.SearchAlphaBeta.MIN_VALUE;
-import static com.haymel.chess.engine.search.SearchInfo.sysoutSearchInfo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import com.haymel.chess.engine.fen.GameFromFEN;
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.game.MakeMove;
-import com.haymel.chess.engine.game.StartposCreator;
 import com.haymel.chess.engine.moves.Move;
 
 public class SearchAlphaBetaTest {
@@ -31,7 +28,7 @@ public class SearchAlphaBetaTest {
 		String fen = "6k1/5ppp/8/8/8/8/8/3R2K1 w - - 0 1";
 		Game game = new GameFromFEN(fen).execute();
 		
-		SearchAlphaBeta search = new SearchAlphaBeta(game, sysoutSearchInfo);
+		SearchAlphaBeta search = new SearchAlphaBeta(game);
 		BestMove bestMove = search.execute(2);
 
 		assertThat(asString(bestMove.move()), is("d1d8"));
@@ -43,7 +40,7 @@ public class SearchAlphaBetaTest {
 	public void whiteMateInOneHasAVariantOfLengthOne() {
 		String fen = "r6r/1p2k1pp/8/p4p2/1bb5/PP4N1/K4PPP/Q2q3R b - - 0 20";
 		Game game = new GameFromFEN(fen).execute();
-		SearchAlphaBeta search = new SearchAlphaBeta(game, sysoutSearchInfo);
+		SearchAlphaBeta search = new SearchAlphaBeta(game);
 		BestMove bestMove = search.execute(2);
 		
 		assertThat(asString(bestMove.move()), is("d1b3"));
@@ -56,7 +53,7 @@ public class SearchAlphaBetaTest {
 	@Test
 	public void testWhiteStarts1() {
 		Game game = gameFromInitialFen();
-		SearchAlphaBeta search = new SearchAlphaBeta(game, sysoutSearchInfo);
+		SearchAlphaBeta search = new SearchAlphaBeta(game);
 		Move move = search.execute(4).move();
 		System.out.println("play: " + asString(move));
 		new MakeMove(game).makeMove(move);

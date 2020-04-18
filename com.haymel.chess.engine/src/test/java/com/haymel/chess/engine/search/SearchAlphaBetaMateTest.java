@@ -65,7 +65,7 @@ public class SearchAlphaBetaMateTest {
 	}
 	
 	private void search(int depth) {
-		SearchInfo info = new SearchInfo(currentMoveConsumer(), bestMoveConsumer(), depthConsumer(), nodeStatisticsConsumer());
+		SearchInfo info = new SearchInfoImpl(currentMoveConsumer(), bestMoveConsumer(), depthConsumer(), nodeStatisticsConsumer());
 		SearchAlphaBeta search = new SearchAlphaBeta(game, info);
 		BestMove bestMove = search.execute(depth);
 		

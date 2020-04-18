@@ -8,7 +8,6 @@
 package com.haymel.chess.engine.search.execution;
 
 import static com.haymel.chess.engine.board.Field.fieldAsString;
-import static com.haymel.chess.engine.search.SearchInfo.sysoutSearchInfo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -26,10 +25,9 @@ public class IterativeSearchBlackStalemateTest {
 	
 	@Test
 	public void test() {
-		Game game = new Game();
-		new GameFromFEN(game, fen).execute();
+		Game game = new GameFromFEN(fen).execute();
 		
-		IterativeSearch search = new IterativeSearch(game, sysoutSearchInfo);
+		IterativeSearch search = new IterativeSearch(game);
 		BestMove bestMove = search.execute(10_000, 10_000);
 		
 		assertThat(bestMove.value(), is(0));

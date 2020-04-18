@@ -7,7 +7,6 @@
  */
 package com.haymel.chess.engine.search;
 
-import static com.haymel.chess.engine.search.SearchInfo.sysoutSearchInfo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -23,7 +22,7 @@ public class SearchAlphaBetaQuietSearchTest {
 		String fen = "rnbqkbnr/1pppppp1/7p/8/p1BPPB2/5N2/PPP2PPP/RN1QK2R b KQkq - 1 5 ";
 		Game game = new GameFromFEN(fen).execute();
 		
-		SearchAlphaBeta search = new SearchAlphaBeta(game, sysoutSearchInfo);
+		SearchAlphaBeta search = new SearchAlphaBeta(game);
 		BestMove bestMove = search.execute(1);
 
 		assertThat(bestMove.value(), is(0));

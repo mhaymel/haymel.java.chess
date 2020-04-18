@@ -23,6 +23,7 @@ import com.haymel.chess.engine.search.AnalyzedMove;
 import com.haymel.chess.engine.search.BestMove;
 import com.haymel.chess.engine.search.Nodes;
 import com.haymel.chess.engine.search.SearchInfo;
+import com.haymel.chess.engine.search.SearchInfoImpl;
 import com.haymel.chess.engine.search.execution.IterativeSearch;
 import com.haymel.chess.engine.search.execution.SearchExecutor;
 import com.haymel.chess.uci.moves.Moves;
@@ -78,7 +79,7 @@ public class UciEngine extends com.haymel.chess.uci.Engine {
 	public void go(int wtimeInMilliSeconds, int btimeInMilliSeconds, int wincInMilliSeconds, int bincInMilliSeconds) {
 		stop();
 
-		SearchInfo info = new SearchInfo(currentMoveConsumer(), bestMoveConsumer(), depthConsumer(), nodeStatisticsConsumer());
+		SearchInfo info = new SearchInfoImpl(currentMoveConsumer(), bestMoveConsumer(), depthConsumer(), nodeStatisticsConsumer());
 		IterativeSearch search = new IterativeSearch(game, info);
 		executor = new SearchExecutor(search, searchFinished());
 		executor.go(wtimeInMilliSeconds, btimeInMilliSeconds);
