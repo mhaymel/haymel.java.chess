@@ -8,12 +8,10 @@
 package com.haymel.chess.engine.search;
 
 import static com.haymel.chess.engine.game.ActiveColor.white;
-import static com.haymel.chess.engine.search.PieceValue.pieceValue;
 import static com.haymel.chess.engine.search.SearchInfo.noopSearchInfo;
 import static com.haymel.util.Require.nonNull;
 import static java.lang.String.format;
 
-import com.haymel.chess.engine.board.PieceList;
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.game.MakeMove;
 import com.haymel.chess.engine.moves.Move;
@@ -351,10 +349,7 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 		if (nodesCalculator.inc())
 			info.nodes(nodesCalculator);
 		
-		int whiteValue = pieceValues(game.whitePieces());
-		int blackValue = pieceValues(game.blackPieces());
-		
-		return whiteValue - blackValue;
+		return game.pieceValue();
 	}
 
 	private void currentMove(int size, int i, Move move) {
@@ -366,15 +361,6 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 			move.type() == MoveType.capture ||
 			move.type() == MoveType.enpassant ||
 			move.type() == MoveType.capturePromotion;
-	}
-	
-	private int pieceValues(PieceList pieces) {
-		int value = 0;
-		int size = pieces.size();
-		for(int i = 0; i < size; i++) 
-			value += pieceValue(pieces.piece(i).type());
-		
-		return value;
 	}
 	
 	private Move principal(int depth) {

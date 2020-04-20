@@ -33,7 +33,6 @@ import static com.haymel.chess.engine.board.Field.g4;
 import static com.haymel.chess.engine.board.Field.h2;
 import static com.haymel.chess.engine.board.Field.h3;
 import static com.haymel.chess.engine.board.Field.h4;
-import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.moves.MoveType.pawn;
 import static com.haymel.chess.engine.moves.MoveType.pawnDoubleStep;
 import static org.hamcrest.CoreMatchers.is;
@@ -42,10 +41,8 @@ import static org.junit.Assert.assertThat;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.Before;
 import org.junit.Test;
 
-import com.haymel.chess.engine.board.PieceList;
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.game.GameStartPos;
 import com.haymel.chess.engine.moves.Move;
@@ -53,22 +50,13 @@ import com.haymel.chess.engine.moves.Moves;
 
 public class WhiteMovesTest {
 
-	private Moves moves;
-	
-	@Before
-	public void setup() {
-		moves = new Moves();
-	}
-	
 	@Test
 	public void testStartPos() {
 		Game game = new GameStartPos().startPos();
-		PieceList whitePieces = game.whitePieces();
-		WhiteMoves whiteMoves = new WhiteMoves(game.pieces());
-		whiteMoves.generate(whitePieces, removed, moves);
+		Moves moves = game.whiteMoves();
 		
 		assertThat(moves.size(), is(20));
-		Set<Move> result = movesAsSet();
+		Set<Move> result = movesAsSet(moves);
 		assertThat(result.contains(new Move(a2, a4, pawnDoubleStep)), is(true));
 		assertThat(result.contains(new Move(b2, b4, pawnDoubleStep)), is(true));
 		assertThat(result.contains(new Move(c2, c4, pawnDoubleStep)), is(true));
@@ -91,7 +79,7 @@ public class WhiteMovesTest {
 		assertThat(result.contains(new Move(g1, h3)), is(true));
 	}
 
-	private Set<Move> movesAsSet() {
+	private static Set<Move> movesAsSet(Moves moves) {
 		Set<Move> result = new HashSet<Move>(moves.size());
 
 		int size = moves.size();

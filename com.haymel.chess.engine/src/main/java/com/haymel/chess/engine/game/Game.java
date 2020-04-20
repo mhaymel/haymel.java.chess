@@ -32,6 +32,7 @@ import com.haymel.chess.engine.moves.black.capture.BlackCaptureMoves;
 import com.haymel.chess.engine.moves.white.WhiteMoves;
 import com.haymel.chess.engine.moves.white.capture.WhiteCaptureMoves;
 import com.haymel.chess.engine.piece.Piece;
+import com.haymel.chess.engine.search.PieceValue;
 
 public final class Game {	//TODO unit test and refactor
 
@@ -213,7 +214,6 @@ public final class Game {	//TODO unit test and refactor
 	}
 	
 	public Moves whiteMoves() {
-		
 		Moves moves = new Moves();
 		whiteMoves.generate(whitePieces, enPassant, moves);
 		return moves;
@@ -296,13 +296,20 @@ public final class Game {	//TODO unit test and refactor
 
 		blackPieces.add(piece);
 	}
-
-	public PieceList whitePieces() {
-		return whitePieces;
+	
+	public int pieceValue() {
+		int whiteValue = pieceValues(whitePieces);
+		int blackValue = pieceValues(blackPieces);
+		return whiteValue - blackValue;
 	}
 
-	public PieceList blackPieces() {
-		return blackPieces;
+	private static int pieceValues(PieceList pieces) {
+		int value = 0;
+		int size = pieces.size();
+		for(int i = 0; i < size; i++) 
+			value += PieceValue.pieceValue(pieces.piece(i).type());
+		
+		return value;
 	}
 
 	public Piece[] pieces() {

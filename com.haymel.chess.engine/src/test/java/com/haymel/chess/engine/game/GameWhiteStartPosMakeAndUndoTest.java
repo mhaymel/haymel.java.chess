@@ -45,11 +45,8 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.haymel.chess.engine.board.PieceList;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.Moves;
-import com.haymel.chess.engine.moves.black.BlackMoves;
-import com.haymel.chess.engine.moves.white.WhiteMoves;
 
 public class GameWhiteStartPosMakeAndUndoTest {
 
@@ -69,9 +66,7 @@ public class GameWhiteStartPosMakeAndUndoTest {
 		white(0);
 		System.out.println("nodes:  " + count);
 		assertThat(count, is(197281L));
-		Moves moves = new Moves();
-		WhiteMoves whiteMoves = new WhiteMoves(game.pieces());
-		whiteMoves.generate(game.whitePieces(), game.enPassant(), moves);
+		Moves moves = game.whiteMoves();
 		
 		assertThat(moves.size(), is(20));
 		Set<Move> result = movesAsSet(moves);
@@ -98,11 +93,7 @@ public class GameWhiteStartPosMakeAndUndoTest {
 	}
 
 	private void white(int depth) {
-		PieceList pieces = game.whitePieces();
-		Moves moves = new Moves();
-		WhiteMoves whiteMoves = new WhiteMoves(game.pieces());
-		whiteMoves.generate(pieces, game.enPassant(), moves);
-		
+		Moves moves = game.whiteMoves();
 		if (moves.kingCaptureCount() > 0)
 			return;
 		
@@ -131,11 +122,7 @@ public class GameWhiteStartPosMakeAndUndoTest {
 	}
 	
 	private void black(int depth) {
-		PieceList pieces = game.blackPieces();
-		Moves moves = new Moves();
-		BlackMoves blackMoves = new BlackMoves(game.pieces());
-		blackMoves.generate(pieces, game.enPassant(), moves);
-
+		Moves moves = game.blackMoves();
 		if (moves.kingCaptureCount() > 0)
 			return;
 

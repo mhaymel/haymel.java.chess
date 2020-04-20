@@ -18,7 +18,6 @@ import static com.haymel.util.Require.nonNull;
 import static com.haymel.util.exception.HaymelException.throwHE;
 import static com.haymel.util.exception.HaymelIllegalArgumentException.throwIAE;
 
-import com.haymel.chess.engine.board.PieceList;
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.piece.Piece;
 
@@ -33,8 +32,14 @@ class Castling {
 	}
 	
 	void execute() {
-		setMoved();
-		
+		setWhiteKingMoved();
+		setWhiteRookMoved(a1);
+		setWhiteRookMoved(h1);
+
+		setBlackKingMoved();
+		setBlackRookMoved(a8);
+		setBlackRookMoved(h8);
+	
 		int len = castling.length();
 		for(int i = 0; i < len; i++) 
 			handle(castling.charAt(i));
@@ -115,23 +120,36 @@ class Castling {
 		piece.setMoved(false);
 	}
 	
-	private void setMoved() {
-		setMoved(game.whitePieces());
-		setMoved(game.blackPieces());
-	}
-	
-	private static void setMoved(PieceList pieces) {
-		int size = pieces.size();
-		for(int i = 0; i < size; i++)
-			pieces.piece(i).setMoved(true);
-	}
-
 	private static String verify(String castling) {
 		nonEmpty(castling, "castling");
 		if (castling.length() > 4)
 			return throwIAE("castling availability in FEN must have a length between 1 and 4 but is '%s'", castling);
 		
 		return castling;
+	}
+	
+	private void setWhiteKingMoved() {
+		Piece piece = game.piece(e1);
+		if (piece != null && piece.whiteKing()) 
+			piece.setMoved(true);
+	}
+
+	private void setWhiteRookMoved(int field) {
+		Piece piece = game.piece(field);
+		if (piece != null && piece.whiteRook()) 
+			piece.setMoved(true);
+	}
+
+	private void setBlackKingMoved() {
+		Piece piece = game.piece(e8);
+		if (piece != null && piece.blackKing()) 
+			piece.setMoved(true);
+	}
+
+	private void setBlackRookMoved(int field) {
+		Piece piece = game.piece(field);
+		if (piece != null && piece.blackRook()) 
+			piece.setMoved(true);
 	}
 	
 }
