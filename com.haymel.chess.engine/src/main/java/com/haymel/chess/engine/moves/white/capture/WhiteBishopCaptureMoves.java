@@ -40,7 +40,7 @@ public final class WhiteBishopCaptureMoves {	//TODO unit test
 	private void leftUp(int from, Moves moves) {
 		int to = Field.leftUp(from);
 		Piece piece = pieces[to];
-		while(piece.free()) {
+		while(piece == null) {
 			to = Field.leftUp(to);
 			piece = pieces[to];
 		}
@@ -51,7 +51,7 @@ public final class WhiteBishopCaptureMoves {	//TODO unit test
 	private void leftDown(int from, Moves moves) {
 		int to = Field.leftDown(from);
 		Piece piece = pieces[to];
-		while(piece.free()) {
+		while(piece == null) {
 			to = Field.leftDown(to);
 			piece = pieces[to];
 		}
@@ -62,7 +62,7 @@ public final class WhiteBishopCaptureMoves {	//TODO unit test
 	private void rightUp(int from, Moves moves) {
 		int to = Field.rightUp(from);
 		Piece piece = pieces[to];
-		while(piece.free()) {
+		while(piece == null) {
 			to = Field.rightUp(to);
 			piece = pieces[to];
 		}
@@ -73,7 +73,7 @@ public final class WhiteBishopCaptureMoves {	//TODO unit test
 	private void rightDown(int from, Moves moves) {
 		int to = Field.rightDown(from);
 		Piece piece = pieces[to];
-		while(piece.free()) {
+		while(piece == null) {
 			to = Field.rightDown(to);
 			piece = pieces[to];
 		}

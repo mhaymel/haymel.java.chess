@@ -111,7 +111,7 @@ public final class WhitePawnCaptureMoves {	//TODO unit test
 
 	private void capturePromotion(int from, int to, Moves moves) {
 		Piece piece = pieces[to];
-		if (piece.black())
+		if (black(piece))
 			moves.addWhiteCapturePromotion(from, to, piece);
 	}
 
@@ -129,8 +129,12 @@ public final class WhitePawnCaptureMoves {	//TODO unit test
 
 	private void capture(int from, int to, Moves moves) {
 		Piece piece = pieces[to];
-		if (piece.black())
+		if (black(piece))
 			moves.addCapture(from, to, piece);
+	}
+
+	private static boolean black(Piece piece) {
+		return piece != null && piece.black();
 	}
 
 }

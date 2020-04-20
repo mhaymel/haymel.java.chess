@@ -20,7 +20,7 @@ public final class PieceList {	//TODO unit test
 	
 	public void add(Piece piece) {
 		assert piece != null;
-		assert !piece.free();
+		assert piece != null;
 		assert !piece.border();
 		assert piece.field() != removed;
 		assert size() <= 16;

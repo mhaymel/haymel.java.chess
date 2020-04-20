@@ -25,7 +25,7 @@ public final class MakeBlackMove {
 		assert move.type() == normal;
 		assert game.piece(move.from()).black();
 		assert !game.piece(move.from()).blackPawn();
-		assert game.piece(move.to()).free();
+		assert game.piece(move.to()) == null;
 		
 		Piece piece = game.piece(move.from());
 		boolean moved = piece.moved();
@@ -39,7 +39,7 @@ public final class MakeBlackMove {
 		game.activeColorWhite();
 
 		assert game.activeColor() == white; 
-		assert game.piece(move.from()).free();
+		assert game.piece(move.from()) == null;
 		assert game.piece(move.to()).black();
 		assert game.assertVerify();
 	}
@@ -52,7 +52,7 @@ public final class MakeBlackMove {
 		assert move.type() == normal;
 		assert game.piece(move.to()).black();
 		assert !game.piece(move.to()).blackPawn();
-		assert game.piece(move.from()).free();
+		assert game.piece(move.from()) == null;
 
 		Piece piece = game.piece(move.to());
 		game.clear(move.to());
@@ -62,7 +62,7 @@ public final class MakeBlackMove {
 		
 		assert game.halfMoveClock() >= 0;
 		assert game.activeColor() == black; 
-		assert game.piece(move.to()).free();
+		assert game.piece(move.to()) == null;
 		assert game.piece(move.from()).black();
 		assert game.assertVerify();
 	}

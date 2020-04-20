@@ -60,12 +60,12 @@ public class MakeWhiteQueenSideCastlingMoveTest {
 		assertThat(king.field(), is(c1));
 		assertThat(king.moved(), is(true));
 		assertThat(game.piece(c1), is(king));
-		assertThat(game.piece(e1).free(), is(true));
+		assertThat(game.piece(e1) == null, is(true));
 
 		assertThat(rook.field(), is(d1));
 		assertThat(rook.moved(), is(true));
 		assertThat(game.piece(d1), is(rook));
-		assertThat(game.piece(a1).free(), is(true));
+		assertThat(game.piece(a1) == null, is(true));
 		
 		assertThat(game.halfMoveClock(), is(1));
 		assertThat(game.fullMoveNumber(), is(1));
@@ -75,8 +75,8 @@ public class MakeWhiteQueenSideCastlingMoveTest {
 		assertThat(king.field(), is(e1));
 		assertThat(king.moved(), is(false));
 		assertThat(game.piece(e1), is(king));
-		assertThat(game.piece(d1).free(), is(true));
-		assertThat(game.piece(c1).free(), is(true));
+		assertThat(game.piece(d1) == null, is(true));
+		assertThat(game.piece(c1) == null, is(true));
 		assertThat(game.piece(a1).whiteRook(), is(true));
 		assertThat(game.piece(a1).moved(), is(false));
 		assertThat(game.piece(a1), is(rook));

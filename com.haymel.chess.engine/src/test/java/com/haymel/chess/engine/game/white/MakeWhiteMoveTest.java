@@ -48,7 +48,7 @@ public class MakeWhiteMoveTest {
 		moveMaker.makeMove(e1e2);
 		assertThat(king.field(), is(e2));
 		assertThat(king.moved(), is(true));
-		assertThat(game.piece(e1).free(), is(true));
+		assertThat(game.piece(e1) == null, is(true));
 		assertThat(game.halfMoveClock(), is(1));
 		assertThat(game.fullMoveNumber(), is(1));
 		assertThat(game.enPassant(), is(removed));
@@ -56,7 +56,7 @@ public class MakeWhiteMoveTest {
 		moveMaker.undoMove();
 		assertThat(king.field(), is(e1));
 		assertThat(king.moved(), is(false));
-		assertThat(game.piece(e2).free(), is(true));
+		assertThat(game.piece(e2) == null, is(true));
 		assertThat(game.halfMoveClock(), is(0));
 		assertThat(game.fullMoveNumber(), is(1));
 		assertThat(game.enPassant(), is(removed));

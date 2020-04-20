@@ -27,8 +27,8 @@ public final class MakeBlackPawnDoubleStepMove {
 		assert game.activeColor() == black; 
 		assert move.type() == pawnDoubleStep;
 		assert game.piece(move.from()).blackPawn();
-		assert game.piece(up(move.to())).free();
-		assert game.piece(move.to()).free();
+		assert game.piece(up(move.to())) == null;
+		assert game.piece(move.to()) == null;
 		assert rank(move.from()) == 6;
 		
 		Piece piece = game.piece(move.from());
@@ -42,7 +42,7 @@ public final class MakeBlackPawnDoubleStepMove {
 		game.activeColorWhite();
 
 		assert game.activeColor() == white; 
-		assert game.piece(move.from()).free();
+		assert game.piece(move.from()) == null;
 		assert game.piece(move.to()).blackPawn();
 		assert game.assertVerify();
 	}
@@ -52,8 +52,8 @@ public final class MakeBlackPawnDoubleStepMove {
 		assert move != null;
 		assert game.assertVerify();
 		assert game.piece(move.to()).blackPawn();
-		assert game.piece(up(move.to())).free();
-		assert game.piece(move.from()).free();
+		assert game.piece(up(move.to())) == null;
+		assert game.piece(move.from()) == null;
 		assert rank(move.from()) == 6;
 		assert game.activeColor() == black; 
 
@@ -65,7 +65,7 @@ public final class MakeBlackPawnDoubleStepMove {
 		assert game.halfMoveClock() >= 0;
 		assert game.fullMoveNumber() >= 1;
 		assert game.activeColor() == black; 
-		assert game.piece(move.to()).free();
+		assert game.piece(move.to()) == null;
 		assert game.piece(move.from()).blackPawn();
 		assert game.assertVerify();
 	}

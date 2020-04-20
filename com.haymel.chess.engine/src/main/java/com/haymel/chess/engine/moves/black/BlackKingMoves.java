@@ -109,13 +109,13 @@ public final class BlackKingMoves {
 	}
 
 	private boolean isBlackRook(int field) {
-		return pieces[field].blackRook();
+		return pieces[field] != null && pieces[field].blackRook();
 	}
 
 	private void add(int from, int to, Moves moves) {
 		Piece piece = pieces[to];
 		
-		if (piece.free()) 
+		if (piece == null) 
 			moves.add(from, to);
 		
 		else if (piece.white()) 
@@ -128,7 +128,7 @@ public final class BlackKingMoves {
 	}
 	
 	private boolean isFree(int field) {
-		return pieces[field].free();
+		return pieces[field] == null;
 	}
 
 	

@@ -26,7 +26,7 @@ public final class MakeWhitePawnDoubleStepMove {		//TODO unit test
 		assert game.activeColor() == white; 
 		assert move.type() == pawnDoubleStep;
 		assert game.piece(move.from()).whitePawn();
-		assert game.piece(move.to()).free();
+		assert game.piece(move.to()) == null;
 		assert rank(move.from()) == 1;
 		
 		Piece piece = game.piece(move.from());
@@ -41,7 +41,7 @@ public final class MakeWhitePawnDoubleStepMove {		//TODO unit test
 		game.activeColorBlack();
 
 		assert game.activeColor() == black; 
-		assert game.piece(move.from()).free();
+		assert game.piece(move.from()) == null;
 		assert game.piece(move.to()).white();
 		assert game.assertVerify();
 	}
@@ -51,7 +51,7 @@ public final class MakeWhitePawnDoubleStepMove {		//TODO unit test
 		assert move != null;
 		assert game.assertVerify();
 		assert game.piece(move.to()).white();
-		assert game.piece(move.from()).free();
+		assert game.piece(move.from()) == null;
 
 		Piece piece = game.piece(move.to());
 		game.clear(move.to());
@@ -60,7 +60,7 @@ public final class MakeWhitePawnDoubleStepMove {		//TODO unit test
 		
 		assert game.halfMoveClock() >= 0;
 		assert game.activeColor() == white; 
-		assert game.piece(move.to()).free();
+		assert game.piece(move.to()) == null;
 		assert game.piece(move.from()).white();
 		assert game.assertVerify();
 	}

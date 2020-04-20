@@ -67,8 +67,8 @@ public class MakeWhiteEnpassantMoveTest {
 
 		game.assertVerify();
 		assertThat(whitePawn.field(), is(d6));
-		assertThat(game.piece(d5).free(), is(true));
-		assertThat(game.piece(c5).free(), is(true));
+		assertThat(game.piece(d5) == null, is(true));
+		assertThat(game.piece(c5) == null, is(true));
 		assertThat(game.halfMoveClock(), is(0));
 		assertThat(game.fullMoveNumber(), is(10));
 		assertThat(game.enPassant(), is(removed));
@@ -109,8 +109,8 @@ public class MakeWhiteEnpassantMoveTest {
 
 		game.assertVerify();
 		assertThat(whitePawn.field(), is(b6));
-		assertThat(game.piece(b5).free(), is(true));
-		assertThat(game.piece(c5).free(), is(true));
+		assertThat(game.piece(b5) == null, is(true));
+		assertThat(game.piece(c5) == null, is(true));
 		assertThat(game.halfMoveClock(), is(0));
 		assertThat(game.fullMoveNumber(), is(10));
 		assertThat(game.enPassant(), is(removed));

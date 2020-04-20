@@ -72,7 +72,7 @@ public class Moves {
 		assert valid(from);
 		assert valid(to);
 		assert from != to;
-		assert !piece.free();
+		assert piece != null;
 		assert piece.black() || piece.white();
 
 		add(new Move(from, to, capture, piece));

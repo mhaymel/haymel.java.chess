@@ -15,7 +15,6 @@ import static com.haymel.chess.engine.board.Field.h1;
 import static com.haymel.chess.engine.board.Field.h8;
 import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.piece.Piece.border;
-import static com.haymel.chess.engine.piece.Piece.free;
 import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
 import static com.haymel.chess.engine.piece.PieceType.BlackKing;
 import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
@@ -37,20 +36,11 @@ public class PieceTest {
 
 	@Test
 	public void testBorder() {
-		assertThat(border.free(), is(false));
 		assertThat(border.white(), is(false));
 		assertThat(border.black(), is(false));
 		assertThat(border.field(), is(removed));
 	}
 
-	@Test
-	public void testFree() {
-		assertThat(free.free(), is(true));
-		assertThat(free.white(), is(false));
-		assertThat(free.black(), is(false));
-		assertThat(free.field(), is(removed));
-	}
-	
 	@Test
 	public void testWhitePawn() {
 		Piece piece = new Piece(WhitePawn, removed);

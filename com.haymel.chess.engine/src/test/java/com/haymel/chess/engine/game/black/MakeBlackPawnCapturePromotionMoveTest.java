@@ -78,7 +78,7 @@ public class MakeBlackPawnCapturePromotionMoveTest {
 
 		game.assertVerify();
 		assertThat(piece.field(), is(to));
-		assertThat(game.piece(from).free(), is(true));
+		assertThat(game.piece(from) == null, is(true));
 		assertThat(piece.type(), is(promo));
 		assertThat(game.containsBlackPiece(piece), is(true));
 		assertThat(game.containsWhitePiece(whitePiece), is(false));

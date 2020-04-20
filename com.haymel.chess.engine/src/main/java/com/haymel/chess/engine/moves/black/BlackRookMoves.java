@@ -40,7 +40,7 @@ public final class BlackRookMoves {
 	private void up(int from, Moves moves) {
 		int to = Field.up(from);
 		Piece piece = pieces[to];
-		while(piece.free()) {
+		while(piece == null) {
 			moves.add(from, to);
 			to = Field.up(to);
 			piece = pieces[to];
@@ -52,7 +52,7 @@ public final class BlackRookMoves {
 	private void down(int from, Moves moves) {
 		int to = Field.down(from);
 		Piece piece = pieces[to];
-		while(piece.free()) {
+		while(piece == null) {
 			moves.add(from, to);
 			to = Field.down(to);
 			piece = pieces[to];		
@@ -64,7 +64,7 @@ public final class BlackRookMoves {
 	private void left(int from, Moves moves) {
 		int to = Field.left(from);
 		Piece piece = pieces[to];
-		while(piece.free()) {
+		while(piece == null) {
 			moves.add(from, to);
 			to = Field.left(to);
 			piece = pieces[to];
@@ -76,7 +76,7 @@ public final class BlackRookMoves {
 	private void right(int from, Moves moves) {
 		int to = Field.right(from);
 		Piece piece = pieces[to];
-		while(piece.free()) {
+		while(piece == null) {
 			moves.add(from, to);
 			to = Field.right(to);
 			piece = pieces[to];

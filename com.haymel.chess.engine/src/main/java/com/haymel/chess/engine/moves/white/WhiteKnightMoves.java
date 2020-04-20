@@ -50,7 +50,7 @@ public final class WhiteKnightMoves {
 	private void add(int from, int to, Moves moves) {
 		Piece piece = pieces[to];
 		
-		if (piece.free()) {
+		if (piece == null) {
 			moves.add(from, to);
 		}
 		else if (piece.black()) {

@@ -42,13 +42,13 @@ public final class F1Attacked {
 			g2h3(pieces) ||
 			knights(pieces) || 
 			pawns(pieces) ||
-			pieces[g2].blackKing();
+			blackKing(pieces[g2]);
 	}
 
 	static boolean f2f8(Piece[] pieces) {
 		int field = f2;
 		Piece piece = pieces[field];
-		while(piece.free()) {
+		while(piece == null) {
 			field = up(field);
 			piece = pieces[field];
 		}
@@ -59,7 +59,7 @@ public final class F1Attacked {
 	static boolean e2a6(Piece[] pieces) {
 		int field = e2;
 		Piece piece = pieces[field];
-		while(piece.free()) {
+		while(piece == null) {
 			field = leftUp(field);
 			piece = pieces[field];
 		}
@@ -70,7 +70,7 @@ public final class F1Attacked {
 	static boolean g2h3(Piece[] pieces) {
 		int field = g2;
 		Piece piece = pieces[field];
-		while(piece.free()) {
+		while(piece == null) {
 			field = rightUp(field);
 			piece = pieces[field];
 		}
@@ -80,14 +80,26 @@ public final class F1Attacked {
 	
 	static boolean knights(Piece[] pieces) {
 		return 
-			pieces[d2].blackKnight() ||
-			pieces[e3].blackKnight() ||
-			pieces[g3].blackKnight() ||
-			pieces[h2].blackKnight();
+			blackKnight(pieces[d2]) ||
+			blackKnight(pieces[e3]) ||
+			blackKnight(pieces[g3]) ||
+			blackKnight(pieces[h2]);
 	}
 
 	static boolean pawns(Piece[] pieces) {
-		return pieces[e2].blackPawn() || pieces[g2].blackPawn();
+		return blackPawn(pieces[e2]) || blackPawn(pieces[g2]);
+	}
+
+	private static boolean blackPawn(Piece piece) {
+		return piece != null && piece.blackPawn();
+	}
+
+	private static boolean blackKing(Piece piece) {
+		return piece != null && piece.blackKing();
+	}
+
+	private static boolean blackKnight(Piece piece) {
+		return piece != null && piece.blackKnight();
 	}
 
 }

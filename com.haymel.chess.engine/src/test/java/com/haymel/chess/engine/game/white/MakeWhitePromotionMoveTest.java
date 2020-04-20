@@ -93,7 +93,7 @@ public class MakeWhitePromotionMoveTest {
 
 		game.assertVerify();
 		assertThat(piece.field(), is(to));
-		assertThat(game.piece(from).free(), is(true));
+		assertThat(game.piece(from) == null, is(true));
 		assertThat(piece.type(), is(promo));
 		assertThat(game.containsWhitePiece(piece), is(true));
 		assertThat(game.halfMoveClock(), is(0));
@@ -105,7 +105,7 @@ public class MakeWhitePromotionMoveTest {
 
 		game.assertVerify();
 		assertThat(piece.field(), is(from));
-		assertThat(game.piece(to).free(), is(true));
+		assertThat(game.piece(to) == null, is(true));
 		assertThat(piece.whitePawn(), is(true));
 		assertThat(game.containsWhitePiece(piece), is(true));
 		assertThat(game.halfMoveClock(), is(30));

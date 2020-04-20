@@ -40,7 +40,7 @@ public final class WhiteRookCaptureMoves {	//TODO unit test
 	private void up(int from, Moves moves) {
 		int to = Field.up(from);
 		Piece piece = pieces[to];
-		while(piece.free()) {
+		while(piece == null) {
 			to = Field.up(to);
 			piece = pieces[to];
 		}
@@ -51,7 +51,7 @@ public final class WhiteRookCaptureMoves {	//TODO unit test
 	private void down(int from, Moves moves) {
 		int to = Field.down(from);
 		Piece piece = pieces[to];
-		while(piece.free()) {
+		while(piece == null) {
 			to = Field.down(to);
 			piece = pieces[to];		
 		}
@@ -62,7 +62,7 @@ public final class WhiteRookCaptureMoves {	//TODO unit test
 	private void left(int from, Moves moves) {
 		int to = Field.left(from);
 		Piece piece = pieces[to];
-		while(piece.free()) {
+		while(piece == null) {
 			to = Field.left(to);
 			piece = pieces[to];
 		}
@@ -73,7 +73,7 @@ public final class WhiteRookCaptureMoves {	//TODO unit test
 	private void right(int from, Moves moves) {
 		int to = Field.right(from);
 		Piece piece = pieces[to];
-		while(piece.free()) {
+		while(piece == null) {
 			to = Field.right(to);
 			piece = pieces[to];
 		}

@@ -15,3 +15,12 @@
 	instead  1 a2_h2 etc
 
 - use StringFromMove instead of static methods in unit tests
+
+- optimize "null"	
+	public Move(int from, int to, MoveType type) {
+		this(from, to, type, null, Free);
+	}	
+	public Move(int from, int to, PieceType pieceType) {
+		this(from, to, promotion, null, pieceType);
+	}
+	

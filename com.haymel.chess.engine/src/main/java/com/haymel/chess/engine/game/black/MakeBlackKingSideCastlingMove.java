@@ -31,8 +31,8 @@ public final class MakeBlackKingSideCastlingMove {
 		assert !game.piece(e8).moved();
 		assert game.piece(h8).blackRook();
 		assert !game.piece(h8).moved();
-		assert game.piece(f8).free();
-		assert game.piece(g8).free();
+		assert game.piece(f8) == null;
+		assert game.piece(g8) == null;
 
 		Piece king = game.piece(e8);
 		Piece rook = game.piece(h8);
@@ -53,8 +53,8 @@ public final class MakeBlackKingSideCastlingMove {
 		game.activeColorWhite();
 
 		assert game.activeColor() == white; 
-		assert game.piece(e8).free();
-		assert game.piece(h8).free();
+		assert game.piece(e8) == null;
+		assert game.piece(h8) == null;
 		assert game.piece(g8).blackKing();
 		assert game.piece(g8).moved();
 		assert game.piece(f8).blackRook();
@@ -66,8 +66,8 @@ public final class MakeBlackKingSideCastlingMove {
 		assert game != null;
 		assert move != null;
 		assert game.assertVerify();
-		assert game.piece(e8).free();
-		assert game.piece(h8).free();
+		assert game.piece(e8) == null;
+		assert game.piece(h8) == null;
 		assert game.piece(g8).blackKing();
 		assert game.piece(g8).moved();
 		assert game.piece(f8).blackRook();
@@ -93,8 +93,8 @@ public final class MakeBlackKingSideCastlingMove {
 		assert !game.piece(e8).moved();
 		assert game.piece(h8).blackRook();
 		assert !game.piece(h8).moved();
-		assert game.piece(f8).free();
-		assert game.piece(g8).free();
+		assert game.piece(f8) == null;
+		assert game.piece(g8) == null;
 		assert game.assertVerify();
 	}
 

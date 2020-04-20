@@ -46,7 +46,7 @@ public final class BlackKnightMoves {
 	private void add(int from, int to, Moves moves) {
 		Piece piece = pieces[to];
 		
-		if (piece.free()) {
+		if (piece == null) {
 			moves.add(from, to);
 		}
 		else if (piece.white()) {

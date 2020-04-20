@@ -55,7 +55,7 @@ public class MakeBlackPawnMoveTest {
 
 		game.assertVerify();
 		assertThat(piece.field(), is(e6));
-		assertThat(game.piece(e7).free(), is(true));
+		assertThat(game.piece(e7) == null, is(true));
 		assertThat(game.halfMoveClock(), is(0));
 		assertThat(game.fullMoveNumber(), is(46));
 		assertThat(game.enPassant(), is(removed));
@@ -65,7 +65,7 @@ public class MakeBlackPawnMoveTest {
 
 		game.assertVerify();
 		assertThat(piece.field(), is(e7));
-		assertThat(game.piece(e5).free(), is(true));
+		assertThat(game.piece(e5) == null, is(true));
 		assertThat(game.halfMoveClock(), is(30));
 		assertThat(game.fullMoveNumber(), is(45));
 		assertThat(game.enPassant(), is(removed));
@@ -87,7 +87,7 @@ public class MakeBlackPawnMoveTest {
 
 		game.assertVerify();
 		assertThat(piece.field(), is(e5));
-		assertThat(game.piece(e6).free(), is(true));
+		assertThat(game.piece(e6) == null, is(true));
 		assertThat(game.halfMoveClock(), is(0));
 		assertThat(game.fullMoveNumber(), is(46));
 		assertThat(game.enPassant(), is(removed));
@@ -97,7 +97,7 @@ public class MakeBlackPawnMoveTest {
 
 		game.assertVerify();
 		assertThat(piece.field(), is(e6));
-		assertThat(game.piece(e5).free(), is(true));
+		assertThat(game.piece(e5) == null, is(true));
 		assertThat(game.halfMoveClock(), is(30));
 		assertThat(game.fullMoveNumber(), is(45));
 		assertThat(game.enPassant(), is(removed));
@@ -125,7 +125,7 @@ public class MakeBlackPawnMoveTest {
 
 		game.assertVerify();
 		assertThat(piece.field(), is(e5));
-		assertThat(game.piece(e6).free(), is(true));
+		assertThat(game.piece(e6) == null, is(true));
 		assertThat(game.halfMoveClock(), is(0));
 		assertThat(game.fullMoveNumber(), is(46));
 		assertThat(game.enPassant(), is(removed));
@@ -135,7 +135,7 @@ public class MakeBlackPawnMoveTest {
 
 		game.assertVerify();
 		assertThat(piece.field(), is(e6));
-		assertThat(game.piece(e5).free(), is(true));
+		assertThat(game.piece(e5) == null, is(true));
 		assertThat(game.halfMoveClock(), is(30));
 		assertThat(game.fullMoveNumber(), is(45));
 		assertThat(game.enPassant(), is(e3));

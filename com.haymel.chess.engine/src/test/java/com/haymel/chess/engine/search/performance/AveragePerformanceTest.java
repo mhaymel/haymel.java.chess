@@ -74,7 +74,7 @@ public class AveragePerformanceTest {
 		long nodesPerSecond = searchFens();
 		
 		out.println("finished test");
-		assertThat(nodesPerSecond, greaterThan(1870_000L));
+		assertThat(nodesPerSecond, greaterThan(1978_000L));
 	}
 
 	private void warmUp() {

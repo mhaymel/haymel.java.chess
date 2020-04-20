@@ -10,7 +10,6 @@ package com.haymel.chess.engine.board;
 import static com.haymel.chess.engine.board.Field.right;
 import static com.haymel.chess.engine.board.Field.up;
 import static com.haymel.chess.engine.piece.Piece.border;
-import static com.haymel.chess.engine.piece.Piece.free;
 
 import com.haymel.chess.engine.piece.Piece;
 
@@ -35,14 +34,14 @@ public final class Board {
 	
 	private static void init(int field, Piece[] pieces) {
 		for(int i = 0; i < 8; i++) {
-			pieces[field] = free;
+			pieces[field] = null;
 			field = right(field);
 		}
 	}
 
 	private static boolean doVerify(Piece[] pieces) {
 		for(int i = 0; i < pieces.length; i++) {
-			assert pieces[i].free() || pieces[i].border() || pieces[pieces[i].field()] == pieces[i];
+			assert pieces[i] == null || pieces[i].border() || pieces[pieces[i].field()] == pieces[i];
 		}
 		return true;
 	}

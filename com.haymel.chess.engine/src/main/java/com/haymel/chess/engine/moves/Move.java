@@ -14,7 +14,6 @@ import static com.haymel.chess.engine.moves.MoveType.capturePromotion;
 import static com.haymel.chess.engine.moves.MoveType.enpassant;
 import static com.haymel.chess.engine.moves.MoveType.normal;
 import static com.haymel.chess.engine.moves.MoveType.promotion;
-import static com.haymel.chess.engine.piece.Piece.free;
 import static com.haymel.chess.engine.piece.PieceType.BlackKing;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 import static com.haymel.chess.engine.piece.PieceType.Border;
@@ -42,7 +41,7 @@ public class Move {
 	}
 	
 	public Move(int from, int to, MoveType type) {
-		this(from, to, type, free, Free);
+		this(from, to, type, null, Free);
 	}	
 
 	public Move(int from, int to, MoveType type, Piece capturedPiece) {
@@ -50,7 +49,7 @@ public class Move {
 	}
 	
 	public Move(int from, int to, PieceType pieceType) {
-		this(from, to, promotion, free, pieceType);
+		this(from, to, promotion, null, pieceType);
 	}
 
 	public Move(int from, int to, Piece capturedPiece, PieceType promotion) {
@@ -62,7 +61,6 @@ public class Move {
 		assert Field.valid(to);
 		assert from != to;
 		assert type != null;
-		assert capturedPiece != null;
 		assert promotion != null;
 		assert 
 			promotion != BlackKing && 
@@ -71,7 +69,7 @@ public class Move {
 			promotion != WhitePawn &&
 			promotion != Border;
 		
-		assert capturedPiece.free() || 
+		assert capturedPiece == null || 
 			type == enpassant ||
 			type == capture ||
 			type == capturePromotion;
@@ -142,7 +140,7 @@ public class Move {
 			from == that.from && 
 			to == that.to && 
 			type == that.type &&
-			capturedPiece.equals(that.capturedPiece) &&
+			Objects.equals(capturedPiece, that.capturedPiece) &&
 			pieceType == that.pieceType;
 	}
 

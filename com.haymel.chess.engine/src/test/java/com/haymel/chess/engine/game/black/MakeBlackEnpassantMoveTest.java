@@ -67,8 +67,8 @@ public class MakeBlackEnpassantMoveTest {
 
 		game.assertVerify();
 		assertThat(blackPawn.field(), is(d3));
-		assertThat(game.piece(d4).free(), is(true));
-		assertThat(game.piece(e4).free(), is(true));
+		assertThat(game.piece(d4) == null, is(true));
+		assertThat(game.piece(e4) == null, is(true));
 		assertThat(game.halfMoveClock(), is(0));
 		assertThat(game.fullMoveNumber(), is(11));
 		assertThat(game.enPassant(), is(removed));
@@ -109,8 +109,8 @@ public class MakeBlackEnpassantMoveTest {
 
 		game.assertVerify();
 		assertThat(blackPawn.field(), is(f3));
-		assertThat(game.piece(f4).free(), is(true));
-		assertThat(game.piece(e4).free(), is(true));
+		assertThat(game.piece(f4) == null, is(true));
+		assertThat(game.piece(e4) == null, is(true));
 		assertThat(game.halfMoveClock(), is(0));
 		assertThat(game.fullMoveNumber(), is(11));
 		assertThat(game.enPassant(), is(removed));

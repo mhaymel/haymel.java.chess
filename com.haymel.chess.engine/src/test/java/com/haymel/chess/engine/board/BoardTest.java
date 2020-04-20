@@ -23,15 +23,13 @@ public class BoardTest {	//TODO implement
 	public void test() {
 		Piece piece = Board.newBoard()[a1];
 		
-		assertThat(piece.free(), is(true));
-		assertThat(piece.black(), is(false));
-		assertThat(piece.white(), is(false));
+		assertThat(piece == null, is(true));
 	}
 
 	@Test
 	public void testBorderElement() {
 		Piece piece = Board.newBoard()[left(a1)];
-		assertThat(piece.free(), is(false));
+		assertThat(piece == null, is(false));
 		assertThat(piece.black(), is(false));
 		assertThat(piece.white(), is(false));
 	}

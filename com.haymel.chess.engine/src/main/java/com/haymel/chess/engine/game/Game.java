@@ -17,7 +17,6 @@ import static com.haymel.chess.engine.board.Field.up;
 import static com.haymel.chess.engine.board.Field.valid;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
-import static com.haymel.chess.engine.piece.Piece.free;
 import static java.lang.String.format;
 
 import java.util.ArrayList;
@@ -102,8 +101,9 @@ public final class Game {	//TODO unit test and refactor
 	}
 
 	public void clear(int field) {
+		assert board[field] != null;
 		assert !board[field].border() : format("cannot clear border: %s", field);
-		board[field] = free;
+		board[field] = null;
 	}
 
 	public void place(Piece piece) {
@@ -126,7 +126,7 @@ public final class Game {	//TODO unit test and refactor
 
 	public void enPassant(int field) {
 		assert Field.valid(field);
-		assert field == removed || board[field].free();
+		assert field == removed || board[field] == null;
 		assert 
 			field == removed ||
 			activeColor == white && rank(field) == rank(a3) && board[Field.up(field)].whitePawn()||
@@ -266,11 +266,15 @@ public final class Game {	//TODO unit test and refactor
 			int fx = fy;
 			for(int x = 0; x < 8; x++) {
 				Piece p = board[fx];
-				assert !p.border();
-				if (p.black()) 
-					assert blackPieces.contains(p);
-				else if (p.white())
-					assert whitePieces.contains(p);
+				assert p == null || !p.border();
+				if (p != null) {
+					if (p.black()) 
+						assert blackPieces.contains(p);
+					else if (p.white())
+						assert whitePieces.contains(p);
+					else
+						assert false;
+				}
 				fx = right(fx);
 			}
 			fy = up(fy);

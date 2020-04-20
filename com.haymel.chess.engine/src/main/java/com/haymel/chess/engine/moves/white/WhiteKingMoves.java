@@ -118,13 +118,17 @@ public final class WhiteKingMoves {
 	}
 
 	private boolean isWhiteRook(int field) {
-		return pieces[field].whiteRook();
+		return whiteRook(pieces[field]);
+	}
+
+	private static boolean whiteRook(Piece piece) {
+		return piece != null && piece.whiteRook();
 	}
 
 	private void add(int from, int to, Moves moves) {
 		Piece piece = pieces[to];
 		
-		if (piece.free()) {
+		if (piece == null) {
 			moves.add(from, to);
 		}
 		else if (piece.black()) {
@@ -137,6 +141,6 @@ public final class WhiteKingMoves {
 	}
 	
 	private final boolean isFree(int field) {
-		return pieces[field].free();
+		return pieces[field] == null;
 	}
 }

@@ -40,7 +40,7 @@ public final class BlackBishopMoves {
 	private void leftUp(int from, Moves moves) {
 		int to = Field.leftUp(from);
 		Piece piece = board[to];
-		while(piece.free()) {
+		while(piece == null) {
 			moves.add(from, to);
 			to = Field.leftUp(to);
 			piece = board[to];
@@ -52,7 +52,7 @@ public final class BlackBishopMoves {
 	private void leftDown(int from, Moves moves) {
 		int to = Field.leftDown(from);
 		Piece piece = board[to];
-		while(piece.free()) {
+		while(piece == null) {
 			moves.add(from, to);
 			to = Field.leftDown(to);
 			piece = board[to];
@@ -64,7 +64,7 @@ public final class BlackBishopMoves {
 	private void rightUp(int from, Moves moves) {
 		int to = Field.rightUp(from);
 		Piece piece = board[to];
-		while(piece.free()) {
+		while(piece == null) {
 			moves.add(from, to);
 			to = Field.rightUp(to);
 			piece = board[to];
@@ -76,7 +76,7 @@ public final class BlackBishopMoves {
 	private void rightDown(int from, Moves moves) {
 		int to = Field.rightDown(from);
 		Piece piece = board[to];
-		while(piece.free()) {
+		while(piece == null) {
 			moves.add(from, to);
 			to = Field.rightDown(to);
 			piece = board[to];

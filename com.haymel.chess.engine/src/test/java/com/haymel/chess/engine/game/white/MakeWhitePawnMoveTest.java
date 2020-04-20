@@ -62,7 +62,7 @@ public class MakeWhitePawnMoveTest {
 
 		game.assertVerify();
 		assertThat(piece.field(), is(e3));
-		assertThat(game.piece(e1).free(), is(true));
+		assertThat(game.piece(e1) == null, is(true));
 		assertThat(game.halfMoveClock(), is(0));
 		assertThat(game.fullMoveNumber(), is(1));
 		assertThat(game.enPassant(), is(removed));
@@ -72,7 +72,7 @@ public class MakeWhitePawnMoveTest {
 
 		game.assertVerify();
 		assertThat(piece.field(), is(e2));
-		assertThat(game.piece(e3).free(), is(true));
+		assertThat(game.piece(e3) == null, is(true));
 		assertThat(game.halfMoveClock(), is(30));
 		assertThat(game.fullMoveNumber(), is(1));
 		assertThat(game.enPassant(), is(removed));
@@ -101,7 +101,7 @@ public class MakeWhitePawnMoveTest {
 		game.assertVerify();
 		assertThat(game.enPassant(), is(removed));
 		assertThat(piece.field(), is(e3));
-		assertThat(game.piece(e1).free(), is(true));
+		assertThat(game.piece(e1) == null, is(true));
 		assertThat(game.halfMoveClock(), is(0));
 		assertThat(game.fullMoveNumber(), is(1));
 		assertThat(game.activeColor(), is(black));
@@ -111,7 +111,7 @@ public class MakeWhitePawnMoveTest {
 		game.assertVerify();
 		assertThat(game.enPassant(), is(e6));
 		assertThat(piece.field(), is(e2));
-		assertThat(game.piece(e3).free(), is(true));
+		assertThat(game.piece(e3) == null, is(true));
 		assertThat(game.halfMoveClock(), is(30));
 		assertThat(game.fullMoveNumber(), is(1));
 		assertThat(game.activeColor(), is(white));
@@ -137,7 +137,7 @@ public class MakeWhitePawnMoveTest {
 
 		game.assertVerify();
 		assertThat(piece.field(), is(e4));
-		assertThat(game.piece(e3).free(), is(true));
+		assertThat(game.piece(e3) == null, is(true));
 		assertThat(game.halfMoveClock(), is(0));
 		assertThat(game.fullMoveNumber(), is(1));
 		assertThat(game.enPassant(), is(removed));
@@ -147,7 +147,7 @@ public class MakeWhitePawnMoveTest {
 
 		game.assertVerify();
 		assertThat(piece.field(), is(e3));
-		assertThat(game.piece(e4).free(), is(true));
+		assertThat(game.piece(e4) == null, is(true));
 		assertThat(game.halfMoveClock(), is(30));
 		assertThat(game.fullMoveNumber(), is(1));
 		assertThat(game.enPassant(), is(removed));
@@ -167,7 +167,7 @@ public class MakeWhitePawnMoveTest {
 
 		game.assertVerify();
 		assertThat(piece.field(), is(e4));
-		assertThat(game.piece(e2).free(), is(true));
+		assertThat(game.piece(e2) == null, is(true));
 		assertThat(game.halfMoveClock(), is(0));
 		assertThat(game.fullMoveNumber(), is(1));
 		assertThat(game.enPassant(), is(e3));
@@ -177,7 +177,7 @@ public class MakeWhitePawnMoveTest {
 
 		game.assertVerify();
 		assertThat(piece.field(), is(e2));
-		assertThat(game.piece(e4).free(), is(true));
+		assertThat(game.piece(e4) == null, is(true));
 		assertThat(game.halfMoveClock(), is(30));
 		assertThat(game.fullMoveNumber(), is(1));
 		assertThat(game.enPassant(), is(removed));
@@ -204,7 +204,7 @@ public class MakeWhitePawnMoveTest {
 
 		game.assertVerify();
 		assertThat(piece.field(), is(e4));
-		assertThat(game.piece(e2).free(), is(true));
+		assertThat(game.piece(e2) == null, is(true));
 		assertThat(game.halfMoveClock(), is(0));
 		assertThat(game.fullMoveNumber(), is(1));
 		assertThat(game.enPassant(), is(e3));
@@ -214,7 +214,7 @@ public class MakeWhitePawnMoveTest {
 
 		game.assertVerify();
 		assertThat(piece.field(), is(e2));
-		assertThat(game.piece(e4).free(), is(true));
+		assertThat(game.piece(e4) == null, is(true));
 		assertThat(game.halfMoveClock(), is(30));
 		assertThat(game.fullMoveNumber(), is(1));
 		assertThat(game.enPassant(), is(e6));
@@ -238,7 +238,7 @@ public class MakeWhitePawnMoveTest {
 
 		game.assertVerify();
 		assertThat(piece.field(), is(d3));
-		assertThat(game.piece(e2).free(), is(true));
+		assertThat(game.piece(e2) == null, is(true));
 		assertThat(game.halfMoveClock(), is(0));
 		assertThat(game.fullMoveNumber(), is(1));
 		assertThat(game.enPassant(), is(removed));
@@ -277,8 +277,8 @@ public class MakeWhitePawnMoveTest {
 		game.assertVerify();
 		assertThat(game.containsBlackPiece(blackPawn), is(false));
 		assertThat(piece.field(), is(d6));
-		assertThat(game.piece(d5).free(), is(true));
-		assertThat(game.piece(e5).free(), is(true));
+		assertThat(game.piece(d5) == null, is(true));
+		assertThat(game.piece(e5) == null, is(true));
 		assertThat(game.halfMoveClock(), is(0));
 		assertThat(game.fullMoveNumber(), is(1));
 		assertThat(game.enPassant(), is(removed));
@@ -290,7 +290,7 @@ public class MakeWhitePawnMoveTest {
 		assertThat(piece.field(), is(e5));
 		assertThat(blackPawn.field(), is(d5));
 		assertThat(game.piece(d5), is(blackPawn));
-		assertThat(game.piece(d6).free(), is(true));
+		assertThat(game.piece(d6) == null, is(true));
 		assertThat(game.halfMoveClock(), is(30));
 		assertThat(game.fullMoveNumber(), is(1));
 		assertThat(game.enPassant(), is(d6));

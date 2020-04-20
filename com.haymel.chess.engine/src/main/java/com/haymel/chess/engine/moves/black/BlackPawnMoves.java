@@ -142,7 +142,7 @@ public final class BlackPawnMoves {
 	
 	private void capturePromotion(int from, int to, Moves moves) {
 		Piece piece = pieces[to];
-		if (piece.white())
+		if (white(piece))
 			moves.addBlackCapturePromotion(from, to, piece);
 	}
 
@@ -182,12 +182,16 @@ public final class BlackPawnMoves {
 	
 	private void capture(int from, int to, Moves moves) {
 		Piece piece = pieces[to];
-		if (piece.white())
+		if (white(piece))
 			moves.addCapture(from, to, piece);
 	}
 
+	private static boolean white(Piece piece) {
+		return piece != null && piece.white();
+	}
+
 	private boolean isFree(int field) {
-		return pieces[field].free();
+		return pieces[field] == null;
 	}
 		
 }

@@ -22,7 +22,6 @@ import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 import static com.haymel.chess.engine.piece.PieceType.BlackQueen;
 import static com.haymel.chess.engine.piece.PieceType.BlackRook;
 import static com.haymel.chess.engine.piece.PieceType.Border;
-import static com.haymel.chess.engine.piece.PieceType.Free;
 import static com.haymel.chess.engine.piece.PieceType.WhiteBishop;
 import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
 import static com.haymel.chess.engine.piece.PieceType.WhiteKnight;
@@ -39,8 +38,7 @@ public final class Piece {
 	private int field; 
 	private boolean moved;
 
-	public static final Piece border = new Piece(Border, Field.removed);
-	public static final Piece free = new Piece(Free, Field.removed);
+	public static final Piece border = new Piece(Border, removed);
 	
 	public Piece(PieceType type, int field) {
 		assert type != null;
@@ -87,10 +85,6 @@ public final class Piece {
 		this.type = type;
 	}
 
-	public boolean free() {
-		return type == Free;
-	}
-	
 	public boolean border() {
 		return type == Border;
 	}
@@ -106,7 +100,6 @@ public final class Piece {
 		assert field == removed || type != BlackPawn || (Field.rank(field) != 0 && Field.rank(field) != 7) : format("a black pawn must not be placed on file 1 or 8. The value of field is %s", field);
 		
 		assert !border() || field == removed;
-		assert !free() || field == removed;
 				
 		this.field = field;
 	}

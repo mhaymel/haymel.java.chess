@@ -31,7 +31,7 @@ public final class MakeWhitePromotionMove {
 		assert game.activeColor() == white; 
 		assert move.type() == promotion;
 		assert game.piece(move.from()).whitePawn();
-		assert game.piece(move.to()).free();
+		assert game.piece(move.to()) == null;
 		assert rank(move.from()) == 6;
 		assert rank(move.to()) == 7;
 		assert file(move.from()) == file(move.to());
@@ -55,7 +55,7 @@ public final class MakeWhitePromotionMove {
 
 		assert game.containsWhitePiece(piece);
 		assert game.activeColor() == black; 
-		assert game.piece(move.from()).free();
+		assert game.piece(move.from()) == null;
 		assert game.piece(move.to()).type() == move.pieceType();
 		assert game.halfMoveClock() == 0;
 		assert game.assertVerify();
@@ -68,7 +68,7 @@ public final class MakeWhitePromotionMove {
 		assert game.activeColor() == white; 
 		assert move.type() == promotion;
 		assert game.piece(move.to()).type() == move.pieceType();
-		assert game.piece(move.from()).free();
+		assert game.piece(move.from()) == null;
 		assert rank(move.from()) == 6;
 		assert rank(move.to()) == 7;
 		assert file(move.from()) == file(move.to());
@@ -86,7 +86,7 @@ public final class MakeWhitePromotionMove {
 		assert game.halfMoveClock() >= 0;
 		assert game.fullMoveNumber() >= 1;
 		assert game.activeColor() == white; 
-		assert game.piece(move.to()).free();
+		assert game.piece(move.to()) == null;
 		assert game.piece(move.from()).whitePawn();
 		assert game.assertVerify();
 	}

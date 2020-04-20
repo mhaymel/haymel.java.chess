@@ -109,7 +109,7 @@ public final class BlackPawnCaptureMoves {
 	
 	private void capturePromotion(int from, int to, Moves moves) {
 		Piece piece = pieces[to];
-		if (piece.white())
+		if (white(piece))
 			moves.addBlackCapturePromotion(from, to, piece);
 	}
 
@@ -127,8 +127,12 @@ public final class BlackPawnCaptureMoves {
 
 	private void capture(int from, int to, Moves moves) {
 		Piece piece = pieces[to];
-		if (piece.white())
+		if (white(piece))
 			moves.addCapture(from, to, piece);
+	}
+
+	private static boolean white(Piece piece) {
+		return piece != null && piece.white();
 	}
 
 }

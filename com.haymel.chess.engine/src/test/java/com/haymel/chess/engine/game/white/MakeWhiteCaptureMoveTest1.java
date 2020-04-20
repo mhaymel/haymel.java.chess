@@ -61,7 +61,7 @@ public class MakeWhiteCaptureMoveTest1 {
 		assertThat(whiteKnight.field(), is(c2));
 		assertThat(game.piece(c2), is(whiteKnight));
 		assertThat(whiteKnight.moved(), is(true));
-		assertThat(game.piece(a1).free(), is(true));
+		assertThat(game.piece(a1) == null, is(true));
 		assertThat(game.halfMoveClock(), is(0));
 		assertThat(game.fullMoveNumber(), is(1));
 		assertThat(game.enPassant(), is(removed));
