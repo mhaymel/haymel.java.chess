@@ -55,6 +55,7 @@ public class MoveTest {
 		Move move = new Move(e2, e4);
 		assertThat(move.from(), is(e2));
 		assertThat(move.to(), is(e4));
+		assertThat(move.capture(), is(false));
 	}
 	
 	@Test
@@ -68,8 +69,18 @@ public class MoveTest {
 	}
 	
 	@Test
+	public void captureReturnsTrueForCaptureMove() {
+		assertThat(new Move(a1, b2, capture).capture(), is(true));
+	}
+	
+	@Test
 	public void testToStringEnpassant() {
 		assertThat(new Move(d4, c3, enpassant).toString(), is("d4xc3e.p."));
+	}
+
+	@Test
+	public void captureReturnsTrueForEnpassant() {
+		assertThat(new Move(d4, c3, enpassant).capture(), is(true));
 	}
 	
 	@Test
@@ -78,6 +89,12 @@ public class MoveTest {
 		assertThat(new Move(d7, e8, capturedBlackPiece, WhiteQueen).toString(), is("d7xe8Q"));
 	}
 
+	@Test
+	public void captureReturnsTrueForCapturePromotion() {
+		assertThat(new Move(d7, e8, capturedWhitePiece, BlackQueen).capture(), is(true));
+		assertThat(new Move(d7, e8, capturedBlackPiece, WhiteQueen).capture(), is(true));
+	}
+	
 	@Test
 	public void testToStringCapturePromotionRook() {
 		assertThat(new Move(d7, e8, capturedWhitePiece, BlackRook).toString(), is("d7xe8R"));

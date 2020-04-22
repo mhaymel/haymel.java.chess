@@ -9,7 +9,6 @@ package com.haymel.chess.engine.search.movesorting;
 
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.moves.Move;
-import com.haymel.chess.engine.moves.MoveType;
 import com.haymel.chess.engine.piece.Piece;
 import com.haymel.chess.engine.search.PieceValue;
 
@@ -81,7 +80,7 @@ public class PVMoveIterator implements MoveIterator { //TODO refactor, unit test
 		
 		while(i < count) {
 			Move move = move(i);
-			if (move != null && isCapture(move)) {
+			if (move != null && move.capture()) {
 				int value = captureValue(move);
 				if (value > foundValue) {
 					foundIndex = i;
@@ -100,7 +99,7 @@ public class PVMoveIterator implements MoveIterator { //TODO refactor, unit test
 	}
 	
 	private int captureValue(Move move) {
-		assert isCapture(move);
+		assert move.capture();
 		
 		int aggressorValue = pieceValue(game.piece(move.from()));
 		int victimValue = pieceValue(move.capturedPiece());
@@ -115,7 +114,7 @@ public class PVMoveIterator implements MoveIterator { //TODO refactor, unit test
 	private Move nextNormal() {
 		while(index < count) {
 			Move move = move(index);
-			if (move != null && !isCapture(move)) {
+			if (move != null && !move.capture()) {
 				moveReset(index);
 				index++;
 				return move;
@@ -158,15 +157,8 @@ public class PVMoveIterator implements MoveIterator { //TODO refactor, unit test
 
 	private boolean assertAllMoveUsed() {
 		for(int i = 0; i < count; i++)
-			assert move(i) == null;
+			assert move(i) == null : String.format("was not analyzed: %s", move(i));
 		return true;
-	}
-	
-	private static boolean isCapture(Move move) {
-		return  
-			move.type() == MoveType.capture ||
-			move.type() == MoveType.enpassant ||
-			move.type() == MoveType.capturePromotion;
 	}
 	
 }

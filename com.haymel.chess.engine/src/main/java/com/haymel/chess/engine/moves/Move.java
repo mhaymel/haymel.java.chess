@@ -53,7 +53,7 @@ public class Move {
 	}	
 
 	public Move(int from, int to, MoveType type, Piece capturedPiece) {
-		this(from, to, type, capturedPiece, PieceType.Free);
+		this(from, to, type, capturedPiece, Free);
 	}
 	
 	public Move(int from, int to, int pieceType) {
@@ -180,6 +180,10 @@ public class Move {
 			assert false;
 			throw new IllegalStateException(String.valueOf(type));
 		}
+	}
+	
+	public boolean capture() {
+		return MoveType.capture(type);
 	}
 	
 }

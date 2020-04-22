@@ -15,7 +15,6 @@ import static java.lang.String.format;
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.game.MakeMove;
 import com.haymel.chess.engine.moves.Move;
-import com.haymel.chess.engine.moves.MoveType;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.search.movesorting.MoveIterator;
 import com.haymel.chess.engine.search.movesorting.MoveIteratorCreator;
@@ -182,9 +181,7 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 
 		Move move;
 		while((move = moveIter.next()) != null) {
-			if (!capture(move)) continue;
-
-			assert capture(move);
+			assert move.capture();
 
 			Variant v = new Variant(move);
 			makeMove.makeMove(move);
@@ -318,9 +315,7 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 
 		Move move;
 		while((move = moveIter.next()) != null) {
-			if (!capture(move)) continue;
-
-			assert capture(move);
+			assert move.capture();
 			
 			Variant v = new Variant(move);
 			makeMove.makeMove(move);
@@ -356,13 +351,6 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 		info.currentMove(new AnalyzedMove(move, i + 1, size));
 	}
 
-	private boolean capture(Move move) {
-		return  
-			move.type() == MoveType.capture ||
-			move.type() == MoveType.enpassant ||
-			move.type() == MoveType.capturePromotion;
-	}
-	
 	private Move principal(int depth) {
 		if (principalVariation == null)
 			return null;
