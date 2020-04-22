@@ -51,31 +51,11 @@ public final class Piece {
 	}
 	
 	public boolean white() {
-		switch(type) {
-		case WhitePawn:
-		case WhiteRook:
-		case WhiteKnight:
-		case WhiteBishop:
-		case WhiteQueen:
-		case WhiteKing:
-			return true;
-		default:
-			return false;
-		}
+		return PieceType.white(type);
 	}
 
 	public boolean black() {
-		switch(type) {
-		case BlackPawn:
-		case BlackRook:
-		case BlackKnight:
-		case BlackBishop:
-		case BlackQueen:
-		case BlackKing:
-			return true;
-		default:
-			return false;
-		}
+		return PieceType.black(type);
 	}
 
 	public int type() {
