@@ -53,7 +53,6 @@ import static com.haymel.chess.engine.piece.PieceType.WhiteQueen;
 import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
 
 import com.haymel.chess.engine.piece.Piece;
-import com.haymel.chess.engine.piece.PieceType;
 
 public class StartposCreator {		//TODO unit test
 	
@@ -114,7 +113,7 @@ public class StartposCreator {		//TODO unit test
 		place(h8, BlackRook).setMoved(false);
 	}
 
-	private Piece place(int field, PieceType type) {
+	private Piece place(int field, int type) {
 		Piece piece = new Piece(type, field);
 		if (piece.white())
 			game.addWhite(piece);

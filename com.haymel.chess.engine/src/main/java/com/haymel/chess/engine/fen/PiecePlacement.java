@@ -31,14 +31,13 @@ import java.util.List;
 import java.util.Map;
 
 import com.haymel.chess.engine.piece.Piece;
-import com.haymel.chess.engine.piece.PieceType;
 
 //  rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR
 //  r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R
 
 public class PiecePlacement {
 
-	private static final Map<Character, PieceType> charToPieceType = create();
+	private static final Map<Character, Integer> charToPieceType = create();
 	
 	private String[] ranks;
 	
@@ -85,7 +84,7 @@ public class PiecePlacement {
 
 	private Piece piece(int file, int rank, char c) {
 		int field = field(file, rank);
-		PieceType type = charToPieceType.get(c);
+		Integer type = charToPieceType.get(c);
 
 		if (type == null)
 			return throwIAE("cannot handle piece '%'", c);
@@ -140,8 +139,8 @@ public class PiecePlacement {
 		}
 	}
 
-	private static Map<Character, PieceType> create() {
-		Map<Character, PieceType> map = new HashMap<Character, PieceType>();
+	private static Map<Character, Integer> create() {
+		Map<Character, Integer> map = new HashMap<>();
 	
 		map.put('p', BlackPawn);
 		map.put('r', BlackRook);

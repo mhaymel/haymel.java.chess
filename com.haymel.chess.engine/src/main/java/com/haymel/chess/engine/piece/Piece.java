@@ -28,20 +28,21 @@ import static com.haymel.chess.engine.piece.PieceType.WhiteKnight;
 import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
 import static com.haymel.chess.engine.piece.PieceType.WhiteQueen;
 import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
+import static com.haymel.chess.engine.piece.PieceType.pieceTypeValid;
 import static java.lang.String.format;
 
 import com.haymel.chess.engine.board.Field;
 
 public final class Piece {
 
-	private PieceType type;
+	private int type;
 	private int field; 
 	private boolean moved;
 
 	public static final Piece border = new Piece(Border, removed);
 	
-	public Piece(PieceType type, int field) {
-		assert type != null;
+	public Piece(int type, int field) {
+		assert pieceTypeValid(type);
 		assert Field.valid(field);
 		
 		this.type = type;
@@ -77,11 +78,12 @@ public final class Piece {
 		}
 	}
 
-	public PieceType type() {
+	public int type() {
 		return type;
 	}
 	
-	public void type(PieceType type) {
+	public void type(int type) {
+		assert pieceTypeValid(type);
 		this.type = type;
 	}
 

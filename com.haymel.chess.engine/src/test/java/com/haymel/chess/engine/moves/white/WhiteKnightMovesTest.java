@@ -44,7 +44,6 @@ import org.junit.Test;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.piece.Piece;
-import com.haymel.chess.engine.piece.PieceType;
 
 public class WhiteKnightMovesTest {
 
@@ -179,8 +178,8 @@ public class WhiteKnightMovesTest {
 		return piece(f, WhitePawn);
 	}
 	
-	private Piece piece(int field, PieceType t) {
-		Piece p = new Piece(t, removed);
+	private Piece piece(int field, int type) {
+		Piece p = new Piece(type, removed);
 		p.field(field);
 		board[p.field()] = p;
 		return p;

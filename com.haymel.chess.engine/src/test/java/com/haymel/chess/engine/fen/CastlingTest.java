@@ -25,7 +25,6 @@ import org.junit.Test;
 
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.piece.Piece;
-import com.haymel.chess.engine.piece.PieceType;
 import com.haymel.util.exception.HaymelIllegalArgumentException;
 import com.haymel.util.exception.HaymelNullPointerException;
 
@@ -142,7 +141,7 @@ public class CastlingTest {
 		assertThat(blackRookH.moved(), is(false));
 	}
 	
-	private Piece create(PieceType type, int field) {
+	private Piece create(int type, int field) {
 		Piece piece = new Piece(type, field);
 		piece.setMoved(true);
 		if (piece.white())

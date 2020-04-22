@@ -27,7 +27,6 @@ import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.game.MakeMove;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.piece.Piece;
-import com.haymel.chess.engine.piece.PieceType;
 
 public class MakeBlackPawnCapturePromotionMoveTest {
 
@@ -60,7 +59,7 @@ public class MakeBlackPawnCapturePromotionMoveTest {
 		test(e2, f1, BlackRook);
 	}
 	
-	private void test(int from, int to, PieceType promo) {
+	private void test(int from, int to, int promo) {
 		Piece whitePiece = new Piece(WhiteKnight, to);
 		game.addWhite(whitePiece);
 		game.place(whitePiece);

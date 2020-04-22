@@ -14,12 +14,20 @@ import static com.haymel.chess.engine.moves.MoveType.capturePromotion;
 import static com.haymel.chess.engine.moves.MoveType.enpassant;
 import static com.haymel.chess.engine.moves.MoveType.normal;
 import static com.haymel.chess.engine.moves.MoveType.promotion;
+import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
 import static com.haymel.chess.engine.piece.PieceType.BlackKing;
+import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
+import static com.haymel.chess.engine.piece.PieceType.BlackQueen;
+import static com.haymel.chess.engine.piece.PieceType.BlackRook;
 import static com.haymel.chess.engine.piece.PieceType.Border;
 import static com.haymel.chess.engine.piece.PieceType.Free;
+import static com.haymel.chess.engine.piece.PieceType.WhiteBishop;
 import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
+import static com.haymel.chess.engine.piece.PieceType.WhiteKnight;
 import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
+import static com.haymel.chess.engine.piece.PieceType.WhiteQueen;
+import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
 import static java.lang.String.format;
 
 import java.util.Objects;
@@ -34,7 +42,7 @@ public class Move {
 	private final int from;
 	private final int to;
 	private final Piece capturedPiece;
-	private final PieceType pieceType;
+	private final int pieceType;
 
 	public Move(int from, int to) {
 		this(from, to, normal);
@@ -45,23 +53,23 @@ public class Move {
 	}	
 
 	public Move(int from, int to, MoveType type, Piece capturedPiece) {
-		this(from, to, type, capturedPiece, Free);
+		this(from, to, type, capturedPiece, PieceType.Free);
 	}
 	
-	public Move(int from, int to, PieceType pieceType) {
+	public Move(int from, int to, int pieceType) {
 		this(from, to, promotion, null, pieceType);
 	}
 
-	public Move(int from, int to, Piece capturedPiece, PieceType promotion) {
+	public Move(int from, int to, Piece capturedPiece, int promotion) {
 		this(from, to, capturePromotion, capturedPiece, promotion);
 	}
 	
-	private Move(int from, int to, MoveType type, Piece capturedPiece, PieceType promotion) {
+	private Move(int from, int to, MoveType type, Piece capturedPiece, int promotion) {
 		assert Field.valid(from);
 		assert Field.valid(to);
 		assert from != to;
 		assert type != null;
-		assert promotion != null;
+		assert PieceType.pieceTypeValid(promotion);
 		assert 
 			promotion != BlackKing && 
 			promotion != WhiteKing && 
@@ -98,7 +106,7 @@ public class Move {
 		return type;
 	}
 	
-	public PieceType pieceType() {
+	public int pieceType() {
 		return pieceType;
 	}
 	
@@ -148,7 +156,7 @@ public class Move {
 		return capturedPiece;
 	}
 	
-	private static String letterForPieceType(PieceType type) {
+	private static String letterForPieceType(int type) {
 		switch(type) {
 		case BlackBishop:
 		case WhiteBishop:	return "B";
@@ -170,7 +178,7 @@ public class Move {
 		case Border:
 		default:
 			assert false;
-			throw new IllegalStateException(type.toString());
+			throw new IllegalStateException(String.valueOf(type));
 		}
 	}
 	

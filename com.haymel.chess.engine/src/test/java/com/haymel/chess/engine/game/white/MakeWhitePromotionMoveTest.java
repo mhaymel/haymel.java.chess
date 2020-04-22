@@ -43,7 +43,6 @@ import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.game.MakeMove;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.piece.Piece;
-import com.haymel.chess.engine.piece.PieceType;
 
 public class MakeWhitePromotionMoveTest {
 
@@ -71,7 +70,7 @@ public class MakeWhitePromotionMoveTest {
 		testPromotion(from, to, WhiteKnight, enpassant);
 	}
 	
-	private void testPromotion(int from, int to, PieceType promo, int enpassant) {
+	private void testPromotion(int from, int to, int promo, int enpassant) {
 		Game game = new Game();
 		MakeMove moveMaker = new MakeMove(game);
 

@@ -11,6 +11,14 @@ import static com.haymel.chess.engine.board.Field.d1;
 import static com.haymel.chess.engine.board.Field.e1;
 import static com.haymel.chess.engine.board.Field.file;
 import static com.haymel.chess.engine.board.Field.rank;
+import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
+import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
+import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
+import static com.haymel.chess.engine.piece.PieceType.BlackRook;
+import static com.haymel.chess.engine.piece.PieceType.WhiteBishop;
+import static com.haymel.chess.engine.piece.PieceType.WhiteKnight;
+import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
+import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
 import static com.haymel.chess.engine.search.PieceValue.pieceValue;
 import static java.lang.Integer.MAX_VALUE;
 
@@ -62,7 +70,7 @@ class SortMoves implements Comparator<Move> {		//TODO refactor, unit test
 		if (isCapture(move))
 			return VALUE_CAPTURE - pieceValue(move.capturedPiece().type());
 		
-		PieceType type = game.piece(move.from()).type();
+		int type = game.piece(move.from()).type();
 		switch(type) {
 		case WhitePawn:
 		case BlackPawn:
@@ -80,9 +88,8 @@ class SortMoves implements Comparator<Move> {		//TODO refactor, unit test
 		case BlackRook:
 			return VALUE_ROOK;
 			
-			
-		case WhiteQueen:
-		case BlackQueen:
+		case PieceType.WhiteQueen:
+		case PieceType.BlackQueen:
 			return VALUE_QUEEN;
 
 		default:

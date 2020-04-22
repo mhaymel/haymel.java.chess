@@ -70,7 +70,6 @@ import java.util.List;
 import org.junit.Test;
 
 import com.haymel.chess.engine.piece.Piece;
-import com.haymel.chess.engine.piece.PieceType;
 import com.haymel.util.exception.HaymelIllegalArgumentException;
 import com.haymel.util.exception.HaymelNullPointerException;
 
@@ -189,7 +188,7 @@ public class PiecePlacementTest {
 		assertThat(contains(pieces, WhiteRook, h1), is(true));
 	}
 	
-	private boolean contains(List<Piece> pieces, PieceType type, int field) {
+	private boolean contains(List<Piece> pieces, int type, int field) {
 		for (Piece piece : pieces)
 			if (piece.type() == type && piece.field() == field)
 				return true;

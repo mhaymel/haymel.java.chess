@@ -47,7 +47,6 @@ import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.piece.Piece;
-import com.haymel.chess.engine.piece.PieceType;
 
 public class WhiteBishopMovesTest {
 
@@ -144,8 +143,8 @@ public class WhiteBishopMovesTest {
 		return piece(field, WhitePawn);
 	}
 	
-	private Piece piece(int field, PieceType t) {
-		Piece p = new Piece(t, field);
+	private Piece piece(int field, int type) {
+		Piece p = new Piece(type, field);
 		board[p.field()] = p;
 		return p;
 	}

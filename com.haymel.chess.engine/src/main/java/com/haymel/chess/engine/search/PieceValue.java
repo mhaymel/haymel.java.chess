@@ -7,12 +7,26 @@
  */
 package com.haymel.chess.engine.search;
 
+import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
+import static com.haymel.chess.engine.piece.PieceType.BlackKing;
+import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
+import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
+import static com.haymel.chess.engine.piece.PieceType.BlackQueen;
+import static com.haymel.chess.engine.piece.PieceType.BlackRook;
+import static com.haymel.chess.engine.piece.PieceType.Border;
+import static com.haymel.chess.engine.piece.PieceType.Free;
+import static com.haymel.chess.engine.piece.PieceType.WhiteBishop;
+import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
+import static com.haymel.chess.engine.piece.PieceType.WhiteKnight;
+import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
+import static com.haymel.chess.engine.piece.PieceType.WhiteQueen;
+import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
+
 import com.haymel.chess.engine.board.PieceList;
-import com.haymel.chess.engine.piece.PieceType;
 
 public class PieceValue {		//TODO unit test
 
-	public static int pieceValue(PieceType type) {
+	public static int pieceValue(int type) {
 		switch(type) {
 		case WhitePawn:
 		case BlackPawn:

@@ -39,7 +39,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.haymel.chess.engine.piece.Piece;
-import com.haymel.chess.engine.piece.PieceType;
 
 public class D1AttackedTest {
 
@@ -260,8 +259,8 @@ public class D1AttackedTest {
 		return piece(field, WhiteRook);
 	}
 	
-	private Piece piece(int field, PieceType t) {
-		Piece p = new Piece(t, field);
+	private Piece piece(int field, int type) {
+		Piece p = new Piece(type, field);
 		board[p.field()] = p;
 		return p;
 	}

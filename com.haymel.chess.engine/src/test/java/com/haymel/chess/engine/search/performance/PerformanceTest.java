@@ -38,7 +38,7 @@ import com.haymel.chess.engine.search.execution.IterativeSearch;
 @RunWith(Parameterized.class)
 public class PerformanceTest {
 
-	private final static int warmUpSearchTime = 2_000_000;
+	private final static int warmUpSearchTime = 200_000;
 	private static final String fenKiwipete = "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1";
 	public static final SearchInfoImpl searchInfo = new SearchInfoImpl(x -> {}, x -> {}, x -> {}, nodeStatisticsConsumer());
 
@@ -71,17 +71,17 @@ public class PerformanceTest {
 	@Parameters(name = "{index}: value={0}")
     public static Iterable<Object[]> data() {
            return Arrays.asList(new Object[][] {
-                  { "r1bq1b1r/ppp4p/2n3pn/4p3/3kN3/1Q5P/PPPP1PP1/R1B1K2R w - - 1 1", 	1285_000 },	// mate in 1
-                  { "r3k2r/ppp2ppp/3p4/4p3/4P3/PBPP4/2P3q1/R1B1K1n1 b - - 1 1", 		1963_000 },
-                  { "r1bk2Br/1ppp1Qpp/8/p3P3/4P3/8/P5PP/qN5K w - - 0 1", 				1818_000 },
-                  { "r1bk3r/p2p1pNp/n2B1n2/1p1NP2P/6P1/3P4/P1P1K3/q5b1 w - - 1 1", 		1092_000 },	// mate in 1
-                  { "1n2kb1r/p4ppp/4q3/4p1B1/4P3/8/PPP2PPP/2QR4 w - - 1 1",				2541_000 },
+                  { "r1bq1b1r/ppp4p/2n3pn/4p3/3kN3/1Q5P/PPPP1PP1/R1B1K2R w - - 1 1", 	2033_000 },	// mate in 1
+                  { "r3k2r/ppp2ppp/3p4/4p3/4P3/PBPP4/2P3q1/R1B1K1n1 b - - 1 1", 		3816_000 },
+                  { "r1bk2Br/1ppp1Qpp/8/p3P3/4P3/8/P5PP/qN5K w - - 0 1", 				2518_000 },
+                  { "r1bk3r/p2p1pNp/n2B1n2/1p1NP2P/6P1/3P4/P1P1K3/q5b1 w - - 1 1", 		1419_000 },	// mate in 1
+                  { "1n2kb1r/p4ppp/4q3/4p1B1/4P3/8/PPP2PPP/2QR4 w - - 1 1",				3009_000 },
                   { "r2kqR2/pbp1b3/1p4Q1/3pP1B1/3P4/8/PPP4P/6K1 w - - 1 1",				2374_000 },
-                  { "8/p4pkp/8/3B1b2/P2b1ppP/2N1r1n1/1PP3PR/R4QK1 b - - 1 1",			1500_000 },
-                  { "1Q1RKR2/1P2n2P/1r2k2r/4P3/4P3/8/8/8 w - - 1 1",					3070_000 }, // mate in 2
-                  { initalFen, 															1943_000 },
-                  { fenKiwipete, 														1438_000 },
-                  { "4k3/8/8/8/8/8/4P3/4K3 w - - 0 1",									4154_000 },
+                  { "8/p4pkp/8/3B1b2/P2b1ppP/2N1r1n1/1PP3PR/R4QK1 b - - 1 1",			2289_000 },
+                  { "1Q1RKR2/1P2n2P/1r2k2r/4P3/4P3/8/8/8 w - - 1 1",					3462_000 }, // mate in 2
+                  { initalFen, 															2538_000 },
+                  { fenKiwipete, 														1316_000 },
+                  { "4k3/8/8/8/8/8/4P3/4K3 w - - 0 1",									4215_000 },
            	});
     }
 	

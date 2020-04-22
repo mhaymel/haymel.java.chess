@@ -34,7 +34,6 @@ import com.haymel.chess.engine.moves.black.capture.BlackCaptureMoves;
 import com.haymel.chess.engine.moves.white.WhiteMoves;
 import com.haymel.chess.engine.moves.white.capture.WhiteCaptureMoves;
 import com.haymel.chess.engine.piece.Piece;
-import com.haymel.chess.engine.piece.PieceType;
 import com.haymel.chess.engine.search.PieceValue;
 
 public final class Game {	//TODO unit test and refactor
@@ -345,22 +344,22 @@ public final class Game {	//TODO unit test and refactor
 		return board;
 	}
 
-	public void blackPromotion(PieceType pieceType) {
+	public void blackPromotion(int pieceType) {
 		pieceValue = pieceValue + PieceValue.pieceValue(BlackPawn) - PieceValue.pieceValue(pieceType);
 		assert pieceValue == calculatePieceValue();
 	}
 
-	public void blackUndoPromotion(PieceType pieceType) {
+	public void blackUndoPromotion(int pieceType) {
 		pieceValue = pieceValue - PieceValue.pieceValue(BlackPawn) + PieceValue.pieceValue(pieceType);
 		assert pieceValue == calculatePieceValue();
 	}
 
-	public void whitePromotion(PieceType pieceType) {
+	public void whitePromotion(int pieceType) {
 		pieceValue = pieceValue - PieceValue.pieceValue(WhitePawn) + PieceValue.pieceValue(pieceType);
 		assert pieceValue == calculatePieceValue();
 	}
 
-	public void whiteUndoPromotion(PieceType pieceType) {
+	public void whiteUndoPromotion(int pieceType) {
 		pieceValue = pieceValue + PieceValue.pieceValue(BlackPawn) - PieceValue.pieceValue(pieceType);
 		assert pieceValue == calculatePieceValue();
 	}

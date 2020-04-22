@@ -39,6 +39,12 @@ import static com.haymel.chess.engine.board.Field.h1;
 import static com.haymel.chess.engine.board.Field.h2;
 import static com.haymel.chess.engine.board.Field.h7;
 import static com.haymel.chess.engine.board.Field.h8;
+import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
+import static com.haymel.chess.engine.piece.PieceType.BlackKing;
+import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
+import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
+import static com.haymel.chess.engine.piece.PieceType.BlackQueen;
+import static com.haymel.chess.engine.piece.PieceType.BlackRook;
 import static com.haymel.chess.engine.piece.PieceType.WhiteBishop;
 import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
 import static com.haymel.chess.engine.piece.PieceType.WhiteKnight;
@@ -47,7 +53,6 @@ import static com.haymel.chess.engine.piece.PieceType.WhiteQueen;
 import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
 
 import com.haymel.chess.engine.piece.Piece;
-import com.haymel.chess.engine.piece.PieceType;
 
 public final class GameStartPos {	//TODO unit test
 
@@ -87,37 +92,37 @@ public final class GameStartPos {	//TODO unit test
 	}
 
 	private void addBlackPieces() {
-		addBlack(PieceType.BlackPawn, a7);
-		addBlack(PieceType.BlackPawn, b7);
-		addBlack(PieceType.BlackPawn, c7);
-		addBlack(PieceType.BlackPawn, d7);
-		addBlack(PieceType.BlackPawn, e7);
-		addBlack(PieceType.BlackPawn, f7);
-		addBlack(PieceType.BlackPawn, g7);
-		addBlack(PieceType.BlackPawn, h7);
-		addBlack(PieceType.BlackRook, a8);
-		addBlack(PieceType.BlackKnight, b8);
-		addBlack(PieceType.BlackBishop, c8);
-		addBlack(PieceType.BlackQueen, d8);
-		addBlack(PieceType.BlackKing, e8);
-		addBlack(PieceType.BlackBishop, f8);
-		addBlack(PieceType.BlackKnight, g8);
-		addBlack(PieceType.BlackRook, h8);
+		addBlack(BlackPawn, a7);
+		addBlack(BlackPawn, b7);
+		addBlack(BlackPawn, c7);
+		addBlack(BlackPawn, d7);
+		addBlack(BlackPawn, e7);
+		addBlack(BlackPawn, f7);
+		addBlack(BlackPawn, g7);
+		addBlack(BlackPawn, h7);
+		addBlack(BlackRook, a8);
+		addBlack(BlackKnight, b8);
+		addBlack(BlackBishop, c8);
+		addBlack(BlackQueen, d8);
+		addBlack(BlackKing, e8);
+		addBlack(BlackBishop, f8);
+		addBlack(BlackKnight, g8);
+		addBlack(BlackRook, h8);
 	}
 	
-	private void addWhite(PieceType type, int field) {
+	private void addWhite(int type, int field) {
 		Piece piece = piece(type, field);
 		game.addWhite(piece);
 		game.place(piece);
 	}
 	
-	private void addBlack(PieceType type, int field) {
+	private void addBlack(int type, int field) {
 		Piece piece = piece(type, field);
 		game.addBlack(piece);
 		game.place(piece);
 	}
 
-	private Piece piece(PieceType type, int field) {
+	private Piece piece(int type, int field) {
 		Piece piece = new Piece(type, field);
 		piece.setMoved(false);
 		return piece;
