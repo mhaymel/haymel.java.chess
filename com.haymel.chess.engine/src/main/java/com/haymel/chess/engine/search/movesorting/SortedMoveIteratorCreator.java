@@ -20,7 +20,7 @@ public class SortedMoveIteratorCreator implements MoveIteratorCreator {	//TODO u
 	}
 	
 	@Override
-	public MoveIterator create(Move[] moves, int start, int count, Move pv) {
+	public MoveIterator create(Move[] moves, int start, int count, Move pv, Move killer) {
 		Move[] sortedMoves = new SortMoves(game, moves, count, pv).sort();
 		
 		return new SimpleMoveIterator(sortedMoves, start, count);

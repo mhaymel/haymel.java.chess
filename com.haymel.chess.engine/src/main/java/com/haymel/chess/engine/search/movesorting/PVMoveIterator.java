@@ -16,12 +16,14 @@ public class PVMoveIterator implements MoveIterator { //TODO refactor, unit test
 
 	private static final int statePv = 0;
 	private static final int stateCaptures = 1;
-	private static final int stateNormal = 2;
+	private static final int stateAll = 2;
+	private static final int stateHistoryMove = 3;
 	
 	private static final int[] order = {
 		statePv,
 		stateCaptures,
-		stateNormal 
+		stateHistoryMove,
+		stateAll 
 	};
 	
 	private final Game game;
@@ -29,10 +31,11 @@ public class PVMoveIterator implements MoveIterator { //TODO refactor, unit test
 	private final int start;
 	private final int count;
 	private Move pv;
+	private Move history;
 	private int index = 0;
 	private int state = 0;
 	
-	public PVMoveIterator(Game game, Move[] moves, int start, int count, Move pv) { 
+	public PVMoveIterator(Game game, Move[] moves, int start, int count, Move pv, Move history) { 
 		assert game != null;
 		assert moves != null;
 		assert start >= 0 && start < moves.length;
@@ -43,7 +46,8 @@ public class PVMoveIterator implements MoveIterator { //TODO refactor, unit test
 		this.moves = moves;
 		this.start = start;
 		this.count = count;
-		this.pv = pv;		//pv can be null
+		this.pv = pv;			//pv can be null
+		this.history = history;	//killer can be null
 	}
 
 	@Override
@@ -65,7 +69,8 @@ public class PVMoveIterator implements MoveIterator { //TODO refactor, unit test
 		switch(order[state]) {
 		case statePv: 			return pv();
 		case stateCaptures: 	return nextWinningCapture();
-		case stateNormal:		return nextNormal();
+		case stateHistoryMove: 	return nextHistoryMove();
+		case stateAll:			return nextAll();
 		default:
 			assert false;
 		}
@@ -111,10 +116,10 @@ public class PVMoveIterator implements MoveIterator { //TODO refactor, unit test
 		return PieceValue.pieceValue(piece.type());
 	}
 
-	private Move nextNormal() {
+	private Move nextAll() {
 		while(index < count) {
 			Move move = move(index);
-			if (move != null && !move.capture()) {
+			if (move != null) {
 				moveReset(index);
 				index++;
 				return move;
@@ -129,17 +134,29 @@ public class PVMoveIterator implements MoveIterator { //TODO refactor, unit test
 			return null;
 	
 		try {
-			return findPv();
+			return findAndMarkItAsUsed(pv);
 		}
 		finally {
 			pv = null;
 		}
 	}
 
-	private Move findPv() {
+	private Move nextHistoryMove() {
+		if (history == null) 
+			return null;
+	
+		try {
+			return findAndMarkItAsUsed(history);
+		}
+		finally {
+			history = null;
+		}
+	}
+	
+	private Move findAndMarkItAsUsed(Move move) {
 		for(int i = 0; i < count; i++) {
 			Move m = move(i);
-			if (m != null && m.from() == pv.from() && m.to() == pv.to()) {
+			if (m != null && m.from() == move.from() && m.to() == move.to()) {
 				moveReset(i);
 				return m;
 			}

@@ -11,6 +11,6 @@ import com.haymel.chess.engine.moves.Move;
 
 public interface MoveIteratorCreator {
 	
-	MoveIterator create(Move[] moves, int start, int count, Move pv);
+	MoveIterator create(Move[] moves, int start, int count, Move pv, Move history);
 	
 }

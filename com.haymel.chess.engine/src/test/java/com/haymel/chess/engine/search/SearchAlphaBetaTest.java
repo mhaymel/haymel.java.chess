@@ -8,11 +8,6 @@
 package com.haymel.chess.engine.search;
 
 import static com.haymel.chess.engine.board.Field.fieldAsString;
-import static com.haymel.chess.engine.fen.GameFromFEN.gameFromInitialFen;
-import static com.haymel.chess.engine.search.SearchAlphaBeta.MAX_VALUE;
-import static com.haymel.chess.engine.search.SearchAlphaBeta.MIN_VALUE;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
