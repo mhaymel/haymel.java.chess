@@ -7,10 +7,10 @@
  */
 package com.haymel.chess.engine.search.movesorting;
 
+import com.haymel.chess.engine.evaluation.PieceValue;
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.piece.Piece;
-import com.haymel.chess.engine.search.PieceValue;
 
 public class PVMoveIterator implements MoveIterator { //TODO refactor, unit test
 

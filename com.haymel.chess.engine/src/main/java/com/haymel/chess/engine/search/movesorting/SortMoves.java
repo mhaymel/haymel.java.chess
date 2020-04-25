@@ -11,6 +11,7 @@ import static com.haymel.chess.engine.board.Field.d1;
 import static com.haymel.chess.engine.board.Field.e1;
 import static com.haymel.chess.engine.board.Field.file;
 import static com.haymel.chess.engine.board.Field.rank;
+import static com.haymel.chess.engine.evaluation.PieceValue.pieceValue;
 import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
 import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
@@ -19,7 +20,6 @@ import static com.haymel.chess.engine.piece.PieceType.WhiteBishop;
 import static com.haymel.chess.engine.piece.PieceType.WhiteKnight;
 import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
 import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
-import static com.haymel.chess.engine.search.PieceValue.pieceValue;
 import static java.lang.Integer.MAX_VALUE;
 
 import java.util.Arrays;

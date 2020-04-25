@@ -385,7 +385,7 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 		if (nodesCalculator.inc())
 			info.nodes(nodesCalculator);
 		
-		return game.pieceValue();
+		return game.evaluate();
 	}
 
 	private void currentMove(int size, int i, Move move) {

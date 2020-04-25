@@ -5,7 +5,7 @@
  * @author: Markus.Heumel
  *
  */
-package com.haymel.chess.engine.search;
+package com.haymel.chess.engine.evaluation;
 
 import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
 import static com.haymel.chess.engine.piece.PieceType.BlackKing;
@@ -24,6 +24,7 @@ import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
 
 import com.haymel.chess.engine.board.PieceList;
 
+// https://www.chessprogramming.org/Simplified_Evaluation_Function
 public class PieceValue {		//TODO unit test
 
 	public static int pieceValue(int type) {
@@ -34,9 +35,10 @@ public class PieceValue {		//TODO unit test
 			
 		case WhiteKnight:
 		case BlackKnight:
+			return 320;
 		case WhiteBishop:
 		case BlackBishop:
-			return 300;
+			return 330;
 
 		case WhiteRook:
 		case BlackRook:

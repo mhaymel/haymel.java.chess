@@ -47,7 +47,7 @@ public final class MakeBlackPromotionMove {
 		Piece piece = game.piece(move.from());
 		game.clear(move.from());
 		piece.type(move.pieceType());
-		game.blackPromotion(move.pieceType());
+		game.blackPromotion(move);
 		piece.field(move.to());
 		game.place(piece);
 		game.push(move);
@@ -83,7 +83,7 @@ public final class MakeBlackPromotionMove {
 		game.clear(move.to());
 		piece.field(move.from());
 		piece.type(BlackPawn);
-		game.blackUndoPromotion(move.pieceType());
+		game.blackUndoPromotion(move);
 		game.place(piece);
 		
 		assert game.containsBlackPiece(piece);

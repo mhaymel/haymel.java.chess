@@ -11,7 +11,7 @@ import static java.lang.String.format;
 
 public final class Field {
 
-	static final int up = 12;
+	public static final int up = 12;
 
 	private static final int right = 1;
 	private static final int rightUp = right + up;
