@@ -167,42 +167,62 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 		if (depth > maxSelDepth)
 			maxSelDepth = depth;
 		
-		int stand_pat = evaluate();
-		if (stand_pat >= beta)
+		int positionValue = evaluate();
+		if (positionValue >= beta)
 	        return beta;
 
-	    if (alpha < stand_pat)
-	        alpha = stand_pat;
+	    if (positionValue > alpha)
+	        alpha = positionValue;
 
-	    if (moves.size() == 0)
-	    	return alpha;
-	    
-		MoveIterator moveIter = moveIteratorCreator.create(moves.moves(), 0, moves.size(), principal(depth));
-
-		Move move;
-		while((move = moveIter.next()) != null) {
-			assert move.capture();
-
-			Variant v = new Variant(move);
-			makeMove.makeMove(move);
-			
-			Moves blackMoves = game.blackCaptureMoves();
-			if (blackMoves.kingCaptureCount() == 0) {
-				int score = blackQuiet(blackMoves, depth + 1, alpha, beta, v);
-				makeMove.undoMove();
+		int validMovesCount = 0;
+		if (moves.size() > 0) {
+		    MoveIterator moveIter = moveIteratorCreator.create(moves.moves(), 0, moves.size(), principal(depth));
+	
+			Move move;
+			while((move = moveIter.next()) != null) {
+				assert move.capture();
+	
+				Variant v = new Variant(move);
+				makeMove.makeMove(move);
 				
-				if (score >= beta) 
-					return beta;
-				
-				if (score > alpha) {
-					alpha = score;
-					variant.add(v);
+				Moves blackMoves = game.blackCaptureMoves();
+				if (blackMoves.kingCaptureCount() == 0) {
+					validMovesCount++;
+					int score = blackQuiet(blackMoves, depth + 1, alpha, beta, v);
+					makeMove.undoMove();
+					
+					if (score >= beta) 
+						return beta;
+					
+					if (score > alpha) {
+						alpha = score;
+						variant.add(v);
+					}
+				}
+				else
+					makeMove.undoMove();
+			}
+		}
+		
+		if (validMovesCount == 0 && positionValue >= alpha && whiteIsInCheck()) {
+			Moves whiteMoves = game.whiteMoves();
+			assert !whiteMoves.kingCaptured();
+			int size = whiteMoves.size();
+			for(int i = 0; i < size; i++) {
+				Move move = whiteMoves.move(i);
+				if (!move.capture()) {
+					makeMove.makeMove(move);
+					if (!whiteIsInCheck()) {
+						makeMove.undoMove();
+						return alpha;
+					}
+					makeMove.undoMove();
 				}
 			}
-			else
-				makeMove.undoMove();
+			
+			return whiteMate(depth);
 		}
-
+		
 		return alpha;
 	}
 
@@ -301,40 +321,61 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 		if (depth > maxSelDepth) 
 			maxSelDepth = depth;
 		
-		int stand_pat = evaluate();
-		if (stand_pat <= alpha)
+		int positionValue = evaluate();
+		if (positionValue <= alpha)
 	        return alpha;
 	    
-		if (beta > stand_pat)
-	        beta = stand_pat;
+		if (positionValue < beta) 
+	        beta = positionValue;
 	
-	    if (moves.size() == 0)
-	    	return beta;
+		int validMovesCount = 0;
 
-	    MoveIterator moveIter = moveIteratorCreator.create(moves.moves(), 0, moves.size(), principal(depth));
-
-		Move move;
-		while((move = moveIter.next()) != null) {
-			assert move.capture();
-			
-			Variant v = new Variant(move);
-			makeMove.makeMove(move);
-
-			Moves whiteMoves = game.whiteCaptureMoves();
-			if (whiteMoves.kingCaptureCount() == 0) {
-				int score = whiteQuiet(whiteMoves, depth + 1, alpha, beta, v);
-				makeMove.undoMove();
-
-				if (score <= alpha) 
-					return alpha;
+		if (moves.size() > 0) {
+			MoveIterator moveIter = moveIteratorCreator.create(moves.moves(), 0, moves.size(), principal(depth));
+	
+			Move move;
+			while((move = moveIter.next()) != null) {
+				assert move.capture();
 				
-				if (score < beta) {
-					beta = score;
-					variant.add(v);
+				Variant v = new Variant(move);
+				makeMove.makeMove(move);
+	
+				Moves whiteMoves = game.whiteCaptureMoves();
+				if (whiteMoves.kingCaptureCount() == 0) {
+					validMovesCount++;
+					int score = whiteQuiet(whiteMoves, depth + 1, alpha, beta, v);
+					makeMove.undoMove();
+	
+					if (score <= alpha) 
+						return alpha;
+					
+					if (score < beta) {
+						beta = score;
+						variant.add(v);
+					}
+				}
+				else
+					makeMove.undoMove();
+			}
+		}
+		
+		if (validMovesCount == 0 && positionValue <= beta && blackIsInCheck()) {
+			Moves blackMoves = game.blackMoves();
+			assert !blackMoves.kingCaptured();
+			int size = blackMoves.size();
+			for(int i = 0; i < size; i++) {
+				Move move = blackMoves.move(i);
+				if (!move.capture()) {
+					makeMove.makeMove(move);
+					if (!blackIsInCheck()) {
+						makeMove.undoMove();
+						return beta;
+					}
+					makeMove.undoMove();
 				}
 			}
-			else
-				makeMove.undoMove();
+			
+			return blackMate(depth);
 		}
 		
 		return beta;

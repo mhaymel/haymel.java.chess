@@ -1,11 +1,15 @@
 - improve time management
 - improve stopping of search
+- implement 3 malige stellungswiederholung
+- quiescence search: check if difference is greater than queen value befor move generation
+- quiescence search: check if value of captured piece + current value is inside [alpha, beta]
+
 - unit tests
 - refactor IterativeSearch
 - refactor SearchAlphaBeta
 - refactor SearchExecutor
 - implement 50 moves rule
-- implement 3 malige stellungswiederholung
+
 		
 - slow unit tests für perftest für diverse stellungen
 
