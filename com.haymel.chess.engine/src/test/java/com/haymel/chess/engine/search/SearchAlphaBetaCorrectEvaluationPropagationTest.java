@@ -19,14 +19,14 @@ import com.haymel.chess.engine.game.Game;
 public class SearchAlphaBetaCorrectEvaluationPropagationTest {
 
 	@Test
-	public void whiteSetsBlackStalemate() {
+	public void test() {
 		String fen = "rnb1kbnr/ppp2ppp/8/4p3/3q4/2N5/PPP2PPP/R1BQKBNR w KQkq - 0 5";
 		Game game = new GameFromFEN(fen).execute();
 		
 		SearchAlphaBeta search = new SearchAlphaBeta(game, sysoutSearchInfo);
 		BestMove bestMove = search.execute(5);
 
-		assertThat(bestMove.value(), is(-100));
+		assertThat(bestMove.value(), is(-50));
 	}
 	
 }

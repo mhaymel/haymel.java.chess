@@ -25,7 +25,7 @@ public class SearchAlphaBetaQuietSearchTest {
 		SearchAlphaBeta search = new SearchAlphaBeta(game);
 		BestMove bestMove = search.execute(1);
 
-		assertThat(bestMove.value(), is(0));
+		assertThat(bestMove.value(), is(120));
 	}
 	
 }

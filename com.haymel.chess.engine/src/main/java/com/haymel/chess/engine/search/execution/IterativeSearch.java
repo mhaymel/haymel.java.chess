@@ -46,11 +46,13 @@ public class IterativeSearch implements Search {  	//TODO unit test
 		long maxCalcTime = new TimeCalculator(game, wtimeInMilliSeconds, btimeInMilliSeconds).value();
 		long start = now();
 		
-		BestMove bestMove = search.execute(1);
+		int initialDepth = 3;
+		
+		BestMove bestMove = search.execute(initialDepth);
 		if (bestMove.mateOrStalemate())
 			return bestMove;
 		
-		for(int depth = 2; ; depth++) {
+		for(int depth = initialDepth + 1; ; depth++) {
 			Move[] pv = new MovesFromVariant(bestMove.variant()).value();
 			bestMove = search.execute(depth, pv);
 			

@@ -23,40 +23,44 @@ import com.haymel.chess.engine.moves.Move;
 
 public class SearchAlphaBetaTest {
 
-	@Test
-	public void blackMateInOneHasAVariantOfLengthOne() {
-		String fen = "6k1/5ppp/8/8/8/8/8/3R2K1 w - - 0 1";
-		Game game = new GameFromFEN(fen).execute();
-		
-		SearchAlphaBeta search = new SearchAlphaBeta(game);
-		BestMove bestMove = search.execute(2);
-
-		assertThat(asString(bestMove.move()), is("d1d8"));
-		assertThat(bestMove.value(), is(MAX_VALUE - 1));
-		assertThat(bestMove.variant().size(), is(1));
-	}
-
-	@Test
-	public void whiteMateInOneHasAVariantOfLengthOne() {
-		String fen = "r6r/1p2k1pp/8/p4p2/1bb5/PP4N1/K4PPP/Q2q3R b - - 0 20";
-		Game game = new GameFromFEN(fen).execute();
-		SearchAlphaBeta search = new SearchAlphaBeta(game);
-		BestMove bestMove = search.execute(2);
-		
-		assertThat(asString(bestMove.move()), is("d1b3"));
-		assertThat(bestMove.value(), is(MIN_VALUE + 1));
-		assertThat(bestMove.variant().size(), is(1));
-		
-		bestMove.value();
-	}
+//	@Test
+//	public void blackMateInOneHasAVariantOfLengthOne() {
+//		String fen = "6k1/5ppp/8/8/8/8/8/3R2K1 w - - 0 1";
+//		Game game = new GameFromFEN(fen).execute();
+//		
+//		SearchAlphaBeta search = new SearchAlphaBeta(game);
+//		BestMove bestMove = search.execute(2);
+//
+//		assertThat(asString(bestMove.move()), is("d1d8"));
+//		assertThat(bestMove.value(), is(MAX_VALUE - 1));
+//		assertThat(bestMove.variant().size(), is(1));
+//	}
+//
+//	@Test
+//	public void whiteMateInOneHasAVariantOfLengthOne() {
+//		String fen = "r6r/1p2k1pp/8/p4p2/1bb5/PP4N1/K4PPP/Q2q3R b - - 0 20";
+//		Game game = new GameFromFEN(fen).execute();
+//		SearchAlphaBeta search = new SearchAlphaBeta(game);
+//		BestMove bestMove = search.execute(2);
+//		
+//		assertThat(asString(bestMove.move()), is("d1b3"));
+//		assertThat(bestMove.value(), is(MIN_VALUE + 1));
+//		assertThat(bestMove.variant().size(), is(1));
+//		
+//		bestMove.value();
+//	}
 	
 	@Test
 	public void testWhiteStarts1() {
-		Game game = gameFromInitialFen();
+		String fen = "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1";
+		Game game = new GameFromFEN(fen).execute();
+//		Game game = gameFromInitialFen();
 		SearchAlphaBeta search = new SearchAlphaBeta(game);
-		Move move = search.execute(4).move();
-		System.out.println("play: " + asString(move));
-		new MakeMove(game).makeMove(move);
+		BestMove move = search.execute(6);
+		
+		System.out.println(move.nodes().count());
+		System.out.println("play: " + asString(move.move()));
+		new MakeMove(game).makeMove(move.move());
 	}
 	
 //	@Test
