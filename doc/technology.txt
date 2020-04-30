@@ -16,3 +16,5 @@ make moves, move generation
 iterative search
  - if a mate was detected in an iteration no further iteration
    is required and the iterative search can be stopped.
+  
+stop quiescence search if difference is greater than a queen
