@@ -1,0 +1,16 @@
+
+quiescence search
+- if the current value of the position is outside of [alpha, beta] do not
+  generate any moves if the difference is greater than the value of a queen.
+  stop the search
+
+- if the value of the captured piece is less than the difference of the current 
+  position value and the alpha, beta value, ignore this capture move.
+  
+  
+make moves, move generation
+- if a king moves two fields, it must be a castling assuming
+  the move generation is correct.
+  
+
+  

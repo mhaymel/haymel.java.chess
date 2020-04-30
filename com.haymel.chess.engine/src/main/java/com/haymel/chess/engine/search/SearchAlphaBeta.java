@@ -7,7 +7,10 @@
  */
 package com.haymel.chess.engine.search;
 
+import static com.haymel.chess.engine.evaluation.PieceValue.pieceValue;
 import static com.haymel.chess.engine.game.ActiveColor.white;
+import static com.haymel.chess.engine.piece.PieceType.BlackQueen;
+import static com.haymel.chess.engine.piece.PieceType.WhiteQueen;
 import static com.haymel.chess.engine.search.SearchInfo.noopSearchInfo;
 import static com.haymel.util.Require.nonNull;
 import static java.lang.String.format;
@@ -171,7 +174,10 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 		if (positionValue >= beta)
 	        return beta;
 
-	    if (positionValue > alpha)
+		if (alpha - positionValue > pieceValue(WhiteQueen))
+			return positionValue;
+
+		if (positionValue > alpha)
 	        alpha = positionValue;
 
 		int validMovesCount = 0;
@@ -182,6 +188,9 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 			while((move = moveIter.next()) != null) {
 				assert move.capture();
 	
+				if (pieceValue(move.capturedPiece().type()) <= alpha - positionValue)
+					continue;
+				
 				Variant v = new Variant(move);
 				makeMove.makeMove(move);
 				
@@ -325,6 +334,9 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 		if (positionValue <= alpha)
 	        return alpha;
 	    
+		if (positionValue - beta >= pieceValue(BlackQueen))
+			return positionValue;
+
 		if (positionValue < beta) 
 	        beta = positionValue;
 	
@@ -336,7 +348,10 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 			Move move;
 			while((move = moveIter.next()) != null) {
 				assert move.capture();
-				
+
+				if (pieceValue(move.capturedPiece().type()) <= positionValue - beta)
+					continue;
+
 				Variant v = new Variant(move);
 				makeMove.makeMove(move);
 	
