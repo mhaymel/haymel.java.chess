@@ -13,4 +13,6 @@ make moves, move generation
   the move generation is correct.
   
 
-  
+iterative search
+ - if a mate was detected in an iteration no further iteration
+   is required and the iterative search can be stopped.

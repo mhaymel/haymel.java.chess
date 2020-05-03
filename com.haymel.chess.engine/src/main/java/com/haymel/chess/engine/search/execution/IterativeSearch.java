@@ -56,6 +56,9 @@ public class IterativeSearch implements Search {  	//TODO unit test
 			Move[] pv = new MovesFromVariant(bestMove.variant()).value();
 			bestMove = search.execute(depth, pv);
 			
+			if (bestMove.futureMate() || bestMove.mateOrStalemate())
+				return bestMove;
+			
 			if (stop)
 				return bestMove;
 			

@@ -2,7 +2,6 @@
 - improve stopping of search
 - implement 3 malige stellungswiederholung
 
-
 - unit tests
 - refactor IterativeSearch
 - refactor SearchAlphaBeta
