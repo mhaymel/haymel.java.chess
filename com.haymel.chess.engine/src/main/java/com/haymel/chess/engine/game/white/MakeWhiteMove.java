@@ -10,6 +10,7 @@ package com.haymel.chess.engine.game.white;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
 import static com.haymel.chess.engine.moves.MoveType.normal;
+import static com.haymel.chess.engine.moves.MoveType.pawn;
 
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.moves.Move;
@@ -22,9 +23,8 @@ public final class MakeWhiteMove {
 		assert move != null;
 		assert game.assertVerify();
 		assert game.activeColor() == white; 
-		assert move.type() == normal;
+		assert move.type() == normal || move.type() == pawn;
 		assert game.piece(move.from()).white();
-		assert !game.piece(move.from()).whitePawn();
 		assert game.piece(move.to()) == null;
 		
 		Piece piece = game.piece(move.from());
@@ -36,7 +36,11 @@ public final class MakeWhiteMove {
 		
 		game.push(move, moved);
 		
-		game.incHalfMoveClock();
+		if (piece.whitePawn())
+			game.resetHalfMoveClock();
+		else
+			game.incHalfMoveClock();
+		
 		game.activeColorBlack();
 
 		assert game.activeColor() == black; 
@@ -50,9 +54,8 @@ public final class MakeWhiteMove {
 		assert move != null;
 		assert game.assertVerify();
 		assert game.activeColor() == white; 
-		assert move.type() == normal;
+		assert move.type() == normal || move.type() == pawn;
 		assert game.piece(move.to()).white();
-		assert !game.piece(move.to()).whitePawn();
 		assert game.piece(move.from()) == null;
 
 		Piece piece = game.piece(move.to());

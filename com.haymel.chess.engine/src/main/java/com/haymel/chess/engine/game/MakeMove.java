@@ -17,7 +17,6 @@ import com.haymel.chess.engine.game.black.MakeBlackEnpassantMove;
 import com.haymel.chess.engine.game.black.MakeBlackKingSideCastlingMove;
 import com.haymel.chess.engine.game.black.MakeBlackMove;
 import com.haymel.chess.engine.game.black.MakeBlackPawnDoubleStepMove;
-import com.haymel.chess.engine.game.black.MakeBlackPawnMove;
 import com.haymel.chess.engine.game.black.MakeBlackPromotionMove;
 import com.haymel.chess.engine.game.black.MakeBlackQueenSideCastlingMove;
 import com.haymel.chess.engine.game.white.MakeWhiteCaptureMove;
@@ -26,7 +25,6 @@ import com.haymel.chess.engine.game.white.MakeWhiteEnpassantMove;
 import com.haymel.chess.engine.game.white.MakeWhiteKingSideCastlingMove;
 import com.haymel.chess.engine.game.white.MakeWhiteMove;
 import com.haymel.chess.engine.game.white.MakeWhitePawnDoubleStepMove;
-import com.haymel.chess.engine.game.white.MakeWhitePawnMove;
 import com.haymel.chess.engine.game.white.MakeWhitePromotionMove;
 import com.haymel.chess.engine.game.white.MakeWhiteQueenSideCastlingMove;
 import com.haymel.chess.engine.moves.Move;
@@ -93,10 +91,8 @@ public final class MakeMove {	//TODO unit test
 		
 		switch(move.type()) {
 		case normal:
-			MakeWhiteMove.make(game, move);
-			break;
 		case pawn:
-			MakeWhitePawnMove.make(game, move);
+			MakeWhiteMove.make(game, move);
 			break;
 		case pawnDoubleStep:
 			MakeWhitePawnDoubleStepMove.make(game, move);
@@ -134,10 +130,8 @@ public final class MakeMove {	//TODO unit test
 		
 		switch(undo.move().type()) {
 		case normal:
-			MakeWhiteMove.undo(game, undo.move(), undo.moved());
-			break;
 		case pawn:
-			MakeWhitePawnMove.undo(game, undo.move());
+			MakeWhiteMove.undo(game, undo.move(), undo.moved());
 			break;
 		case pawnDoubleStep:
 			MakeWhitePawnDoubleStepMove.undo(game, undo.move());
@@ -174,10 +168,8 @@ public final class MakeMove {	//TODO unit test
 		
 		switch(move.type()) {
 		case normal:
-			MakeBlackMove.make(game, move);
-			break;
 		case pawn:
-			MakeBlackPawnMove.make(game, move);
+			MakeBlackMove.make(game, move);
 			break;
 		case pawnDoubleStep:
 			MakeBlackPawnDoubleStepMove.make(game, move);
@@ -215,10 +207,8 @@ public final class MakeMove {	//TODO unit test
 		
 		switch(undo.move().type()) {
 		case normal:
-			MakeBlackMove.undo(game, undo.move(), undo.moved());
-			break;
 		case pawn:
-			MakeBlackPawnMove.undo(game, undo.move());
+			MakeBlackMove.undo(game, undo.move(), undo.moved());
 			break;
 		case pawnDoubleStep:
 			MakeBlackPawnDoubleStepMove.undo(game, undo.move());

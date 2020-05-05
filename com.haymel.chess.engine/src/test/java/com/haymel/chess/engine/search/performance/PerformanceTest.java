@@ -53,8 +53,6 @@ public class PerformanceTest {
 		
 		warmUp(initalFen);
 		warmUp(fenKiwipete);
-		warmUp("r1bk3r/p2p1pNp/n2B1n2/1p1NP2P/6P1/3P4/P1P1K3/q5b1 w - - 1 1");
-		warmUp("r3k2r/ppp2ppp/3p4/4p3/4P3/PBPP4/2P3q1/R1B1K1n1 b - - 1 1");
 		
 		out.println("warmup finished");
 		out.println();
@@ -71,14 +69,6 @@ public class PerformanceTest {
 	@Parameters(name = "{index}: value={0}")
     public static Iterable<Object[]> data() {
            return Arrays.asList(new Object[][] {
-                  { "r1bq1b1r/ppp4p/2n3pn/4p3/3kN3/1Q5P/PPPP1PP1/R1B1K2R w - - 1 1", 	2033_000 },	// mate in 1
-                  { "r3k2r/ppp2ppp/3p4/4p3/4P3/PBPP4/2P3q1/R1B1K1n1 b - - 1 1", 		3816_000 },
-                  { "r1bk2Br/1ppp1Qpp/8/p3P3/4P3/8/P5PP/qN5K w - - 0 1", 				2518_000 },
-                  { "r1bk3r/p2p1pNp/n2B1n2/1p1NP2P/6P1/3P4/P1P1K3/q5b1 w - - 1 1", 		1419_000 },	// mate in 1
-                  { "1n2kb1r/p4ppp/4q3/4p1B1/4P3/8/PPP2PPP/2QR4 w - - 1 1",				3009_000 },
-                  { "r2kqR2/pbp1b3/1p4Q1/3pP1B1/3P4/8/PPP4P/6K1 w - - 1 1",				2374_000 },
-                  { "8/p4pkp/8/3B1b2/P2b1ppP/2N1r1n1/1PP3PR/R4QK1 b - - 1 1",			2289_000 },
-                  { "1Q1RKR2/1P2n2P/1r2k2r/4P3/4P3/8/8/8 w - - 1 1",					3462_000 }, // mate in 2
                   { initalFen, 															2538_000 },
                   { fenKiwipete, 														1316_000 },
                   { "4k3/8/8/8/8/8/4P3/4K3 w - - 0 1",									4215_000 },
@@ -102,6 +92,7 @@ public class PerformanceTest {
 		BestMove bestMove = search.execute(warmUpSearchTime, warmUpSearchTime);
 		stopWatch.stop();
 		long elapsed = stopWatch.getTime(SECONDS);
+		out.println(format("nodes: %s", bestMove.nodes().count()));
 		long nodesPerSecond = bestMove.nodes().count() / elapsed;
 		out.println(format("nps: %sk", nodesPerSecond/1000));
 		out.println();
