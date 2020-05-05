@@ -19,6 +19,7 @@ import com.haymel.chess.engine.game.ActiveColor;
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.game.StartposCreator;
 import com.haymel.chess.engine.moves.Move;
+import com.haymel.chess.engine.moves.StringFromMove;
 import com.haymel.chess.engine.search.AnalyzedMove;
 import com.haymel.chess.engine.search.BestMove;
 import com.haymel.chess.engine.search.Nodes;

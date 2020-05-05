@@ -10,6 +10,7 @@ package com.haymel.chess.uciengine;
 import static com.haymel.util.Require.nonNull;
 
 import com.haymel.chess.engine.moves.Move;
+import com.haymel.chess.engine.moves.StringFromMove;
 import com.haymel.chess.engine.search.Variant;
 import com.haymel.chess.uci.moves.Moves;
 import com.haymel.chess.uci.moves.MovesImpl;

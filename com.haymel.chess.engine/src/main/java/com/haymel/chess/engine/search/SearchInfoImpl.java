@@ -7,7 +7,6 @@
  */
 package com.haymel.chess.engine.search;
 
-import static com.haymel.chess.engine.board.Field.fieldAsString;
 import static com.haymel.util.Require.nonNull;
 import static java.lang.String.format;
 import static java.lang.System.out;
@@ -16,6 +15,7 @@ import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 
 import com.haymel.chess.engine.moves.Move;
+import com.haymel.chess.engine.moves.StringFromMove;
 
 public class SearchInfoImpl implements SearchInfo {		//TODO rename, refactor, unit test
 
@@ -71,7 +71,7 @@ public class SearchInfoImpl implements SearchInfo {		//TODO rename, refactor, un
 	}
 	
 	private static String asString(Move move) {
-		return fieldAsString(move.from()) + fieldAsString(move.to());
+		return new StringFromMove(move).value();
 	}
 	
 	private static String asString(Variant variant) {

@@ -5,12 +5,10 @@
  * @author: Markus.Heumel
  *
  */
-package com.haymel.chess.uciengine;
+package com.haymel.chess.engine.moves;
 
 import static com.haymel.chess.engine.board.Field.fieldAsString;
 import static com.haymel.util.Require.nonNull;
-
-import com.haymel.chess.engine.moves.Move;
 
 public class StringFromMove {		//TODO unit test
 
