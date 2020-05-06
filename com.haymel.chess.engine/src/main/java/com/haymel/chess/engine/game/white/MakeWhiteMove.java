@@ -10,6 +10,7 @@ package com.haymel.chess.engine.game.white;
 import static com.haymel.chess.engine.board.Field.up;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
+import static com.haymel.chess.engine.moves.MoveType.capture;
 import static com.haymel.chess.engine.moves.MoveType.normal;
 import static com.haymel.chess.engine.moves.MoveType.pawnDoubleStep;
 
@@ -24,9 +25,9 @@ public final class MakeWhiteMove {
 		assert move != null;
 		assert game.assertVerify();
 		assert game.activeColor() == white; 
-		assert move.type() == normal || move.type() == pawnDoubleStep;
+		assert move.type() == normal || move.type() == pawnDoubleStep || move.type() == capture;
 		assert game.piece(move.from()).white();
-		assert game.piece(move.to()) == null;
+		assert game.piece(move.to()) == move.capturedPiece();
 		
 		Piece piece = game.piece(move.from());
 		boolean moved = piece.moved();
@@ -40,7 +41,10 @@ public final class MakeWhiteMove {
 		if (move.type() == pawnDoubleStep)
 			game.enPassant(up(move.from()));
 
-		if (piece.whitePawn())
+		if (move.capturedPiece() != null)
+			game.removeBlack(move.capturedPiece());	
+			
+		if (piece.whitePawn() || move.capturedPiece() != null)
 			game.resetHalfMoveClock();
 		else
 			game.incHalfMoveClock();
@@ -50,6 +54,7 @@ public final class MakeWhiteMove {
 		assert game.activeColor() == black; 
 		assert game.piece(move.from()) == null;
 		assert game.piece(move.to()).white();
+		assert game.piece(move.to()) == piece;
 		assert game.assertVerify();
 	}
 
@@ -58,7 +63,7 @@ public final class MakeWhiteMove {
 		assert move != null;
 		assert game.assertVerify();
 		assert game.activeColor() == white; 
-		assert move.type() == normal || move.type() == pawnDoubleStep;
+		assert move.type() == normal || move.type() == pawnDoubleStep || move.type() == capture;
 		assert game.piece(move.to()).white();
 		assert game.piece(move.from()) == null;
 
@@ -67,10 +72,15 @@ public final class MakeWhiteMove {
 		piece.field(move.from());
 		piece.setMoved(moved);
 		game.place(piece);
+	
+		if (move.capturedPiece() != null) {
+			game.addBlack(move.capturedPiece());
+			game.place(move.capturedPiece());
+		}
 		
 		assert game.halfMoveClock() >= 0;
 		assert game.activeColor() == white; 
-		assert game.piece(move.to()) == null;
+		assert game.piece(move.to()) == move.capturedPiece();
 		assert game.piece(move.from()).white();
 		assert game.assertVerify();
 	}

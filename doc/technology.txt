@@ -18,3 +18,12 @@ iterative search
    is required and the iterative search can be stopped.
   
 stop quiescence search if difference is greater than a queen
+
+special make move function for capture moves (quiescence search)
+ - no castling
+ - no pawan double step (enpassant)
+ - no promotion but capture promotion is possible
+	
+time management
+ - reduce search time, if opponent plays move of last pv
+ 
