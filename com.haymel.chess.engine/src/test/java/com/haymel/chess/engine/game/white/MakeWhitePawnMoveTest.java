@@ -22,7 +22,7 @@ import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
 import static com.haymel.chess.engine.moves.MoveType.capture;
 import static com.haymel.chess.engine.moves.MoveType.enpassant;
-import static com.haymel.chess.engine.moves.MoveType.pawn;
+import static com.haymel.chess.engine.moves.MoveType.normal;
 import static com.haymel.chess.engine.moves.MoveType.pawnDoubleStep;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 import static com.haymel.chess.engine.piece.PieceType.BlackRook;
@@ -57,7 +57,7 @@ public class MakeWhitePawnMoveTest {
 		game.halfMoveClock(30);
 		game.assertVerify();
 
-		Move e2e3 = new Move(e2, e3, pawn);
+		Move e2e3 = new Move(e2, e3, normal);
 		moveMaker.makeMove(e2e3);
 
 		game.assertVerify();
@@ -95,7 +95,7 @@ public class MakeWhitePawnMoveTest {
 		game.halfMoveClock(30);
 		game.assertVerify();
 
-		Move e2e3 = new Move(e2, e3, pawn);
+		Move e2e3 = new Move(e2, e3, normal);
 		moveMaker.makeMove(e2e3);
 
 		game.assertVerify();
@@ -132,7 +132,7 @@ public class MakeWhitePawnMoveTest {
 		game.halfMoveClock(30);
 		game.assertVerify();
 
-		Move e2e3 = new Move(e3, e4, pawn);
+		Move e2e3 = new Move(e3, e4, normal);
 		moveMaker.makeMove(e2e3);
 
 		game.assertVerify();

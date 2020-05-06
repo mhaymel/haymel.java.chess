@@ -114,7 +114,6 @@ public class Move {
 	public String toString() {
 		switch(type) {
 		case normal: 
-		case pawn:
 		case pawnDoubleStep:	return format("%s-%s", fieldAsString(from), fieldAsString(to));
 		
 		case capture: 			return format("%sx%s", fieldAsString(from), fieldAsString(to));

@@ -7,7 +7,7 @@
  */
 package com.haymel.chess.engine.moves.black;
 
-import static com.haymel.chess.engine.moves.MoveType.pawn;
+import static com.haymel.chess.engine.moves.MoveType.normal;
 import static com.haymel.chess.engine.moves.MoveType.pawnDoubleStep;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -40,14 +40,14 @@ public class BlackMovesTest {
 		assertThat(result.contains(new Move(Field.f7, Field.f5, pawnDoubleStep)), is(true));
 		assertThat(result.contains(new Move(Field.g7, Field.g5, pawnDoubleStep)), is(true));
 		assertThat(result.contains(new Move(Field.h7, Field.h5, pawnDoubleStep)), is(true));
-		assertThat(result.contains(new Move(Field.a7, Field.a6, pawn)), is(true));
-		assertThat(result.contains(new Move(Field.b7, Field.b6, pawn)), is(true));
-		assertThat(result.contains(new Move(Field.c7, Field.c6, pawn)), is(true));
-		assertThat(result.contains(new Move(Field.d7, Field.d6, pawn)), is(true));
-		assertThat(result.contains(new Move(Field.e7, Field.e6, pawn)), is(true));
-		assertThat(result.contains(new Move(Field.f7, Field.f6, pawn)), is(true));
-		assertThat(result.contains(new Move(Field.g7, Field.g6, pawn)), is(true));
-		assertThat(result.contains(new Move(Field.h7, Field.h6, pawn)), is(true));
+		assertThat(result.contains(new Move(Field.a7, Field.a6, normal)), is(true));
+		assertThat(result.contains(new Move(Field.b7, Field.b6, normal)), is(true));
+		assertThat(result.contains(new Move(Field.c7, Field.c6, normal)), is(true));
+		assertThat(result.contains(new Move(Field.d7, Field.d6, normal)), is(true));
+		assertThat(result.contains(new Move(Field.e7, Field.e6, normal)), is(true));
+		assertThat(result.contains(new Move(Field.f7, Field.f6, normal)), is(true));
+		assertThat(result.contains(new Move(Field.g7, Field.g6, normal)), is(true));
+		assertThat(result.contains(new Move(Field.h7, Field.h6, normal)), is(true));
 		assertThat(result.contains(new Move(Field.b8, Field.a6)), is(true));
 		assertThat(result.contains(new Move(Field.b8, Field.c6)), is(true));
 		assertThat(result.contains(new Move(Field.g8, Field.f6)), is(true));

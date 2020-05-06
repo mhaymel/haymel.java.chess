@@ -17,7 +17,6 @@ public class MoveTypeTest {
 	@Test
 	public void capture() {
 		assertThat(MoveType.capture(MoveType.normal), is(false));
-		assertThat(MoveType.capture(MoveType.pawn), is(false));
 		assertThat(MoveType.capture(MoveType.pawnDoubleStep), is(false));
 		assertThat(MoveType.capture(MoveType.kingsideCastling), is(false));
 		assertThat(MoveType.capture(MoveType.queensideCastling), is(false));
