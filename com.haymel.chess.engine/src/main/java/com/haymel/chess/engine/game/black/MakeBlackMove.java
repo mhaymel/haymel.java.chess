@@ -10,7 +10,6 @@ package com.haymel.chess.engine.game.black;
 import static com.haymel.chess.engine.board.Field.down;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
-import static com.haymel.chess.engine.moves.MoveType.capture;
 import static com.haymel.chess.engine.moves.MoveType.normal;
 import static com.haymel.chess.engine.moves.MoveType.pawnDoubleStep;
 
@@ -25,7 +24,7 @@ public final class MakeBlackMove {
 		assert move != null;
 		assert game.assertVerify();
 		assert game.activeColor() == black; 
-		assert move.type() == normal || move.type() == pawnDoubleStep || move.type() == capture;
+		assert move.type() == normal || move.type() == pawnDoubleStep;
 		assert game.piece(move.from()).black();
 		assert game.piece(move.to()) == move.capturedPiece();
 		
@@ -64,7 +63,7 @@ public final class MakeBlackMove {
 		assert move != null;
 		assert game.assertVerify();
 		assert game.activeColor() == black; 
-		assert move.type() == normal || move.type() == pawnDoubleStep || move.type() == capture;
+		assert move.type() == normal || move.type() == pawnDoubleStep;
 		assert game.piece(move.to()).black();
 		assert game.piece(move.from()) == null;
 

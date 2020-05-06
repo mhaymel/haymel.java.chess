@@ -9,7 +9,7 @@ package com.haymel.chess.engine.game.black;
 
 import static com.haymel.chess.engine.board.Field.a1;
 import static com.haymel.chess.engine.board.Field.a8;
-import static com.haymel.chess.engine.moves.MoveType.capture;
+import static com.haymel.chess.engine.moves.MoveType.normal;
 import static com.haymel.chess.engine.piece.PieceType.BlackRook;
 import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
 import static org.hamcrest.CoreMatchers.is;
@@ -56,7 +56,7 @@ public class MakeBlackCaptureMoveTest2 {
 		game.halfMoveClock(13);
 		game.fullMoveNumber(5);
 
-		Move a8a1 = new Move(a8, a1, capture, whiteRook);
+		Move a8a1 = new Move(a8, a1, normal, whiteRook);
 		
 		moveMaker.makeMove(a8a1);
 		game.assertVerify();

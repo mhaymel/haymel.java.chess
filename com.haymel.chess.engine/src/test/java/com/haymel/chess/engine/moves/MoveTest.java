@@ -19,7 +19,7 @@ import static com.haymel.chess.engine.board.Field.e4;
 import static com.haymel.chess.engine.board.Field.e8;
 import static com.haymel.chess.engine.board.Field.g1;
 import static com.haymel.chess.engine.board.Field.removed;
-import static com.haymel.chess.engine.moves.MoveType.capture;
+import static com.haymel.chess.engine.moves.MoveType.normal;
 import static com.haymel.chess.engine.moves.MoveType.enpassant;
 import static com.haymel.chess.engine.moves.MoveType.kingsideCastling;
 import static com.haymel.chess.engine.moves.MoveType.queensideCastling;
@@ -38,16 +38,19 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.haymel.chess.engine.piece.Piece;
+import com.haymel.chess.engine.piece.PieceType;
 
 public class MoveTest {
 
 	private Piece capturedWhitePiece;
 	private Piece capturedBlackPiece;
+	private Piece capturedWhitePawn;
 	
 	@Before
 	public void setup() {
 		capturedWhitePiece = new Piece(WhiteRook, removed);
 		capturedBlackPiece = new Piece(BlackRook, removed);
+		capturedWhitePawn = new Piece(PieceType.WhitePawn, removed);
 	}
 	
 	@Test
@@ -65,22 +68,22 @@ public class MoveTest {
 	
 	@Test
 	public void testToStringOfCapture() {
-		assertThat(new Move(a1, b2, capture).toString(), is("a1xb2"));
+		assertThat(new Move(a1, b2, normal, capturedBlackPiece).toString(), is("a1xb2"));
 	}
 	
 	@Test
 	public void captureReturnsTrueForCaptureMove() {
-		assertThat(new Move(a1, b2, capture).capture(), is(true));
+		assertThat(new Move(a1, b2, normal, capturedBlackPiece).capture(), is(true));
 	}
 	
 	@Test
 	public void testToStringEnpassant() {
-		assertThat(new Move(d4, c3, enpassant).toString(), is("d4xc3e.p."));
+		assertThat(new Move(d4, c3, enpassant, capturedWhitePawn).toString(), is("d4xc3e.p."));
 	}
 
 	@Test
 	public void captureReturnsTrueForEnpassant() {
-		assertThat(new Move(d4, c3, enpassant).capture(), is(true));
+		assertThat(new Move(d4, c3, enpassant, capturedWhitePawn).capture(), is(true));
 	}
 	
 	@Test

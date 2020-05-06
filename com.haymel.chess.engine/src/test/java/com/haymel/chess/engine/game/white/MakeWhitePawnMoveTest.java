@@ -20,7 +20,6 @@ import static com.haymel.chess.engine.board.Field.e6;
 import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
-import static com.haymel.chess.engine.moves.MoveType.capture;
 import static com.haymel.chess.engine.moves.MoveType.enpassant;
 import static com.haymel.chess.engine.moves.MoveType.normal;
 import static com.haymel.chess.engine.moves.MoveType.pawnDoubleStep;
@@ -233,7 +232,7 @@ public class MakeWhitePawnMoveTest {
 		game.halfMoveClock(30);
 		game.assertVerify();
 
-		Move e2d3 = new Move(e2, d3, capture, capturePiece);
+		Move e2d3 = new Move(e2, d3, normal, capturePiece);
 		moveMaker.makeMove(e2d3);
 
 		game.assertVerify();

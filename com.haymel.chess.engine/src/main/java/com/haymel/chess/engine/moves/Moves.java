@@ -17,7 +17,6 @@ import static com.haymel.chess.engine.board.Field.g8;
 import static com.haymel.chess.engine.board.Field.rank;
 import static com.haymel.chess.engine.board.Field.up;
 import static com.haymel.chess.engine.board.Field.valid;
-import static com.haymel.chess.engine.moves.MoveType.capture;
 import static com.haymel.chess.engine.moves.MoveType.enpassant;
 import static com.haymel.chess.engine.moves.MoveType.kingsideCastling;
 import static com.haymel.chess.engine.moves.MoveType.normal;
@@ -75,7 +74,7 @@ public class Moves {
 		assert piece != null;
 		assert piece.black() || piece.white();
 
-		add(new Move(from, to, capture, piece));
+		add(new Move(from, to, normal, piece));
 		
 		if (piece.blackKing() || piece.whiteKing())
 			kingCaptureCount++;

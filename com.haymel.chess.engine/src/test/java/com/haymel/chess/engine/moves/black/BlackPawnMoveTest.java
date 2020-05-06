@@ -41,7 +41,6 @@ import static com.haymel.chess.engine.board.Field.h5;
 import static com.haymel.chess.engine.board.Field.h6;
 import static com.haymel.chess.engine.board.Field.h7;
 import static com.haymel.chess.engine.board.Field.removed;
-import static com.haymel.chess.engine.moves.MoveType.capture;
 import static com.haymel.chess.engine.moves.MoveType.enpassant;
 import static com.haymel.chess.engine.moves.MoveType.normal;
 import static com.haymel.chess.engine.moves.MoveType.pawnDoubleStep;
@@ -350,7 +349,7 @@ public class BlackPawnMoveTest {
 	}
 	
 	private Move capture(int from, int to) {
-		return new Move(from, to, capture, board[to]);
+		return new Move(from, to, normal, board[to]);
 	}
 	
 	private Piece blackPawn(int field) {

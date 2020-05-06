@@ -9,7 +9,6 @@ package com.haymel.chess.engine.moves;
 
 import static com.haymel.chess.engine.board.Field.fieldAsString;
 import static com.haymel.chess.engine.board.Field.rank;
-import static com.haymel.chess.engine.moves.MoveType.capture;
 import static com.haymel.chess.engine.moves.MoveType.capturePromotion;
 import static com.haymel.chess.engine.moves.MoveType.enpassant;
 import static com.haymel.chess.engine.moves.MoveType.normal;
@@ -50,10 +49,13 @@ public class Move {
 	
 	public Move(int from, int to, MoveType type) {
 		this(from, to, type, null, Free);
+		assert type != enpassant;
+		assert type != capturePromotion;
 	}	
 
 	public Move(int from, int to, MoveType type, Piece capturedPiece) {
 		this(from, to, type, capturedPiece, Free);
+		assert capturedPiece != null;
 	}
 	
 	public Move(int from, int to, int pieceType) {
@@ -79,8 +81,8 @@ public class Move {
 		
 		assert capturedPiece == null || 
 			type == enpassant ||
-			type == capture ||
-			type == capturePromotion;
+			type == capturePromotion ||
+			type == normal;
 
 		assert 
 			promotion == Free || 
@@ -114,9 +116,7 @@ public class Move {
 	public String toString() {
 		switch(type) {
 		case normal: 
-		case pawnDoubleStep:	return format("%s-%s", fieldAsString(from), fieldAsString(to));
-		
-		case capture: 			return format("%sx%s", fieldAsString(from), fieldAsString(to));
+		case pawnDoubleStep:	return capture() ? format("%sx%s", fieldAsString(from), fieldAsString(to)) : format("%s-%s", fieldAsString(from), fieldAsString(to));
 		case enpassant:			return format("%sx%se.p.", fieldAsString(from), fieldAsString(to));
 		case capturePromotion:	return format("%sx%s%s", fieldAsString(from), fieldAsString(to), letterForPieceType(pieceType));
 		case kingsideCastling:	return "O-O";
@@ -182,7 +182,7 @@ public class Move {
 	}
 	
 	public boolean capture() {
-		return MoveType.capture(type);
+		return capturedPiece != null;
 	}
 	
 }

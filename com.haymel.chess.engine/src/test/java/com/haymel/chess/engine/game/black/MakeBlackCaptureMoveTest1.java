@@ -12,7 +12,7 @@ import static com.haymel.chess.engine.board.Field.c2;
 import static com.haymel.chess.engine.board.Field.h3;
 import static com.haymel.chess.engine.board.Field.h4;
 import static com.haymel.chess.engine.board.Field.removed;
-import static com.haymel.chess.engine.moves.MoveType.capture;
+import static com.haymel.chess.engine.moves.MoveType.normal;
 import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
 import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
 import static org.hamcrest.CoreMatchers.is;
@@ -57,7 +57,7 @@ public class MakeBlackCaptureMoveTest1 {
 		game.halfMoveClock(13);
 		game.fullMoveNumber(5);
 
-		Move a1c2 = new Move(a1, c2, capture, whitePawn);
+		Move a1c2 = new Move(a1, c2, normal, whitePawn);
 		
 		moveMaker.makeMove(a1c2);
 		game.assertVerify();
@@ -92,7 +92,7 @@ public class MakeBlackCaptureMoveTest1 {
 		game.halfMoveClock(13);
 		game.activeColorBlack();
 
-		Move a1c2 = new Move(a1, c2, capture, whitePawn);
+		Move a1c2 = new Move(a1, c2, normal, whitePawn);
 		
 		moveMaker.makeMove(a1c2);
 

@@ -7,7 +7,6 @@
  */
 package com.haymel.chess.engine.search;
 
-import static com.haymel.chess.engine.board.Field.fieldAsString;
 import static com.haymel.chess.engine.search.SearchInfoImpl.sysoutSearchInfo;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;

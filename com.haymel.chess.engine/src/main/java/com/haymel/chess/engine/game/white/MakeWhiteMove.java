@@ -10,7 +10,6 @@ package com.haymel.chess.engine.game.white;
 import static com.haymel.chess.engine.board.Field.up;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
-import static com.haymel.chess.engine.moves.MoveType.capture;
 import static com.haymel.chess.engine.moves.MoveType.normal;
 import static com.haymel.chess.engine.moves.MoveType.pawnDoubleStep;
 
@@ -25,7 +24,7 @@ public final class MakeWhiteMove {
 		assert move != null;
 		assert game.assertVerify();
 		assert game.activeColor() == white; 
-		assert move.type() == normal || move.type() == pawnDoubleStep || move.type() == capture;
+		assert move.type() == normal || move.type() == pawnDoubleStep;
 		assert game.piece(move.from()).white();
 		assert game.piece(move.to()) == move.capturedPiece();
 		
@@ -63,7 +62,7 @@ public final class MakeWhiteMove {
 		assert move != null;
 		assert game.assertVerify();
 		assert game.activeColor() == white; 
-		assert move.type() == normal || move.type() == pawnDoubleStep || move.type() == capture;
+		assert move.type() == normal || move.type() == pawnDoubleStep;
 		assert game.piece(move.to()).white();
 		assert game.piece(move.from()) == null;
 

@@ -41,7 +41,7 @@ import static com.haymel.chess.engine.board.Field.h2;
 import static com.haymel.chess.engine.board.Field.h3;
 import static com.haymel.chess.engine.board.Field.h4;
 import static com.haymel.chess.engine.board.Field.removed;
-import static com.haymel.chess.engine.moves.MoveType.capture;
+import static com.haymel.chess.engine.moves.MoveType.normal;
 import static com.haymel.chess.engine.moves.MoveType.kingsideCastling;
 import static com.haymel.chess.engine.moves.MoveType.queensideCastling;
 import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
@@ -141,7 +141,7 @@ public class WhiteKingMovesTest {
 	}
 
 	private Move capture(int from, int to) {
-		return new Move(from, to, capture, board[to]);
+		return new Move(from, to, normal, board[to]);
 	}
 
 	@Test

@@ -47,7 +47,7 @@ import static com.haymel.chess.engine.board.Field.h6;
 import static com.haymel.chess.engine.board.Field.h7;
 import static com.haymel.chess.engine.board.Field.h8;
 import static com.haymel.chess.engine.board.Field.removed;
-import static com.haymel.chess.engine.moves.MoveType.capture;
+import static com.haymel.chess.engine.moves.MoveType.normal;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
 import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
@@ -182,7 +182,7 @@ public class WhiteRookMovesTest {
 	}
 	
 	private Move capture(int from, int to) {
-		return new Move(from, to, capture, pieces[to]);
+		return new Move(from, to, normal, pieces[to]);
 	}
 	
 	private Piece blackPawn(int field) {

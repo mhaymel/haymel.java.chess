@@ -14,19 +14,19 @@ public enum MoveType {
 	kingsideCastling,
 	queensideCastling,
 	enpassant,
-	capture,
+//	capture,
 	promotion,
 	capturePromotion;
 	
-	public static final boolean capture(MoveType type) {
-		switch(type) {
-		case capture:
-		case enpassant:
-		case capturePromotion:
-			return true;
-		default:
-			return false;
-		}
-	}
+//	public static final boolean capture(MoveType type) {
+//		switch(type) {
+//		case capture:
+//		case enpassant:
+//		case capturePromotion:
+//			return true;
+//		default:
+//			return false;
+//		}
+//	}
 	
 }
