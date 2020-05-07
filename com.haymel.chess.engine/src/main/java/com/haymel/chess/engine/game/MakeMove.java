@@ -12,13 +12,11 @@ import static com.haymel.chess.engine.game.ActiveColor.white;
 import static java.lang.String.format;
 
 import com.haymel.chess.engine.game.black.MakeBlackCapturePromotionMove;
-import com.haymel.chess.engine.game.black.MakeBlackEnpassantMove;
 import com.haymel.chess.engine.game.black.MakeBlackKingSideCastlingMove;
 import com.haymel.chess.engine.game.black.MakeBlackMove;
 import com.haymel.chess.engine.game.black.MakeBlackPromotionMove;
 import com.haymel.chess.engine.game.black.MakeBlackQueenSideCastlingMove;
 import com.haymel.chess.engine.game.white.MakeWhiteCapturePromotionMove;
-import com.haymel.chess.engine.game.white.MakeWhiteEnpassantMove;
 import com.haymel.chess.engine.game.white.MakeWhiteKingSideCastlingMove;
 import com.haymel.chess.engine.game.white.MakeWhiteMove;
 import com.haymel.chess.engine.game.white.MakeWhitePromotionMove;
@@ -88,13 +86,11 @@ public final class MakeMove {	//TODO unit test
 		switch(move.type()) {
 		case normal:
 		case pawnDoubleStep:
+		case enpassant:
 			MakeWhiteMove.make(game, move);
 			break;
 		case capturePromotion:
 			MakeWhiteCapturePromotionMove.make(game, move);		
-			break;
-		case enpassant:
-			MakeWhiteEnpassantMove.make(game, move);
 			break;
 		case kingsideCastling:
 			MakeWhiteKingSideCastlingMove.make(game, move);
@@ -121,13 +117,11 @@ public final class MakeMove {	//TODO unit test
 		switch(undo.move().type()) {
 		case normal:
 		case pawnDoubleStep:
+		case enpassant:
 			MakeWhiteMove.undo(game, undo.move(), undo.moved());
 			break;
 		case capturePromotion:
 			MakeWhiteCapturePromotionMove.undo(game, undo.move());
-			break;
-		case enpassant:
-			MakeWhiteEnpassantMove.undo(game, undo.move());
 			break;
 		case kingsideCastling:
 			MakeWhiteKingSideCastlingMove.undo(game, undo.move());
@@ -153,13 +147,11 @@ public final class MakeMove {	//TODO unit test
 		switch(move.type()) {
 		case normal:
 		case pawnDoubleStep:
+		case enpassant:
 			MakeBlackMove.make(game, move);
 			break;
 		case capturePromotion:
 			MakeBlackCapturePromotionMove.make(game, move);			
-			break;
-		case enpassant:
-			MakeBlackEnpassantMove.make(game, move);
 			break;
 		case promotion:
 			MakeBlackPromotionMove.make(game, move);		
@@ -186,13 +178,11 @@ public final class MakeMove {	//TODO unit test
 		switch(undo.move().type()) {
 		case normal:
 		case pawnDoubleStep:
+		case enpassant:
 			MakeBlackMove.undo(game, undo.move(), undo.moved());
 			break;
 		case capturePromotion:
 			MakeBlackCapturePromotionMove.undo(game, undo.move());			
-			break;
-		case enpassant:
-			MakeBlackEnpassantMove.undo(game, undo.move());
 			break;
 		case kingsideCastling:
 			MakeBlackKingSideCastlingMove.undo(game, undo.move());
