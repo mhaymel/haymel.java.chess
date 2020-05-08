@@ -20,7 +20,6 @@ import static com.haymel.chess.engine.board.Field.valid;
 import static com.haymel.chess.engine.moves.MoveType.enpassant;
 import static com.haymel.chess.engine.moves.MoveType.kingsideCastling;
 import static com.haymel.chess.engine.moves.MoveType.normal;
-import static com.haymel.chess.engine.moves.MoveType.pawnDoubleStep;
 import static com.haymel.chess.engine.moves.MoveType.queensideCastling;
 import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
 import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
@@ -98,7 +97,7 @@ public class Moves {
 		assert rank(to) == 3 || rank(to) == 4;
 		assert file(from) == file(to);
 
-		add(new Move(from, to, pawnDoubleStep));
+		add(new Move(from, to, normal));
 	}
 
 	public void addWhitePromotion(int from) {

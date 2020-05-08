@@ -15,7 +15,7 @@ import static com.haymel.chess.engine.board.Field.e7;
 import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
-import static com.haymel.chess.engine.moves.MoveType.pawnDoubleStep;
+import static com.haymel.chess.engine.moves.MoveType.normal;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
 import static org.hamcrest.CoreMatchers.is;
@@ -50,7 +50,7 @@ public class MakeBlackPawnDoubleStepMoveTest {
 		game.activeColorBlack();
 		game.assertVerify();
 
-		Move e7e5 = new Move(e7, e5, pawnDoubleStep);
+		Move e7e5 = new Move(e7, e5, normal);
 		moveMaker.makeMove(e7e5);
 
 		game.assertVerify();
@@ -90,7 +90,7 @@ public class MakeBlackPawnDoubleStepMoveTest {
 		game.activeColorBlack();
 		game.assertVerify();
 
-		Move e7e5 = new Move(e7, e5, pawnDoubleStep);
+		Move e7e5 = new Move(e7, e5, normal);
 		moveMaker.makeMove(e7e5);
 
 		game.assertVerify();

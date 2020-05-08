@@ -8,7 +8,6 @@
 package com.haymel.chess.engine.moves.black;
 
 import static com.haymel.chess.engine.moves.MoveType.normal;
-import static com.haymel.chess.engine.moves.MoveType.pawnDoubleStep;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -32,14 +31,14 @@ public class BlackMovesTest {
 
 		assertThat(moves.size(), is(20));
 		Set<Move> result = movesAsSet(moves);
-		assertThat(result.contains(new Move(Field.a7, Field.a5, pawnDoubleStep)), is(true));
-		assertThat(result.contains(new Move(Field.b7, Field.b5, pawnDoubleStep)), is(true));
-		assertThat(result.contains(new Move(Field.c7, Field.c5, pawnDoubleStep)), is(true));
-		assertThat(result.contains(new Move(Field.d7, Field.d5, pawnDoubleStep)), is(true));
-		assertThat(result.contains(new Move(Field.e7, Field.e5, pawnDoubleStep)), is(true));
-		assertThat(result.contains(new Move(Field.f7, Field.f5, pawnDoubleStep)), is(true));
-		assertThat(result.contains(new Move(Field.g7, Field.g5, pawnDoubleStep)), is(true));
-		assertThat(result.contains(new Move(Field.h7, Field.h5, pawnDoubleStep)), is(true));
+		assertThat(result.contains(new Move(Field.a7, Field.a5, normal)), is(true));
+		assertThat(result.contains(new Move(Field.b7, Field.b5, normal)), is(true));
+		assertThat(result.contains(new Move(Field.c7, Field.c5, normal)), is(true));
+		assertThat(result.contains(new Move(Field.d7, Field.d5, normal)), is(true));
+		assertThat(result.contains(new Move(Field.e7, Field.e5, normal)), is(true));
+		assertThat(result.contains(new Move(Field.f7, Field.f5, normal)), is(true));
+		assertThat(result.contains(new Move(Field.g7, Field.g5, normal)), is(true));
+		assertThat(result.contains(new Move(Field.h7, Field.h5, normal)), is(true));
 		assertThat(result.contains(new Move(Field.a7, Field.a6, normal)), is(true));
 		assertThat(result.contains(new Move(Field.b7, Field.b6, normal)), is(true));
 		assertThat(result.contains(new Move(Field.c7, Field.c6, normal)), is(true));

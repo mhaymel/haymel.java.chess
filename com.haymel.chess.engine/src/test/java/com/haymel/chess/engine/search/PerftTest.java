@@ -32,7 +32,7 @@ public class PerftTest {
 		perft(fen, 2, 400);
 		perft(fen, 3, 8902);
 		perft(fen, 4, 197281);
-		perft(fen, 5, 4865609);
+//		perft(fen, 5, 4865609);
 	}
 	
 	@Test
@@ -41,9 +41,9 @@ public class PerftTest {
 		perft(fen, 1, 48);
 		perft(fen, 2, 2039);
 		perft(fen, 3, 97862);
-		perft(fen, 4, 4085603);
-		perft(fen, 5, 193690690);
-		perft(fen, 6, 8031647685L);
+//		perft(fen, 4, 4085603);
+//		perft(fen, 5, 193690690);
+//		perft(fen, 6, 8031647685L);
 	}
 	
 	@Test
@@ -54,9 +54,9 @@ public class PerftTest {
 		perft(fen, 3, 2812);
 		perft(fen, 4, 43238);
 		perft(fen, 5, 674624);
-		perft(fen, 6, 11030083);
-		perft(fen, 7, 178633661);
-		perft(fen, 8, 3009794393L);
+//		perft(fen, 6, 11030083);
+//		perft(fen, 7, 178633661);
+//		perft(fen, 8, 3009794393L);
 	}
 
 	@Test
@@ -66,8 +66,8 @@ public class PerftTest {
 		perft(fen, 2, 264);
 		perft(fen, 3, 9467);
 		perft(fen, 4, 422333);
-		perft(fen, 5, 15833292);
-		perft(fen, 6, 706045033L);
+//		perft(fen, 5, 15833292);
+//		perft(fen, 6, 706045033L);
 	}
 
 	@Test
@@ -77,8 +77,8 @@ public class PerftTest {
 		perft(fen, 2, 264);
 		perft(fen, 3, 9467);
 		perft(fen, 4, 422333);
-		perft(fen, 5, 15833292);
-		perft(fen, 6, 706045033L);
+//		perft(fen, 5, 15833292);
+//		perft(fen, 6, 706045033L);
 	}
 
 	@Test
@@ -87,8 +87,8 @@ public class PerftTest {
 		perft(fen, 1, 44);
 		perft(fen, 2, 1486);
 		perft(fen, 3, 62379);
-		perft(fen, 4, 2103487);
-		perft(fen, 5, 89941194);
+//		perft(fen, 4, 2103487);
+//		perft(fen, 5, 89941194);
 	}
 	
 	@Test
@@ -97,9 +97,9 @@ public class PerftTest {
 		perft(fen, 1, 46);
 		perft(fen, 2, 2079);
 		perft(fen, 3, 89890);
-		perft(fen, 4, 3894594);
-		perft(fen, 5, 164075551);
-		perft(fen, 6, 6923051137L);
+//		perft(fen, 4, 3894594);
+//		perft(fen, 5, 164075551);
+//		perft(fen, 6, 6923051137L);
 	}
 	
 	private void perft(String fen, int depth, long nodesExpected) {

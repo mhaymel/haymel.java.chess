@@ -85,7 +85,6 @@ public final class MakeMove {	//TODO unit test
 		
 		switch(move.type()) {
 		case normal:
-		case pawnDoubleStep:
 		case enpassant:
 			MakeWhiteMove.make(game, move);
 			break;
@@ -116,7 +115,6 @@ public final class MakeMove {	//TODO unit test
 		
 		switch(undo.move().type()) {
 		case normal:
-		case pawnDoubleStep:
 		case enpassant:
 			MakeWhiteMove.undo(game, undo.move(), undo.moved());
 			break;
@@ -146,7 +144,6 @@ public final class MakeMove {	//TODO unit test
 		
 		switch(move.type()) {
 		case normal:
-		case pawnDoubleStep:
 		case enpassant:
 			MakeBlackMove.make(game, move);
 			break;
@@ -177,7 +174,6 @@ public final class MakeMove {	//TODO unit test
 		
 		switch(undo.move().type()) {
 		case normal:
-		case pawnDoubleStep:
 		case enpassant:
 			MakeBlackMove.undo(game, undo.move(), undo.moved());
 			break;

@@ -39,9 +39,9 @@ public class PerftKiwipeteTest {
                   { fenKiwipete, 	1, 	48 },
                   { fenKiwipete, 	2, 	2039 },
                   { fenKiwipete, 	3, 	97862 },
-                  { fenKiwipete, 	4, 	4085603 },
-                  { fenKiwipete, 	5, 	193690690 },
-                  { fenKiwipete, 	6, 	8031647685L },
+//                  { fenKiwipete, 	4, 	4085603 },
+//                  { fenKiwipete, 	5, 	193690690 },
+//                  { fenKiwipete, 	6, 	8031647685L },
            	});
     }
 	

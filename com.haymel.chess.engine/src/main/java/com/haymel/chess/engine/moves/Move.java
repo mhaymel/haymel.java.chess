@@ -115,8 +115,7 @@ public class Move {
 	@Override
 	public String toString() {
 		switch(type) {
-		case normal: 
-		case pawnDoubleStep:	return capture() ? format("%sx%s", fieldAsString(from), fieldAsString(to)) : format("%s-%s", fieldAsString(from), fieldAsString(to));
+		case normal: 			return capture() ? format("%sx%s", fieldAsString(from), fieldAsString(to)) : format("%s-%s", fieldAsString(from), fieldAsString(to));
 		case enpassant:			return format("%sx%se.p.", fieldAsString(from), fieldAsString(to));
 		case capturePromotion:	return format("%sx%s%s", fieldAsString(from), fieldAsString(to), letterForPieceType(pieceType));
 		case kingsideCastling:	return "O-O";
