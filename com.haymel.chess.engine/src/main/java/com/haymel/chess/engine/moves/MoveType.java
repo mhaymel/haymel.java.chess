@@ -12,7 +12,6 @@ public enum MoveType {
 	normal,
 	kingsideCastling,
 	queensideCastling,
-	enpassant,
 	promotion,
 	capturePromotion;
 

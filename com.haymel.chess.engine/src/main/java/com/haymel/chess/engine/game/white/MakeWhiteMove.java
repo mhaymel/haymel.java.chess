@@ -7,10 +7,10 @@
  */
 package com.haymel.chess.engine.game.white;
 
+import static com.haymel.chess.engine.board.Field.down;
 import static com.haymel.chess.engine.board.Field.up;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
-import static com.haymel.chess.engine.moves.MoveType.enpassant;
 import static com.haymel.chess.engine.moves.MoveType.normal;
 
 import com.haymel.chess.engine.board.Field;
@@ -25,7 +25,7 @@ public final class MakeWhiteMove {
 		assert move != null;
 		assert game.assertVerify();
 		assert game.activeColor() == white; 
-		assert move.type() == normal || move.type() == enpassant;
+		assert move.type() == normal;
 		assert game.piece(move.from()).white();
 		
 		Piece piece = game.piece(move.from());
@@ -40,7 +40,7 @@ public final class MakeWhiteMove {
 		if (piece.whitePawn() && move.to() - move.from() == Field.up*2)
 			game.enPassant(up(move.from()));
 
-		if (move.type() == enpassant)
+		if (piece.whitePawn() && enpassant(move))
 			game.clear(move.capturedPiece().field());
 		
 		if (move.capturedPiece() != null)
@@ -65,7 +65,7 @@ public final class MakeWhiteMove {
 		assert move != null;
 		assert game.assertVerify();
 		assert game.activeColor() == white; 
-		assert move.type() == normal || move.type() == enpassant;
+		assert move.type() == normal;
 		assert game.piece(move.to()).white();
 		assert game.piece(move.from()) == null;
 
@@ -84,6 +84,10 @@ public final class MakeWhiteMove {
 		assert game.activeColor() == white; 
 		assert game.piece(move.from()).white();
 		assert game.assertVerify();
+	}
+
+	private static boolean enpassant(Move move) {
+		return move.capturedPiece() != null && down(move.to()) == move.capturedPiece().field(); 
 	}
 
 }

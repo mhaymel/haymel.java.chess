@@ -15,7 +15,7 @@ import static com.haymel.chess.engine.board.Field.f4;
 import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
-import static com.haymel.chess.engine.moves.MoveType.enpassant;
+import static com.haymel.chess.engine.moves.MoveType.normal;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
 import static org.hamcrest.CoreMatchers.is;
@@ -58,7 +58,7 @@ public class MakeBlackEnpassantMoveTest {
 		game.enPassant(d3);
 		
 		game.activeColorBlack();
-		Move c5d6 = new Move(e4, d3, enpassant, whitePawn);
+		Move c5d6 = new Move(e4, d3, normal, whitePawn);
 		game.halfMoveClock(13);
 		game.fullMoveNumber(10);
 		game.assertVerify();
@@ -100,7 +100,7 @@ public class MakeBlackEnpassantMoveTest {
 		game.enPassant(f3);
 		
 		game.activeColorBlack();
-		Move c5d6 = new Move(e4, f3, enpassant, whitePawn);
+		Move c5d6 = new Move(e4, f3, normal, whitePawn);
 		game.halfMoveClock(13);
 		game.fullMoveNumber(10);
 		game.assertVerify();

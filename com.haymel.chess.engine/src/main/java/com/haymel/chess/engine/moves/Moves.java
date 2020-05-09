@@ -17,7 +17,6 @@ import static com.haymel.chess.engine.board.Field.g8;
 import static com.haymel.chess.engine.board.Field.rank;
 import static com.haymel.chess.engine.board.Field.up;
 import static com.haymel.chess.engine.board.Field.valid;
-import static com.haymel.chess.engine.moves.MoveType.enpassant;
 import static com.haymel.chess.engine.moves.MoveType.kingsideCastling;
 import static com.haymel.chess.engine.moves.MoveType.normal;
 import static com.haymel.chess.engine.moves.MoveType.queensideCastling;
@@ -168,7 +167,7 @@ public class Moves {
 			rank(from) == 4 && rank(to) == 5 ||
 			rank(from) == 3 && rank(to) == 2;
 		
-		add(new Move(from, to, enpassant, captured));
+		add(new Move(from, to, normal, captured));
 	}
 	
 	public void addWhiteKingSideCastling() {

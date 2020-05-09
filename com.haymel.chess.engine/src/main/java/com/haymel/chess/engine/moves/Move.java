@@ -10,7 +10,6 @@ package com.haymel.chess.engine.moves;
 import static com.haymel.chess.engine.board.Field.fieldAsString;
 import static com.haymel.chess.engine.board.Field.rank;
 import static com.haymel.chess.engine.moves.MoveType.capturePromotion;
-import static com.haymel.chess.engine.moves.MoveType.enpassant;
 import static com.haymel.chess.engine.moves.MoveType.normal;
 import static com.haymel.chess.engine.moves.MoveType.promotion;
 import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
@@ -49,7 +48,6 @@ public class Move {
 	
 	public Move(int from, int to, MoveType type) {
 		this(from, to, type, null, Free);
-		assert type != enpassant;
 		assert type != capturePromotion;
 	}	
 
@@ -80,7 +78,6 @@ public class Move {
 			promotion != Border;
 		
 		assert capturedPiece == null || 
-			type == enpassant ||
 			type == capturePromotion ||
 			type == normal;
 
@@ -115,8 +112,7 @@ public class Move {
 	@Override
 	public String toString() {
 		switch(type) {
-		case normal: 			return capture() ? format("%sx%s", fieldAsString(from), fieldAsString(to)) : format("%s-%s", fieldAsString(from), fieldAsString(to));
-		case enpassant:			return format("%sx%se.p.", fieldAsString(from), fieldAsString(to));
+		case normal: 			return normalMoveAsString();
 		case capturePromotion:	return format("%sx%s%s", fieldAsString(from), fieldAsString(to), letterForPieceType(pieceType));
 		case kingsideCastling:	return "O-O";
 		case queensideCastling:	return "O-O-O";
@@ -125,6 +121,13 @@ public class Move {
 			assert false;
 			throw new IllegalStateException(type.toString());
 		}
+	}
+	
+	private String normalMoveAsString() {
+		if (capture())
+			return format("%sx%s", fieldAsString(from), fieldAsString(to));
+	
+		return format("%s-%s", fieldAsString(from), fieldAsString(to));
 	}
 	
 	@Override

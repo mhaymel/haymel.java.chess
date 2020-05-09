@@ -43,7 +43,6 @@ import static com.haymel.chess.engine.board.Field.h2;
 import static com.haymel.chess.engine.board.Field.h3;
 import static com.haymel.chess.engine.board.Field.h4;
 import static com.haymel.chess.engine.board.Field.removed;
-import static com.haymel.chess.engine.moves.MoveType.enpassant;
 import static com.haymel.chess.engine.moves.MoveType.normal;
 import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
@@ -335,7 +334,7 @@ public class WhitePawnMoveTest {
 		
 		Set<Move> result = movesAsSet();
 		assertThat(result.contains(new Move(e5, e6, normal)), is(true));
-		assertThat(result.contains(new Move(e5, d6, enpassant, blackPawn)), is(true));
+		assertThat(result.contains(new Move(e5, d6, normal, blackPawn)), is(true));
 	}
 
 	@Test
@@ -347,7 +346,7 @@ public class WhitePawnMoveTest {
 		
 		Set<Move> result = movesAsSet();
 		assertThat(result.contains(new Move(e5, e6, normal)), is(true));
-		assertThat(result.contains(new Move(e5, f6, enpassant, blackPawn)), is(true));
+		assertThat(result.contains(new Move(e5, f6, normal, blackPawn)), is(true));
 	}
 	
 	private Move capture(int from, int to) {
