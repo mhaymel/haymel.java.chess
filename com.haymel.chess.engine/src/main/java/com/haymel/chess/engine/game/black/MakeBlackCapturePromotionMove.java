@@ -7,6 +7,8 @@
  */
 package com.haymel.chess.engine.game.black;
 
+import static com.haymel.chess.engine.board.Field.a1;
+import static com.haymel.chess.engine.board.Field.h1;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
 import static com.haymel.chess.engine.moves.MoveType.capturePromotion;
@@ -47,6 +49,11 @@ public final class MakeBlackCapturePromotionMove {
 			move.pieceType() == BlackRook  ||
 			move.pieceType() == BlackBishop  ||
 			move.pieceType() == BlackKnight;
+		game.pushCastlingRight();
+		switch(move.to()) {
+		case a1: game.castlingRight().white().disableQueenside(); break;
+		case h1: game.castlingRight().white().disableKingside(); break;
+		}
 		
 		Piece piece = game.piece(move.from());
 		game.clear(move.from());
@@ -95,6 +102,7 @@ public final class MakeBlackCapturePromotionMove {
 		game.place(piece);
 		game.addWhite(move.capturedPiece());
 		game.place(move.capturedPiece());
+		game.popCastlingRight();
 		
 		assert game.halfMoveClock() >= 0;
 		assert game.activeColor() == black;

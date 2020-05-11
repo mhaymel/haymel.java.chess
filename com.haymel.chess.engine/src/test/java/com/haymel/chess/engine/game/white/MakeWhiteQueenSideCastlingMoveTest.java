@@ -42,14 +42,14 @@ public class MakeWhiteQueenSideCastlingMoveTest {
 		moveMaker = new MakeMove(game);
 
 		king = new Piece(WhiteKing, e1);
-		king.setMoved(false);
 		game.addWhite(king);
 		game.place(king);
 		
 		rook = new Piece(WhiteRook, a1);
-		rook.setMoved(false);
 		game.addWhite(rook);
 		game.place(rook);
+		game.castlingRight().white().enableQueenside();
+		game.assertVerify();
 	}
 	
 	@Test
@@ -57,13 +57,13 @@ public class MakeWhiteQueenSideCastlingMoveTest {
 		Move e1c1 = new Move(e1, c1, queensideCastling);
 		
 		moveMaker.makeMove(e1c1);
+		assertThat(game.castlingRight().white().queenside(), is(false));
+		assertThat(game.castlingRight().white().kingside(), is(false));
 		assertThat(king.field(), is(c1));
-		assertThat(king.moved(), is(true));
 		assertThat(game.piece(c1), is(king));
 		assertThat(game.piece(e1) == null, is(true));
 
 		assertThat(rook.field(), is(d1));
-		assertThat(rook.moved(), is(true));
 		assertThat(game.piece(d1), is(rook));
 		assertThat(game.piece(a1) == null, is(true));
 		
@@ -72,13 +72,12 @@ public class MakeWhiteQueenSideCastlingMoveTest {
 		assertThat(game.enPassant(), is(removed));
 		
 		moveMaker.undoMove();
+		assertThat(game.castlingRight().white().queenside(), is(true));
 		assertThat(king.field(), is(e1));
-		assertThat(king.moved(), is(false));
 		assertThat(game.piece(e1), is(king));
 		assertThat(game.piece(d1) == null, is(true));
 		assertThat(game.piece(c1) == null, is(true));
 		assertThat(game.piece(a1).whiteRook(), is(true));
-		assertThat(game.piece(a1).moved(), is(false));
 		assertThat(game.piece(a1), is(rook));
 		assertThat(game.halfMoveClock(), is(0));
 		assertThat(game.fullMoveNumber(), is(1));

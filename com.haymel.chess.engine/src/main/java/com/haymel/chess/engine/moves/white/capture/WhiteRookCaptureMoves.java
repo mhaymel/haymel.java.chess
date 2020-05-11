@@ -45,7 +45,7 @@ public final class WhiteRookCaptureMoves {	//TODO unit test
 			piece = pieces[to];
 		}
 		if (piece.black()) 
-			moves.addCapture(from, to, piece);
+			moves.addRookCapture(from, to, piece);
 	}
 
 	private void down(int from, Moves moves) {
@@ -56,7 +56,7 @@ public final class WhiteRookCaptureMoves {	//TODO unit test
 			piece = pieces[to];		
 		}
 		if (piece.black()) 
-			moves.addCapture(from, to, piece);
+			moves.addRookCapture(from, to, piece);
 	}
 
 	private void left(int from, Moves moves) {
@@ -67,7 +67,7 @@ public final class WhiteRookCaptureMoves {	//TODO unit test
 			piece = pieces[to];
 		}
 		if (piece.black()) 
-			moves.addCapture(from, to, piece);
+			moves.addRookCapture(from, to, piece);
 	}
 
 	private void right(int from, Moves moves) {
@@ -78,7 +78,7 @@ public final class WhiteRookCaptureMoves {	//TODO unit test
 			piece = pieces[to];
 		}
 		if (piece.black()) 
-			moves.addCapture(from, to, piece);
+			moves.addRookCapture(from, to, piece);
 	}
 	
 }

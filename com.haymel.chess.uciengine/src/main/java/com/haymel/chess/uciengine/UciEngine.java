@@ -7,6 +7,7 @@
  */
 package com.haymel.chess.uciengine;
 
+import static com.haymel.chess.engine.fen.GameFromFEN.gameFromInitialFen;
 import static com.haymel.util.Require.nonNull;
 
 import java.io.InputStream;
@@ -17,7 +18,6 @@ import java.util.function.IntConsumer;
 import com.haymel.chess.engine.fen.GameFromFEN;
 import com.haymel.chess.engine.game.ActiveColor;
 import com.haymel.chess.engine.game.Game;
-import com.haymel.chess.engine.game.StartposCreator;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.StringFromMove;
 import com.haymel.chess.engine.search.AnalyzedMove;
@@ -53,7 +53,7 @@ public class UciEngine extends com.haymel.chess.uci.Engine {
 	
 	@Override
 	public void positionStart(Moves moves) { 
-		game = createStartpos();
+		game = gameFromInitialFen();
 		makeMoves(moves);
 	}
 
@@ -68,12 +68,6 @@ public class UciEngine extends com.haymel.chess.uci.Engine {
 		UciMoveMaker uciMoveMaker = new UciMoveMaker(game);
 		for (String move: moves.value())
 			uciMoveMaker.move(move);
-	}
-	
-	private static Game createStartpos() {
-		Game game = new Game();
-		new StartposCreator(game).execute();
-		return game;
 	}
 	
 	@Override

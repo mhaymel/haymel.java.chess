@@ -9,7 +9,7 @@ package com.haymel.chess.engine.game.black;
 
 import static com.haymel.chess.engine.board.Field.e7;
 import static com.haymel.chess.engine.board.Field.e8;
-import static com.haymel.chess.engine.moves.MoveType.normal;
+import static com.haymel.chess.engine.moves.MoveType.capture;
 import static com.haymel.chess.engine.piece.PieceType.BlackKing;
 import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
 import static org.hamcrest.CoreMatchers.is;
@@ -36,12 +36,10 @@ public class MakeBlackCaptureMoveTest3 {
 		moveMaker = new MakeMove(game);
 		
 		blackKing = new Piece(BlackKing, e8);
-		blackKing.setMoved(false);
 		game.addBlack(blackKing);
 		game.place(blackKing);
 
 		whiteRook = new Piece(WhiteRook, e7);
-		whiteRook.setMoved(true);
 		game.addWhite(whiteRook);
 		game.place(whiteRook);
 		game.assertVerify();
@@ -55,17 +53,14 @@ public class MakeBlackCaptureMoveTest3 {
 		game.halfMoveClock(13);
 		game.fullMoveNumber(5);
 
-		Move e8e7 = new Move(e8, e7, normal, whiteRook);
+		Move e8e7 = new Move(e8, e7, capture, whiteRook);
 		
 		moveMaker.makeMove(e8e7);
 		game.assertVerify();
-		assertThat(blackKing.moved(), is(true));
 		assertThat(game.fullMoveNumber(), is(6));
 		
 		moveMaker.undoMove();
 		game.assertVerify();
-		assertThat(blackKing.moved(), is(false));
-		assertThat(whiteRook.moved(), is(true));
 		assertThat(game.fullMoveNumber(), is(5));
 	}
 

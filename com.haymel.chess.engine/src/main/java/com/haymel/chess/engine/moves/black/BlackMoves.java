@@ -17,6 +17,7 @@ import static com.haymel.chess.engine.piece.PieceType.BlackRook;
 
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.board.PieceList;
+import com.haymel.chess.engine.castling.CastlingRight;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.piece.Piece;
 
@@ -40,7 +41,7 @@ public final class BlackMoves {		//TODO unit test
 		this.pawnMoves = new BlackPawnMoves(pieces);
 	}
 	
-	public void generate(PieceList pieces, int epField, Moves moves) {
+	public void generate(PieceList pieces, CastlingRight castling, int epField, Moves moves) {
 		assert pieces != null;
 		assert moves != null;
 		assert pieces.size() > 0;
@@ -48,10 +49,10 @@ public final class BlackMoves {		//TODO unit test
 		
 		int size = pieces.size();
 		for(int i = 0; i < size && !moves.kingCaptured(); i++)
-			generate(pieces.piece(i), epField, moves);
+			generate(pieces.piece(i), castling, epField, moves);
 	}
 
-	private void generate(Piece piece, int epField, Moves moves) {
+	private void generate(Piece piece, CastlingRight castling, int epField, Moves moves) {
 		assert piece != null;
 		assert piece.black();
 		
@@ -72,7 +73,7 @@ public final class BlackMoves {		//TODO unit test
 			queenMoves.generate(piece, moves);
 			break;
 		case BlackKing:
-			kingMoves.generate(piece, moves);
+			kingMoves.generate(piece, castling, moves);
 			break;
 		default:
 			assert false;

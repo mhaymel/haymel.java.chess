@@ -27,7 +27,7 @@ import static com.haymel.chess.engine.board.Field.g6;
 import static com.haymel.chess.engine.board.Field.h1;
 import static com.haymel.chess.engine.board.Field.h8;
 import static com.haymel.chess.engine.board.Field.removed;
-import static com.haymel.chess.engine.moves.MoveType.normal;
+import static com.haymel.chess.engine.moves.MoveType.capture;
 import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
@@ -167,7 +167,7 @@ public class BlackKnightMovesTest {
 	}
 	
 	private Move capture(int from, int to) {
-		return new Move(from, to, normal, board[to]);
+		return new Move(from, to, capture, board[to]);
 	}
 	
 	private Piece blackPawn(int field) {

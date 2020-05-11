@@ -28,26 +28,26 @@ public final class MakeWhiteKingSideCastlingMove {
 		assert move.from() == e1;
 		assert move.to() == g1;
 		assert game.piece(e1).whiteKing();
-		assert !game.piece(e1).moved();
 		assert game.piece(h1).whiteRook();
-		assert !game.piece(h1).moved();
 		assert game.piece(f1) == null;
 		assert game.piece(g1) == null;
+		assert game.castlingRight().white().kingside();
 
+		game.pushCastlingRight();
+		game.castlingRight().white().disable();
+		
 		Piece king = game.piece(e1);
 		Piece rook = game.piece(h1);
 		
 		game.clear(e1);
 		king.field(g1);
-		king.setMoved(true);
 		game.place(king);
 		
 		game.clear(h1);
 		rook.field(f1);
-		rook.setMoved(true);
 		game.place(rook);
 		
-		game.push(move, false);
+		game.push(move);
 		game.incHalfMoveClock();
 		game.activeColorBlack();
 
@@ -55,9 +55,9 @@ public final class MakeWhiteKingSideCastlingMove {
 		assert game.piece(e1) == null;
 		assert game.piece(h1) == null;
 		assert game.piece(g1).whiteKing();
-		assert game.piece(g1).moved();
 		assert game.piece(f1).whiteRook();
-		assert game.piece(f1).moved();
+		assert !game.castlingRight().white().kingside();
+		assert !game.castlingRight().white().queenside();
 		assert game.assertVerify();
 	}
 
@@ -68,32 +68,30 @@ public final class MakeWhiteKingSideCastlingMove {
 		assert game.piece(e1) == null;
 		assert game.piece(h1) == null;
 		assert game.piece(g1).whiteKing();
-		assert game.piece(g1).moved();
 		assert game.piece(f1).whiteRook();
-		assert game.piece(f1).moved();
+		assert !game.castlingRight().white().kingside();
+		assert !game.castlingRight().white().queenside();
 
 		Piece king = game.piece(g1);
 		Piece rook = game.piece(f1);
 		
 		game.clear(g1);
 		king.field(e1);
-		king.setMoved(false);
 		game.place(king);
 		
 		game.clear(f1);
 		rook.field(h1);
-		rook.setMoved(false);
 		game.place(rook);
+		game.popCastlingRight();
 		
 		assert game.activeColor() == white;
 		assert move.from() == e1;
 		assert move.to() == g1;
 		assert game.piece(e1).whiteKing();
-		assert !game.piece(e1).moved();
 		assert game.piece(h1).whiteRook();
-		assert !game.piece(h1).moved();
 		assert game.piece(f1) == null;
 		assert game.piece(g1) == null;
+		assert game.castlingRight().white().kingside();
 		assert game.assertVerify();
 	}
 

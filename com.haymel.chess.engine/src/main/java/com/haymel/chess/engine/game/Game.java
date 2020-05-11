@@ -8,8 +8,14 @@
 package com.haymel.chess.engine.game;
 
 import static com.haymel.chess.engine.board.Board.newBoard;
+import static com.haymel.chess.engine.board.Field.a1;
 import static com.haymel.chess.engine.board.Field.a3;
 import static com.haymel.chess.engine.board.Field.a6;
+import static com.haymel.chess.engine.board.Field.a8;
+import static com.haymel.chess.engine.board.Field.e1;
+import static com.haymel.chess.engine.board.Field.e8;
+import static com.haymel.chess.engine.board.Field.h1;
+import static com.haymel.chess.engine.board.Field.h8;
 import static com.haymel.chess.engine.board.Field.rank;
 import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.board.Field.right;
@@ -30,6 +36,8 @@ import java.util.List;
 import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.board.PieceList;
+import com.haymel.chess.engine.castling.CastlingRightHistory;
+import com.haymel.chess.engine.castling.PositionCastlingRight;
 import com.haymel.chess.engine.evaluation.BlackPiecesPositionValue;
 import com.haymel.chess.engine.evaluation.PiecePositionValue;
 import com.haymel.chess.engine.evaluation.PieceValue;
@@ -59,10 +67,7 @@ public final class Game {	//TODO unit test and refactor
 	private int pieceValue;
 	private PiecePositionValue whitePiecePositionValue;
 	private PiecePositionValue blackPiecePositionValue;
-	
-//	public Game() {
-//		this(PiecePositionValue.noopPiecePositionValue, PiecePositionValue.noopPiecePositionValue);
-//	}
+	private final CastlingRightHistory castlingRightHistory = new CastlingRightHistory();
 	
 	public Game() {
 		this(new WhitePiecesPositionValue(), new BlackPiecesPositionValue());
@@ -90,16 +95,13 @@ public final class Game {	//TODO unit test and refactor
 		whitePieces.clear();
 		blackPieces.clear();
 		pieceValue = 0;
+		castlingRightHistory.reset();
 		
 		assertVerify();
 	}
-	
-	public void push(Move move) {
-		push(move, true);
-	}
 
-	public void push(Move move, boolean moved) {
-		push(new Undo(move, moved, activeColor, enPassant, halfMoveClock, fullMoveNumber));
+	public void push(Move move) {
+		push(new Undo(move, activeColor, enPassant, halfMoveClock, fullMoveNumber));
 		resetEnPassant();
 	}
 	
@@ -219,7 +221,7 @@ public final class Game {	//TODO unit test and refactor
 	
 	public Moves whiteMoves() {
 		Moves moves = new Moves();
-		whiteMoves.generate(whitePieces, enPassant, moves);
+		whiteMoves.generate(whitePieces, castlingRightHistory.castlingRight().white(), enPassant, moves);
 		return moves;
 	}
 	
@@ -231,7 +233,7 @@ public final class Game {	//TODO unit test and refactor
 	
 	public Moves blackMoves() {
 		Moves moves = new Moves();
-		blackMoves.generate(blackPieces, enPassant, moves);
+		blackMoves.generate(blackPieces, castlingRightHistory.castlingRight().black(), enPassant, moves);
 		return moves;
 	}
 
@@ -285,6 +287,49 @@ public final class Game {	//TODO unit test and refactor
 			fy = up(fy);
 			
 		}
+		
+		Piece king = piece(e1);
+		boolean queenside = castlingRight().white().queenside();
+		boolean kingside = castlingRight().white().kingside();
+		
+		if (king == null || !king.whiteKing()) {
+			assert !queenside;
+			assert !kingside;
+		}
+		else {
+			Piece rook = piece(a1);
+			if (rook == null || !rook.whiteRook()) 
+				assert !queenside;
+		
+			rook = piece(h1);
+			if (rook == null || !rook.whiteRook())
+				assert !kingside;
+		}
+
+		king = piece(e8);
+		queenside = castlingRight().black().queenside();
+		kingside = castlingRight().black().kingside();
+		
+		if (king == null || !king.blackKing()) {
+			assert !queenside;
+			assert !kingside;
+		}
+		else {
+			Piece rook = piece(a8);
+			if (rook == null || !rook.blackRook())
+				assert !queenside;
+
+			rook = piece(h8);
+			if (rook == null || !rook.blackRook())
+				assert !kingside;
+		}
+		
+		if (castlingRight().white().queenside())
+			assert piece(e1).whiteKing() && piece(a1).whiteRook();
+	
+		if (castlingRight().white().kingside())
+			assert piece(e1).whiteKing() && piece(h1).whiteRook();
+		
 		return true;
 	}
 
@@ -410,6 +455,18 @@ public final class Game {	//TODO unit test and refactor
 		pieceValue = pieceValue + PieceValue.pieceValue(BlackPawn) - PieceValue.pieceValue(move.pieceType());
 		
 		assert pieceValue == calculatePieceValue();
+	}
+	
+	public PositionCastlingRight castlingRight() {
+		return castlingRightHistory.castlingRight();
+	}
+
+	public void pushCastlingRight() {
+		castlingRightHistory.push();
+	}
+
+	public void popCastlingRight() {
+		castlingRightHistory.pop();
 	}
 	
 }

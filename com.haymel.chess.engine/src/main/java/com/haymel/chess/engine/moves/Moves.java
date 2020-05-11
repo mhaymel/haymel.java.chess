@@ -17,8 +17,15 @@ import static com.haymel.chess.engine.board.Field.g8;
 import static com.haymel.chess.engine.board.Field.rank;
 import static com.haymel.chess.engine.board.Field.up;
 import static com.haymel.chess.engine.board.Field.valid;
+import static com.haymel.chess.engine.moves.MoveType.capture;
+import static com.haymel.chess.engine.moves.MoveType.captureKingMove;
+import static com.haymel.chess.engine.moves.MoveType.captureRookMove;
+import static com.haymel.chess.engine.moves.MoveType.enpassant;
 import static com.haymel.chess.engine.moves.MoveType.kingsideCastling;
-import static com.haymel.chess.engine.moves.MoveType.normal;
+import static com.haymel.chess.engine.moves.MoveType.normalKingMove;
+import static com.haymel.chess.engine.moves.MoveType.normalRookMove;
+import static com.haymel.chess.engine.moves.MoveType.pawn;
+import static com.haymel.chess.engine.moves.MoveType.pawnDoubleStep;
 import static com.haymel.chess.engine.moves.MoveType.queensideCastling;
 import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
 import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
@@ -65,19 +72,49 @@ public class Moves {
 		add(new Move(from, to));
 	}
 
+	public void addKingMove(int from, int to) {
+		assert valid(from);
+		assert valid(to);
+		assert from != to;
+		
+		add(new Move(from, to, normalKingMove));
+	}
+	
+	public void addRook(int from, int to) {
+		assert valid(from);
+		assert valid(to);
+		assert from != to;
+		
+		add(new Move(from, to, normalRookMove));
+	}
+
+	
 	public void addCapture(int from, int to, Piece piece) {
+		addCapture(from, to, piece, capture);
+	}
+
+	public void addKingCapture(int from, int to, Piece piece) {
+		addCapture(from, to, piece, captureKingMove);
+	}
+	
+	public void addRookCapture(int from, int to, Piece piece) {
+		addCapture(from, to, piece, captureRookMove);
+	}
+
+	private void addCapture(int from, int to, Piece piece, MoveType type) {
 		assert valid(from);
 		assert valid(to);
 		assert from != to;
 		assert piece != null;
 		assert piece.black() || piece.white();
-
-		add(new Move(from, to, normal, piece));
+		assert type == capture || type == captureKingMove || type == captureRookMove;
+		
+		add(new Move(from, to, type, piece));
 		
 		if (piece.blackKing() || piece.whiteKing())
 			kingCaptureCount++;
 	}
-
+	
 	public void addPawnMove(int from, int to) {
 		assert valid(from);
 		assert valid(to);
@@ -85,7 +122,7 @@ public class Moves {
 		assert rank(to) != 7;
 		assert rank(from) != 0;
 		
-		add(new Move(from, to, normal));
+		add(new Move(from, to, pawn));
 	}
 
 	public void addPawnDoubleStep(int from, int to) {
@@ -96,7 +133,7 @@ public class Moves {
 		assert rank(to) == 3 || rank(to) == 4;
 		assert file(from) == file(to);
 
-		add(new Move(from, to, normal));
+		add(new Move(from, to, pawnDoubleStep));
 	}
 
 	public void addWhitePromotion(int from) {
@@ -167,7 +204,7 @@ public class Moves {
 			rank(from) == 4 && rank(to) == 5 ||
 			rank(from) == 3 && rank(to) == 2;
 		
-		add(new Move(from, to, normal, captured));
+		add(new Move(from, to, enpassant, captured));
 	}
 	
 	public void addWhiteKingSideCastling() {

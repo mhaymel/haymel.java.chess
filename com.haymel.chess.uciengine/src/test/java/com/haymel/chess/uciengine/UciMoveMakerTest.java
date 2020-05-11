@@ -18,8 +18,8 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.haymel.chess.engine.fen.GameFromFEN;
 import com.haymel.chess.engine.game.Game;
-import com.haymel.chess.engine.game.StartposCreator;
 
 public class UciMoveMakerTest {
 
@@ -28,8 +28,7 @@ public class UciMoveMakerTest {
 	
 	@Before
 	public void setup() {
-		game = new Game();
-		new StartposCreator(game).execute();
+		game = GameFromFEN.gameFromInitialFen();
 		uciMoveMaker = new UciMoveMaker(game);
 	}
 	

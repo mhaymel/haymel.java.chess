@@ -7,6 +7,12 @@
  */
 package com.haymel.chess.engine.fen;
 
+import static com.haymel.chess.engine.board.Field.a1;
+import static com.haymel.chess.engine.board.Field.a8;
+import static com.haymel.chess.engine.board.Field.e1;
+import static com.haymel.chess.engine.board.Field.e8;
+import static com.haymel.chess.engine.board.Field.h1;
+import static com.haymel.chess.engine.board.Field.h8;
 import static com.haymel.util.Require.nonEmpty;
 import static com.haymel.util.Require.nonNull;
 import static com.haymel.util.exception.HaymelIllegalArgumentException.throwIAE;
@@ -14,6 +20,8 @@ import static java.lang.String.join;
 
 import java.util.List;
 
+import com.haymel.chess.engine.board.Field;
+import com.haymel.chess.engine.castling.PositionCastlingRight;
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.piece.Piece;
 
@@ -52,7 +60,39 @@ public class GameFromFEN {
 		handleEnpassant(fields[3]);
 		handleHalfmoveClock(fields[4]);
 		handleFullmoveNumber(fields[5]);
+		verifyCastling();
 		return game;
+	}
+	private void verifyCastling() {
+		PositionCastlingRight castling = game.castlingRight();
+		if (castling.white().kingside() && (!whiteKing(e1)|| !whiteRook(h1)))
+			throwIAE("White kingside castling is not possible in FEN '%s'", join(" ", fields));
+		if (castling.white().queenside() && (!whiteKing(e1) || !whiteRook(a1)))
+			throwIAE("White queenside castling is not possible in FEN '%s'", join(" ", fields));
+		if (castling.black().kingside() && (!blackKing(e8) || !blackRook(h8)))
+			throwIAE("Black kingside castling is not possible in FEN '%s'", join(" ", fields));
+		if (castling.black().queenside() && (!blackKing(e8) || !blackRook(a8)))
+			throwIAE("Black queenside castling is not possible in FEN '%s'", join(" ", fields));
+	}
+	private boolean whiteKing(int field) {
+		assert Field.valid(field);
+		return !free(field) && game.piece(field).whiteKing();
+	}
+	private boolean whiteRook(int field) {
+		assert Field.valid(field);
+		return !free(field) && game.piece(field).whiteRook();
+	}
+	private boolean blackKing(int field) {
+		assert Field.valid(field);
+		return !free(field) && game.piece(field).blackKing();
+	}
+	private boolean blackRook(int field) {
+		assert Field.valid(field);
+		return !free(field) && game.piece(field).blackRook();
+	}
+	private boolean free(int field) {
+		assert Field.valid(field);
+		return game.piece(field) == null;
 	}
 
 	private void handleFullmoveNumber(String fullmoveNumber) {
@@ -68,7 +108,7 @@ public class GameFromFEN {
 	}
 
 	private void handleCastling(String castling) {
-		new Castling(game, castling).execute();
+		new Castling(game.castlingRight(), castling).execute();
 	}
 
 	private void handleActiveColor(String activeColor) {

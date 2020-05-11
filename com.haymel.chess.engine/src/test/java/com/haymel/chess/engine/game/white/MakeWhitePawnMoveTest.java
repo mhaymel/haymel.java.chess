@@ -20,7 +20,10 @@ import static com.haymel.chess.engine.board.Field.e6;
 import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
-import static com.haymel.chess.engine.moves.MoveType.normal;
+import static com.haymel.chess.engine.moves.MoveType.capture;
+import static com.haymel.chess.engine.moves.MoveType.enpassant;
+import static com.haymel.chess.engine.moves.MoveType.pawn;
+import static com.haymel.chess.engine.moves.MoveType.pawnDoubleStep;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 import static com.haymel.chess.engine.piece.PieceType.BlackRook;
 import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
@@ -54,7 +57,7 @@ public class MakeWhitePawnMoveTest {
 		game.halfMoveClock(30);
 		game.assertVerify();
 
-		Move e2e3 = new Move(e2, e3, normal);
+		Move e2e3 = new Move(e2, e3, pawn);
 		moveMaker.makeMove(e2e3);
 
 		game.assertVerify();
@@ -92,7 +95,7 @@ public class MakeWhitePawnMoveTest {
 		game.halfMoveClock(30);
 		game.assertVerify();
 
-		Move e2e3 = new Move(e2, e3, normal);
+		Move e2e3 = new Move(e2, e3, pawn);
 		moveMaker.makeMove(e2e3);
 
 		game.assertVerify();
@@ -129,7 +132,7 @@ public class MakeWhitePawnMoveTest {
 		game.halfMoveClock(30);
 		game.assertVerify();
 
-		Move e2e3 = new Move(e3, e4, normal);
+		Move e2e3 = new Move(e3, e4, pawn);
 		moveMaker.makeMove(e2e3);
 
 		game.assertVerify();
@@ -159,7 +162,7 @@ public class MakeWhitePawnMoveTest {
 		game.halfMoveClock(30);
 		game.assertVerify();
 
-		Move e2e4 = new Move(e2, e4, normal);
+		Move e2e4 = new Move(e2, e4, pawnDoubleStep);
 		moveMaker.makeMove(e2e4);
 
 		game.assertVerify();
@@ -196,7 +199,7 @@ public class MakeWhitePawnMoveTest {
 		game.halfMoveClock(30);
 		game.assertVerify();
 
-		Move e2e4 = new Move(e2, e4, normal);
+		Move e2e4 = new Move(e2, e4, pawnDoubleStep);
 		moveMaker.makeMove(e2e4);
 
 		game.assertVerify();
@@ -230,7 +233,7 @@ public class MakeWhitePawnMoveTest {
 		game.halfMoveClock(30);
 		game.assertVerify();
 
-		Move e2d3 = new Move(e2, d3, normal, capturePiece);
+		Move e2d3 = new Move(e2, d3, capture, capturePiece);
 		moveMaker.makeMove(e2d3);
 
 		game.assertVerify();
@@ -268,7 +271,7 @@ public class MakeWhitePawnMoveTest {
 		game.halfMoveClock(30);
 		game.assertVerify();
 
-		Move e5d6 = new Move(e5, d6, normal, blackPawn);
+		Move e5d6 = new Move(e5, d6, enpassant, blackPawn);
 		moveMaker.makeMove(e5d6);
 
 		game.assertVerify();

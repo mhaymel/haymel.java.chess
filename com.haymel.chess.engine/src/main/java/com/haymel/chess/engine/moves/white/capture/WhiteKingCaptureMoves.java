@@ -54,7 +54,7 @@ public final class WhiteKingCaptureMoves {	//TODO unit test
 		Piece piece = pieces[to];
 		
 		if (black(piece))
-			moves.addCapture(from, to, piece);
+			moves.addKingCapture(from, to, piece);
 	}
 
 	private static boolean black(Piece piece) {

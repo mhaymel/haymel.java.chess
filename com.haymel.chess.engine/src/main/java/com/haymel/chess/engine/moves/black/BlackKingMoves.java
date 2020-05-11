@@ -16,13 +16,14 @@ import static com.haymel.chess.engine.board.Field.f8;
 import static com.haymel.chess.engine.board.Field.g8;
 import static com.haymel.chess.engine.board.Field.h8;
 import static com.haymel.chess.engine.board.Field.removed;
+import static com.haymel.chess.engine.moves.black.castling.D8Attacked.d8Attacked;
 import static com.haymel.chess.engine.moves.black.castling.E8Attacked.e8Attacked;
 import static com.haymel.chess.engine.moves.black.castling.F8Attacked.f8Attacked;
 import static java.lang.String.format;
 
 import com.haymel.chess.engine.board.Field;
+import com.haymel.chess.engine.castling.CastlingRight;
 import com.haymel.chess.engine.moves.Moves;
-import com.haymel.chess.engine.moves.black.castling.D8Attacked;
 import com.haymel.chess.engine.piece.Piece;
 
 public final class BlackKingMoves {
@@ -34,8 +35,9 @@ public final class BlackKingMoves {
 		this.pieces = pieces;
 	}
 	
-	public void generate(Piece king, Moves moves) {
+	public void generate(Piece king, CastlingRight castling, Moves moves) {
 		assert king != null;
+		assert castling != null;
 		assert moves != null;
 		assert king.field() != removed;
 		assert pieces[king.field()] == king;
@@ -52,23 +54,21 @@ public final class BlackKingMoves {
 		add(from, Field.rightUp(from), moves);
 		add(from, Field.rightDown(from), moves);
 		
-		if (king.moved())
-			return;
+		if (castling.kingside())
+			kingSidecasteling(king, moves);
 		
-		kingSidecasteling(king, moves);
-		queenSidecasteling(king, moves);
+		if (castling.queenside())
+			queenSidecasteling(king, moves);
 	}
 
 	private void kingSidecasteling(Piece king, Moves moves) {
 		assert king.field() == e8;
+		assert isBlackRook(h8);
 		
 		if (!isFree(f8))
 			return;
 
 		if (!isFree(g8))
-			return;
-		
-		if (isNoRookOrMoved(h8))
 			return;
 		
 		if (e8Attacked(pieces))
@@ -82,6 +82,7 @@ public final class BlackKingMoves {
 
 	private void queenSidecasteling(Piece king, Moves moves) {
 		assert king.field() == e8;
+		assert isBlackRook(a8);
 
 		if (!isFree(d8))
 			return;
@@ -92,20 +93,13 @@ public final class BlackKingMoves {
 		if (!isFree(b8))
 			return;
 		
-		if (isNoRookOrMoved(a8))
-			return;
-		
 		if (e8Attacked(pieces))
 			return;
 		
-		if (D8Attacked.d8Attacked(pieces))
+		if (d8Attacked(pieces))
 			return;
 
 		moves.addBlackQueenSideCastling();
-	}
-
-	private boolean isMoved(int field) {
-		return pieces[field].moved();
 	}
 
 	private boolean isBlackRook(int field) {
@@ -116,20 +110,15 @@ public final class BlackKingMoves {
 		Piece piece = pieces[to];
 		
 		if (piece == null) 
-			moves.add(from, to);
+			moves.addKingMove(from, to);
 		
 		else if (piece.white()) 
-			moves.addCapture(from, to, piece);
+			moves.addKingCapture(from, to, piece);
 		
 	}
 
-	private boolean isNoRookOrMoved(int field) {
-		return !isBlackRook(field) || isMoved(field);
-	}
-	
 	private boolean isFree(int field) {
 		return pieces[field] == null;
 	}
 
-	
 }

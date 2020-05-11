@@ -27,6 +27,7 @@ import java.util.Comparator;
 
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.moves.Move;
+import com.haymel.chess.engine.moves.MoveType;
 import com.haymel.chess.engine.piece.PieceType;
 
 class SortMoves implements Comparator<Move> {		//TODO refactor, unit test
@@ -66,7 +67,7 @@ class SortMoves implements Comparator<Move> {		//TODO refactor, unit test
 		if (pv != null && pv.from() == move.from() && pv.to() == move.to())
 			return VALUE_PV;
 		
-		if (move.capture())
+		if (isCapture(move))
 			return VALUE_CAPTURE - pieceValue(move.capturedPiece().type());
 		
 		int type = game.piece(move.from()).type();
@@ -99,6 +100,10 @@ class SortMoves implements Comparator<Move> {		//TODO refactor, unit test
 	
 	private int doubleMove(Move move) {
 		return Math.abs(rank(move.to()) - rank(move.from()));
+	}
+
+	private static boolean isCapture(Move move) {
+		return MoveType.capture(move.type()); 
 	}
 
 	@Override

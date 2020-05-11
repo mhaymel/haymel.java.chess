@@ -62,92 +62,80 @@ import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-import org.junit.Before;
 import org.junit.Test;
 
+import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.game.Game;
+import com.haymel.chess.engine.piece.PieceType;
 import com.haymel.util.exception.HaymelIllegalArgumentException;
 
 public class GameFromFENTest {
 
-	private Game game;
-	
-	@Before
-	public void setup() {
-		game = new Game();
-	}
-	
 	@Test
 	public void activeColorWhite() {
-		String fen = "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 10";
-		new GameFromFEN(game, fen).execute();
+		Game game = from("r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 10");
 		assertThat(game.activeColor(), is(white));
 	}
 	
 	@Test
 	public void activeColorBlack() {
-		String fen = "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R b KQkq - 0 10";
-		new GameFromFEN(game, fen).execute();
+		Game game = from("r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R b KQkq - 0 10");
 		assertThat(game.activeColor(), is(black));
 	}
 	
 	@Test(expected = HaymelIllegalArgumentException.class)
 	public void invalidCharacterForActiveColorThrowsException() {
-		String fen = "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R x KQkq - 0 10";
-		new GameFromFEN(game, fen).execute();
+		Game game = from("r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R x KQkq - 0 10");
 		assertThat(game.activeColor(), is(black));
 	}
 
 	@Test
 	public void startposition() {
-		String fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
-		new GameFromFEN(game, fen).execute();
+		Game game = from("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
 
 		//position
-		assertPieces(BlackPawn, a7);
-		assertPieces(BlackPawn, b7);
-		assertPieces(BlackPawn, c7);
-		assertPieces(BlackPawn, d7);
-		assertPieces(BlackPawn, e7);
-		assertPieces(BlackPawn, f7);
-		assertPieces(BlackPawn, g7);
-		assertPieces(BlackPawn, h7);
-		assertPieces(BlackRook, a8);
-		assertPieces(BlackKnight, b8);
-		assertPieces(BlackBishop, c8);
-		assertPieces(BlackQueen, d8);
-		assertPieces(BlackKing, e8);
-		assertPieces(BlackBishop, f8);
-		assertPieces(BlackKnight, g8);
-		assertPieces(BlackRook, h8);
+		assertPieces(game, BlackPawn, a7);
+		assertPieces(game, BlackPawn, b7);
+		assertPieces(game, BlackPawn, c7);
+		assertPieces(game, BlackPawn, d7);
+		assertPieces(game, BlackPawn, e7);
+		assertPieces(game, BlackPawn, f7);
+		assertPieces(game, BlackPawn, g7);
+		assertPieces(game, BlackPawn, h7);
+		assertPieces(game, BlackRook, a8);
+		assertPieces(game, BlackKnight, b8);
+		assertPieces(game, BlackBishop, c8);
+		assertPieces(game, BlackQueen, d8);
+		assertPieces(game, BlackKing, e8);
+		assertPieces(game, BlackBishop, f8);
+		assertPieces(game, BlackKnight, g8);
+		assertPieces(game, BlackRook, h8);
 
-		assertPieces(WhitePawn, a2);
-		assertPieces(WhitePawn, b2);
-		assertPieces(WhitePawn, c2);
-		assertPieces(WhitePawn, d2);
-		assertPieces(WhitePawn, e2);
-		assertPieces(WhitePawn, f2);
-		assertPieces(WhitePawn, g2);
-		assertPieces(WhitePawn, h2);
-		assertPieces(WhiteRook, a1);
-		assertPieces(WhiteKnight, b1);
-		assertPieces(WhiteBishop, c1);
-		assertPieces(WhiteQueen, d1);
-		assertPieces(WhiteKing, e1);
-		assertPieces(WhiteBishop, f1);
-		assertPieces(WhiteKnight, g1);
-		assertPieces(WhiteRook, h1);
+		assertPieces(game, WhitePawn, a2);
+		assertPieces(game, WhitePawn, b2);
+		assertPieces(game, WhitePawn, c2);
+		assertPieces(game, WhitePawn, d2);
+		assertPieces(game, WhitePawn, e2);
+		assertPieces(game, WhitePawn, f2);
+		assertPieces(game, WhitePawn, g2);
+		assertPieces(game, WhitePawn, h2);
+		assertPieces(game, WhiteRook, a1);
+		assertPieces(game, WhiteKnight, b1);
+		assertPieces(game, WhiteBishop, c1);
+		assertPieces(game, WhiteQueen, d1);
+		assertPieces(game, WhiteKing, e1);
+		assertPieces(game, WhiteBishop, f1);
+		assertPieces(game, WhiteKnight, g1);
+		assertPieces(game, WhiteRook, h1);
 		
 		//active color
 		assertThat(game.activeColor(), is(white));
 		
 		//castling		
-		assertThat(game.piece(a1).moved(), is(false));
-		assertThat(game.piece(e1).moved(), is(false));
-		assertThat(game.piece(h1).moved(), is(false));
-		assertThat(game.piece(a8).moved(), is(false));
-		assertThat(game.piece(e8).moved(), is(false));
-		assertThat(game.piece(h8).moved(), is(false));
+		assertThat(game.castlingRight().white().kingside(), is(true));
+		assertThat(game.castlingRight().white().queenside(), is(true));
+		assertThat(game.castlingRight().black().kingside(), is(true));
+		assertThat(game.castlingRight().black().queenside(), is(true));
 		
 		//enpassant
 		assertThat(game.enPassant(), is(removed));
@@ -161,54 +149,51 @@ public class GameFromFENTest {
 
 	@Test
 	public void startposition_e4() {
-		String fen = "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1";
-		new GameFromFEN(game, fen).execute();
+		Game game = from("rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1");
 
 		//position
-		assertPieces(BlackPawn, a7);
-		assertPieces(BlackPawn, b7);
-		assertPieces(BlackPawn, c7);
-		assertPieces(BlackPawn, d7);
-		assertPieces(BlackPawn, e7);
-		assertPieces(BlackPawn, f7);
-		assertPieces(BlackPawn, g7);
-		assertPieces(BlackPawn, h7);
-		assertPieces(BlackRook, a8);
-		assertPieces(BlackKnight, b8);
-		assertPieces(BlackBishop, c8);
-		assertPieces(BlackQueen, d8);
-		assertPieces(BlackKing, e8);
-		assertPieces(BlackBishop, f8);
-		assertPieces(BlackKnight, g8);
-		assertPieces(BlackRook, h8);
+		assertPieces(game, BlackPawn, a7);
+		assertPieces(game, BlackPawn, b7);
+		assertPieces(game, BlackPawn, c7);
+		assertPieces(game, BlackPawn, d7);
+		assertPieces(game, BlackPawn, e7);
+		assertPieces(game, BlackPawn, f7);
+		assertPieces(game, BlackPawn, g7);
+		assertPieces(game, BlackPawn, h7);
+		assertPieces(game, BlackRook, a8);
+		assertPieces(game, BlackKnight, b8);
+		assertPieces(game, BlackBishop, c8);
+		assertPieces(game, BlackQueen, d8);
+		assertPieces(game, BlackKing, e8);
+		assertPieces(game, BlackBishop, f8);
+		assertPieces(game, BlackKnight, g8);
+		assertPieces(game, BlackRook, h8);
 
-		assertPieces(WhitePawn, a2);
-		assertPieces(WhitePawn, b2);
-		assertPieces(WhitePawn, c2);
-		assertPieces(WhitePawn, d2);
-		assertPieces(WhitePawn, e4);
-		assertPieces(WhitePawn, f2);
-		assertPieces(WhitePawn, g2);
-		assertPieces(WhitePawn, h2);
-		assertPieces(WhiteRook, a1);
-		assertPieces(WhiteKnight, b1);
-		assertPieces(WhiteBishop, c1);
-		assertPieces(WhiteQueen, d1);
-		assertPieces(WhiteKing, e1);
-		assertPieces(WhiteBishop, f1);
-		assertPieces(WhiteKnight, g1);
-		assertPieces(WhiteRook, h1);
+		assertPieces(game, WhitePawn, a2);
+		assertPieces(game, WhitePawn, b2);
+		assertPieces(game, WhitePawn, c2);
+		assertPieces(game, WhitePawn, d2);
+		assertPieces(game, WhitePawn, e4);
+		assertPieces(game, WhitePawn, f2);
+		assertPieces(game, WhitePawn, g2);
+		assertPieces(game, WhitePawn, h2);
+		assertPieces(game, WhiteRook, a1);
+		assertPieces(game, WhiteKnight, b1);
+		assertPieces(game, WhiteBishop, c1);
+		assertPieces(game, WhiteQueen, d1);
+		assertPieces(game, WhiteKing, e1);
+		assertPieces(game, WhiteBishop, f1);
+		assertPieces(game, WhiteKnight, g1);
+		assertPieces(game, WhiteRook, h1);
 		
 		//active color
 		assertThat(game.activeColor(), is(black));
 		
 		//castling		
-		assertThat(game.piece(a1).moved(), is(false));
-		assertThat(game.piece(e1).moved(), is(false));
-		assertThat(game.piece(h1).moved(), is(false));
-		assertThat(game.piece(a8).moved(), is(false));
-		assertThat(game.piece(e8).moved(), is(false));
-		assertThat(game.piece(h8).moved(), is(false));
+		assertThat(game.castlingRight().white().kingside(), is(true));
+		assertThat(game.castlingRight().white().queenside(), is(true));
+		assertThat(game.castlingRight().black().kingside(), is(true));
+		assertThat(game.castlingRight().black().queenside(), is(true));
 		
 		//enpassant
 		assertThat(game.enPassant(), is(e3));
@@ -222,54 +207,51 @@ public class GameFromFENTest {
 
 	@Test
 	public void startposition_e4_c5() {
-		String fen = "rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2";
-		new GameFromFEN(game, fen).execute();
+		Game game = from("rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2");
 
 		//position
-		assertPieces(BlackPawn, a7);
-		assertPieces(BlackPawn, b7);
-		assertPieces(BlackPawn, c5);
-		assertPieces(BlackPawn, d7);
-		assertPieces(BlackPawn, e7);
-		assertPieces(BlackPawn, f7);
-		assertPieces(BlackPawn, g7);
-		assertPieces(BlackPawn, h7);
-		assertPieces(BlackRook, a8);
-		assertPieces(BlackKnight, b8);
-		assertPieces(BlackBishop, c8);
-		assertPieces(BlackQueen, d8);
-		assertPieces(BlackKing, e8);
-		assertPieces(BlackBishop, f8);
-		assertPieces(BlackKnight, g8);
-		assertPieces(BlackRook, h8);
+		assertPieces(game, BlackPawn, a7);
+		assertPieces(game, BlackPawn, b7);
+		assertPieces(game, BlackPawn, c5);
+		assertPieces(game, BlackPawn, d7);
+		assertPieces(game, BlackPawn, e7);
+		assertPieces(game, BlackPawn, f7);
+		assertPieces(game, BlackPawn, g7);
+		assertPieces(game, BlackPawn, h7);
+		assertPieces(game, BlackRook, a8);
+		assertPieces(game, BlackKnight, b8);
+		assertPieces(game, BlackBishop, c8);
+		assertPieces(game, BlackQueen, d8);
+		assertPieces(game, BlackKing, e8);
+		assertPieces(game, BlackBishop, f8);
+		assertPieces(game, BlackKnight, g8);
+		assertPieces(game, BlackRook, h8);
 
-		assertPieces(WhitePawn, a2);
-		assertPieces(WhitePawn, b2);
-		assertPieces(WhitePawn, c2);
-		assertPieces(WhitePawn, d2);
-		assertPieces(WhitePawn, e4);
-		assertPieces(WhitePawn, f2);
-		assertPieces(WhitePawn, g2);
-		assertPieces(WhitePawn, h2);
-		assertPieces(WhiteRook, a1);
-		assertPieces(WhiteKnight, b1);
-		assertPieces(WhiteBishop, c1);
-		assertPieces(WhiteQueen, d1);
-		assertPieces(WhiteKing, e1);
-		assertPieces(WhiteBishop, f1);
-		assertPieces(WhiteKnight, g1);
-		assertPieces(WhiteRook, h1);
+		assertPieces(game, WhitePawn, a2);
+		assertPieces(game, WhitePawn, b2);
+		assertPieces(game, WhitePawn, c2);
+		assertPieces(game, WhitePawn, d2);
+		assertPieces(game, WhitePawn, e4);
+		assertPieces(game, WhitePawn, f2);
+		assertPieces(game, WhitePawn, g2);
+		assertPieces(game, WhitePawn, h2);
+		assertPieces(game, WhiteRook, a1);
+		assertPieces(game, WhiteKnight, b1);
+		assertPieces(game, WhiteBishop, c1);
+		assertPieces(game, WhiteQueen, d1);
+		assertPieces(game, WhiteKing, e1);
+		assertPieces(game, WhiteBishop, f1);
+		assertPieces(game, WhiteKnight, g1);
+		assertPieces(game, WhiteRook, h1);
 		
 		//active color
 		assertThat(game.activeColor(), is(white));
 		
 		//castling		
-		assertThat(game.piece(a1).moved(), is(false));
-		assertThat(game.piece(e1).moved(), is(false));
-		assertThat(game.piece(h1).moved(), is(false));
-		assertThat(game.piece(a8).moved(), is(false));
-		assertThat(game.piece(e8).moved(), is(false));
-		assertThat(game.piece(h8).moved(), is(false));
+		assertThat(game.castlingRight().white().kingside(), is(true));
+		assertThat(game.castlingRight().white().queenside(), is(true));
+		assertThat(game.castlingRight().black().kingside(), is(true));
+		assertThat(game.castlingRight().black().queenside(), is(true));
 		
 		//enpassant
 		assertThat(game.enPassant(), is(c6));
@@ -283,54 +265,51 @@ public class GameFromFENTest {
 	
 	@Test
 	public void startposition_e4_c5_Nf3() {
-		String fen = "rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2";
-		new GameFromFEN(game, fen).execute();
+		Game game = from("rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2");
 
 		//position
-		assertPieces(BlackPawn, a7);
-		assertPieces(BlackPawn, b7);
-		assertPieces(BlackPawn, c5);
-		assertPieces(BlackPawn, d7);
-		assertPieces(BlackPawn, e7);
-		assertPieces(BlackPawn, f7);
-		assertPieces(BlackPawn, g7);
-		assertPieces(BlackPawn, h7);
-		assertPieces(BlackRook, a8);
-		assertPieces(BlackKnight, b8);
-		assertPieces(BlackBishop, c8);
-		assertPieces(BlackQueen, d8);
-		assertPieces(BlackKing, e8);
-		assertPieces(BlackBishop, f8);
-		assertPieces(BlackKnight, g8);
-		assertPieces(BlackRook, h8);
+		assertPieces(game, BlackPawn, a7);
+		assertPieces(game, BlackPawn, b7);
+		assertPieces(game, BlackPawn, c5);
+		assertPieces(game, BlackPawn, d7);
+		assertPieces(game, BlackPawn, e7);
+		assertPieces(game, BlackPawn, f7);
+		assertPieces(game, BlackPawn, g7);
+		assertPieces(game, BlackPawn, h7);
+		assertPieces(game, BlackRook, a8);
+		assertPieces(game, BlackKnight, b8);
+		assertPieces(game, BlackBishop, c8);
+		assertPieces(game, BlackQueen, d8);
+		assertPieces(game, BlackKing, e8);
+		assertPieces(game, BlackBishop, f8);
+		assertPieces(game, BlackKnight, g8);
+		assertPieces(game, BlackRook, h8);
 
-		assertPieces(WhitePawn, a2);
-		assertPieces(WhitePawn, b2);
-		assertPieces(WhitePawn, c2);
-		assertPieces(WhitePawn, d2);
-		assertPieces(WhitePawn, e4);
-		assertPieces(WhitePawn, f2);
-		assertPieces(WhitePawn, g2);
-		assertPieces(WhitePawn, h2);
-		assertPieces(WhiteRook, a1);
-		assertPieces(WhiteKnight, b1);
-		assertPieces(WhiteBishop, c1);
-		assertPieces(WhiteQueen, d1);
-		assertPieces(WhiteKing, e1);
-		assertPieces(WhiteBishop, f1);
-		assertPieces(WhiteKnight, f3);
-		assertPieces(WhiteRook, h1);
+		assertPieces(game, WhitePawn, a2);
+		assertPieces(game, WhitePawn, b2);
+		assertPieces(game, WhitePawn, c2);
+		assertPieces(game, WhitePawn, d2);
+		assertPieces(game, WhitePawn, e4);
+		assertPieces(game, WhitePawn, f2);
+		assertPieces(game, WhitePawn, g2);
+		assertPieces(game, WhitePawn, h2);
+		assertPieces(game, WhiteRook, a1);
+		assertPieces(game, WhiteKnight, b1);
+		assertPieces(game, WhiteBishop, c1);
+		assertPieces(game, WhiteQueen, d1);
+		assertPieces(game, WhiteKing, e1);
+		assertPieces(game, WhiteBishop, f1);
+		assertPieces(game, WhiteKnight, f3);
+		assertPieces(game, WhiteRook, h1);
 		
 		//active color
 		assertThat(game.activeColor(), is(black));
 		
 		//castling		
-		assertThat(game.piece(a1).moved(), is(false));
-		assertThat(game.piece(e1).moved(), is(false));
-		assertThat(game.piece(h1).moved(), is(false));
-		assertThat(game.piece(a8).moved(), is(false));
-		assertThat(game.piece(e8).moved(), is(false));
-		assertThat(game.piece(h8).moved(), is(false));
+		assertThat(game.castlingRight().white().kingside(), is(true));
+		assertThat(game.castlingRight().white().queenside(), is(true));
+		assertThat(game.castlingRight().black().kingside(), is(true));
+		assertThat(game.castlingRight().black().queenside(), is(true));
 		
 		//enpassant
 		assertThat(game.enPassant(), is(removed));
@@ -342,9 +321,80 @@ public class GameFromFENTest {
 		assertThat(game.fullMoveNumber(), is(2));
 	}
 	
-	private void assertPieces(int type, int field) {
-		assertThat(game.piece(field).type(), is(type));
-		
+	@Test(expected=HaymelIllegalArgumentException.class)
+	public void invalidWhiteKingsideCastling() {
+		from("2k5/8/8/8/8/8/8/4RRK1 w K - 0 1");
+	}
+
+	@Test(expected=HaymelIllegalArgumentException.class)
+	public void invalidWhiteQueensideCastling() {
+		from("2k5/8/8/8/8/8/8/4RRK1 w Q - 0 1");
 	}
 	
+	@Test(expected=HaymelIllegalArgumentException.class)
+	public void invalidBlackKingsideCastling() {
+		from("2k5/8/8/8/8/8/8/4RRK1 w k - 0 1");
+	}
+
+	@Test(expected=HaymelIllegalArgumentException.class)
+	public void invalidBlackQueensideCastling() {
+		from("2k5/8/8/8/8/8/8/4RRK1 w q - 0 1");
+	}
+
+	@Test
+	public void whiteKingsideCastling() {
+		Game game = from("r3k2r/8/8/8/8/8/8/R3K2R w K - 1 2 ");
+		assertThat(game.castlingRight().white().kingside(), is(true));
+		assertThat(game.castlingRight().white().queenside(), is(false));
+		assertThat(game.castlingRight().black().kingside(), is(false));
+		assertThat(game.castlingRight().black().queenside(), is(false));
+	}
+	
+	@Test
+	public void whiteQueensideCastling() {
+		Game game = from("r3k2r/8/8/8/8/8/8/R3K2R w Q - 1 2 ");
+		assertThat(game.castlingRight().white().kingside(), is(false));
+		assertThat(game.castlingRight().white().queenside(), is(true));
+		assertThat(game.castlingRight().black().kingside(), is(false));
+		assertThat(game.castlingRight().black().queenside(), is(false));
+	}
+
+	@Test
+	public void blackKingsideCastling() {
+		Game game = from("r3k2r/8/8/8/8/8/8/R3K2R w k - 1 2 ");
+		assertThat(game.castlingRight().white().kingside(), is(false));
+		assertThat(game.castlingRight().white().queenside(), is(false));
+		assertThat(game.castlingRight().black().kingside(), is(true));
+		assertThat(game.castlingRight().black().queenside(), is(false));
+	}
+
+	@Test
+	public void blackQueensideCastling() {
+		Game game = from("r3k2r/8/8/8/8/8/8/R3K2R w q - 1 2 ");
+		assertThat(game.castlingRight().white().kingside(), is(false));
+		assertThat(game.castlingRight().white().queenside(), is(false));
+		assertThat(game.castlingRight().black().kingside(), is(false));
+		assertThat(game.castlingRight().black().queenside(), is(true));
+	}
+
+	@Test
+	public void castling() {
+		Game game = from("r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 1 2 ");
+		assertThat(game.castlingRight().white().kingside(), is(true));
+		assertThat(game.castlingRight().white().queenside(), is(true));
+		assertThat(game.castlingRight().black().kingside(), is(true));
+		assertThat(game.castlingRight().black().queenside(), is(true));
+	}
+
+	private void assertPieces(Game game, int type, int field) {
+		assert Field.valid(field);
+		assert PieceType.pieceTypeValid(type);
+		
+		assertThat(game.piece(field).type(), is(type));
+	}
+	
+	private static Game from(String fen) {
+		return new GameFromFEN(fen).execute();
+	}
+
 }

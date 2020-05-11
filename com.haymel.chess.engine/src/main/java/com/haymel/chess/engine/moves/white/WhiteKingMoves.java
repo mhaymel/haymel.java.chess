@@ -29,6 +29,7 @@ import static com.haymel.chess.engine.moves.white.castling.E1Attacked.e1Attacked
 import static com.haymel.chess.engine.moves.white.castling.F1Attacked.f1Attacked;
 import static java.lang.String.format;
 
+import com.haymel.chess.engine.castling.CastlingRight;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.piece.Piece;
 
@@ -41,10 +42,9 @@ public final class WhiteKingMoves {
 		this.pieces = pieces;
 	}
 	
-	public void generate(Piece king, Moves moves) {
-		if (pieces[king.field()] != king)
-			System.out.println(king);
+	public void generate(Piece king, CastlingRight castling, Moves moves) {
 		assert king != null;
+		assert castling != null;
 		assert moves != null;
 		assert king.field() != removed;
 		assert pieces[king.field()] == king;
@@ -61,23 +61,21 @@ public final class WhiteKingMoves {
 		add(from, rightUp(from), moves);
 		add(from, rightDown(from), moves);
 		
-		if (king.moved())
-			return;
+		if (castling.kingside())
+			kingSidecasteling(king, moves);
 		
-		kingSidecasteling(king, moves);
-		queenSidecasteling(king, moves);
+		if (castling.queenside())
+			queenSidecasteling(king, moves);
 	}
 
 	private void kingSidecasteling(Piece king, Moves moves) {
 		assert king.field() == e1;
+		assert isWhiteRook(h1);
 		
 		if (!isFree(f1))
 			return;
 
 		if (!isFree(g1))
-			return;
-		
-		if (isNoRookOrMoved(h1))
 			return;
 		
 		if (e1Attacked(pieces))
@@ -91,6 +89,7 @@ public final class WhiteKingMoves {
 
 	private void queenSidecasteling(Piece king, Moves moves) {
 		assert king.field() == e1;
+		assert isWhiteRook(a1);
 
 		if (!isFree(d1))
 			return;
@@ -101,9 +100,6 @@ public final class WhiteKingMoves {
 		if (!isFree(b1))
 			return;
 		
-		if (isNoRookOrMoved(a1))
-			return;
-		
 		if (e1Attacked(pieces))
 			return;
 		
@@ -111,10 +107,6 @@ public final class WhiteKingMoves {
 			return;
 
 		moves.addWhiteQueenSideCastling();
-	}
-
-	private boolean isMoved(int field) {
-		return pieces[field].moved();
 	}
 
 	private boolean isWhiteRook(int field) {
@@ -129,17 +121,13 @@ public final class WhiteKingMoves {
 		Piece piece = pieces[to];
 		
 		if (piece == null) {
-			moves.add(from, to);
+			moves.addKingMove(from, to);
 		}
 		else if (piece.black()) {
-			moves.addCapture(from, to, piece);
+			moves.addKingCapture(from, to, piece);
 		}
 	}
 
-	private boolean isNoRookOrMoved(int field) {
-		return !isWhiteRook(field) || isMoved(field);
-	}
-	
 	private final boolean isFree(int field) {
 		return pieces[field] == null;
 	}

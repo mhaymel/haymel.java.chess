@@ -9,7 +9,11 @@ package com.haymel.chess.engine.moves;
 
 import static com.haymel.chess.engine.board.Field.fieldAsString;
 import static com.haymel.chess.engine.board.Field.rank;
+import static com.haymel.chess.engine.moves.MoveType.capture;
+import static com.haymel.chess.engine.moves.MoveType.captureKingMove;
 import static com.haymel.chess.engine.moves.MoveType.capturePromotion;
+import static com.haymel.chess.engine.moves.MoveType.captureRookMove;
+import static com.haymel.chess.engine.moves.MoveType.enpassant;
 import static com.haymel.chess.engine.moves.MoveType.normal;
 import static com.haymel.chess.engine.moves.MoveType.promotion;
 import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
@@ -48,12 +52,10 @@ public class Move {
 	
 	public Move(int from, int to, MoveType type) {
 		this(from, to, type, null, Free);
-		assert type != capturePromotion;
 	}	
 
 	public Move(int from, int to, MoveType type, Piece capturedPiece) {
 		this(from, to, type, capturedPiece, Free);
-		assert capturedPiece != null;
 	}
 	
 	public Move(int from, int to, int pieceType) {
@@ -78,8 +80,11 @@ public class Move {
 			promotion != Border;
 		
 		assert capturedPiece == null || 
-			type == capturePromotion ||
-			type == normal;
+			type == enpassant ||
+			type == capture ||
+			type == captureKingMove ||
+			type == captureRookMove ||
+			type == capturePromotion;
 
 		assert 
 			promotion == Free || 
@@ -112,7 +117,12 @@ public class Move {
 	@Override
 	public String toString() {
 		switch(type) {
-		case normal: 			return normalMoveAsString();
+		case normal: 
+		case pawn:
+		case pawnDoubleStep:	return format("%s-%s", fieldAsString(from), fieldAsString(to));
+		
+		case capture: 			return format("%sx%s", fieldAsString(from), fieldAsString(to));
+		case enpassant:			return format("%sx%se.p.", fieldAsString(from), fieldAsString(to));
 		case capturePromotion:	return format("%sx%s%s", fieldAsString(from), fieldAsString(to), letterForPieceType(pieceType));
 		case kingsideCastling:	return "O-O";
 		case queensideCastling:	return "O-O-O";
@@ -121,13 +131,6 @@ public class Move {
 			assert false;
 			throw new IllegalStateException(type.toString());
 		}
-	}
-	
-	private String normalMoveAsString() {
-		if (capture())
-			return format("%sx%s", fieldAsString(from), fieldAsString(to));
-	
-		return format("%s-%s", fieldAsString(from), fieldAsString(to));
 	}
 	
 	@Override
@@ -184,7 +187,7 @@ public class Move {
 	}
 	
 	public boolean capture() {
-		return capturedPiece != null;
+		return MoveType.capture(type);
 	}
 	
 }

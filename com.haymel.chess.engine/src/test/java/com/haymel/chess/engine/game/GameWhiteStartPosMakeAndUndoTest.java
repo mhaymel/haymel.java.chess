@@ -33,7 +33,8 @@ import static com.haymel.chess.engine.board.Field.g4;
 import static com.haymel.chess.engine.board.Field.h2;
 import static com.haymel.chess.engine.board.Field.h3;
 import static com.haymel.chess.engine.board.Field.h4;
-import static com.haymel.chess.engine.moves.MoveType.normal;
+import static com.haymel.chess.engine.moves.MoveType.pawn;
+import static com.haymel.chess.engine.moves.MoveType.pawnDoubleStep;
 import static java.lang.String.format;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -44,6 +45,7 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.haymel.chess.engine.fen.GameFromFEN;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.Moves;
 
@@ -55,7 +57,7 @@ public class GameWhiteStartPosMakeAndUndoTest {
 	
 	@Before
 	public void setup() {
-		game = new GameStartPos().startPos();
+		game = GameFromFEN.gameFromInitialFen();
 		count = 0;
 	}
 	
@@ -69,22 +71,22 @@ public class GameWhiteStartPosMakeAndUndoTest {
 		
 		assertThat(moves.size(), is(20));
 		Set<Move> result = movesAsSet(moves);
-		assertThat(result.contains(new Move(a2, a4, normal)), is(true));
-		assertThat(result.contains(new Move(b2, b4, normal)), is(true));
-		assertThat(result.contains(new Move(c2, c4, normal)), is(true));
-		assertThat(result.contains(new Move(d2, d4, normal)), is(true));
-		assertThat(result.contains(new Move(e2, e4, normal)), is(true));
-		assertThat(result.contains(new Move(f2, f4, normal)), is(true));
-		assertThat(result.contains(new Move(g2, g4, normal)), is(true));
-		assertThat(result.contains(new Move(h2, h4, normal)), is(true));
-		assertThat(result.contains(new Move(a2, a3, normal)), is(true));
-		assertThat(result.contains(new Move(b2, b3, normal)), is(true));
-		assertThat(result.contains(new Move(c2, c3, normal)), is(true));
-		assertThat(result.contains(new Move(d2, d3, normal)), is(true));
-		assertThat(result.contains(new Move(e2, e3, normal)), is(true));
-		assertThat(result.contains(new Move(f2, f3, normal)), is(true));
-		assertThat(result.contains(new Move(g2, g3, normal)), is(true));
-		assertThat(result.contains(new Move(h2, h3, normal)), is(true));
+		assertThat(result.contains(new Move(a2, a4, pawnDoubleStep)), is(true));
+		assertThat(result.contains(new Move(b2, b4, pawnDoubleStep)), is(true));
+		assertThat(result.contains(new Move(c2, c4, pawnDoubleStep)), is(true));
+		assertThat(result.contains(new Move(d2, d4, pawnDoubleStep)), is(true));
+		assertThat(result.contains(new Move(e2, e4, pawnDoubleStep)), is(true));
+		assertThat(result.contains(new Move(f2, f4, pawnDoubleStep)), is(true));
+		assertThat(result.contains(new Move(g2, g4, pawnDoubleStep)), is(true));
+		assertThat(result.contains(new Move(h2, h4, pawnDoubleStep)), is(true));
+		assertThat(result.contains(new Move(a2, a3, pawn)), is(true));
+		assertThat(result.contains(new Move(b2, b3, pawn)), is(true));
+		assertThat(result.contains(new Move(c2, c3, pawn)), is(true));
+		assertThat(result.contains(new Move(d2, d3, pawn)), is(true));
+		assertThat(result.contains(new Move(e2, e3, pawn)), is(true));
+		assertThat(result.contains(new Move(f2, f3, pawn)), is(true));
+		assertThat(result.contains(new Move(g2, g3, pawn)), is(true));
+		assertThat(result.contains(new Move(h2, h3, pawn)), is(true));
 		assertThat(result.contains(new Move(b1, a3)), is(true));
 		assertThat(result.contains(new Move(b1, c3)), is(true));
 		assertThat(result.contains(new Move(g1, f3)), is(true));

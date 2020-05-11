@@ -17,6 +17,7 @@ import static com.haymel.chess.engine.piece.PieceType.WhiteQueen;
 import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
 
 import com.haymel.chess.engine.board.PieceList;
+import com.haymel.chess.engine.castling.CastlingRight;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.piece.Piece;
 
@@ -40,17 +41,17 @@ public final class WhiteMoves {		//TODO unit test
 		this.pawnMoves = new WhitePawnMoves(pieces);
 	}
 	
-	public void generate(PieceList pieces, int epField, Moves moves) {
+	public void generate(PieceList pieces, CastlingRight castling, int epField, Moves moves) {
 		assert pieces != null;
 		assert pieces.size() > 0;
 		assert epField == removed || rank(epField) == 5;
 		
 		int size = pieces.size();
 		for(int i = 0; i < size && !moves.kingCaptured(); i++)
-			generate(pieces.piece(i), epField, moves);
+			generate(pieces.piece(i), castling, epField, moves);
 	}
 
-	private void generate(Piece piece, int epField, Moves moves) {
+	private void generate(Piece piece, CastlingRight castling, int epField, Moves moves) {
 		assert piece != null;
 		assert piece.white();
 		
@@ -71,7 +72,7 @@ public final class WhiteMoves {		//TODO unit test
 			queenMoves.generate(piece, moves);
 			break;
 		case WhiteKing:
-			kingMoves.generate(piece, moves);
+			kingMoves.generate(piece, castling, moves);
 			break;
 		default:
 			assert false;

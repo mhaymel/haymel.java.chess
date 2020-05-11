@@ -7,13 +7,7 @@
  */
 package com.haymel.chess.engine.piece;
 
-import static com.haymel.chess.engine.board.Field.a1;
-import static com.haymel.chess.engine.board.Field.a8;
-import static com.haymel.chess.engine.board.Field.e1;
-import static com.haymel.chess.engine.board.Field.e8;
 import static com.haymel.chess.engine.board.Field.fieldAsString;
-import static com.haymel.chess.engine.board.Field.h1;
-import static com.haymel.chess.engine.board.Field.h8;
 import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
 import static com.haymel.chess.engine.piece.PieceType.BlackKing;
@@ -37,7 +31,6 @@ public final class Piece {
 
 	private int type;
 	private int field; 
-	private boolean moved;
 
 	public static final Piece border = new Piece(Border, removed);
 	
@@ -47,7 +40,6 @@ public final class Piece {
 		
 		this.type = type;
 		this.field = field;
-		moved = true;
 	}
 	
 	public boolean white() {
@@ -84,20 +76,6 @@ public final class Piece {
 		assert !border() || field == removed;
 				
 		this.field = field;
-	}
-
-	public boolean moved() {
-		return moved;
-	}
-
-	public void setMoved(boolean value) {
-		assert value || type != WhiteKing || field() == e1 : format("a white king which was not moved must be on field e1. The current value of field is %s", fieldAsString(field())); 
-		assert value || type != WhiteRook || field() == a1 || field() == h1 : format("a white rook which was not moved must be on field a1 or h1. The current value of field is %s", fieldAsString(field())); 
-		
-		assert value || type != BlackKing || field() == e8 : format("a black king which was not moved must be on field e8. The current value of field is %s", fieldAsString(field())); 
-		assert value || type != BlackRook || field() == a8 || field() == h8 : format("a black rook which was not moved must be on field a8 or h8. The current value of field is %s", fieldAsString(field())); 
-		
-		moved = value;
 	}
 
 	public boolean blackKing() {

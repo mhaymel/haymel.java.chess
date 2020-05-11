@@ -39,7 +39,6 @@ public class MakeWhiteMoveTest {
 	@Test
 	public void makeAndUndo() {
 		Piece king = new Piece(WhiteKing, e1);
-		king.setMoved(false);
 		game.addWhite(king);
 		game.place(king);
 		
@@ -47,7 +46,6 @@ public class MakeWhiteMoveTest {
 		
 		moveMaker.makeMove(e1e2);
 		assertThat(king.field(), is(e2));
-		assertThat(king.moved(), is(true));
 		assertThat(game.piece(e1) == null, is(true));
 		assertThat(game.halfMoveClock(), is(1));
 		assertThat(game.fullMoveNumber(), is(1));
@@ -55,7 +53,6 @@ public class MakeWhiteMoveTest {
 		
 		moveMaker.undoMove();
 		assertThat(king.field(), is(e1));
-		assertThat(king.moved(), is(false));
 		assertThat(game.piece(e2) == null, is(true));
 		assertThat(game.halfMoveClock(), is(0));
 		assertThat(game.fullMoveNumber(), is(1));
@@ -72,7 +69,6 @@ public class MakeWhiteMoveTest {
 		game.enPassant(a6);
 		
 		Piece king = new Piece(WhiteKing, e1);
-		king.setMoved(false);
 		game.addWhite(king);
 		game.place(king);
 		
@@ -85,22 +81,6 @@ public class MakeWhiteMoveTest {
 		
 		moveMaker.undoMove();
 		assertThat(game.enPassant(), is(a6));
-	}
-	
-	@Test
-	public void movedIsSetCorrectly() {
-		Piece king = new Piece(WhiteKing, e1);
-		king.setMoved(true);
-		game.addWhite(king);
-		game.place(king);
-		
-		Move e1e2 = new Move(e1, e2);
-		
-		moveMaker.makeMove(e1e2);
-		assertThat(king.moved(), is(true));
-		
-		moveMaker.undoMove();
-		assertThat(king.moved(), is(true));
 	}
 	
 }

@@ -12,7 +12,7 @@ import static com.haymel.chess.engine.board.Field.c2;
 import static com.haymel.chess.engine.board.Field.h3;
 import static com.haymel.chess.engine.board.Field.h4;
 import static com.haymel.chess.engine.board.Field.removed;
-import static com.haymel.chess.engine.moves.MoveType.normal;
+import static com.haymel.chess.engine.moves.MoveType.capture;
 import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
 import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
 import static org.hamcrest.CoreMatchers.is;
@@ -39,7 +39,6 @@ public class MakeBlackCaptureMoveTest1 {
 		moveMaker = new MakeMove(game);
 		
 		blackKnight = new Piece(BlackKnight, a1);
-		blackKnight.setMoved(false);
 		game.addBlack(blackKnight);
 		game.place(blackKnight);
 
@@ -57,13 +56,12 @@ public class MakeBlackCaptureMoveTest1 {
 		game.halfMoveClock(13);
 		game.fullMoveNumber(5);
 
-		Move a1c2 = new Move(a1, c2, normal, whitePawn);
+		Move a1c2 = new Move(a1, c2, capture, whitePawn);
 		
 		moveMaker.makeMove(a1c2);
 		game.assertVerify();
 		assertThat(blackKnight.field(), is(c2));
 		assertThat(game.piece(c2), is(blackKnight));
-		assertThat(blackKnight.moved(), is(true));
 		assertThat(game.piece(a1) == null, is(true));
 		assertThat(game.halfMoveClock(), is(0));
 		assertThat(game.fullMoveNumber(), is(6));
@@ -73,7 +71,6 @@ public class MakeBlackCaptureMoveTest1 {
 		game.assertVerify();
 		assertThat(blackKnight.field(), is(a1));
 		assertThat(game.piece(c2), is(whitePawn));
-		assertThat(blackKnight.moved(), is(false));
 		assertThat(game.piece(a1), is(blackKnight));
 		assertThat(game.halfMoveClock(), is(13));
 		assertThat(game.fullMoveNumber(), is(5));
@@ -92,7 +89,7 @@ public class MakeBlackCaptureMoveTest1 {
 		game.halfMoveClock(13);
 		game.activeColorBlack();
 
-		Move a1c2 = new Move(a1, c2, normal, whitePawn);
+		Move a1c2 = new Move(a1, c2, capture, whitePawn);
 		
 		moveMaker.makeMove(a1c2);
 

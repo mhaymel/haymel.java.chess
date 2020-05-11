@@ -56,7 +56,6 @@ public class PieceTest {
 		assertThat(piece.blackKnight(), is(false));
 		assertThat(piece.blackBishop(), is(false));
 		assertThat(piece.blackPawn(), is(false));
-		assertThat(piece.moved(),is(true));
 	}
 
 	@Test
@@ -74,17 +73,12 @@ public class PieceTest {
 		assertThat(piece.blackKnight(), is(false));
 		assertThat(piece.blackBishop(), is(false));
 		assertThat(piece.blackPawn(), is(false));
-		assertThat(piece.moved(),is(true));
 
 		piece.field(a1);
-		piece.setMoved(false);
 		assertThat(piece.field(), is(a1));
-		assertThat(piece.moved(),is(false));
 		
 		piece.field(h1);
-		piece.setMoved(false);
 		assertThat(piece.field(), is(h1));
-		assertThat(piece.moved(),is(false));
 	}
 	
 	@Test
@@ -102,7 +96,6 @@ public class PieceTest {
 		assertThat(piece.blackKnight(), is(false));
 		assertThat(piece.blackBishop(), is(false));
 		assertThat(piece.blackPawn(), is(false));
-		assertThat(piece.moved(),is(true));
 	}
 
 	@Test
@@ -120,7 +113,6 @@ public class PieceTest {
 		assertThat(piece.blackKnight(), is(false));
 		assertThat(piece.blackBishop(), is(false));
 		assertThat(piece.blackPawn(), is(false));
-		assertThat(piece.moved(),is(true));
 	}
 
 	@Test
@@ -138,7 +130,6 @@ public class PieceTest {
 		assertThat(piece.blackKnight(), is(false));
 		assertThat(piece.blackBishop(), is(false));
 		assertThat(piece.blackPawn(), is(false));
-		assertThat(piece.moved(),is(true));
 	}
 
 	@Test
@@ -156,12 +147,9 @@ public class PieceTest {
 		assertThat(piece.blackKnight(), is(false));
 		assertThat(piece.blackBishop(), is(false));
 		assertThat(piece.blackPawn(), is(false));
-		assertThat(piece.moved(),is(true));
 		
 		piece.field(e1);
-		piece.setMoved(false);
 		assertThat(piece.field(), is(e1));
-		assertThat(piece.moved(),is(false));
 	}
 	
 	@Test
@@ -179,7 +167,6 @@ public class PieceTest {
 		assertThat(piece.blackKnight(), is(false));
 		assertThat(piece.blackBishop(), is(false));
 		assertThat(piece.blackPawn(), is(true));
-		assertThat(piece.moved(),is(true));
 	}
 	
 	@Test
@@ -197,17 +184,12 @@ public class PieceTest {
 		assertThat(piece.blackKnight(), is(false));
 		assertThat(piece.blackBishop(), is(false));
 		assertThat(piece.blackPawn(), is(false));
-		assertThat(piece.moved(),is(true));
 
 		piece.field(a8);
-		piece.setMoved(false);
 		assertThat(piece.field(), is(a8));
-		assertThat(piece.moved(),is(false));
 		
 		piece.field(h8);
-		piece.setMoved(false);
 		assertThat(piece.field(), is(h8));
-		assertThat(piece.moved(),is(false));
 	}
 	
 	@Test
@@ -225,7 +207,6 @@ public class PieceTest {
 		assertThat(piece.blackKnight(), is(true));
 		assertThat(piece.blackBishop(), is(false));
 		assertThat(piece.blackPawn(), is(false));
-		assertThat(piece.moved(),is(true));
 	}
 
 	@Test
@@ -243,7 +224,6 @@ public class PieceTest {
 		assertThat(piece.blackKnight(), is(false));
 		assertThat(piece.blackBishop(), is(true));
 		assertThat(piece.blackPawn(), is(false));
-		assertThat(piece.moved(),is(true));
 	}
 
 	@Test
@@ -261,7 +241,6 @@ public class PieceTest {
 		assertThat(piece.blackKnight(), is(false));
 		assertThat(piece.blackBishop(), is(false));
 		assertThat(piece.blackPawn(), is(false));
-		assertThat(piece.moved(),is(true));
 	}
 
 	@Test
@@ -279,12 +258,9 @@ public class PieceTest {
 		assertThat(piece.blackKnight(), is(false));
 		assertThat(piece.blackBishop(), is(false));
 		assertThat(piece.blackPawn(), is(false));
-		assertThat(piece.moved(),is(true));
 		
 		piece.field(e8);
-		piece.setMoved(false);
 		assertThat(piece.field(), is(e8));
-		assertThat(piece.moved(),is(false));
 	}
 
 }
