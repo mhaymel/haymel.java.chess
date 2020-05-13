@@ -24,9 +24,21 @@ public class CastlingRightHistory {
 	
 	public void pop() {
 		assert index > 1;
+		assert verifiy();
+		
 		index--;
 	}
 	
+	private boolean verifiy() {
+		PositionCastlingRight r1 = stack[index-2];
+		PositionCastlingRight r2 = stack[index-1];
+		return 
+			(r1.white().kingside() || !r2.white().kingside()) &&
+			(r1.white().queenside() || !r2.white().queenside()) &&
+			(r1.black().kingside() || !r2.black().kingside()) &&
+			(r1.black().queenside() || !r2.black().queenside());
+	}
+
 	public void push() {
 		PositionCastlingRight last = stack[index-1];
 		PositionCastlingRight current = stack[index];
