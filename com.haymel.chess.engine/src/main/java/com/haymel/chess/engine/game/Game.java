@@ -28,6 +28,7 @@ import static com.haymel.chess.engine.moves.MoveType.promotion;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
 import static com.haymel.util.Require.nonNull;
+import static com.haymel.util.exception.HaymelException.throwHE;
 import static java.lang.String.format;
 
 import java.util.ArrayList;
@@ -219,6 +220,14 @@ public final class Game {	//TODO unit test and refactor
 		return whitePieces.contains(piece);
 	}
 	
+	public Moves moves() {
+		switch(activeColor()) {
+		case white: return whiteMoves();
+		case black: return blackMoves();
+		default: return throwHE("unknown color %s", activeColor());
+		}
+	}
+
 	public Moves whiteMoves() {
 		Moves moves = new Moves();
 		whiteMoves.generate(whitePieces, castlingRightHistory.castlingRight().white(), enPassant, moves);

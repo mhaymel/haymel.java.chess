@@ -5,7 +5,7 @@
  * @author: Markus.Heumel
  *
  */
-package com.haymel.chess.uciengine;
+package com.haymel.chess.engine.game;
 
 import static com.haymel.chess.engine.board.Field.d1;
 import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
@@ -21,27 +21,27 @@ import org.junit.Test;
 import com.haymel.chess.engine.fen.GameFromFEN;
 import com.haymel.chess.engine.game.Game;
 
-public class UciMoveMakerTest {
+public class MakeMoveFromStringTest {
 
-	private UciMoveMaker uciMoveMaker;
+	private MakeMoveFromString make;
 	private Game game;
 	
 	@Before
 	public void setup() {
 		game = GameFromFEN.gameFromInitialFen();
-		uciMoveMaker = new UciMoveMaker(game);
+		make = new MakeMoveFromString(game);
 	}
 	
 	@Test
 	public void e2e4_d7d5() {
-		uciMoveMaker.move("e2e4");
-		uciMoveMaker.move("d7d5");
+		make.move("e2e4");
+		make.move("d7d5");
 	}
 
 	@Test
 	public void e2e3_e7e5() {
-		uciMoveMaker.move("e2e3");
-		uciMoveMaker.move("e7e5");
+		make.move("e2e3");
+		make.move("e7e5");
 	}
 	
 	@Test
@@ -57,7 +57,7 @@ public class UciMoveMakerTest {
 		).split(" ");
 	
 		for (String move : moves) 
-			uciMoveMaker.move(move);
+			make.move(move);
 		
 		assertThat(game.pieces()[d1].type(), is(BlackQueen));
 	}
@@ -75,7 +75,7 @@ public class UciMoveMakerTest {
 		).split(" ");
 	
 		for (String move : moves) 
-			uciMoveMaker.move(move);
+			make.move(move);
 
 		assertThat(game.pieces()[d1].type(), is(BlackRook));
 	}
@@ -93,7 +93,7 @@ public class UciMoveMakerTest {
 				).split(" ");
 		
 		for (String move : moves) 
-			uciMoveMaker.move(move);
+			make.move(move);
 
 		assertThat(game.pieces()[d1].type(), is(BlackBishop));
 	}
@@ -111,7 +111,7 @@ public class UciMoveMakerTest {
 				).split(" ");
 		
 		for (String move : moves) 
-			uciMoveMaker.move(move);
+			make.move(move);
 
 		assertThat(game.pieces()[d1].type(), is(BlackKnight));
 	}
