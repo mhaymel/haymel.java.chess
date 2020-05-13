@@ -29,6 +29,4 @@
 	
 - Move capture
 - MakeBlackQueenSideCastlingMoveTest.java   	public void enPassantIsSetCorrectly() 
-- MoveTypeTest
-
 - replace enum MoveType with int
