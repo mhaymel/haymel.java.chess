@@ -37,7 +37,7 @@ public class MakeMoveFromString {	//TODO unit test
 	}
 
 	private Move find(String moveAsString) {
-		Move move = new MoveFinder(game.moves()).move(moveAsString);
+		Move move = new MoveFinder(game.moves()).find(moveAsString);
 		if (move == null)
 			return throwIAE("cannot find move %s", moveAsString);
 		return move;

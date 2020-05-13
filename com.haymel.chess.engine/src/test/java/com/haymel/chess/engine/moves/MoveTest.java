@@ -31,12 +31,16 @@ import static com.haymel.chess.engine.piece.PieceType.WhiteBishop;
 import static com.haymel.chess.engine.piece.PieceType.WhiteKnight;
 import static com.haymel.chess.engine.piece.PieceType.WhiteQueen;
 import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
+import static com.haymel.util.Require.nonNull;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import com.haymel.chess.engine.fen.GameFromFEN;
+import com.haymel.chess.engine.game.Game;
+import com.haymel.chess.engine.moves.algebraic.MoveFinder;
 import com.haymel.chess.engine.piece.Piece;
 
 public class MoveTest {
@@ -145,6 +149,63 @@ public class MoveTest {
 	public void testToStringPromotionKnight() {
 		assertThat(new Move(d7, d8, BlackKnight).toString(), is("d7-d8N"));
 		assertThat(new Move(d7, d8, WhiteKnight).toString(), is("d7-d8N"));
+	}
+
+	@Test
+	public void whiteKingNormalMoveAsString() {
+		Move move = find("e1e2", fromFen("4k3/8/8/8/8/8/8/3rK3 w - - 2 1"));
+		assertThat(move.toString(), is("e1-e2"));
+	}
+
+	@Test
+	public void whiteKingCaptureMoveAsString() {
+		Move move = find("e1d1", fromFen("4k3/8/8/8/8/8/8/3rK3 w - - 2 1"));
+		assertThat(move.toString(), is("e1xd1"));
+	}
+
+	@Test
+	public void whiteRookNormalMoveAsString() {
+		Move move = find("a1a2", fromFen("r6k/8/8/8/8/8/8/R6K w - - 0 1"));
+		assertThat(move.toString(), is("a1-a2"));
+	}
+	
+	@Test
+	public void whiteRookCaptureMoveAsString() {
+		Move move = find("a1a8", fromFen("r6k/8/8/8/8/8/8/R6K w - - 0 1"));
+		assertThat(move.toString(), is("a1xa8"));
+	}
+	
+	@Test
+	public void blackKingNormalMoveAsString() {
+		Move move = find("e8e7", fromFen("3Rk3/8/8/8/8/8/8/4K3 b - - 2 1"));
+		assertThat(move.toString(), is("e8-e7"));
+	}
+
+	@Test
+	public void blackKingCaptureMoveAsString() {
+		Move move = find("e8d8", fromFen("3Rk3/8/8/8/8/8/8/4K3 b - - 2 1"));
+		assertThat(move.toString(), is("e8xd8"));
+	}
+	
+	@Test
+	public void blackRookNormalMoveAsString() {
+		Move move = find("a8a7", fromFen("r6k/8/8/8/8/8/8/R6K b - - 0 1"));
+		assertThat(move.toString(), is("a8-a7"));
+	}
+	
+	@Test
+	public void blackRookCaptureMoveAsString() {
+		Move move = find("a8a1", fromFen("r6k/8/8/8/8/8/8/R6K b - - 0 1"));
+		assertThat(move.toString(), is("a8xa1"));
+	}
+	
+
+	private Game fromFen(String fen) {
+		return new GameFromFEN(fen).execute();		
+	}
+	
+	private Move find(String move, Game game) {
+		return nonNull(new MoveFinder(game.moves()).find(move), "move");
 	}
 	
 }

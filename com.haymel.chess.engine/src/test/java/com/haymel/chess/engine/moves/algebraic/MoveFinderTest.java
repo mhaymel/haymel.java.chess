@@ -43,70 +43,70 @@ public class MoveFinderTest {
 	public void findWhiteQueenPromotion() {
 		Moves moves = whiteMoves("6k1/4P3/8/8/8/8/8/4K3 w - - 2 1");
 		MoveFinder find = new MoveFinder(moves);
-		testPromotion(find.move("e7e8q"), e7, e8, WhiteQueen);
+		testPromotion(find.find("e7e8q"), e7, e8, WhiteQueen);
 	}
 
 	@Test
 	public void findWhiteRookPromotion() {
 		Moves moves = whiteMoves("6k1/4P3/8/8/8/8/8/4K3 w - - 2 1");
 		MoveFinder find = new MoveFinder(moves);
-		testPromotion(find.move("e7e8r"), e7, e8, WhiteRook);
+		testPromotion(find.find("e7e8r"), e7, e8, WhiteRook);
 	}
 
 	@Test
 	public void findWhiteBishopPromotion() {
 		Moves moves = whiteMoves("6k1/4P3/8/8/8/8/8/4K3 w - - 2 1");
 		MoveFinder find = new MoveFinder(moves);
-		testPromotion(find.move("e7e8b"), e7, e8, WhiteBishop);
+		testPromotion(find.find("e7e8b"), e7, e8, WhiteBishop);
 	}
 	
 	@Test
 	public void findWhiteKnightPromotion() {
 		Moves moves = whiteMoves("6k1/4P3/8/8/8/8/8/4K3 w - - 2 1");
 		MoveFinder find = new MoveFinder(moves);
-		testPromotion(find.move("e7e8n"), e7, e8, WhiteKnight);
+		testPromotion(find.find("e7e8n"), e7, e8, WhiteKnight);
 	}
 
 	@Test
 	public void findWhiteE2E4() {
 		Moves moves = whiteMoves(initalFen);
 		MoveFinder find = new MoveFinder(moves);
-		test(find.move("e2e4"), e2, e4, pawnDoubleStep);
+		test(find.find("e2e4"), e2, e4, pawnDoubleStep);
 	}
 	
 	@Test
 	public void findBlackQueenPromotion() {
 		Moves moves = blackMoves("6k1/8/8/8/8/8/4p3/6K1 b - - 2 1");
 		MoveFinder find = new MoveFinder(moves);
-		testPromotion(find.move("e2e1q"), e2, e1, BlackQueen);
+		testPromotion(find.find("e2e1q"), e2, e1, BlackQueen);
 	}
 
 	@Test
 	public void findBlackRookPromotion() {
 		Moves moves = blackMoves("6k1/8/8/8/8/8/4p3/6K1 b - - 2 1");
 		MoveFinder find = new MoveFinder(moves);
-		testPromotion(find.move("e2e1r"), e2, e1, BlackRook);
+		testPromotion(find.find("e2e1r"), e2, e1, BlackRook);
 	}
 	
 	@Test
 	public void findBlackBishopPromotion() {
 		Moves moves = blackMoves("6k1/8/8/8/8/8/4p3/6K1 b - - 2 1");
 		MoveFinder find = new MoveFinder(moves);
-		testPromotion(find.move("e2e1b"), e2, e1, BlackBishop);
+		testPromotion(find.find("e2e1b"), e2, e1, BlackBishop);
 	}
 
 	@Test
 	public void findBlackKnightPromotion() {
 		Moves moves = blackMoves("6k1/8/8/8/8/8/4p3/6K1 b - - 2 1");
 		MoveFinder find = new MoveFinder(moves);
-		testPromotion(find.move("e2e1n"), e2, e1, BlackKnight);
+		testPromotion(find.find("e2e1n"), e2, e1, BlackKnight);
 	}
 
 	@Test
 	public void findWhiteD7E5() {
 		Moves moves = blackMoves("rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1");
 		MoveFinder find = new MoveFinder(moves);
-		test(find.move("e7e5"), e7, e5, pawnDoubleStep);
+		test(find.find("e7e5"), e7, e5, pawnDoubleStep);
 	}
 	
 	private static void testPromotion(Move move, int from, int to, int promoted) {

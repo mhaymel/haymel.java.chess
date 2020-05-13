@@ -1,3 +1,4 @@
+- assert generating of capture moves with normal move generation and vice versa
 - improve time management
 - improve stopping of search
 - implement 3 malige stellungswiederholung
@@ -26,7 +27,6 @@
 		this(from, to, promotion, null, pieceType);
 	}
 	
-- Move toString
 - Move capture
 - MakeBlackQueenSideCastlingMoveTest.java   	public void enPassantIsSetCorrectly() 
 - MoveTypeTest

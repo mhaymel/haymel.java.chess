@@ -119,8 +119,14 @@ public class Move {
 		switch(type) {
 		case normal: 
 		case pawn:
-		case pawnDoubleStep:	return format("%s-%s", fieldAsString(from), fieldAsString(to));
+		case pawnDoubleStep:	
+		case normalRookMove:
+		case normalKingMove:	return format("%s-%s", fieldAsString(from), fieldAsString(to));
+		
+		case captureRookMove:
+		case captureKingMove:
 		case capture: 			return format("%sx%s", fieldAsString(from), fieldAsString(to));
+		
 		case enpassant:			return format("%sx%se.p.", fieldAsString(from), fieldAsString(to));
 		case capturePromotion:	return format("%sx%s%s", fieldAsString(from), fieldAsString(to), letterForPieceType(pieceType));
 		case kingsideCastling:	return "O-O";

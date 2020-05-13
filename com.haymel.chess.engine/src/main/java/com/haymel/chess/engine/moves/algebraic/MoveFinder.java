@@ -35,7 +35,7 @@ public class MoveFinder {
 		this.moves = moves;
 	}
 	
-	public Move move(String move) {
+	public Move find(String move) {
 		FieldsFromAlgebraicMove fields = new FieldsFromAlgebraicMove(move);
 		List<Move> m = moves.findMoves(fields.from(), fields.to());
 
