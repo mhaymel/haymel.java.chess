@@ -79,13 +79,10 @@ public class Move {
 			promotion != WhitePawn &&
 			promotion != Border;
 		
-		assert capturedPiece == null || 
-			type == enpassant ||
-			type == capture ||
-			type == captureKingMove ||
-			type == captureRookMove ||
-			type == capturePromotion;
-
+		assert 
+			(capturedPiece == null && !(type==capture||type==enpassant||type==capturePromotion||type==captureKingMove||type==captureRookMove)) ||
+			(capturedPiece != null && (type==capture||type==enpassant||type==capturePromotion||type==captureKingMove||type==captureRookMove));
+		
 		assert 
 			promotion == Free || 
 			rank(to) == 0 || 
@@ -192,7 +189,11 @@ public class Move {
 	}
 	
 	public boolean capture() {
-		return MoveType.capture(type);
+		assert 
+			(capturedPiece == null && !(type==capture||type==enpassant||type==capturePromotion||type==captureKingMove||type==captureRookMove)) ||
+			(capturedPiece != null && (type==capture||type==enpassant||type==capturePromotion||type==captureKingMove||type==captureRookMove));
+		
+		return capturedPiece != null;
 	}
 	
 }

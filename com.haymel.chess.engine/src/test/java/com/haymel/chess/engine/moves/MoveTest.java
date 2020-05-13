@@ -9,8 +9,6 @@ package com.haymel.chess.engine.moves;
 
 import static com.haymel.chess.engine.board.Field.a1;
 import static com.haymel.chess.engine.board.Field.b2;
-import static com.haymel.chess.engine.board.Field.c3;
-import static com.haymel.chess.engine.board.Field.d4;
 import static com.haymel.chess.engine.board.Field.d7;
 import static com.haymel.chess.engine.board.Field.d8;
 import static com.haymel.chess.engine.board.Field.e1;
@@ -19,8 +17,6 @@ import static com.haymel.chess.engine.board.Field.e4;
 import static com.haymel.chess.engine.board.Field.e8;
 import static com.haymel.chess.engine.board.Field.g1;
 import static com.haymel.chess.engine.board.Field.removed;
-import static com.haymel.chess.engine.moves.MoveType.capture;
-import static com.haymel.chess.engine.moves.MoveType.enpassant;
 import static com.haymel.chess.engine.moves.MoveType.kingsideCastling;
 import static com.haymel.chess.engine.moves.MoveType.queensideCastling;
 import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
@@ -68,23 +64,51 @@ public class MoveTest {
 	}
 	
 	@Test
-	public void testToStringOfCapture() {
-		assertThat(new Move(a1, b2, capture).toString(), is("a1xb2"));
+	public void testToStringOfWhiteCapture() {
+		Move move = find("a1a8", fromFen("q6k/8/8/8/8/8/8/Q6K w - - 0 1"));
+		assertThat(move.toString(), is("a1xa8"));
 	}
 	
 	@Test
-	public void captureReturnsTrueForCaptureMove() {
-		assertThat(new Move(a1, b2, capture).capture(), is(true));
+	public void testToStringOfBlackCapture() {
+		Move move = find("a8a1", fromFen("q6k/8/8/8/8/8/8/Q6K b - - 0 1"));
+		assertThat(move.toString(), is("a8xa1"));
 	}
 	
 	@Test
-	public void testToStringEnpassant() {
-		assertThat(new Move(d4, c3, enpassant).toString(), is("d4xc3e.p."));
+	public void captureReturnsTrueForWhiteCaptureMove() {
+		Move move = find("a1a8", fromFen("q6k/8/8/8/8/8/8/Q6K w - - 0 1"));
+		assertThat(move.capture(), is(true));
 	}
 
 	@Test
-	public void captureReturnsTrueForEnpassant() {
-		assertThat(new Move(d4, c3, enpassant).capture(), is(true));
+	public void captureReturnsTrueForBlackCaptureMove() {
+		Move move = find("a8a1", fromFen("q6k/8/8/8/8/8/8/Q6K b - - 0 1"));
+		assertThat(move.capture(), is(true));
+	}
+	
+	@Test
+	public void testToStringWhiteEnpassant() {
+		Move move = find("c5d6", fromFen("7k/8/8/2Pp4/8/8/8/7K w - d6 1 1"));
+		assertThat(move.toString(), is("c5xd6e.p."));
+	}
+
+	@Test
+	public void testToStringBlackEnpassant() {
+		Move move = find("d4c3", fromFen("7k/8/8/8/2Pp4/8/8/7K b - c3 1 1"));
+		assertThat(move.toString(), is("d4xc3e.p."));
+	}
+	
+	@Test
+	public void captureReturnsTrueForWhiteEnpassant() {
+		Move move = find("c5d6", fromFen("7k/8/8/2Pp4/8/8/8/7K w - d6 1 1"));
+		assertThat(move.capture(), is(true));
+	}
+
+	@Test
+	public void captureReturnsTrueForBlackEnpassant() {
+		Move move = find("d4c3", fromFen("7k/8/8/8/2Pp4/8/8/7K b - c3 1 1"));
+		assertThat(move.capture(), is(true));
 	}
 	
 	@Test

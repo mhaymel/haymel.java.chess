@@ -27,6 +27,5 @@
 		this(from, to, promotion, null, pieceType);
 	}
 	
-- Move capture
 - MakeBlackQueenSideCastlingMoveTest.java   	public void enPassantIsSetCorrectly() 
 - replace enum MoveType with int
