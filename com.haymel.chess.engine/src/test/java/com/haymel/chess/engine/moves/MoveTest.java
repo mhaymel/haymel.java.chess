@@ -223,12 +223,11 @@ public class MoveTest {
 		assertThat(move.toString(), is("a8xa1"));
 	}
 	
-
-	private Game fromFen(String fen) {
+	private static Game fromFen(String fen) {
 		return new GameFromFEN(fen).execute();		
 	}
 	
-	private Move find(String move, Game game) {
+	private static Move find(String move, Game game) {
 		return nonNull(new MoveFinder(game.moves()).find(move), "move");
 	}
 	
