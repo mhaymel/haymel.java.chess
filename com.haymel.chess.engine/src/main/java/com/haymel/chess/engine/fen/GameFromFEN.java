@@ -14,7 +14,6 @@ import static com.haymel.chess.engine.board.Field.e8;
 import static com.haymel.chess.engine.board.Field.h1;
 import static com.haymel.chess.engine.board.Field.h8;
 import static com.haymel.util.Require.nonEmpty;
-import static com.haymel.util.Require.nonNull;
 import static com.haymel.util.exception.HaymelIllegalArgumentException.throwIAE;
 import static java.lang.String.join;
 
@@ -43,17 +42,11 @@ public class GameFromFEN {
 	}
 	
 	public GameFromFEN(String fen) {
-		this(new Game(), fen);
-	}
-	
-	public GameFromFEN(Game game, String fen) {
-		this.game = nonNull(game, "game");
+		this.game = new Game();
 		this.fields = split(nonEmpty(fen, "fen"));
 	}
 
 	public Game execute() {
-		game.reset();
-		
 		handlePiecePlacement(fields[0]);
 		handleActiveColor(fields[1]);
 		handleCastling(fields[2]);

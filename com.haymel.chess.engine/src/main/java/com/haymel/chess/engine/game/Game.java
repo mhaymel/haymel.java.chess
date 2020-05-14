@@ -86,7 +86,7 @@ public final class Game {	//TODO unit test and refactor
 		assertVerify();
 	}
 
-	public void reset() {
+	private void reset() {
 		Board.reset(board);
 		activeColor = white;
 		enPassant = removed;
@@ -97,7 +97,6 @@ public final class Game {	//TODO unit test and refactor
 		blackPieces.clear();
 		pieceValue = 0;
 		castlingRightHistory.reset();
-		
 		assertVerify();
 	}
 

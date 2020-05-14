@@ -103,8 +103,7 @@ public class PerftTest {
 	}
 	
 	private void perft(String fen, int depth, long nodesExpected) {
-		Game game = new Game();
-		new GameFromFEN(game, fen).execute();
+		Game game = new GameFromFEN(fen).execute();
 		Perft perft = new Perft(game);
 		perft.execute(depth);
 		assertThat(perft.nodes(), is(nodesExpected));
