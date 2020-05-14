@@ -30,6 +30,7 @@ import static com.haymel.chess.engine.moves.MoveType.promotion;
 import static com.haymel.chess.engine.moves.MoveType.queensideCastling;
 import static com.haymel.chess.engine.moves.MoveType.validMoveType;
 import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
+import static com.haymel.chess.engine.piece.PieceType.BlackKing;
 import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
 import static com.haymel.chess.engine.piece.PieceType.BlackQueen;
 import static com.haymel.chess.engine.piece.PieceType.BlackRook;
@@ -49,6 +50,7 @@ import java.util.stream.Stream;
 
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.piece.Piece;
+import com.haymel.chess.engine.piece.PieceType;
 
 public class Moves {
 	
@@ -114,7 +116,7 @@ public class Moves {
 		
 		add(new Move(from, to, type, piece));
 		
-		if (piece.blackKing() || piece.whiteKing())
+		if (piece.type() == BlackKing || piece.whiteKing())
 			kingCaptureCount++;
 	}
 	
@@ -164,7 +166,7 @@ public class Moves {
 		add(new Move(from, to, piece, WhiteBishop));
 		add(new Move(from, to, piece, WhiteKnight));
 
-		if (piece.blackKing() || piece.whiteKing())
+		if (piece.type() == PieceType.BlackKing || piece.whiteKing())
 			kingCaptureCount++;
 	}
 
@@ -192,7 +194,7 @@ public class Moves {
 		add(new Move(from, to, piece, BlackBishop));
 		add(new Move(from, to, piece, BlackKnight));
 
-		if (piece.blackKing() || piece.whiteKing())
+		if (piece.type() == PieceType.BlackKing || piece.whiteKing())
 			kingCaptureCount++;
 	}
 

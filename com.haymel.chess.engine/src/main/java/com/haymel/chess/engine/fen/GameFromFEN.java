@@ -13,6 +13,7 @@ import static com.haymel.chess.engine.board.Field.e1;
 import static com.haymel.chess.engine.board.Field.e8;
 import static com.haymel.chess.engine.board.Field.h1;
 import static com.haymel.chess.engine.board.Field.h8;
+import static com.haymel.chess.engine.piece.PieceType.BlackKing;
 import static com.haymel.util.Require.nonEmpty;
 import static com.haymel.util.exception.HaymelIllegalArgumentException.throwIAE;
 import static java.lang.String.join;
@@ -56,6 +57,7 @@ public class GameFromFEN {
 		verifyCastling();
 		return game;
 	}
+	
 	private void verifyCastling() {
 		PositionCastlingRight castling = game.castlingRight();
 		if (castling.white().kingside() && (!whiteKing(e1)|| !whiteRook(h1)))
@@ -67,22 +69,27 @@ public class GameFromFEN {
 		if (castling.black().queenside() && (!blackKing(e8) || !blackRook(a8)))
 			throwIAE("Black queenside castling is not possible in FEN '%s'", join(" ", fields));
 	}
+	
 	private boolean whiteKing(int field) {
 		assert Field.valid(field);
 		return !free(field) && game.piece(field).whiteKing();
 	}
+	
 	private boolean whiteRook(int field) {
 		assert Field.valid(field);
 		return !free(field) && game.piece(field).whiteRook();
 	}
+	
 	private boolean blackKing(int field) {
 		assert Field.valid(field);
-		return !free(field) && game.piece(field).blackKing();
+		return !free(field) && game.piece(field).type() == BlackKing;
 	}
+	
 	private boolean blackRook(int field) {
 		assert Field.valid(field);
 		return !free(field) && game.piece(field).blackRook();
 	}
+	
 	private boolean free(int field) {
 		assert Field.valid(field);
 		return game.piece(field) == null;

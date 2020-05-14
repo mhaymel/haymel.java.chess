@@ -10,7 +10,6 @@ package com.haymel.chess.engine.piece;
 import static com.haymel.chess.engine.board.Field.fieldAsString;
 import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
-import static com.haymel.chess.engine.piece.PieceType.BlackKing;
 import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 import static com.haymel.chess.engine.piece.PieceType.BlackQueen;
@@ -76,10 +75,6 @@ public final class Piece {
 		assert !border() || field == removed;
 				
 		this.field = field;
-	}
-
-	public boolean blackKing() {
-		return type == BlackKing;
 	}
 
 	public boolean whiteKing() {

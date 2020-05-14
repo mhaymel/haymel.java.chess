@@ -16,6 +16,7 @@ import static com.haymel.chess.engine.board.Field.e3;
 import static com.haymel.chess.engine.board.Field.f2;
 import static com.haymel.chess.engine.board.Field.leftUp;
 import static com.haymel.chess.engine.board.Field.up;
+import static com.haymel.chess.engine.piece.PieceType.BlackKing;
 
 import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.board.Field;
@@ -99,7 +100,7 @@ public final class D1Attacked {
 	}
 
 	private static boolean king(int field, Piece[] pieces) {
-		return pieces[field] != null && pieces[field].blackKing();
+		return pieces[field] != null && pieces[field].type() == BlackKing;
 	}
 	
 }

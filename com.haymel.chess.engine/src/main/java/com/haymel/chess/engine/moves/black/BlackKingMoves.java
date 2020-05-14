@@ -19,6 +19,7 @@ import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.moves.black.castling.D8Attacked.d8Attacked;
 import static com.haymel.chess.engine.moves.black.castling.E8Attacked.e8Attacked;
 import static com.haymel.chess.engine.moves.black.castling.F8Attacked.f8Attacked;
+import static com.haymel.chess.engine.piece.PieceType.BlackKing;
 import static java.lang.String.format;
 
 import com.haymel.chess.engine.board.Field;
@@ -41,7 +42,7 @@ public final class BlackKingMoves {
 		assert moves != null;
 		assert king.field() != removed;
 		assert pieces[king.field()] == king;
-		assert king.blackKing() : format("piece must be black king but is %s", king);
+		assert king.type() == BlackKing : format("piece must be black king but is %s", king);
 
 		int from = king.field();
 		

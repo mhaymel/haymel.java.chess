@@ -14,6 +14,7 @@ import static com.haymel.chess.engine.board.Field.rank;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
 import static com.haymel.chess.engine.moves.MoveType.capturePromotion;
+import static com.haymel.chess.engine.piece.PieceType.BlackKing;
 import static com.haymel.chess.engine.piece.PieceType.WhiteBishop;
 import static com.haymel.chess.engine.piece.PieceType.WhiteKnight;
 import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
@@ -37,7 +38,7 @@ public final class MakeWhiteCapturePromotionMove {
 		assert game.piece(move.to()) == move.capturedPiece();
 		assert move.capturedPiece().black();
 		assert game.containsBlackPiece(move.capturedPiece());
-		assert !game.piece(move.to()).blackKing();
+		assert game.piece(move.to()).type() != BlackKing;
 		assert !game.piece(move.to()).blackPawn();
 		assert rank(move.from()) == 6;
 		assert rank(move.to()) == 7;
@@ -111,7 +112,7 @@ public final class MakeWhiteCapturePromotionMove {
 		assert game.piece(move.to()) == move.capturedPiece();
 		assert move.capturedPiece().black();
 		assert game.containsBlackPiece(move.capturedPiece());
-		assert !game.piece(move.to()).blackKing();
+		assert game.piece(move.to()).type() != BlackKing;
 		assert game.containsWhitePiece(piece);
 		assert game.assertVerify();
 	}

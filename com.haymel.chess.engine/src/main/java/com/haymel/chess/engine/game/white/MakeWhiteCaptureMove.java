@@ -14,6 +14,7 @@ import static com.haymel.chess.engine.game.ActiveColor.white;
 import static com.haymel.chess.engine.moves.MoveType.capture;
 import static com.haymel.chess.engine.moves.MoveType.captureKingMove;
 import static com.haymel.chess.engine.moves.MoveType.captureRookMove;
+import static com.haymel.chess.engine.piece.PieceType.BlackKing;
 
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.moves.Move;
@@ -40,7 +41,7 @@ public final class MakeWhiteCaptureMove {
 		assert game.piece(move.to()) == move.capturedPiece();
 		assert move.capturedPiece().black();
 		assert game.containsBlackPiece(move.capturedPiece());
-		assert !game.piece(move.to()).blackKing();
+		assert game.piece(move.to()).type() != BlackKing;
 		assert game.containsWhitePiece(game.piece(move.from()));
 		
 		switch(move.to()) {
@@ -97,7 +98,7 @@ public final class MakeWhiteCaptureMove {
 		assert game.piece(move.to()) == move.capturedPiece();
 		assert move.capturedPiece().black();
 		assert game.containsBlackPiece(move.capturedPiece());
-		assert !game.piece(move.to()).blackKing();
+		assert game.piece(move.to()).type() != BlackKing;
 		assert game.containsWhitePiece(piece);
 	}
 

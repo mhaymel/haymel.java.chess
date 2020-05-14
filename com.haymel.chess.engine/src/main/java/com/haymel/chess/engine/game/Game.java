@@ -25,6 +25,7 @@ import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
 import static com.haymel.chess.engine.moves.MoveType.capturePromotion;
 import static com.haymel.chess.engine.moves.MoveType.promotion;
+import static com.haymel.chess.engine.piece.PieceType.BlackKing;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
 import static com.haymel.util.Require.nonNull;
@@ -318,7 +319,7 @@ public final class Game {	//TODO unit test and refactor
 		queenside = castlingRight().black().queenside();
 		kingside = castlingRight().black().kingside();
 		
-		if (king == null || !king.blackKing()) {
+		if (king == null || king.type() != BlackKing) {
 			assert !queenside;
 			assert !kingside;
 		}
@@ -381,7 +382,7 @@ public final class Game {	//TODO unit test and refactor
 	public void removeBlack(Piece piece) {
 		assert piece != null;
 		assert piece.black();
-		assert !piece.blackKing();
+		assert piece.type() != BlackKing;
 		assert blackPieces.contains(piece);
 		assert pieceValue == calculatePieceValue();
 		
