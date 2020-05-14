@@ -61,6 +61,7 @@ public class PieceType {
 		assert pieceTypeValid(type);
 		return (type & black) != 0; 
 	}
+	
 }
         	
         	

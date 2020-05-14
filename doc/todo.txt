@@ -28,4 +28,4 @@
 	}
 	
 - MakeBlackQueenSideCastlingMoveTest.java   	public void enPassantIsSetCorrectly() 
-- replace enum MoveType with int
+

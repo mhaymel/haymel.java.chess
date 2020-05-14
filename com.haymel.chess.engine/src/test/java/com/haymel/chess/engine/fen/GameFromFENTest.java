@@ -71,6 +71,14 @@ import com.haymel.util.exception.HaymelIllegalArgumentException;
 
 public class GameFromFENTest {
 
+
+	@Test
+	public void enpassant() {
+		Game game = from("7k/8/7K/8/4P3/8/pppppppp/8 b - e3 30 10");
+		assertThat(game.activeColor(), is(black));
+		assertThat(game.enPassant(), is(e3));
+	}
+	
 	@Test
 	public void activeColorWhite() {
 		Game game = from("r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 10");

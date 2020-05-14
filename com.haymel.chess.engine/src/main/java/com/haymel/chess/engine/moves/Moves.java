@@ -26,7 +26,9 @@ import static com.haymel.chess.engine.moves.MoveType.normalKingMove;
 import static com.haymel.chess.engine.moves.MoveType.normalRookMove;
 import static com.haymel.chess.engine.moves.MoveType.pawn;
 import static com.haymel.chess.engine.moves.MoveType.pawnDoubleStep;
+import static com.haymel.chess.engine.moves.MoveType.promotion;
 import static com.haymel.chess.engine.moves.MoveType.queensideCastling;
+import static com.haymel.chess.engine.moves.MoveType.validMoveType;
 import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
 import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
 import static com.haymel.chess.engine.piece.PieceType.BlackQueen;
@@ -101,12 +103,13 @@ public class Moves {
 		addCapture(from, to, piece, captureRookMove);
 	}
 
-	private void addCapture(int from, int to, Piece piece, MoveType type) {
+	private void addCapture(int from, int to, Piece piece, int type) {
 		assert valid(from);
 		assert valid(to);
 		assert from != to;
 		assert piece != null;
 		assert piece.black() || piece.white();
+		assert validMoveType(type);
 		assert type == capture || type == captureKingMove || type == captureRookMove;
 		
 		add(new Move(from, to, type, piece));
@@ -141,10 +144,10 @@ public class Moves {
 		assert rank(from) == 6;
 		
 		int to = up(from);
-		add(new Move(from, to, WhiteQueen));
-		add(new Move(from, to, WhiteRook));
-		add(new Move(from, to, WhiteBishop));
-		add(new Move(from, to, WhiteKnight));
+		add(new Move(from, to, promotion, null, WhiteQueen));
+		add(new Move(from, to, promotion, null, WhiteRook));
+		add(new Move(from, to, promotion, null, WhiteBishop));
+		add(new Move(from, to, promotion, null, WhiteKnight));
 	}
 
 	public void addWhiteCapturePromotion(int from, int to, Piece piece) {		//TODO unit test
@@ -170,10 +173,10 @@ public class Moves {
 		assert rank(from) == 1;
 		
 		int to = Field.down(from);
-		add(new Move(from, to, BlackQueen));
-		add(new Move(from, to, BlackRook));
-		add(new Move(from, to, BlackBishop));
-		add(new Move(from, to, BlackKnight));
+		add(new Move(from, to, promotion, null, BlackQueen));
+		add(new Move(from, to, promotion, null, BlackRook));
+		add(new Move(from, to, promotion, null, BlackBishop));
+		add(new Move(from, to, promotion, null, BlackKnight));
 	}
 
 	public void addBlackCapturePromotion(int from, int to, Piece piece) {

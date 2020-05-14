@@ -17,6 +17,7 @@ import static com.haymel.chess.engine.board.Field.valid;
 import static com.haymel.chess.engine.fen.GameFromFEN.initalFen;
 import static com.haymel.chess.engine.moves.MoveType.pawnDoubleStep;
 import static com.haymel.chess.engine.moves.MoveType.promotion;
+import static com.haymel.chess.engine.moves.MoveType.validMoveType;
 import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
 import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
 import static com.haymel.chess.engine.piece.PieceType.BlackQueen;
@@ -33,7 +34,6 @@ import org.junit.Test;
 
 import com.haymel.chess.engine.fen.GameFromFEN;
 import com.haymel.chess.engine.moves.Move;
-import com.haymel.chess.engine.moves.MoveType;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.piece.PieceType;
 
@@ -121,9 +121,10 @@ public class MoveFinderTest {
 		assertThat(move.to(), is(to));
 	}
 
-	private static void test(Move move, int from, int to, MoveType type) {
+	private static void test(Move move, int from, int to, int type) {
 		assert valid(from);
 		assert valid(to);
+		assert validMoveType(type);
 		
 		assertThat(move, notNullValue());
 		assertThat(move.type(), is(type));

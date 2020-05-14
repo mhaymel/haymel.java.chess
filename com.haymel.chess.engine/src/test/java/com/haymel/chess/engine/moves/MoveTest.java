@@ -18,6 +18,7 @@ import static com.haymel.chess.engine.board.Field.e8;
 import static com.haymel.chess.engine.board.Field.g1;
 import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.moves.MoveType.kingsideCastling;
+import static com.haymel.chess.engine.moves.MoveType.promotion;
 import static com.haymel.chess.engine.moves.MoveType.queensideCastling;
 import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
 import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
@@ -153,26 +154,26 @@ public class MoveTest {
 	
 	@Test
 	public void testToStringPromotionQueen() {
-		assertThat(new Move(d7, d8, BlackQueen).toString(), is("d7-d8Q"));
-		assertThat(new Move(d7, d8, WhiteQueen).toString(), is("d7-d8Q"));
+		assertThat(new Move(d7, d8, promotion, null, BlackQueen).toString(), is("d7-d8Q"));
+		assertThat(new Move(d7, d8, promotion, null, WhiteQueen).toString(), is("d7-d8Q"));
 	}
 	
 	@Test
 	public void testToStringPromotionRook() {
-		assertThat(new Move(d7, d8, BlackRook).toString(), is("d7-d8R"));
-		assertThat(new Move(d7, d8, WhiteRook).toString(), is("d7-d8R"));
+		assertThat(new Move(d7, d8, promotion, null, BlackRook).toString(), is("d7-d8R"));
+		assertThat(new Move(d7, d8, promotion, null, WhiteRook).toString(), is("d7-d8R"));
 	}
 
 	@Test
 	public void testToStringPromotionBishop() {
-		assertThat(new Move(d7, d8, BlackBishop).toString(), is("d7-d8B"));
-		assertThat(new Move(d7, d8, WhiteBishop).toString(), is("d7-d8B"));
+		assertThat(new Move(d7, d8, promotion, null, BlackBishop).toString(), is("d7-d8B"));
+		assertThat(new Move(d7, d8, promotion, null, WhiteBishop).toString(), is("d7-d8B"));
 	}
 	
 	@Test
 	public void testToStringPromotionKnight() {
-		assertThat(new Move(d7, d8, BlackKnight).toString(), is("d7-d8N"));
-		assertThat(new Move(d7, d8, WhiteKnight).toString(), is("d7-d8N"));
+		assertThat(new Move(d7, d8, promotion, null, BlackKnight).toString(), is("d7-d8N"));
+		assertThat(new Move(d7, d8, promotion, null, WhiteKnight).toString(), is("d7-d8N"));
 	}
 
 	@Test

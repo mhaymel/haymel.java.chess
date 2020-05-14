@@ -155,8 +155,8 @@ public final class Game {	//TODO unit test and refactor
 		assert field == removed || board[field] == null;
 		assert 
 			field == removed ||
-			activeColor == white && rank(field) == rank(a3) && board[Field.up(field)].whitePawn()||
-			activeColor == black && rank(field) == rank(a6) && board[Field.down(field)].blackPawn();
+			activeColor == white && rank(field) == rank(a3) && board[Field.up(field)] != null && board[Field.up(field)].whitePawn()||
+			activeColor == black && rank(field) == rank(a6) && board[Field.down(field)] != null && board[Field.down(field)].blackPawn();
 		
 		enPassant = field;
 	}

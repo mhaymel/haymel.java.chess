@@ -38,6 +38,7 @@ import com.haymel.chess.engine.game.white.MakeWhitePromotionMove;
 import com.haymel.chess.engine.game.white.MakeWhiteQueenSideCastlingMove;
 import com.haymel.chess.engine.game.white.MakeWhiteRookMove;
 import com.haymel.chess.engine.moves.Move;
+import com.haymel.chess.engine.moves.MoveType;
 
 public final class MakeMove {	//TODO unit test
 
@@ -100,43 +101,43 @@ public final class MakeMove {	//TODO unit test
 		assert game.piece(move.from()).white();
 		
 		switch(move.type()) {
-		case normal:
+		case MoveType.normal:
 			MakeWhiteMove.make(game, move);
 			break;
-		case normalRookMove:
+		case MoveType.normalRookMove:
 			MakeWhiteRookMove.make(game, move);
 			break;
-		case normalKingMove:
+		case MoveType.normalKingMove:
 			MakeWhiteKingMove.make(game, move);
 			break;
-		case pawn:
+		case MoveType.pawn:
 			MakeWhitePawnMove.make(game, move);
 			break;
-		case pawnDoubleStep:
+		case MoveType.pawnDoubleStep:
 			MakeWhitePawnDoubleStepMove.make(game, move);
 			break;
-		case capture:
+		case MoveType.capture:
 			MakeWhiteCaptureMove.make(game, move);		
 			break;
-		case captureRookMove:
+		case MoveType.captureRookMove:
 			MakeWhiteCaptureRookMove.make(game, move);		
 			break;
-		case captureKingMove:
+		case MoveType.captureKingMove:
 			MakeWhiteCaptureKingMove.make(game, move);		
 			break;
-		case capturePromotion:
+		case MoveType.capturePromotion:
 			MakeWhiteCapturePromotionMove.make(game, move);		
 			break;
-		case enpassant:
+		case MoveType.enpassant:
 			MakeWhiteEnpassantMove.make(game, move);
 			break;
-		case kingsideCastling:
+		case MoveType.kingsideCastling:
 			MakeWhiteKingSideCastlingMove.make(game, move);
 			break;
-		case queensideCastling:
+		case MoveType.queensideCastling:
 			MakeWhiteQueenSideCastlingMove.make(game, move);
 			break;
-		case promotion:
+		case MoveType.promotion:
 			MakeWhitePromotionMove.make(game, move);
 			break;
 		default:
@@ -153,43 +154,43 @@ public final class MakeMove {	//TODO unit test
 		Undo undo = game.pop();
 		
 		switch(undo.move().type()) {
-		case normal:
+		case MoveType.normal:
 			MakeWhiteMove.undo(game, undo.move());
 			break;
-		case normalRookMove:
+		case MoveType.normalRookMove:
 			MakeWhiteRookMove.undo(game, undo.move());
 			break;
-		case normalKingMove:
+		case MoveType.normalKingMove:
 			MakeWhiteKingMove.undo(game, undo.move());
 			break;
-		case pawn:
+		case MoveType.pawn:
 			MakeWhitePawnMove.undo(game, undo.move());
 			break;
-		case pawnDoubleStep:
+		case MoveType.pawnDoubleStep:
 			MakeWhitePawnDoubleStepMove.undo(game, undo.move());
 			break;
-		case capture:
+		case MoveType.capture:
 			MakeWhiteCaptureMove.undo(game, undo.move());		
 			break;
-		case captureRookMove:
+		case MoveType.captureRookMove:
 			MakeWhiteCaptureRookMove.undo(game, undo.move());		
 			break;
-		case captureKingMove:
+		case MoveType.captureKingMove:
 			MakeWhiteCaptureKingMove.undo(game, undo.move());		
 			break;
-		case capturePromotion:
+		case MoveType.capturePromotion:
 			MakeWhiteCapturePromotionMove.undo(game, undo.move());
 			break;
-		case enpassant:
+		case MoveType.enpassant:
 			MakeWhiteEnpassantMove.undo(game, undo.move());
 			break;
-		case kingsideCastling:
+		case MoveType.kingsideCastling:
 			MakeWhiteKingSideCastlingMove.undo(game, undo.move());
 			break;
-		case queensideCastling:
+		case MoveType.queensideCastling:
 			MakeWhiteQueenSideCastlingMove.undo(game, undo.move());
 			break;
-		case promotion:
+		case MoveType.promotion:
 			MakeWhitePromotionMove.undo(game, undo.move());
 			break;
 		default:
@@ -205,43 +206,43 @@ public final class MakeMove {	//TODO unit test
 		assert game.piece(move.from()).black();
 		
 		switch(move.type()) {
-		case normal:
+		case MoveType.normal:
 			MakeBlackMove.make(game, move);
 			break;
-		case normalRookMove:
+		case MoveType.normalRookMove:
 			MakeBlackRookMove.make(game, move);
 			break;
-		case normalKingMove:
+		case MoveType.normalKingMove:
 			MakeBlackKingMove.make(game, move);
 			break;
-		case pawn:
+		case MoveType.pawn:
 			MakeBlackPawnMove.make(game, move);
 			break;
-		case pawnDoubleStep:
+		case MoveType.pawnDoubleStep:
 			MakeBlackPawnDoubleStepMove.make(game, move);
 			break;
-		case capture:
+		case MoveType.capture:
 			MakeBlackCaptureMove.make(game, move);		
 			break;
-		case captureRookMove:
+		case MoveType.captureRookMove:
 			MakeBlackCaptureRookMove.make(game, move);		
 			break;
-		case captureKingMove:
+		case MoveType.captureKingMove:
 			MakeBlackCaptureKingMove.make(game, move);		
 			break;
-		case capturePromotion:
+		case MoveType.capturePromotion:
 			MakeBlackCapturePromotionMove.make(game, move);			
 			break;
-		case enpassant:
+		case MoveType.enpassant:
 			MakeBlackEnpassantMove.make(game, move);
 			break;
-		case promotion:
+		case MoveType.promotion:
 			MakeBlackPromotionMove.make(game, move);		
 			break;
-		case kingsideCastling:
+		case MoveType.kingsideCastling:
 			MakeBlackKingSideCastlingMove.make(game, move);
 			break;
-		case queensideCastling:
+		case MoveType.queensideCastling:
 			MakeBlackQueenSideCastlingMove.make(game, move);
 			break;
 		default:
@@ -258,43 +259,43 @@ public final class MakeMove {	//TODO unit test
 		Undo undo = game.pop();
 		
 		switch(undo.move().type()) {
-		case normal:
+		case MoveType.normal:
 			MakeBlackMove.undo(game, undo.move());
 			break;
-		case normalRookMove:
+		case MoveType.normalRookMove:
 			MakeBlackRookMove.undo(game, undo.move());
 			break;
-		case normalKingMove:
+		case MoveType.normalKingMove:
 			MakeBlackKingMove.undo(game, undo.move());
 			break;
-		case pawn:
+		case MoveType.pawn:
 			MakeBlackPawnMove.undo(game, undo.move());
 			break;
-		case pawnDoubleStep:
+		case MoveType.pawnDoubleStep:
 			MakeBlackPawnDoubleStepMove.undo(game, undo.move());
 			break;
-		case capture:
+		case MoveType.capture:
 			MakeBlackCaptureMove.undo(game, undo.move());		
 			break;
-		case captureRookMove:
+		case MoveType.captureRookMove:
 			MakeBlackCaptureRookMove.undo(game, undo.move());		
 			break;
-		case captureKingMove:
+		case MoveType.captureKingMove:
 			MakeBlackCaptureKingMove.undo(game, undo.move());		
 			break;
-		case capturePromotion:
+		case MoveType.capturePromotion:
 			MakeBlackCapturePromotionMove.undo(game, undo.move());			
 			break;
-		case enpassant:
+		case MoveType.enpassant:
 			MakeBlackEnpassantMove.undo(game, undo.move());
 			break;
-		case kingsideCastling:
+		case MoveType.kingsideCastling:
 			MakeBlackKingSideCastlingMove.undo(game, undo.move());
 			break;
-		case queensideCastling:
+		case MoveType.queensideCastling:
 			MakeBlackQueenSideCastlingMove.undo(game, undo.move());
 			break;
-		case promotion:
+		case MoveType.promotion:
 			MakeBlackPromotionMove.undo(game, undo.move());			
 			break;
 		default:

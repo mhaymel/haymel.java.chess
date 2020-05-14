@@ -45,6 +45,7 @@ import static com.haymel.chess.engine.moves.MoveType.capture;
 import static com.haymel.chess.engine.moves.MoveType.enpassant;
 import static com.haymel.chess.engine.moves.MoveType.pawn;
 import static com.haymel.chess.engine.moves.MoveType.pawnDoubleStep;
+import static com.haymel.chess.engine.moves.MoveType.promotion;
 import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
 import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
@@ -250,10 +251,10 @@ public class BlackPawnMoveTest {
 		assertThat(moves.size(), is(4));
 		
 		Set<Move> result = movesAsSet();
-		assertThat(result.contains(new Move(e2, e1, BlackQueen)), is(true));
-		assertThat(result.contains(new Move(e2, e1, BlackRook)), is(true));
-		assertThat(result.contains(new Move(e2, e1, BlackBishop)), is(true));
-		assertThat(result.contains(new Move(e2, e1, BlackKnight)), is(true));
+		assertThat(result.contains(new Move(e2, e1, promotion, null, BlackQueen)), is(true));
+		assertThat(result.contains(new Move(e2, e1, promotion, null, BlackRook)), is(true));
+		assertThat(result.contains(new Move(e2, e1, promotion, null, BlackBishop)), is(true));
+		assertThat(result.contains(new Move(e2, e1, promotion, null, BlackKnight)), is(true));
 	}
 
 	@Test
@@ -311,10 +312,10 @@ public class BlackPawnMoveTest {
 		assertThat(moves.size(), is(12));
 		
 		Set<Move> result = movesAsSet();
-		assertThat(result.contains(new Move(e2, e1, BlackQueen)), is(true));
-		assertThat(result.contains(new Move(e2, e1, BlackRook)), is(true));
-		assertThat(result.contains(new Move(e2, e1, BlackBishop)), is(true));
-		assertThat(result.contains(new Move(e2, e1, BlackKnight)), is(true));
+		assertThat(result.contains(new Move(e2, e1, promotion, null, BlackQueen)), is(true));
+		assertThat(result.contains(new Move(e2, e1, promotion, null, BlackRook)), is(true));
+		assertThat(result.contains(new Move(e2, e1, promotion, null, BlackBishop)), is(true));
+		assertThat(result.contains(new Move(e2, e1, promotion, null, BlackKnight)), is(true));
 		assertThat(result.contains(new Move(e2, d1, capturedD1, BlackQueen)), is(true));
 		assertThat(result.contains(new Move(e2, d1, capturedD1, BlackRook)), is(true));
 		assertThat(result.contains(new Move(e2, d1, capturedD1, BlackBishop)), is(true));
