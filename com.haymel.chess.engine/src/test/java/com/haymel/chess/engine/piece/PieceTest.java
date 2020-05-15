@@ -51,7 +51,7 @@ public class PieceTest {
 		assertThat(piece.type() == BlackKing, is(false));
 		assertThat(piece.type() == WhiteKing, is(false));
 		assertThat(piece.type() == BlackRook, is(false));
-		assertThat(piece.whiteRook(), is(false));
+		assertThat(piece.type() == WhiteRook, is(false));
 		assertThat(piece.blackQueen(), is(false));
 		assertThat(piece.blackKnight(), is(false));
 		assertThat(piece.blackBishop(), is(false));
@@ -68,7 +68,7 @@ public class PieceTest {
 		assertThat(piece.type() == BlackKing, is(false));
 		assertThat(piece.type() == WhiteKing, is(false));
 		assertThat(piece.type() == BlackRook, is(false));
-		assertThat(piece.whiteRook(), is(true));
+		assertThat(piece.type() == PieceType.WhiteRook, is(true));
 		assertThat(piece.blackQueen(), is(false));
 		assertThat(piece.blackKnight(), is(false));
 		assertThat(piece.blackBishop(), is(false));
@@ -91,7 +91,7 @@ public class PieceTest {
 		assertThat(piece.type() == BlackKing, is(false));
 		assertThat(piece.type() == WhiteKing, is(false));
 		assertThat(piece.type() == BlackRook, is(false));
-		assertThat(piece.whiteRook(), is(false));
+		assertThat(piece.type() == PieceType.WhiteRook, is(false));
 		assertThat(piece.blackQueen(), is(false));
 		assertThat(piece.blackKnight(), is(false));
 		assertThat(piece.blackBishop(), is(false));
@@ -108,7 +108,7 @@ public class PieceTest {
 		assertThat(piece.type() == BlackKing, is(false));
 		assertThat(piece.type() == WhiteKing, is(false));
 		assertThat(piece.type() == BlackRook, is(false));
-		assertThat(piece.whiteRook(), is(false));
+		assertThat(piece.type() == PieceType.WhiteRook, is(false));
 		assertThat(piece.blackQueen(), is(false));
 		assertThat(piece.blackKnight(), is(false));
 		assertThat(piece.blackBishop(), is(false));
@@ -125,7 +125,7 @@ public class PieceTest {
 		assertThat(piece.type() == BlackKing, is(false));
 		assertThat(piece.type() == WhiteKing, is(false));
 		assertThat(piece.type() == BlackRook, is(false));
-		assertThat(piece.whiteRook(), is(false));
+		assertThat(piece.type() == PieceType.WhiteRook, is(false));
 		assertThat(piece.blackQueen(), is(false));
 		assertThat(piece.blackKnight(), is(false));
 		assertThat(piece.blackBishop(), is(false));
@@ -142,7 +142,7 @@ public class PieceTest {
 		assertThat(piece.type() == BlackKing, is(false));
 		assertThat(piece.type() == WhiteKing, is(true));
 		assertThat(piece.type() == BlackRook, is(false));
-		assertThat(piece.whiteRook(), is(false));
+		assertThat(piece.type() == PieceType.WhiteRook, is(false));
 		assertThat(piece.blackQueen(), is(false));
 		assertThat(piece.blackKnight(), is(false));
 		assertThat(piece.blackBishop(), is(false));
@@ -162,7 +162,7 @@ public class PieceTest {
 		assertThat(piece.type() == BlackKing, is(false));
 		assertThat(piece.type() == WhiteKing, is(false));
 		assertThat(piece.type() == BlackRook, is(false));
-		assertThat(piece.whiteRook(), is(false));
+		assertThat(piece.type() == PieceType.WhiteRook, is(false));
 		assertThat(piece.blackQueen(), is(false));
 		assertThat(piece.blackKnight(), is(false));
 		assertThat(piece.blackBishop(), is(false));
@@ -179,7 +179,7 @@ public class PieceTest {
 		assertThat(piece.type() == BlackKing, is(false));
 		assertThat(piece.type() == WhiteKing, is(false));
 		assertThat(piece.type() == BlackRook, is(true));
-		assertThat(piece.whiteRook(), is(false));
+		assertThat(piece.type() == PieceType.WhiteRook, is(false));
 		assertThat(piece.blackQueen(), is(false));
 		assertThat(piece.blackKnight(), is(false));
 		assertThat(piece.blackBishop(), is(false));
@@ -202,7 +202,7 @@ public class PieceTest {
 		assertThat(piece.type() == BlackKing, is(false));
 		assertThat(piece.type() == WhiteKing, is(false));
 		assertThat(piece.type() == BlackRook, is(false));
-		assertThat(piece.whiteRook(), is(false));
+		assertThat(piece.type() == PieceType.WhiteRook, is(false));
 		assertThat(piece.blackQueen(), is(false));
 		assertThat(piece.blackKnight(), is(true));
 		assertThat(piece.blackBishop(), is(false));
@@ -219,7 +219,7 @@ public class PieceTest {
 		assertThat(piece.type() == BlackKing, is(false));
 		assertThat(piece.type() == WhiteKing, is(false));
 		assertThat(piece.type() == BlackRook, is(false));
-		assertThat(piece.whiteRook(), is(false));
+		assertThat(piece.type() == PieceType.WhiteRook, is(false));
 		assertThat(piece.blackQueen(), is(false));
 		assertThat(piece.blackKnight(), is(false));
 		assertThat(piece.blackBishop(), is(true));
@@ -236,7 +236,7 @@ public class PieceTest {
 		assertThat(piece.type() == BlackKing, is(false));
 		assertThat(piece.type() == WhiteKing, is(false));
 		assertThat(piece.type() == BlackRook, is(false));
-		assertThat(piece.whiteRook(), is(false));
+		assertThat(piece.type() == PieceType.WhiteRook, is(false));
 		assertThat(piece.blackQueen(), is(true));
 		assertThat(piece.blackKnight(), is(false));
 		assertThat(piece.blackBishop(), is(false));
@@ -253,7 +253,7 @@ public class PieceTest {
 		assertThat(piece.type() == BlackKing, is(true));
 		assertThat(piece.type() == WhiteKing, is(false));
 		assertThat(piece.type() == BlackRook, is(false));
-		assertThat(piece.whiteRook(), is(false));
+		assertThat(piece.type() == PieceType.WhiteRook, is(false));
 		assertThat(piece.blackQueen(), is(false));
 		assertThat(piece.blackKnight(), is(false));
 		assertThat(piece.blackBishop(), is(false));

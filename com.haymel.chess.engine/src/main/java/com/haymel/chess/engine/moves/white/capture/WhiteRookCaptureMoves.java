@@ -8,6 +8,7 @@
 package com.haymel.chess.engine.moves.white.capture;
 
 import static com.haymel.chess.engine.board.Field.removed;
+import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
 import static java.lang.String.format;
 
 import com.haymel.chess.engine.board.Field;
@@ -28,7 +29,7 @@ public final class WhiteRookCaptureMoves {	//TODO unit test
 		assert moves != null;
 		assert rook.field() != removed;
 		assert pieces[rook.field()] == rook;
-		assert rook.whiteRook() : format("piece must be white rook but is %s", rook);
+		assert rook.type() == WhiteRook : format("piece must be white rook but is %s", rook);
 
 		int from = rook.field();
 		up(from, moves);

@@ -84,10 +84,6 @@ public final class Piece {
 		return type == WhiteQueen;
 	}
 
-	public boolean whiteRook() {
-		return type == WhiteRook;
-	}
-
 	public boolean blackKnight() {
 		return type == BlackKnight;
 	}

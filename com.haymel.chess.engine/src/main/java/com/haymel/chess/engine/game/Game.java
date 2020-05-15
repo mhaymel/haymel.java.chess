@@ -310,11 +310,11 @@ public final class Game {	//TODO unit test and refactor
 		}
 		else {
 			Piece rook = piece(a1);
-			if (rook == null || !rook.whiteRook()) 
+			if (rook == null || rook.type() != PieceType.WhiteRook) 
 				assert !queenside;
 		
 			rook = piece(h1);
-			if (rook == null || !rook.whiteRook())
+			if (rook == null || rook.type() != PieceType.WhiteRook)
 				assert !kingside;
 		}
 
@@ -337,10 +337,10 @@ public final class Game {	//TODO unit test and refactor
 		}
 		
 		if (castlingRight().white().queenside())
-			assert piece(e1).type() == PieceType.WhiteKing && piece(a1).whiteRook();
+			assert piece(e1).type() == PieceType.WhiteKing && piece(a1).type() == PieceType.WhiteRook;
 	
 		if (castlingRight().white().kingside())
-			assert piece(e1).type() == PieceType.WhiteKing && piece(h1).whiteRook();
+			assert piece(e1).type() == PieceType.WhiteKing && piece(h1).type() == PieceType.WhiteRook;
 		
 		return true;
 	}

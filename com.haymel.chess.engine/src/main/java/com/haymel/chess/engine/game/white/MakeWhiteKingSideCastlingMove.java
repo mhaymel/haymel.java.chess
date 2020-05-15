@@ -14,6 +14,7 @@ import static com.haymel.chess.engine.board.Field.h1;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
 import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
+import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
 
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.moves.Move;
@@ -29,7 +30,7 @@ public final class MakeWhiteKingSideCastlingMove {
 		assert move.from() == e1;
 		assert move.to() == g1;
 		assert game.piece(e1).type() == WhiteKing;
-		assert game.piece(h1).whiteRook();
+		assert game.piece(h1).type() == WhiteRook;
 		assert game.piece(f1) == null;
 		assert game.piece(g1) == null;
 		assert game.castlingRight().white().kingside();
@@ -56,7 +57,7 @@ public final class MakeWhiteKingSideCastlingMove {
 		assert game.piece(e1) == null;
 		assert game.piece(h1) == null;
 		assert game.piece(g1).type() == WhiteKing;
-		assert game.piece(f1).whiteRook();
+		assert game.piece(f1).type() == WhiteRook;
 		assert !game.castlingRight().white().kingside();
 		assert !game.castlingRight().white().queenside();
 		assert game.assertVerify();
@@ -69,7 +70,7 @@ public final class MakeWhiteKingSideCastlingMove {
 		assert game.piece(e1) == null;
 		assert game.piece(h1) == null;
 		assert game.piece(g1).type() == WhiteKing;
-		assert game.piece(f1).whiteRook();
+		assert game.piece(f1).type() == WhiteRook;
 		assert !game.castlingRight().white().kingside();
 		assert !game.castlingRight().white().queenside();
 
@@ -89,7 +90,7 @@ public final class MakeWhiteKingSideCastlingMove {
 		assert move.from() == e1;
 		assert move.to() == g1;
 		assert game.piece(e1).type() == WhiteKing;
-		assert game.piece(h1).whiteRook();
+		assert game.piece(h1).type() == WhiteRook;
 		assert game.piece(f1) == null;
 		assert game.piece(g1) == null;
 		assert game.castlingRight().white().kingside();

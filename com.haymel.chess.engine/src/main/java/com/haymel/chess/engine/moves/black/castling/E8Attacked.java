@@ -20,10 +20,12 @@ import static com.haymel.chess.engine.board.Field.g7;
 import static com.haymel.chess.engine.board.Field.left;
 import static com.haymel.chess.engine.board.Field.leftDown;
 import static com.haymel.chess.engine.board.Field.right;
+import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
 
 import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.piece.Piece;
+import com.haymel.chess.engine.piece.PieceType;
 
 public final class E8Attacked {
 
@@ -49,7 +51,7 @@ public final class E8Attacked {
 			piece = pieces[field];
 		}
 		
-		return piece.whiteRook() || piece.whiteQueen();
+		return piece.type() == WhiteRook || piece.whiteQueen();
 	}
 	
 	static boolean d8a8(Piece[] pieces) {
@@ -60,7 +62,7 @@ public final class E8Attacked {
 			piece = pieces[field];
 		}
 		
-		return piece.whiteRook() || piece.whiteQueen();
+		return piece.type() == WhiteRook || piece.whiteQueen();
 	}
 	
 	static boolean f8h8(Piece[] pieces) {
@@ -71,7 +73,7 @@ public final class E8Attacked {
 			piece = pieces[field];
 		}
 		
-		return piece.whiteRook() || piece.whiteQueen();
+		return piece.type() == PieceType.WhiteRook || piece.whiteQueen();
 	}
 	
 	static boolean d7a4(Piece[] pieces) {

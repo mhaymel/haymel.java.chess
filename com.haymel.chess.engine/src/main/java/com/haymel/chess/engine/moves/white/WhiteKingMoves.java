@@ -28,6 +28,7 @@ import static com.haymel.chess.engine.moves.white.castling.D1Attacked.d1Attacked
 import static com.haymel.chess.engine.moves.white.castling.E1Attacked.e1Attacked;
 import static com.haymel.chess.engine.moves.white.castling.F1Attacked.f1Attacked;
 import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
+import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
 import static java.lang.String.format;
 
 import com.haymel.chess.engine.castling.CastlingRight;
@@ -115,7 +116,7 @@ public final class WhiteKingMoves {
 	}
 
 	private static boolean whiteRook(Piece piece) {
-		return piece != null && piece.whiteRook();
+		return piece != null && piece.type() == WhiteRook;
 	}
 
 	private void add(int from, int to, Moves moves) {

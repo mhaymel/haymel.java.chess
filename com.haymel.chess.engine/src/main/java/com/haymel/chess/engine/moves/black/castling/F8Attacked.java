@@ -17,6 +17,7 @@ import static com.haymel.chess.engine.board.Field.g7;
 import static com.haymel.chess.engine.board.Field.h7;
 import static com.haymel.chess.engine.board.Field.leftDown;
 import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
+import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
 
 import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.board.Field;
@@ -54,7 +55,7 @@ public final class F8Attacked {
 			piece = pieces[field];
 		}
 		
-		return piece.whiteRook() || piece.whiteQueen();
+		return piece.type() == WhiteRook || piece.whiteQueen();
 	}
 	
 	static boolean e7a3(Piece[] pieces) {
