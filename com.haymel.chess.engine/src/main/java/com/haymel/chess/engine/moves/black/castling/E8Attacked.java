@@ -20,6 +20,10 @@ import static com.haymel.chess.engine.board.Field.g7;
 import static com.haymel.chess.engine.board.Field.left;
 import static com.haymel.chess.engine.board.Field.leftDown;
 import static com.haymel.chess.engine.board.Field.right;
+import static com.haymel.chess.engine.piece.PieceType.WhiteBishop;
+import static com.haymel.chess.engine.piece.PieceType.WhiteKnight;
+import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
+import static com.haymel.chess.engine.piece.PieceType.WhiteQueen;
 import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
 
 import com.haymel.chess.engine.board.Board;
@@ -51,7 +55,7 @@ public final class E8Attacked {
 			piece = pieces[field];
 		}
 		
-		return piece.type() == WhiteRook || piece.whiteQueen();
+		return piece.type() == WhiteRook || piece.type() == WhiteQueen;
 	}
 	
 	static boolean d8a8(Piece[] pieces) {
@@ -62,7 +66,7 @@ public final class E8Attacked {
 			piece = pieces[field];
 		}
 		
-		return piece.type() == WhiteRook || piece.whiteQueen();
+		return piece.type() == WhiteRook || piece.type() == WhiteQueen;
 	}
 	
 	static boolean f8h8(Piece[] pieces) {
@@ -73,7 +77,7 @@ public final class E8Attacked {
 			piece = pieces[field];
 		}
 		
-		return piece.type() == PieceType.WhiteRook || piece.whiteQueen();
+		return piece.type() == PieceType.WhiteRook || piece.type() == WhiteQueen;
 	}
 	
 	static boolean d7a4(Piece[] pieces) {
@@ -84,7 +88,7 @@ public final class E8Attacked {
 			piece = pieces[field];
 		}
 		
-		return piece.whiteBishop() || piece.whiteQueen();
+		return piece.type() == WhiteBishop || piece.type() == WhiteQueen;
 	}
 	
 	static boolean f7h5(Piece[] pieces) {
@@ -95,7 +99,7 @@ public final class E8Attacked {
 			piece = pieces[field];
 		}
 		
-		return piece.whiteBishop() || piece.whiteQueen();
+		return piece.type() == WhiteBishop || piece.type() == WhiteQueen;
 	}
 	
 	static boolean knights(Piece[] pieces) {
@@ -111,11 +115,11 @@ public final class E8Attacked {
 	}
 
 	private static boolean whiteKnight(Piece piece) {
-		return piece != null && piece.whiteKnight();
+		return piece != null && piece.type() == WhiteKnight;
 	}
 
 	private static boolean whitePawn(Piece piece) {
-		return piece != null && piece.whitePawn();
+		return piece != null && piece.type() == WhitePawn;
 	}
 
 }

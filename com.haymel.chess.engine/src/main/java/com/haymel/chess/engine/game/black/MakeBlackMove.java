@@ -12,6 +12,7 @@ import static com.haymel.chess.engine.game.ActiveColor.white;
 import static com.haymel.chess.engine.moves.MoveType.normal;
 import static com.haymel.chess.engine.moves.MoveType.normalKingMove;
 import static com.haymel.chess.engine.moves.MoveType.normalRookMove;
+import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.moves.Move;
@@ -33,7 +34,7 @@ public final class MakeBlackMove {
 		assert game.activeColor() == black; 
 		assert move.type() == normal || move.type() == normalKingMove || move.type() == normalRookMove;
 		assert game.piece(move.from()).black();
-		assert !game.piece(move.from()).blackPawn();
+		assert game.piece(move.from()).type() != BlackPawn;
 		assert game.piece(move.to()) == null;
 		
 		Piece piece = game.piece(move.from());
@@ -64,7 +65,7 @@ public final class MakeBlackMove {
 		assert game.activeColor() == black; 
 		assert move.type() == normal || move.type() == normalKingMove || move.type() == normalRookMove;
 		assert game.piece(move.to()).black();
-		assert !game.piece(move.to()).blackPawn();
+		assert game.piece(move.to()).type() != BlackPawn;
 		assert game.piece(move.from()) == null;
 
 		Piece piece = game.piece(move.to());

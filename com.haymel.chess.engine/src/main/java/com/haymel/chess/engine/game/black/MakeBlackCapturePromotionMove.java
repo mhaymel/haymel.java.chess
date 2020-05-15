@@ -18,6 +18,7 @@ import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 import static com.haymel.chess.engine.piece.PieceType.BlackQueen;
 import static com.haymel.chess.engine.piece.PieceType.BlackRook;
 import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
+import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
 
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.game.Game;
@@ -32,13 +33,13 @@ public final class MakeBlackCapturePromotionMove {
 		assert game.assertVerify();
 		assert game.activeColor() == black; 
 		assert move.type() == capturePromotion;
-		assert game.piece(move.from()).blackPawn();
+		assert game.piece(move.from()).type() == BlackPawn;
 		assert game.piece(move.to()).white();
 		assert game.piece(move.to()) == move.capturedPiece();
 		assert move.capturedPiece().white();
 		assert game.containsWhitePiece(move.capturedPiece());
 		assert game.piece(move.to()).type() != WhiteKing;
-		assert !game.piece(move.to()).whitePawn();
+		assert game.piece(move.to()).type() != WhitePawn;
 		assert Field.rank(move.from()) == 1;
 		assert Field.rank(move.to()) == 0;
 		assert Math.abs(Field.file(move.from()) - Field.file(move.to())) == 1;
@@ -107,7 +108,7 @@ public final class MakeBlackCapturePromotionMove {
 		
 		assert game.halfMoveClock() >= 0;
 		assert game.activeColor() == black;
-		assert game.piece(move.from()).blackPawn();
+		assert game.piece(move.from()).type() == BlackPawn;
 		assert game.piece(move.to()).white();
 		assert game.piece(move.to()) == move.capturedPiece();
 		assert move.capturedPiece().white();

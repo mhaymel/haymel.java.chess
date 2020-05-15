@@ -21,11 +21,14 @@ import static com.haymel.chess.engine.board.Field.leftUp;
 import static com.haymel.chess.engine.board.Field.right;
 import static com.haymel.chess.engine.board.Field.rightUp;
 import static com.haymel.chess.engine.board.Field.up;
+import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
+import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
+import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
+import static com.haymel.chess.engine.piece.PieceType.BlackQueen;
 import static com.haymel.chess.engine.piece.PieceType.BlackRook;
 
 import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.piece.Piece;
-import com.haymel.chess.engine.piece.PieceType;
 
 public final class E1Attacked {
 
@@ -51,7 +54,7 @@ public final class E1Attacked {
 			piece = pieces[field];
 		}
 		
-		return piece.type() == PieceType.BlackRook || piece.blackQueen();
+		return piece.type() == BlackRook || piece.type() == BlackQueen;
 	}
 	
 	static boolean d1a1(Piece[] pieces) {
@@ -62,7 +65,7 @@ public final class E1Attacked {
 			piece = pieces[field];
 		}
 		
-		return piece.type() == BlackRook || piece.blackQueen();
+		return piece.type() == BlackRook || piece.type() == BlackQueen;
 	}
 	
 	static boolean f1h1(Piece[] pieces) {
@@ -73,7 +76,7 @@ public final class E1Attacked {
 			piece = pieces[field];
 		}
 		
-		return piece.type() == BlackRook || piece.blackQueen();
+		return piece.type() == BlackRook || piece.type() == BlackQueen;
 	}
 	
 	static boolean d2a5(Piece[] pieces) {
@@ -84,7 +87,7 @@ public final class E1Attacked {
 			piece = pieces[field];
 		}
 		
-		return piece.blackBishop() || piece.blackQueen();
+		return piece.type() == BlackBishop || piece.type() == BlackQueen;
 	}
 	
 	static boolean f2h4(Piece[] pieces) {
@@ -95,7 +98,7 @@ public final class E1Attacked {
 			piece = pieces[field];
 		}
 		
-		return piece.blackBishop() || piece.blackQueen();
+		return piece.type() == BlackBishop || piece.type() == BlackQueen;
 	}
 	
 	static boolean knights(Piece[] pieces) {
@@ -107,7 +110,7 @@ public final class E1Attacked {
 	}
 
 	private static boolean blackKnight(Piece piece) {
-		return piece != null && piece.blackKnight();
+		return piece != null && piece.type() == BlackKnight;
 	}
 
 	static boolean pawns(Piece[] pieces) {
@@ -115,7 +118,7 @@ public final class E1Attacked {
 	}
 
 	private static boolean blackPawn(Piece piece) {
-		return piece != null && piece.blackPawn();
+		return piece != null && piece.type() == BlackPawn;
 	}
 
 }

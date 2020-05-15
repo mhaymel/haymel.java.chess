@@ -38,6 +38,7 @@ import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.board.Field.rightDown;
 import static com.haymel.chess.engine.board.Field.up;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
+import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
 
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.moves.Moves;
@@ -56,7 +57,7 @@ public final class BlackPawnMoves {
 		assert piece != null;
 		assert moves != null;
 		assert epField == removed || rank(epField) == 2;
-		assert epField == removed || pieces[up(epField)].whitePawn();
+		assert epField == removed || pieces[up(epField)].type() == WhitePawn;
 		assert piece.field() != removed;
 		assert pieces[piece.field()] == piece;
 		assert piece.type() == BlackPawn;

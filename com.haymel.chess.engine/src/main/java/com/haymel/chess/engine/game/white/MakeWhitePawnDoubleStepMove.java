@@ -12,6 +12,7 @@ import static com.haymel.chess.engine.board.Field.up;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
 import static com.haymel.chess.engine.moves.MoveType.pawnDoubleStep;
+import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
 
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.moves.Move;
@@ -25,7 +26,7 @@ public final class MakeWhitePawnDoubleStepMove {		//TODO unit test
 		assert game.assertVerify();
 		assert game.activeColor() == white; 
 		assert move.type() == pawnDoubleStep;
-		assert game.piece(move.from()).whitePawn();
+		assert game.piece(move.from()).type() == WhitePawn;
 		assert game.piece(move.to()) == null;
 		assert rank(move.from()) == 1;
 		

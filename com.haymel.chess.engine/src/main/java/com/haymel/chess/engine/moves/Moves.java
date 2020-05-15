@@ -32,11 +32,13 @@ import static com.haymel.chess.engine.moves.MoveType.validMoveType;
 import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
 import static com.haymel.chess.engine.piece.PieceType.BlackKing;
 import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
+import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 import static com.haymel.chess.engine.piece.PieceType.BlackQueen;
 import static com.haymel.chess.engine.piece.PieceType.BlackRook;
 import static com.haymel.chess.engine.piece.PieceType.WhiteBishop;
 import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
 import static com.haymel.chess.engine.piece.PieceType.WhiteKnight;
+import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
 import static com.haymel.chess.engine.piece.PieceType.WhiteQueen;
 import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
 import static com.haymel.util.Require.nonNull;
@@ -203,7 +205,7 @@ public class Moves {
 		assert valid(from);
 		assert valid(to);
 		assert captured != null;
-		assert captured.blackPawn() || captured.whitePawn();
+		assert captured.type() == BlackPawn || captured.type() == WhitePawn;
 		assert from != to;
 		assert Math.abs(file(from) - file(to)) == 1;
 		assert 

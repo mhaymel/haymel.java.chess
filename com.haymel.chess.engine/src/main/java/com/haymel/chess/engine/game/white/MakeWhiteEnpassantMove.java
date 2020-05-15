@@ -12,6 +12,8 @@ import static com.haymel.chess.engine.board.Field.rank;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
 import static com.haymel.chess.engine.moves.MoveType.enpassant;
+import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
+import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
 
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.moves.Move;
@@ -26,10 +28,10 @@ public final class MakeWhiteEnpassantMove {
 		assert game.activeColor() == white; 
 		assert move.type() == enpassant;
 		assert move.to() == game.enPassant();
-		assert game.piece(move.from()).whitePawn();
+		assert game.piece(move.from()).type() == WhitePawn;
 		assert rank(move.from()) == 4;
 		assert game.piece(game.enPassant()) == null;
-		assert game.piece(down(game.enPassant())).blackPawn();
+		assert game.piece(down(game.enPassant())).type() == BlackPawn;
 		assert game.piece(down(game.enPassant())) == move.capturedPiece();
 		assert game.containsBlackPiece(move.capturedPiece());
 		
@@ -58,7 +60,7 @@ public final class MakeWhiteEnpassantMove {
 		assert move.type() == enpassant;
 		assert move.to() == game.enPassant();
 		assert game.activeColor() == white; 
-		assert game.piece(move.to()).whitePawn();
+		assert game.piece(move.to()).type() == WhitePawn;
 		assert game.piece(move.from()) == null;
 		assert !game.containsBlackPiece(move.capturedPiece());
 		assert game.piece(down(game.enPassant())) == null;
@@ -74,10 +76,10 @@ public final class MakeWhiteEnpassantMove {
 		assert game.halfMoveClock() >= 0;
 		assert game.activeColor() == white; 
 		assert move.to() == game.enPassant();
-		assert game.piece(move.from()).whitePawn();
+		assert game.piece(move.from()).type() == WhitePawn;
 		assert rank(move.from()) == 4;
 		assert game.piece(game.enPassant()) == null;
-		assert game.piece(down(game.enPassant())).blackPawn();
+		assert game.piece(down(game.enPassant())).type() == BlackPawn;
 		assert game.piece(down(game.enPassant())) == move.capturedPiece();
 		assert game.containsBlackPiece(move.capturedPiece());
 		assert game.assertVerify();

@@ -8,6 +8,7 @@
 package com.haymel.chess.engine.board;
 
 import static com.haymel.chess.engine.board.Field.removed;
+import static com.haymel.chess.engine.piece.PieceType.Border;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ public final class PieceList {	//TODO unit test
 	public void add(Piece piece) {
 		assert piece != null;
 		assert piece != null;
-		assert !piece.border();
+		assert piece.type() != Border;
 		assert piece.field() != removed;
 		assert size() <= 16;
 

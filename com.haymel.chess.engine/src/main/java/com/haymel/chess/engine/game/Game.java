@@ -28,6 +28,7 @@ import static com.haymel.chess.engine.moves.MoveType.promotion;
 import static com.haymel.chess.engine.piece.PieceType.BlackKing;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 import static com.haymel.chess.engine.piece.PieceType.BlackRook;
+import static com.haymel.chess.engine.piece.PieceType.Border;
 import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
 import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
 import static com.haymel.util.Require.nonNull;
@@ -131,7 +132,7 @@ public final class Game {	//TODO unit test and refactor
 
 	public void clear(int field) {
 		assert board[field] != null;
-		assert !board[field].border() : format("cannot clear border: %s", field);
+		assert board[field].type() != Border : format("cannot clear border: %s", field);
 		board[field] = null;
 	}
 
@@ -158,8 +159,8 @@ public final class Game {	//TODO unit test and refactor
 		assert field == removed || board[field] == null;
 		assert 
 			field == removed ||
-			activeColor == white && rank(field) == rank(a3) && board[Field.up(field)] != null && board[Field.up(field)].whitePawn()||
-			activeColor == black && rank(field) == rank(a6) && board[Field.down(field)] != null && board[Field.down(field)].blackPawn();
+			activeColor == white && rank(field) == rank(a3) && board[Field.up(field)] != null && board[Field.up(field)].type() == WhitePawn||
+			activeColor == black && rank(field) == rank(a6) && board[Field.down(field)] != null && board[Field.down(field)].type() == BlackPawn;
 		
 		enPassant = field;
 	}
@@ -285,7 +286,7 @@ public final class Game {	//TODO unit test and refactor
 			int fx = fy;
 			for(int x = 0; x < 8; x++) {
 				Piece p = board[fx];
-				assert p == null || !p.border();
+				assert p == null || p.type() != Border;
 				if (p != null) {
 					if (p.black()) 
 						assert blackPieces.contains(p);

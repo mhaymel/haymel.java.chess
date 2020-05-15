@@ -16,7 +16,11 @@ import static com.haymel.chess.engine.board.Field.e3;
 import static com.haymel.chess.engine.board.Field.f2;
 import static com.haymel.chess.engine.board.Field.leftUp;
 import static com.haymel.chess.engine.board.Field.up;
+import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
 import static com.haymel.chess.engine.piece.PieceType.BlackKing;
+import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
+import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
+import static com.haymel.chess.engine.piece.PieceType.BlackQueen;
 import static com.haymel.chess.engine.piece.PieceType.BlackRook;
 
 import com.haymel.chess.engine.board.Board;
@@ -55,7 +59,7 @@ public final class D1Attacked {
 			piece = pieces[field];
 		}
 		
-		return piece.type() == BlackRook || piece.blackQueen();
+		return piece.type() == BlackRook || piece.type() == BlackQueen;
 	}
 	
 	static boolean c2a4(Piece[] pieces) {
@@ -66,7 +70,7 @@ public final class D1Attacked {
 			piece = pieces[field];
 		}
 		
-		return piece.blackBishop() || piece.blackQueen();
+		return piece.type() == BlackBishop || piece.type() == BlackQueen;
 	}
 	
 	static boolean e2h5(Piece[] pieces) {
@@ -77,7 +81,7 @@ public final class D1Attacked {
 			piece = pieces[field];
 		}
 		
-		return piece.blackBishop() || piece.blackQueen();
+		return piece.type() == BlackBishop || piece.type() == BlackQueen;
 	}
 	
 	static boolean knights(Piece[] pieces) {
@@ -89,7 +93,7 @@ public final class D1Attacked {
 	}
 
 	private static boolean blackKnight(int field, Piece[] pieces) {
-		return pieces[field] != null && pieces[field].blackKnight();
+		return pieces[field] != null && pieces[field].type() == BlackKnight;
 	}
 
 	static boolean pawns(Piece[] pieces) {
@@ -97,7 +101,7 @@ public final class D1Attacked {
 	}
 
 	private static boolean blackPawn(int field, Piece[] pieces) {
-		return pieces[field] != null && pieces[field].blackPawn();
+		return pieces[field] != null && pieces[field].type() == BlackPawn;
 	}
 
 	private static boolean king(int field, Piece[] pieces) {

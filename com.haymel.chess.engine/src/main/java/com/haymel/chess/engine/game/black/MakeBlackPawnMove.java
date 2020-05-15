@@ -11,6 +11,7 @@ import static com.haymel.chess.engine.board.Field.rank;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
 import static com.haymel.chess.engine.moves.MoveType.pawn;
+import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.moves.Move;
@@ -24,7 +25,7 @@ public final class MakeBlackPawnMove {
 		assert game.assertVerify();
 		assert game.activeColor() == black; 
 		assert move.type() == pawn;
-		assert game.piece(move.from()).blackPawn();
+		assert game.piece(move.from()).type() == BlackPawn;
 		assert game.piece(move.to()) == null;
 		assert rank(move.from()) != 7;
 		assert rank(move.to()) != 0;
@@ -40,7 +41,7 @@ public final class MakeBlackPawnMove {
 
 		assert game.activeColor() == white; 
 		assert game.piece(move.from()) == null;
-		assert game.piece(move.to()).blackPawn();
+		assert game.piece(move.to()).type() == BlackPawn;
 		assert game.assertVerify();
 	}
 
@@ -49,7 +50,7 @@ public final class MakeBlackPawnMove {
 		assert move != null;
 		assert game.assertVerify();
 		assert game.activeColor() == black; 
-		assert game.piece(move.to()).blackPawn();
+		assert game.piece(move.to()).type() == BlackPawn;
 		assert game.piece(move.from()) == null;
 
 		Piece piece = game.piece(move.to());
@@ -61,7 +62,7 @@ public final class MakeBlackPawnMove {
 		assert game.fullMoveNumber() >= 1;
 		assert game.activeColor() == black; 
 		assert game.piece(move.to()) == null;
-		assert game.piece(move.from()).blackPawn();
+		assert game.piece(move.from()).type() == BlackPawn;
 		assert game.assertVerify();
 	}
 

@@ -11,6 +11,7 @@ import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
 import static com.haymel.chess.engine.moves.MoveType.promotion;
+import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -73,7 +74,7 @@ public class MakeWhitePromotionMoveTest {
 		game.assertVerify();
 		assertThat(piece.field(), is(move.from()));
 		assertThat(game.piece(move.to()) == null, is(true));
-		assertThat(piece.whitePawn(), is(true));
+		assertThat(piece.type() == WhitePawn, is(true));
 		assertThat(game.containsWhitePiece(piece), is(true));
 		assertThat(game.halfMoveClock(), is(30));
 		assertThat(game.fullMoveNumber(), is(10));

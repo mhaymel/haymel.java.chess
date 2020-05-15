@@ -17,7 +17,11 @@ import static com.haymel.chess.engine.board.Field.h2;
 import static com.haymel.chess.engine.board.Field.leftUp;
 import static com.haymel.chess.engine.board.Field.rightUp;
 import static com.haymel.chess.engine.board.Field.up;
+import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
 import static com.haymel.chess.engine.piece.PieceType.BlackKing;
+import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
+import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
+import static com.haymel.chess.engine.piece.PieceType.BlackQueen;
 import static com.haymel.chess.engine.piece.PieceType.BlackRook;
 
 import com.haymel.chess.engine.board.Board;
@@ -55,7 +59,7 @@ public final class F1Attacked {
 			piece = pieces[field];
 		}
 		
-		return piece.type() == BlackRook || piece.blackQueen();
+		return piece.type() == BlackRook || piece.type() == BlackQueen;
 	}
 	
 	static boolean e2a6(Piece[] pieces) {
@@ -66,7 +70,7 @@ public final class F1Attacked {
 			piece = pieces[field];
 		}
 		
-		return piece.blackBishop() || piece.blackQueen();
+		return piece.type() == BlackBishop || piece.type() == BlackQueen;
 	}
 	
 	static boolean g2h3(Piece[] pieces) {
@@ -77,7 +81,7 @@ public final class F1Attacked {
 			piece = pieces[field];
 		}
 		
-		return piece.blackBishop() || piece.blackQueen();
+		return piece.type() == BlackBishop || piece.type() == BlackQueen;
 	}
 	
 	static boolean knights(Piece[] pieces) {
@@ -93,7 +97,7 @@ public final class F1Attacked {
 	}
 
 	private static boolean blackPawn(Piece piece) {
-		return piece != null && piece.blackPawn();
+		return piece != null && piece.type() == BlackPawn;
 	}
 
 	private static boolean blackKing(Piece piece) {
@@ -101,7 +105,7 @@ public final class F1Attacked {
 	}
 
 	private static boolean blackKnight(Piece piece) {
-		return piece != null && piece.blackKnight();
+		return piece != null && piece.type() == BlackKnight;
 	}
 
 }

@@ -28,6 +28,7 @@ import static com.haymel.chess.engine.board.Field.leftUp;
 import static com.haymel.chess.engine.board.Field.rank;
 import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.board.Field.rightUp;
+import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.moves.Moves;
@@ -47,7 +48,7 @@ public final class WhitePawnCaptureMoves {	//TODO unit test
 		assert piece != null;
 		assert moves != null;
 		assert epField == Field.removed || rank(epField) == 5;
-		assert epField == Field.removed || pieces[Field.down(epField)].blackPawn();
+		assert epField == Field.removed || pieces[Field.down(epField)].type() == BlackPawn;
 		assert piece.field() != removed;
 		assert pieces[piece.field()] == piece;
 		assert piece.type() == PieceType.WhitePawn;

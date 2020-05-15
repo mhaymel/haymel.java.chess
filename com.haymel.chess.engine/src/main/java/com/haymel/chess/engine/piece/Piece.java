@@ -9,17 +9,9 @@ package com.haymel.chess.engine.piece;
 
 import static com.haymel.chess.engine.board.Field.fieldAsString;
 import static com.haymel.chess.engine.board.Field.removed;
-import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
-import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
-import static com.haymel.chess.engine.piece.PieceType.BlackQueen;
-import static com.haymel.chess.engine.piece.PieceType.BlackRook;
 import static com.haymel.chess.engine.piece.PieceType.Border;
-import static com.haymel.chess.engine.piece.PieceType.WhiteBishop;
-import static com.haymel.chess.engine.piece.PieceType.WhiteKnight;
 import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
-import static com.haymel.chess.engine.piece.PieceType.WhiteQueen;
-import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
 import static com.haymel.chess.engine.piece.PieceType.pieceTypeValid;
 import static java.lang.String.format;
 
@@ -56,10 +48,6 @@ public final class Piece {
 		assert pieceTypeValid(type);
 		this.type = type;
 	}
-
-	public boolean border() {
-		return type == Border;
-	}
 	
 	public int field() {
 		return field;
@@ -71,41 +59,9 @@ public final class Piece {
 		assert field == removed || type != WhitePawn || (Field.rank(field) != 0 && Field.rank(field) != 7) : format("a white pawn must not be placed on file 1 or 8. The value of field is %s", field);
 		assert field == removed || type != BlackPawn || (Field.rank(field) != 0 && Field.rank(field) != 7) : format("a black pawn must not be placed on file 1 or 8. The value of field is %s", field);
 		
-		assert !border() || field == removed;
+		assert type() != PieceType.Border || field == removed;
 				
 		this.field = field;
-	}
-
-	public boolean blackQueen() {
-		return type == BlackQueen;
-	}
-	
-	public boolean whiteQueen() {		// TODO unit test
-		return type == WhiteQueen;
-	}
-
-	public boolean blackKnight() {
-		return type == BlackKnight;
-	}
-
-	public boolean blackBishop() {
-		return type == BlackBishop;
-	}
-
-	public boolean blackPawn() {
-		return type == BlackPawn;
-	}
-
-	public boolean whitePawn() {
-		return type == WhitePawn;
-	}
-
-	public boolean whiteBishop() {			//TODO unit test
-		return type == WhiteBishop;	
-	}
-
-	public boolean whiteKnight() {
-		return  type == WhiteKnight;
 	}
 
 	@Override

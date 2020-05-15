@@ -30,7 +30,7 @@ public final class MakeBlackPromotionMove {
 		assert game.assertVerify();
 		assert game.activeColor() == black; 
 		assert move.type() == promotion;
-		assert game.piece(move.from()).blackPawn();
+		assert game.piece(move.from()).type() == BlackPawn;
 		assert game.piece(move.to()) == null;
 		assert rank(move.from()) == 1;
 		assert rank(move.to()) == 0;
@@ -91,7 +91,7 @@ public final class MakeBlackPromotionMove {
 		assert game.fullMoveNumber() >= 1;
 		assert game.activeColor() == black; 
 		assert game.piece(move.to()) == null;
-		assert game.piece(move.from()).blackPawn();
+		assert game.piece(move.from()).type() == BlackPawn;
 		assert game.assertVerify();
 	}
 
