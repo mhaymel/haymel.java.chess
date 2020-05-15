@@ -8,6 +8,7 @@
 package com.haymel.chess.engine.moves.black.capture;
 
 import static com.haymel.chess.engine.board.Field.removed;
+import static com.haymel.chess.engine.piece.PieceType.BlackRook;
 import static java.lang.String.format;
 
 import com.haymel.chess.engine.board.Field;
@@ -28,7 +29,7 @@ public final class BlackRookCaptureMoves {		//TODO unit test
 		assert moves != null;
 		assert piece.field() != removed;
 		assert pieces[piece.field()] == piece;
-		assert piece.blackRook() : format("piece must be black rook but is %s", piece);
+		assert piece.type() == BlackRook : format("piece must be black rook but is %s", piece);
 
 		int from = piece.field();
 		up(from, moves);

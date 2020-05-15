@@ -20,6 +20,7 @@ import static com.haymel.chess.engine.moves.black.castling.D8Attacked.d8Attacked
 import static com.haymel.chess.engine.moves.black.castling.E8Attacked.e8Attacked;
 import static com.haymel.chess.engine.moves.black.castling.F8Attacked.f8Attacked;
 import static com.haymel.chess.engine.piece.PieceType.BlackKing;
+import static com.haymel.chess.engine.piece.PieceType.BlackRook;
 import static java.lang.String.format;
 
 import com.haymel.chess.engine.board.Field;
@@ -104,7 +105,7 @@ public final class BlackKingMoves {
 	}
 
 	private boolean isBlackRook(int field) {
-		return pieces[field] != null && pieces[field].blackRook();
+		return pieces[field] != null && pieces[field].type() == BlackRook;
 	}
 
 	private void add(int from, int to, Moves moves) {

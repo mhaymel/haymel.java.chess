@@ -18,6 +18,7 @@ import static com.haymel.chess.engine.board.Field.leftUp;
 import static com.haymel.chess.engine.board.Field.rightUp;
 import static com.haymel.chess.engine.board.Field.up;
 import static com.haymel.chess.engine.piece.PieceType.BlackKing;
+import static com.haymel.chess.engine.piece.PieceType.BlackRook;
 
 import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.piece.Piece;
@@ -54,7 +55,7 @@ public final class F1Attacked {
 			piece = pieces[field];
 		}
 		
-		return piece.blackRook() || piece.blackQueen();
+		return piece.type() == BlackRook || piece.blackQueen();
 	}
 	
 	static boolean e2a6(Piece[] pieces) {

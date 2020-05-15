@@ -76,10 +76,6 @@ public final class Piece {
 		this.field = field;
 	}
 
-	public boolean blackRook() {
-		return type == BlackRook;
-	}
-
 	public boolean blackQueen() {
 		return type == BlackQueen;
 	}

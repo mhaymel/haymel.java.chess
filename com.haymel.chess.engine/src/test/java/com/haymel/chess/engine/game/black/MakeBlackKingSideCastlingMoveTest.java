@@ -83,7 +83,7 @@ public class MakeBlackKingSideCastlingMoveTest {
 		assertThat(game.piece(e8), is(king));
 		assertThat(game.piece(g8) == null, is(true));
 		assertThat(game.piece(f8) == null, is(true));
-		assertThat(game.piece(h8).blackRook(), is(true));
+		assertThat(game.piece(h8).type() == BlackRook, is(true));
 		assertThat(game.piece(h8), is(rook));
 		assertThat(game.halfMoveClock(), is(0));
 		assertThat(game.fullMoveNumber(), is(5));

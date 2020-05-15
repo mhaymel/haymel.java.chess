@@ -27,6 +27,7 @@ import static com.haymel.chess.engine.moves.MoveType.capturePromotion;
 import static com.haymel.chess.engine.moves.MoveType.promotion;
 import static com.haymel.chess.engine.piece.PieceType.BlackKing;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
+import static com.haymel.chess.engine.piece.PieceType.BlackRook;
 import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
 import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
 import static com.haymel.util.Require.nonNull;
@@ -327,11 +328,11 @@ public final class Game {	//TODO unit test and refactor
 		}
 		else {
 			Piece rook = piece(a8);
-			if (rook == null || !rook.blackRook())
+			if (rook == null || rook.type() != BlackRook)
 				assert !queenside;
 
 			rook = piece(h8);
-			if (rook == null || !rook.blackRook())
+			if (rook == null || rook.type() != BlackRook)
 				assert !kingside;
 		}
 		

@@ -14,6 +14,7 @@ import static com.haymel.chess.engine.board.Field.e8;
 import static com.haymel.chess.engine.board.Field.h1;
 import static com.haymel.chess.engine.board.Field.h8;
 import static com.haymel.chess.engine.piece.PieceType.BlackKing;
+import static com.haymel.chess.engine.piece.PieceType.BlackRook;
 import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
 import static com.haymel.util.Require.nonEmpty;
 import static com.haymel.util.exception.HaymelIllegalArgumentException.throwIAE;
@@ -88,7 +89,7 @@ public class GameFromFEN {
 	
 	private boolean blackRook(int field) {
 		assert Field.valid(field);
-		return !free(field) && game.piece(field).blackRook();
+		return !free(field) && game.piece(field).type() == BlackRook;
 	}
 	
 	private boolean free(int field) {
