@@ -27,6 +27,7 @@ import static com.haymel.chess.engine.board.Field.up;
 import static com.haymel.chess.engine.moves.white.castling.D1Attacked.d1Attacked;
 import static com.haymel.chess.engine.moves.white.castling.E1Attacked.e1Attacked;
 import static com.haymel.chess.engine.moves.white.castling.F1Attacked.f1Attacked;
+import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
 import static java.lang.String.format;
 
 import com.haymel.chess.engine.castling.CastlingRight;
@@ -48,7 +49,7 @@ public final class WhiteKingMoves {
 		assert moves != null;
 		assert king.field() != removed;
 		assert pieces[king.field()] == king;
-		assert king.whiteKing() : format("piece must be white king but is %s", king);
+		assert king.type() == WhiteKing : format("piece must be white king but is %s", king);
 
 		int from = king.field();
 		

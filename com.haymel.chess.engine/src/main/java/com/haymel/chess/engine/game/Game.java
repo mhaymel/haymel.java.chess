@@ -27,6 +27,7 @@ import static com.haymel.chess.engine.moves.MoveType.capturePromotion;
 import static com.haymel.chess.engine.moves.MoveType.promotion;
 import static com.haymel.chess.engine.piece.PieceType.BlackKing;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
+import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
 import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
 import static com.haymel.util.Require.nonNull;
 import static com.haymel.util.exception.HaymelException.throwHE;
@@ -51,6 +52,7 @@ import com.haymel.chess.engine.moves.black.capture.BlackCaptureMoves;
 import com.haymel.chess.engine.moves.white.WhiteMoves;
 import com.haymel.chess.engine.moves.white.capture.WhiteCaptureMoves;
 import com.haymel.chess.engine.piece.Piece;
+import com.haymel.chess.engine.piece.PieceType;
 
 public final class Game {	//TODO unit test and refactor
 
@@ -301,7 +303,7 @@ public final class Game {	//TODO unit test and refactor
 		boolean queenside = castlingRight().white().queenside();
 		boolean kingside = castlingRight().white().kingside();
 		
-		if (king == null || !king.whiteKing()) {
+		if (king == null || king.type() != WhiteKing) {
 			assert !queenside;
 			assert !kingside;
 		}
@@ -334,10 +336,10 @@ public final class Game {	//TODO unit test and refactor
 		}
 		
 		if (castlingRight().white().queenside())
-			assert piece(e1).whiteKing() && piece(a1).whiteRook();
+			assert piece(e1).type() == PieceType.WhiteKing && piece(a1).whiteRook();
 	
 		if (castlingRight().white().kingside())
-			assert piece(e1).whiteKing() && piece(h1).whiteRook();
+			assert piece(e1).type() == PieceType.WhiteKing && piece(h1).whiteRook();
 		
 		return true;
 	}
@@ -357,7 +359,7 @@ public final class Game {	//TODO unit test and refactor
 	public void removeWhite(Piece piece) {
 		assert piece != null;
 		assert piece.white();
-		assert !piece.whiteKing();
+		assert piece.type() != WhiteKing;
 		assert whitePieces.contains(piece);
 		assert pieceValue == calculatePieceValue() : format("%s != %s, %s", pieceValue, calculatePieceValue(), piece);
 		

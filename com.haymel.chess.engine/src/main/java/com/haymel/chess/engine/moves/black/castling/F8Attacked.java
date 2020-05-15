@@ -16,6 +16,7 @@ import static com.haymel.chess.engine.board.Field.g6;
 import static com.haymel.chess.engine.board.Field.g7;
 import static com.haymel.chess.engine.board.Field.h7;
 import static com.haymel.chess.engine.board.Field.leftDown;
+import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
 
 import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.board.Field;
@@ -91,7 +92,7 @@ public final class F8Attacked {
 	}
 
 	private static boolean whiteKing(Piece piece) {
-		return piece != null && piece.whiteKing();
+		return piece != null && piece.type() == WhiteKing;
 	}
 
 	private static boolean whiteKnight(Piece piece) {

@@ -16,6 +16,7 @@ import static com.haymel.chess.engine.board.Field.right;
 import static com.haymel.chess.engine.board.Field.rightDown;
 import static com.haymel.chess.engine.board.Field.rightUp;
 import static com.haymel.chess.engine.board.Field.up;
+import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
 import static java.lang.String.format;
 
 import com.haymel.chess.engine.moves.Moves;
@@ -36,7 +37,7 @@ public final class WhiteKingCaptureMoves {	//TODO unit test
 		assert moves != null;
 		assert king.field() != removed;
 		assert pieces[king.field()] == king;
-		assert king.whiteKing() : format("piece must be white king but is %s", king);
+		assert king.type() == WhiteKing : format("piece must be white king but is %s", king);
 
 		int from = king.field();
 		

@@ -35,6 +35,7 @@ import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
 import static com.haymel.chess.engine.piece.PieceType.BlackQueen;
 import static com.haymel.chess.engine.piece.PieceType.BlackRook;
 import static com.haymel.chess.engine.piece.PieceType.WhiteBishop;
+import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
 import static com.haymel.chess.engine.piece.PieceType.WhiteKnight;
 import static com.haymel.chess.engine.piece.PieceType.WhiteQueen;
 import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
@@ -116,7 +117,7 @@ public class Moves {
 		
 		add(new Move(from, to, type, piece));
 		
-		if (piece.type() == BlackKing || piece.whiteKing())
+		if (piece.type() == BlackKing || piece.type() == WhiteKing)
 			kingCaptureCount++;
 	}
 	
@@ -166,7 +167,7 @@ public class Moves {
 		add(new Move(from, to, piece, WhiteBishop));
 		add(new Move(from, to, piece, WhiteKnight));
 
-		if (piece.type() == PieceType.BlackKing || piece.whiteKing())
+		if (piece.type() == PieceType.BlackKing || piece.type() == WhiteKing)
 			kingCaptureCount++;
 	}
 
@@ -194,7 +195,7 @@ public class Moves {
 		add(new Move(from, to, piece, BlackBishop));
 		add(new Move(from, to, piece, BlackKnight));
 
-		if (piece.type() == PieceType.BlackKing || piece.whiteKing())
+		if (piece.type() == PieceType.BlackKing || piece.type() == WhiteKing)
 			kingCaptureCount++;
 	}
 

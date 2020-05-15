@@ -16,7 +16,6 @@ import static com.haymel.chess.engine.piece.PieceType.BlackQueen;
 import static com.haymel.chess.engine.piece.PieceType.BlackRook;
 import static com.haymel.chess.engine.piece.PieceType.Border;
 import static com.haymel.chess.engine.piece.PieceType.WhiteBishop;
-import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
 import static com.haymel.chess.engine.piece.PieceType.WhiteKnight;
 import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
 import static com.haymel.chess.engine.piece.PieceType.WhiteQueen;
@@ -75,10 +74,6 @@ public final class Piece {
 		assert !border() || field == removed;
 				
 		this.field = field;
-	}
-
-	public boolean whiteKing() {
-		return type == WhiteKing;
 	}
 
 	public boolean blackRook() {

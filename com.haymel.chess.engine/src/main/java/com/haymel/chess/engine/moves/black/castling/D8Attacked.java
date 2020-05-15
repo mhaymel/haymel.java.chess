@@ -17,6 +17,7 @@ import static com.haymel.chess.engine.board.Field.e7;
 import static com.haymel.chess.engine.board.Field.f7;
 import static com.haymel.chess.engine.board.Field.leftDown;
 import static com.haymel.chess.engine.board.Field.rightDown;
+import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
 
 import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.piece.Piece;
@@ -99,7 +100,7 @@ public final class D8Attacked {
 	}
 
 	private static boolean whiteKing(Piece piece) {
-		return piece != null && piece.whiteKing();
+		return piece != null && piece.type() == WhiteKing;
 	}
 
 }
