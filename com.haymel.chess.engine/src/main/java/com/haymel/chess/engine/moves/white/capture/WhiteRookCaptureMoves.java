@@ -9,6 +9,7 @@ package com.haymel.chess.engine.moves.white.capture;
 
 import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
+import static com.haymel.chess.engine.piece.PieceType.black;
 import static java.lang.String.format;
 
 import com.haymel.chess.engine.board.Field;
@@ -45,7 +46,7 @@ public final class WhiteRookCaptureMoves {	//TODO unit test
 			to = Field.up(to);
 			piece = pieces[to];
 		}
-		if (piece.black()) 
+		if (black(piece.type())) 
 			moves.addRookCapture(from, to, piece);
 	}
 
@@ -56,7 +57,7 @@ public final class WhiteRookCaptureMoves {	//TODO unit test
 			to = Field.down(to);
 			piece = pieces[to];		
 		}
-		if (piece.black()) 
+		if (black(piece.type())) 
 			moves.addRookCapture(from, to, piece);
 	}
 
@@ -67,7 +68,7 @@ public final class WhiteRookCaptureMoves {	//TODO unit test
 			to = Field.left(to);
 			piece = pieces[to];
 		}
-		if (piece.black()) 
+		if (black(piece.type())) 
 			moves.addRookCapture(from, to, piece);
 	}
 
@@ -78,7 +79,7 @@ public final class WhiteRookCaptureMoves {	//TODO unit test
 			to = Field.right(to);
 			piece = pieces[to];
 		}
-		if (piece.black()) 
+		if (black(piece.type())) 
 			moves.addRookCapture(from, to, piece);
 	}
 	

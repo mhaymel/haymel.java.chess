@@ -9,6 +9,7 @@ package com.haymel.chess.engine.moves.black;
 
 import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.piece.PieceType.BlackRook;
+import static com.haymel.chess.engine.piece.PieceType.white;
 import static java.lang.String.format;
 
 import com.haymel.chess.engine.board.Field;
@@ -46,7 +47,7 @@ public final class BlackRookMoves {
 			to = Field.up(to);
 			piece = pieces[to];
 		}
-		if (piece.white()) 
+		if (white(piece.type())) 
 			moves.addRookCapture(from, to, piece);
 	}
 
@@ -58,7 +59,7 @@ public final class BlackRookMoves {
 			to = Field.down(to);
 			piece = pieces[to];		
 		}
-		if (piece.white()) 
+		if (white(piece.type())) 
 			moves.addRookCapture(from, to, piece);
 	}
 
@@ -70,7 +71,7 @@ public final class BlackRookMoves {
 			to = Field.left(to);
 			piece = pieces[to];
 		}
-		if (piece.white()) 
+		if (white(piece.type())) 
 			moves.addRookCapture(from, to, piece);
 	}
 
@@ -82,7 +83,7 @@ public final class BlackRookMoves {
 			to = Field.right(to);
 			piece = pieces[to];
 		}
-		if (piece.white()) 
+		if (white(piece.type())) 
 			moves.addRookCapture(from, to, piece);
 	}
 	

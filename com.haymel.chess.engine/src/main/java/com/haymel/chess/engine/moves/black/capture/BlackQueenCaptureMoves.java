@@ -9,6 +9,7 @@ package com.haymel.chess.engine.moves.black.capture;
 
 import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.piece.PieceType.BlackQueen;
+import static com.haymel.chess.engine.piece.PieceType.white;
 
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.moves.Moves;
@@ -48,7 +49,7 @@ public final class BlackQueenCaptureMoves {	//TODO unit test
 			to = Field.up(to);
 			piece = pieces[to];
 		}
-		if (piece.white()) 
+		if (white(piece.type())) 
 			moves.addCapture(from, to, piece);
 	}
 
@@ -59,7 +60,7 @@ public final class BlackQueenCaptureMoves {	//TODO unit test
 			to = Field.down(to);
 			piece = pieces[to];		
 		}
-		if (piece.white()) 
+		if (white(piece.type())) 
 			moves.addCapture(from, to, piece);
 	}
 
@@ -70,7 +71,7 @@ public final class BlackQueenCaptureMoves {	//TODO unit test
 			to = Field.left(to);
 			piece = pieces[to];
 		}
-		if (piece.white()) 
+		if (white(piece.type())) 
 			moves.addCapture(from, to, piece);
 	}
 
@@ -81,7 +82,7 @@ public final class BlackQueenCaptureMoves {	//TODO unit test
 			to = Field.right(to);
 			piece = pieces[to];
 		}
-		if (piece.white()) 
+		if (white(piece.type())) 
 			moves.addCapture(from, to, piece);
 	}
 
@@ -92,7 +93,7 @@ public final class BlackQueenCaptureMoves {	//TODO unit test
 			to = Field.leftUp(to);
 			piece = pieces[to];
 		}
-		if (piece.white()) 
+		if (white(piece.type())) 
 			moves.addCapture(from, to, piece);
 	}
 
@@ -103,7 +104,7 @@ public final class BlackQueenCaptureMoves {	//TODO unit test
 			to = Field.leftDown(to);
 			piece = pieces[to];
 		}
-		if (piece.white()) 
+		if (white(piece.type())) 
 			moves.addCapture(from, to, piece);
 	}
 
@@ -114,7 +115,7 @@ public final class BlackQueenCaptureMoves {	//TODO unit test
 			to = Field.rightUp(to);
 			piece = pieces[to];
 		}
-		if (piece.white()) 
+		if (white(piece.type())) 
 			moves.addCapture(from, to, piece);
 	}
 
@@ -125,7 +126,7 @@ public final class BlackQueenCaptureMoves {	//TODO unit test
 			to = Field.rightDown(to);
 			piece = pieces[to];
 		}
-		if (piece.white()) 
+		if (white(piece.type())) 
 			moves.addCapture(from, to, piece);
 	}
 	

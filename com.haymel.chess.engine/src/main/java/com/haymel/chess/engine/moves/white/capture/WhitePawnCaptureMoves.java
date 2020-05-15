@@ -135,7 +135,7 @@ public final class WhitePawnCaptureMoves {	//TODO unit test
 	}
 
 	private static boolean black(Piece piece) {
-		return piece != null && piece.black();
+		return piece != null && PieceType.black(piece.type());
 	}
 
 }

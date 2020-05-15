@@ -32,14 +32,6 @@ public final class Piece {
 		this.field = field;
 	}
 	
-	public boolean white() {
-		return PieceType.white(type);
-	}
-
-	public boolean black() {
-		return PieceType.black(type);
-	}
-
 	public int type() {
 		return type;
 	}

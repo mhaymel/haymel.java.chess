@@ -9,6 +9,7 @@ package com.haymel.chess.engine.moves.black;
 
 import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.piece.PieceType.BlackQueen;
+import static com.haymel.chess.engine.piece.PieceType.white;
 
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.moves.Moves;
@@ -50,7 +51,7 @@ public final class BlackQueenMoves {
 			to = Field.up(to);
 			piece = pieces[to];
 		}
-		if (piece.white()) 
+		if (white(piece.type())) 
 			moves.addCapture(from, to, piece);
 	}
 
@@ -62,7 +63,7 @@ public final class BlackQueenMoves {
 			to = Field.down(to);
 			piece = pieces[to];		
 		}
-		if (piece.white()) 
+		if (white(piece.type())) 
 			moves.addCapture(from, to, piece);
 	}
 
@@ -74,7 +75,7 @@ public final class BlackQueenMoves {
 			to = Field.left(to);
 			piece = pieces[to];
 		}
-		if (piece.white()) 
+		if (white(piece.type())) 
 			moves.addCapture(from, to, piece);
 	}
 
@@ -86,7 +87,7 @@ public final class BlackQueenMoves {
 			to = Field.right(to);
 			piece = pieces[to];
 		}
-		if (piece.white()) 
+		if (white(piece.type())) 
 			moves.addCapture(from, to, piece);
 	}
 
@@ -98,7 +99,7 @@ public final class BlackQueenMoves {
 			to = Field.leftUp(to);
 			piece = pieces[to];
 		}
-		if (piece.white()) 
+		if (white(piece.type())) 
 			moves.addCapture(from, to, piece);
 	}
 
@@ -110,7 +111,7 @@ public final class BlackQueenMoves {
 			to = Field.leftDown(to);
 			piece = pieces[to];
 		}
-		if (piece.white()) 
+		if (white(piece.type())) 
 			moves.addCapture(from, to, piece);
 	}
 
@@ -122,7 +123,7 @@ public final class BlackQueenMoves {
 			to = Field.rightUp(to);
 			piece = pieces[to];
 		}
-		if (piece.white()) 
+		if (white(piece.type())) 
 			moves.addCapture(from, to, piece);
 	}
 
@@ -134,7 +135,7 @@ public final class BlackQueenMoves {
 			to = Field.rightDown(to);
 			piece = pieces[to];
 		}
-		if (piece.white()) 
+		if (white(piece.type())) 
 			moves.addCapture(from, to, piece);
 	}
 	

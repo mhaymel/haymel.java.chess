@@ -19,6 +19,7 @@ import static com.haymel.chess.engine.board.Field.rightUpUp;
 
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.piece.Piece;
+import com.haymel.chess.engine.piece.PieceType;
 
 public final class WhiteKnightMoves {
 
@@ -53,7 +54,7 @@ public final class WhiteKnightMoves {
 		if (piece == null) {
 			moves.add(from, to);
 		}
-		else if (piece.black()) {
+		else if (PieceType.black(piece.type())) {
 			moves.addCapture(from, to, piece);
 		}
 	}

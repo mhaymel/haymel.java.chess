@@ -138,10 +138,10 @@ public final class Game {	//TODO unit test and refactor
 
 	public void place(Piece piece) {
 		assert piece != null;
-		assert piece.black() || piece.white();
+		assert PieceType.black(piece.type()) || PieceType.white(piece.type());
 		assert 
-			piece.black() && blackPieces.contains(piece) || 
-			piece.white() && whitePieces.contains(piece);
+			PieceType.black(piece.type()) && blackPieces.contains(piece) || 
+			PieceType.white(piece.type()) && whitePieces.contains(piece);
 		
 		board[piece.field()] = piece;
 	}
@@ -214,13 +214,13 @@ public final class Game {	//TODO unit test and refactor
 
 	public boolean containsBlackPiece(Piece piece) {
 		assert piece != null;
-		assert piece.black();
+		assert PieceType.black(piece.type());
 		return blackPieces.contains(piece);
 	}
 
 	public boolean containsWhitePiece(Piece piece) {
 		assert piece != null;
-		assert piece.white();
+		assert PieceType.white(piece.type());
 		return whitePieces.contains(piece);
 	}
 	
@@ -270,14 +270,14 @@ public final class Game {	//TODO unit test and refactor
 		int size = whitePieces.size();
 		for(int i = 0; i < size; i++) {
 			Piece piece = whitePieces.piece(i);
-			assert piece.white();
+			assert PieceType.white(piece.type());
 			assert board[piece.field()] == piece : piece.toString() + " != " + board[piece.field()];
 		}
 
 		size = blackPieces.size();
 		for(int i = 0; i < size; i++) {
 			Piece piece = blackPieces.piece(i);
-			assert piece.black();
+			assert PieceType.black(piece.type());
 			assert board[piece.field()] == piece;
 		}
 		
@@ -285,13 +285,13 @@ public final class Game {	//TODO unit test and refactor
 		for(int y = 0; y < 8; y++) {
 			int fx = fy;
 			for(int x = 0; x < 8; x++) {
-				Piece p = board[fx];
-				assert p == null || p.type() != Border;
-				if (p != null) {
-					if (p.black()) 
-						assert blackPieces.contains(p);
-					else if (p.white())
-						assert whitePieces.contains(p);
+				Piece piece = board[fx];
+				assert piece == null || piece.type() != Border;
+				if (piece != null) {
+					if (PieceType.black(piece.type())) 
+						assert blackPieces.contains(piece);
+					else if (PieceType.white(piece.type()))
+						assert whitePieces.contains(piece);
 					else
 						assert false;
 				}
@@ -348,7 +348,7 @@ public final class Game {	//TODO unit test and refactor
 
 	public void addWhite(Piece piece) {
 		assert piece != null;
-		assert piece.white();
+		assert PieceType.white(piece.type());
 		assert !whitePieces.contains(piece);
 		assert pieceValue == calculatePieceValue();
 
@@ -360,7 +360,7 @@ public final class Game {	//TODO unit test and refactor
 	
 	public void removeWhite(Piece piece) {
 		assert piece != null;
-		assert piece.white();
+		assert PieceType.white(piece.type());
 		assert piece.type() != WhiteKing;
 		assert whitePieces.contains(piece);
 		assert pieceValue == calculatePieceValue() : format("%s != %s, %s", pieceValue, calculatePieceValue(), piece);
@@ -373,7 +373,7 @@ public final class Game {	//TODO unit test and refactor
 	
 	public void addBlack(Piece piece) {
 		assert piece != null;
-		assert piece.black();
+		assert PieceType.black(piece.type());
 		assert !blackPieces.contains(piece);
 		assert pieceValue == calculatePieceValue();
 
@@ -385,7 +385,7 @@ public final class Game {	//TODO unit test and refactor
 	
 	public void removeBlack(Piece piece) {
 		assert piece != null;
-		assert piece.black();
+		assert PieceType.black(piece.type());
 		assert piece.type() != BlackKing;
 		assert blackPieces.contains(piece);
 		assert pieceValue == calculatePieceValue();

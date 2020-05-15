@@ -34,7 +34,7 @@ public final class MakeWhiteMove {
 		assert move != null;
 		assert game.activeColor() == white; 
 		assert move.type() == normal || move.type() == normalKingMove || move.type() == normalRookMove;
-		assert game.piece(move.from()).white();
+		assert PieceType.white(game.piece(move.from()).type());
 		assert game.piece(move.from()).type() != WhitePawn;
 		assert game.piece(move.to()) == null;
 		
@@ -50,7 +50,7 @@ public final class MakeWhiteMove {
 
 		assert game.activeColor() == black; 
 		assert game.piece(move.from()) == null;
-		assert game.piece(move.to()).white();
+		assert PieceType.white(game.piece(move.to()).type());
 	}
 
 	public static void undo(Game game, Move move) {
@@ -66,7 +66,7 @@ public final class MakeWhiteMove {
 		assert move != null;
 		assert game.activeColor() == white; 
 		assert move.type() == normal || move.type() == normalKingMove || move.type() == normalRookMove;
-		assert game.piece(move.to()).white();
+		assert PieceType.white(game.piece(move.to()).type());
 		assert game.piece(move.to()).type() != PieceType.WhitePawn;
 		assert game.piece(move.from()) == null;
 
@@ -78,7 +78,7 @@ public final class MakeWhiteMove {
 		assert game.halfMoveClock() >= 0;
 		assert game.activeColor() == white; 
 		assert game.piece(move.to()) == null;
-		assert game.piece(move.from()).white();
+		assert PieceType.white(game.piece(move.from()).type());
 	}
 
 }

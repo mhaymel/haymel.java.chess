@@ -20,6 +20,7 @@ import com.haymel.chess.engine.board.PieceList;
 import com.haymel.chess.engine.castling.CastlingRight;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.piece.Piece;
+import com.haymel.chess.engine.piece.PieceType;
 
 public final class WhiteMoves {		//TODO unit test
 
@@ -53,7 +54,7 @@ public final class WhiteMoves {		//TODO unit test
 
 	private void generate(Piece piece, CastlingRight castling, int epField, Moves moves) {
 		assert piece != null;
-		assert piece.white();
+		assert PieceType.white(piece.type());
 		
 		switch(piece.type()) {
 		case WhitePawn:

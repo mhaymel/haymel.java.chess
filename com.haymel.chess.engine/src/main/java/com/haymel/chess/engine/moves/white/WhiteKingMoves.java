@@ -34,6 +34,7 @@ import static java.lang.String.format;
 import com.haymel.chess.engine.castling.CastlingRight;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.piece.Piece;
+import com.haymel.chess.engine.piece.PieceType;
 
 public final class WhiteKingMoves {
 
@@ -125,7 +126,7 @@ public final class WhiteKingMoves {
 		if (piece == null) {
 			moves.addKingMove(from, to);
 		}
-		else if (piece.black()) {
+		else if (PieceType.black(piece.type())) {
 			moves.addKingCapture(from, to, piece);
 		}
 	}

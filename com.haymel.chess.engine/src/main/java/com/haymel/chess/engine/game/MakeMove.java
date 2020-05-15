@@ -39,6 +39,7 @@ import com.haymel.chess.engine.game.white.MakeWhiteQueenSideCastlingMove;
 import com.haymel.chess.engine.game.white.MakeWhiteRookMove;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.MoveType;
+import com.haymel.chess.engine.piece.PieceType;
 
 public final class MakeMove {	//TODO unit test
 
@@ -54,8 +55,8 @@ public final class MakeMove {	//TODO unit test
 		assert move != null;
 		assert game.assertVerify();
 		assert 
-			activeColor() == white && game.piece(move.from()).white() || 
-			activeColor() == black && game.piece(move.from()).black()      : "" + activeColor() + " " + move.toString();
+			activeColor() == white && PieceType.white(game.piece(move.from()).type()) || 
+			activeColor() == black && PieceType.black(game.piece(move.from()).type())      : "" + activeColor() + " " + move.toString();
 		
 		switch(activeColor()) {
 		case black:
@@ -98,7 +99,7 @@ public final class MakeMove {	//TODO unit test
 	
 	private void makeWhiteMove(Move move) {
 		assert activeColor() == white; 
-		assert game.piece(move.from()).white();
+		assert PieceType.white(game.piece(move.from()).type());
 		
 		switch(move.type()) {
 		case MoveType.normal:
@@ -203,7 +204,7 @@ public final class MakeMove {	//TODO unit test
 	
 	private void makeBlackMove(Move move) {
 		assert activeColor() == black; 
-		assert game.piece(move.from()).black();
+		assert PieceType.black(game.piece(move.from()).type());
 		
 		switch(move.type()) {
 		case MoveType.normal:

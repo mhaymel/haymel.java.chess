@@ -9,6 +9,7 @@ package com.haymel.chess.engine.moves.white;
 
 import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.piece.PieceType.WhiteBishop;
+import static com.haymel.chess.engine.piece.PieceType.black;
 
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.moves.Moves;
@@ -45,7 +46,7 @@ public final class WhiteBishopMoves {
 			to = Field.leftUp(to);
 			piece = pieces[to];
 		}
-		if (piece.black()) 
+		if (black(piece.type())) 
 			moves.addCapture(from, to, piece);
 	}
 
@@ -57,7 +58,7 @@ public final class WhiteBishopMoves {
 			to = Field.leftDown(to);
 			piece = pieces[to];
 		}
-		if (piece.black()) 
+		if (black(piece.type())) 
 			moves.addCapture(from, to, piece);
 	}
 
@@ -69,7 +70,7 @@ public final class WhiteBishopMoves {
 			to = Field.rightUp(to);
 			piece = pieces[to];
 		}
-		if (piece.black()) 
+		if (black(piece.type())) 
 			moves.addCapture(from, to, piece);
 	}
 
@@ -81,7 +82,7 @@ public final class WhiteBishopMoves {
 			to = Field.rightDown(to);
 			piece = pieces[to];
 		}
-		if (piece.black()) 
+		if (black(piece.type())) 
 			moves.addCapture(from, to, piece);
 	}
 	

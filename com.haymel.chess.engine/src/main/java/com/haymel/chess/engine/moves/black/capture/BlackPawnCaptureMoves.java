@@ -31,6 +31,7 @@ import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.piece.Piece;
+import com.haymel.chess.engine.piece.PieceType;
 
 public final class BlackPawnCaptureMoves {
 	
@@ -133,7 +134,7 @@ public final class BlackPawnCaptureMoves {
 	}
 
 	private static boolean white(Piece piece) {
-		return piece != null && piece.white();
+		return piece != null && PieceType.white(piece.type());
 	}
 
 }

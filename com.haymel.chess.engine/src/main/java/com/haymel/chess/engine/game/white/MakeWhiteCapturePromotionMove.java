@@ -25,6 +25,7 @@ import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.piece.Piece;
+import com.haymel.chess.engine.piece.PieceType;
 
 public final class MakeWhiteCapturePromotionMove {
 
@@ -35,9 +36,9 @@ public final class MakeWhiteCapturePromotionMove {
 		assert game.activeColor() == white; 
 		assert move.type() == capturePromotion;
 		assert game.piece(move.from()).type() == WhitePawn;
-		assert game.piece(move.to()).black();
+		assert PieceType.black(game.piece(move.to()).type());
 		assert game.piece(move.to()) == move.capturedPiece();
-		assert move.capturedPiece().black();
+		assert PieceType.black(move.capturedPiece().type());
 		assert game.containsBlackPiece(move.capturedPiece());
 		assert game.piece(move.to()).type() != BlackKing;
 		assert game.piece(move.to()).type() != BlackPawn;
@@ -74,7 +75,7 @@ public final class MakeWhiteCapturePromotionMove {
 		assert game.activeColor() == black; 
 		assert game.piece(move.from()) == null;
 		assert game.piece(move.to()).type() == move.pieceType();
-		assert game.piece(move.to()).white();
+		assert PieceType.white(game.piece(move.to()).type());
 		assert game.piece(move.to()) == piece;
 		assert game.halfMoveClock() == 0;
 		assert game.fullMoveNumber() >= 1;
@@ -90,8 +91,8 @@ public final class MakeWhiteCapturePromotionMove {
 		assert game.activeColor() == white;
 		assert move.type() == capturePromotion;
 		assert game.piece(move.from()) == null;
-		assert game.piece(move.to()).white();
-		assert move.capturedPiece().black();
+		assert PieceType.white(game.piece(move.to()).type());
+		assert PieceType.black(move.capturedPiece().type());
 		assert !game.containsBlackPiece(move.capturedPiece());
 		assert rank(move.from()) == 6;
 		assert rank(move.to()) == 7;
@@ -108,10 +109,10 @@ public final class MakeWhiteCapturePromotionMove {
 		
 		assert game.halfMoveClock() >= 0;
 		assert game.activeColor() == white;
-		assert game.piece(move.from()).white();
-		assert game.piece(move.to()).black();
+		assert PieceType.white(game.piece(move.from()).type());
+		assert PieceType.black(game.piece(move.to()).type());
 		assert game.piece(move.to()) == move.capturedPiece();
-		assert move.capturedPiece().black();
+		assert PieceType.black(move.capturedPiece().type());
 		assert game.containsBlackPiece(move.capturedPiece());
 		assert game.piece(move.to()).type() != BlackKing;
 		assert game.containsWhitePiece(piece);

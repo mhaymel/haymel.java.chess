@@ -21,6 +21,7 @@ import static com.haymel.chess.engine.moves.black.castling.E8Attacked.e8Attacked
 import static com.haymel.chess.engine.moves.black.castling.F8Attacked.f8Attacked;
 import static com.haymel.chess.engine.piece.PieceType.BlackKing;
 import static com.haymel.chess.engine.piece.PieceType.BlackRook;
+import static com.haymel.chess.engine.piece.PieceType.white;
 import static java.lang.String.format;
 
 import com.haymel.chess.engine.board.Field;
@@ -114,7 +115,7 @@ public final class BlackKingMoves {
 		if (piece == null) 
 			moves.addKingMove(from, to);
 		
-		else if (piece.white()) 
+		else if (white(piece.type())) 
 			moves.addKingCapture(from, to, piece);
 		
 	}

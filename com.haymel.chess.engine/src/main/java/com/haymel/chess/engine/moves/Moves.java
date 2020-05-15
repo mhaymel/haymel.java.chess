@@ -113,7 +113,7 @@ public class Moves {
 		assert valid(to);
 		assert from != to;
 		assert piece != null;
-		assert piece.black() || piece.white();
+		assert PieceType.black(piece.type()) || PieceType.white(piece.type());
 		assert validMoveType(type);
 		assert type == capture || type == captureKingMove || type == captureRookMove;
 		
@@ -162,7 +162,7 @@ public class Moves {
 		assert Math.abs(file(from) - file(to)) == 1;
 		assert rank(from) == 6;
 		assert rank(to) == 7;
-		assert piece.black();
+		assert PieceType.black(piece.type());
 		
 		add(new Move(from, to, piece, WhiteQueen));
 		add(new Move(from, to, piece, WhiteRook));
@@ -190,7 +190,7 @@ public class Moves {
 		assert abs(file(from) - file(to)) == 1;
 		assert rank(from) == 1;
 		assert rank(to) == 0;
-		assert piece.white();
+		assert PieceType.white(piece.type());
 		
 		add(new Move(from, to, piece, BlackQueen));
 		add(new Move(from, to, piece, BlackRook));

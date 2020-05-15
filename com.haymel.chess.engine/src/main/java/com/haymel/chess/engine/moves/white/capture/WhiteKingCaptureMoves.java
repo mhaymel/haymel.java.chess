@@ -21,6 +21,7 @@ import static java.lang.String.format;
 
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.piece.Piece;
+import com.haymel.chess.engine.piece.PieceType;
 
 public final class WhiteKingCaptureMoves {	//TODO unit test
 
@@ -59,7 +60,7 @@ public final class WhiteKingCaptureMoves {	//TODO unit test
 	}
 
 	private static boolean black(Piece piece) {
-		return piece != null && piece.black();
+		return piece != null && PieceType.black(piece.type());
 	}
 	
 }

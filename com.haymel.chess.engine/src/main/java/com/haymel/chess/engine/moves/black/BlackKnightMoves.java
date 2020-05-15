@@ -9,6 +9,7 @@ package com.haymel.chess.engine.moves.black;
 
 import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
+import static com.haymel.chess.engine.piece.PieceType.white;
 
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.moves.Moves;
@@ -49,7 +50,7 @@ public final class BlackKnightMoves {
 		if (piece == null) {
 			moves.add(from, to);
 		}
-		else if (piece.white()) {
+		else if (white(piece.type())) {
 			moves.addCapture(from, to, piece);
 		}
 	}

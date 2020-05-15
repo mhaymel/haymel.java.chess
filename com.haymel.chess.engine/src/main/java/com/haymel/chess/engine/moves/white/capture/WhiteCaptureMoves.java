@@ -19,6 +19,7 @@ import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
 import com.haymel.chess.engine.board.PieceList;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.piece.Piece;
+import com.haymel.chess.engine.piece.PieceType;
 
 public final class WhiteCaptureMoves {		//TODO unit test
 
@@ -54,7 +55,7 @@ public final class WhiteCaptureMoves {		//TODO unit test
 
 	private void generate(Piece piece, int epField, Moves moves) {
 		assert piece != null;
-		assert piece.white();
+		assert PieceType.white(piece.type());
 		
 		switch(piece.type()) {
 		case WhitePawn:

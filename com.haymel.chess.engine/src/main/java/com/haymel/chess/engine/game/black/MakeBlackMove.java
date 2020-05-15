@@ -17,6 +17,7 @@ import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.piece.Piece;
+import com.haymel.chess.engine.piece.PieceType;
 
 public final class MakeBlackMove {
 
@@ -33,7 +34,7 @@ public final class MakeBlackMove {
 		assert move != null;
 		assert game.activeColor() == black; 
 		assert move.type() == normal || move.type() == normalKingMove || move.type() == normalRookMove;
-		assert game.piece(move.from()).black();
+		assert PieceType.black(game.piece(move.from()).type());
 		assert game.piece(move.from()).type() != BlackPawn;
 		assert game.piece(move.to()) == null;
 		
@@ -48,7 +49,7 @@ public final class MakeBlackMove {
 
 		assert game.activeColor() == white; 
 		assert game.piece(move.from()) == null;
-		assert game.piece(move.to()).black();
+		assert PieceType.black(game.piece(move.to()).type());
 	}
 
 	public static void undo(Game game, Move move) {
@@ -64,7 +65,7 @@ public final class MakeBlackMove {
 		assert move != null;
 		assert game.activeColor() == black; 
 		assert move.type() == normal || move.type() == normalKingMove || move.type() == normalRookMove;
-		assert game.piece(move.to()).black();
+		assert PieceType.black(game.piece(move.to()).type());
 		assert game.piece(move.to()).type() != BlackPawn;
 		assert game.piece(move.from()) == null;
 
@@ -76,7 +77,7 @@ public final class MakeBlackMove {
 		assert game.halfMoveClock() >= 0;
 		assert game.activeColor() == black; 
 		assert game.piece(move.to()) == null;
-		assert game.piece(move.from()).black();
+		assert PieceType.black(game.piece(move.from()).type());
 	}
 
 }

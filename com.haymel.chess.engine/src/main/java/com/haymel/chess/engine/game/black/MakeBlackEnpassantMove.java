@@ -17,6 +17,7 @@ import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.piece.Piece;
+import com.haymel.chess.engine.piece.PieceType;
 
 public final class MakeBlackEnpassantMove {
 
@@ -30,7 +31,7 @@ public final class MakeBlackEnpassantMove {
 		assert game.piece(move.from()).type() == BlackPawn;
 		assert Field.rank(move.from()) == 3;
 		assert game.piece(game.enPassant()) == null;
-		assert game.piece(Field.up(game.enPassant())).white();
+		assert PieceType.white(game.piece(Field.up(game.enPassant())).type());
 		assert game.piece(Field.up(game.enPassant())) == move.capturedPiece();
 		assert game.containsWhitePiece(move.capturedPiece());
 		
