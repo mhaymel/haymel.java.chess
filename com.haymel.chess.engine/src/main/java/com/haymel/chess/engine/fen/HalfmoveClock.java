@@ -12,33 +12,33 @@ import static com.haymel.util.Require.nonNull;
 import static com.haymel.util.exception.HaymelIllegalArgumentException.throwIAE;
 import static java.lang.Integer.parseInt;
 
-import com.haymel.chess.engine.game.Game;
+import com.haymel.chess.engine.game.Position;
 
 class HalfmoveClock {
 
-	private final Game game;
-	private final String halfmoveClock; 
+	private final Position position;
+	private final String halfMoveClock; 
 	
-	HalfmoveClock(Game game, String halfmoveClock) {
-		this.game = nonNull(game, "game");
-		this.halfmoveClock = verify(halfmoveClock);
+	HalfmoveClock(Position position, String halfmoveClock) {
+		this.position = nonNull(position, "position");
+		this.halfMoveClock = verify(halfmoveClock);
 	}
 	
 	void execute() {
-		game.halfMoveClock(parseInt(halfmoveClock));
+		position.halfMoveClock(parseInt(halfMoveClock));
 	}
 
-	private static String verify(String halfmoveClock) {
-		nonEmpty(halfmoveClock, "halfmoveClock");
+	private static String verify(String halfMoveClock) {
+		nonEmpty(halfMoveClock, "halfMoveClock");
 
 		try {
-			parseInt(halfmoveClock);
+			parseInt(halfMoveClock);
 		}
 		catch(NumberFormatException e) {
-			throwIAE("halfmoveClock must be an numeric value but is '%s'", halfmoveClock);
+			throwIAE("halfMoveClock must be an numeric value but is '%s'", halfMoveClock);
 		}
 		
-		return halfmoveClock;
+		return halfMoveClock;
 	}
 	
 }

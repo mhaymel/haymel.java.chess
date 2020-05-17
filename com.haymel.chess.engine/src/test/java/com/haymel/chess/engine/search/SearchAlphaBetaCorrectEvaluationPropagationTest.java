@@ -21,7 +21,7 @@ public class SearchAlphaBetaCorrectEvaluationPropagationTest {
 	@Test
 	public void test() {
 		String fen = "rnb1kbnr/ppp2ppp/8/4p3/3q4/2N5/PPP2PPP/R1BQKBNR w KQkq - 0 5";
-		Game game = new GameFromFEN(fen).execute();
+		Game game = new GameFromFEN(fen).value();
 		
 		SearchAlphaBeta search = new SearchAlphaBeta(game, sysoutSearchInfo);
 		BestMove bestMove = search.execute(5);

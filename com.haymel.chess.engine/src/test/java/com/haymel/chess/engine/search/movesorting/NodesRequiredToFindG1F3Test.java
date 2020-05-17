@@ -26,7 +26,7 @@ public class NodesRequiredToFindG1F3Test {
 	@Test
 	public void test() {
 		String fen = "6nk/2b2ppp/3q4/8/8/7P/P4PB1/Q5NK w - - 1 1";
-		Game game = new GameFromFEN(fen).execute();
+		Game game = new GameFromFEN(fen).value();
 		
 		SearchAlphaBeta search = new SearchAlphaBeta(game, sysoutSearchInfo, new PVMoveIteratorCreator(game));
 		BestMove bestMove = search.execute(3);

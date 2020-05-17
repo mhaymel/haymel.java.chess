@@ -13,17 +13,17 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.haymel.chess.engine.game.Game;
+import com.haymel.chess.engine.game.Position;
 import com.haymel.util.exception.HaymelIllegalArgumentException;
 import com.haymel.util.exception.HaymelNullPointerException;
 
 public class FullmoveNumberTest {
 
-	private Game game;
+	private Position position;
 	
 	@Before
 	public void setup() {
-		game = new Game();
+		position = new Position();
 	}
 	
 	@Test(expected = HaymelNullPointerException.class)
@@ -33,31 +33,31 @@ public class FullmoveNumberTest {
 
 	@Test(expected = HaymelNullPointerException.class)
 	public void constructorWithNullAsFieldAsStringThrowsException() {
-		new FullmoveNumber(game, null);
+		new FullmoveNumber(position, null);
 	}
 
 	@Test(expected = HaymelIllegalArgumentException.class)
 	public void constructorWithEmptyStringAsFieldAsStringThrowsException() {
-		new FullmoveNumber(game, "");
+		new FullmoveNumber(position, "");
 	}
 
 	@Test(expected = HaymelIllegalArgumentException.class)
 	public void fullmoveNumberZeroThrowsException() {
-		new FullmoveNumber(game, "0");
+		new FullmoveNumber(position, "0");
 	}
 
 	@Test
 	public void fullmoveNumber() {
-		new FullmoveNumber(game, "1").execute();
-		assertThat(game.fullMoveNumber(), is(1));
+		new FullmoveNumber(position, "1").execute();
+		assertThat(position.fullMoveNumber(), is(1));
 
-		new FullmoveNumber(game, "17").execute();
-		assertThat(game.fullMoveNumber(), is(17));
+		new FullmoveNumber(position, "17").execute();
+		assertThat(position.fullMoveNumber(), is(17));
 	}
 
 	@Test(expected = HaymelIllegalArgumentException.class)
 	public void illegalValueAsHalfmoveThrowsException() {
-		new FullmoveNumber(game, "a3").execute();
+		new FullmoveNumber(position, "a3").execute();
 	}
 
 }

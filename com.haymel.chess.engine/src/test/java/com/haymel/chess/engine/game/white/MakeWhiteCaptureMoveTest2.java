@@ -7,55 +7,32 @@
  */
 package com.haymel.chess.engine.game.white;
 
-import static com.haymel.chess.engine.board.Field.a1;
-import static com.haymel.chess.engine.board.Field.a8;
-import static com.haymel.chess.engine.moves.MoveType.capture;
-import static com.haymel.chess.engine.piece.PieceType.BlackRook;
-import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
+import static com.haymel.chess.engine.game.TestHelper.makeMove;
+import static com.haymel.chess.engine.game.TestHelper.undoMove;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import com.haymel.chess.engine.game.Game;
-import com.haymel.chess.engine.game.MakeMove;
+import com.haymel.chess.engine.game.TestHelper;
 import com.haymel.chess.engine.moves.Move;
-import com.haymel.chess.engine.piece.Piece;
 
 public class MakeWhiteCaptureMoveTest2 {
 
-	private Game game;
-	private MakeMove moveMaker;
-
-	private Piece whiteRook;
-	private Piece blackRook;
-	
-	@Before
-	public void setup() {
-		game = new Game();
-		moveMaker = new MakeMove(game);
-		
-		whiteRook = new Piece(WhiteRook, a1);
-		game.addWhite(whiteRook);
-		game.place(whiteRook);
-
-		blackRook = new Piece(BlackRook, a8);
-		game.addBlack(blackRook);
-		game.place(blackRook);
-		game.assertVerify();
-	}
-	
 	@Test
 	public void makeAndUndo() {
-		game.assertVerify();
-		game.halfMoveClock(13);
-
-		Move a1a8 = new Move(a1, a8, capture, blackRook);
+		Game game = TestHelper.fromFen("r6k/8/8/8/8/8/8/R6K w - - 13 5");
+		Move move = TestHelper.find("a1a8", game);
 		
-		moveMaker.makeMove(a1a8);
-		game.assertVerify();
+		makeMove(move, game);
+		assertThat(game.halfMoveClock(), is(0));
+		assertThat(game.fullMoveNumber(), is(5));
 		
-		moveMaker.undoMove();
+		undoMove(game);
 		game.assertVerify();
+		assertThat(game.halfMoveClock(), is(13));
+		assertThat(game.fullMoveNumber(), is(5));
 	}
 
 }

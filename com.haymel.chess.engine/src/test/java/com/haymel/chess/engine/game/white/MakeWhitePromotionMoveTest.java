@@ -91,7 +91,7 @@ public class MakeWhitePromotionMoveTest {
 	}
 
 	private static Game fromFen(String fen) {
-		return new GameFromFEN(fen).execute();		
+		return new GameFromFEN(fen).value();		
 	}
 	
 }

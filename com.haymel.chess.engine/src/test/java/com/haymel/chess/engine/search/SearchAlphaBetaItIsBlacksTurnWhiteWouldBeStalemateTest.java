@@ -32,7 +32,7 @@ public class SearchAlphaBetaItIsBlacksTurnWhiteWouldBeStalemateTest {
 
 	private void test(int depth) {
 		String fen = "4k3/8/8/8/6n1/4n3/4n3/7K b - - 0 73";		
-		Game game = new GameFromFEN(fen).execute();
+		Game game = new GameFromFEN(fen).value();
 		
 		SearchAlphaBeta search = new SearchAlphaBeta(game, sysoutSearchInfo);
 		BestMove bestMove = search.execute(depth);

@@ -33,7 +33,7 @@ public class SearchAlphaBetaItIsWhitesTurnButWhiteIsAlreadyMateTest {
 
 	private void test(int depth) {
 		String fen = "3k4/8/8/8/8/8/5PPP/3r2K1 w - - 0 73";
-		Game game = new GameFromFEN(fen).execute();
+		Game game = new GameFromFEN(fen).value();
 
 		assertThat(game.assertVerify(), is(true));
 		

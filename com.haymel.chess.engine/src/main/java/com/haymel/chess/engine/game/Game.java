@@ -7,7 +7,6 @@
  */
 package com.haymel.chess.engine.game;
 
-import static com.haymel.chess.engine.board.Board.newBoard;
 import static com.haymel.chess.engine.board.Field.a1;
 import static com.haymel.chess.engine.board.Field.a3;
 import static com.haymel.chess.engine.board.Field.a6;
@@ -21,6 +20,7 @@ import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.board.Field.right;
 import static com.haymel.chess.engine.board.Field.up;
 import static com.haymel.chess.engine.board.Field.valid;
+import static com.haymel.chess.engine.fen.PositionFromFEN.positionFromInitialFen;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
 import static com.haymel.chess.engine.moves.MoveType.capturePromotion;
@@ -75,34 +75,46 @@ public final class Game {	//TODO unit test and refactor
 	private PiecePositionValue blackPiecePositionValue;
 	private final CastlingRightHistory castlingRightHistory = new CastlingRightHistory();
 	
+	public Game(Position position) {
+		this(position, new WhitePiecesPositionValue(), new BlackPiecesPositionValue());
+	}
+	
 	public Game() {
-		this(new WhitePiecesPositionValue(), new BlackPiecesPositionValue());
+		this(positionFromInitialFen(), new WhitePiecesPositionValue(), new BlackPiecesPositionValue());
 	}
 
-	public Game(PiecePositionValue whitePiecePositionValue, PiecePositionValue blackPiecePositionValue) {
-		this.board = newBoard();
+	public Game(Position position, PiecePositionValue whitePiecePositionValue, PiecePositionValue blackPiecePositionValue) {
+		position.verify();
+		this.board = position.board();
+		this.activeColor = position.activeColor();
+		this.enPassant = position.enPassant();
+		this.halfMoveClock = position.halfMoveClock();
+		this.fullMoveNumber = position.fullMoveNumber();
+		this.castlingRightHistory.castlingRight().rights(position.castlingRight());
 		this.whiteMoves = new WhiteMoves(board);
 		this.whiteCaptureMoves = new WhiteCaptureMoves(board);
 		this.blackMoves = new BlackMoves(board);
 		this.blackCaptureMoves = new BlackCaptureMoves(board);
 		this.whitePiecePositionValue = nonNull(whitePiecePositionValue, "whitePiecePositionValue");
 		this.blackPiecePositionValue = nonNull(blackPiecePositionValue, "blackPiecePositionValue");
-		reset();
+
+		init();
 		assertVerify();
 	}
 
-	private void reset() {
-		Board.reset(board);
-		activeColor = white;
-		enPassant = removed;
-		halfMoveClock = 0;
-		fullMoveNumber = 1;
-		undos.clear();
-		whitePieces.clear();
-		blackPieces.clear();
-		pieceValue = 0;
-		castlingRightHistory.reset();
-		assertVerify();
+	private void init() {
+		for(int i = 0; i < board.length; i++)
+			if (board[i] != null)
+				add( board[i]);
+	}
+
+	private void add(Piece piece) {
+		assert piece != null;
+		if (PieceType.white(piece.type()))
+			addWhite(piece);
+		
+		if (PieceType.black(piece.type()))
+			addBlack(piece);
 	}
 
 	public void push(Move move) {

@@ -56,7 +56,7 @@ public class PerftKiwipeteTest {
 
 	@Test
 	public void test() {
-		Game game = new GameFromFEN(fen).execute();
+		Game game = new GameFromFEN(fen).value();
 		Perft perft = new Perft(game);
 		perft.execute(depth);
 		assertThat(perft.nodes(), is(expectedNodes));

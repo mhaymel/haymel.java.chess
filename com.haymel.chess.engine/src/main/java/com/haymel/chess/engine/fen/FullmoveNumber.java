@@ -12,34 +12,34 @@ import static com.haymel.util.Require.nonNull;
 import static com.haymel.util.exception.HaymelIllegalArgumentException.throwIAE;
 import static java.lang.Integer.parseInt;
 
-import com.haymel.chess.engine.game.Game;
+import com.haymel.chess.engine.game.Position;
 
 class FullmoveNumber {
 
-	private final Game game;
-	private final String fullmoveNumber; 
+	private final Position position;
+	private final String fullMoveNumber; 
 	
-	FullmoveNumber(Game game, String fullmoveNumber) {
-		this.game = nonNull(game, "game");
-		this.fullmoveNumber = verify(fullmoveNumber);
+	FullmoveNumber(Position position, String fullMoveNumber) {
+		this.position = nonNull(position, "position");
+		this.fullMoveNumber = verify(fullMoveNumber);
 	}
 	
 	void execute() {
-		game.fullMoveNumber(parseInt(fullmoveNumber));
+		position.fullMoveNumber(parseInt(fullMoveNumber));
 	}
 
-	private static String verify(String fullmoveNumber) {
-		nonEmpty(fullmoveNumber, "fullmoveNumber");
+	private static String verify(String fullMoveNumber) {
+		nonEmpty(fullMoveNumber, "fullMoveNumber");
 
 		try {
-			if (parseInt(fullmoveNumber) < 1)
-				throwIAE("fullmoveNumber must be greater than 0 but is '%s'", fullmoveNumber); 
+			if (parseInt(fullMoveNumber) < 1)
+				throwIAE("fullMoveNumber must be greater than 0 but is '%s'", fullMoveNumber); 
 		}
 		catch(NumberFormatException e) {
-			throwIAE("fullmoveNumber must be an numeric value but is '%s'", fullmoveNumber);
+			throwIAE("fullMoveNumber must be an numeric value but is '%s'", fullMoveNumber);
 		}
 		
-		return fullmoveNumber;
+		return fullMoveNumber;
 	}
 	
 }

@@ -7,18 +7,15 @@
  */
 package com.haymel.chess.engine.game.white;
 
+import static com.haymel.chess.engine.board.Field.c6;
 import static com.haymel.chess.engine.board.Field.e1;
-import static com.haymel.chess.engine.board.Field.e6;
-import static com.haymel.chess.engine.board.Field.f1;
-import static com.haymel.chess.engine.board.Field.g1;
-import static com.haymel.chess.engine.board.Field.h1;
+import static com.haymel.chess.engine.board.Field.e2;
 import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.game.TestHelper.find;
 import static com.haymel.chess.engine.game.TestHelper.fromFen;
 import static com.haymel.chess.engine.game.TestHelper.makeMove;
 import static com.haymel.chess.engine.game.TestHelper.undoMove;
 import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
-import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
@@ -28,24 +25,22 @@ import org.junit.Test;
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.moves.Move;
 
-public class MakeWhiteKingSideCastlingMoveTest {
+public class MakeWhiteKingMoveTest {
 
 	@Test
 	public void makeAndUndo() {
 		Game game = fromFen("r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 13 10");
-		Move move = find("e1g1", game);
-		
+		Move move = find("e1e2", game);
+
 		makeMove(move, game);
 		assertThat(game.castlingRight().white().kingside(), is(false));
 		assertThat(game.castlingRight().white().queenside(), is(false));
 		assertThat(game.castlingRight().black().kingside(), is(true));
 		assertThat(game.castlingRight().black().queenside(), is(true));
+		assertThat(game.piece(move.to()).type(), is(WhiteKing));
+		assertThat(game.piece(e1), is(nullValue()));
 		assertThat(game.halfMoveClock(), is(14));
 		assertThat(game.fullMoveNumber(), is(10));
-		assertThat(game.piece(e1), is(nullValue()));
-		assertThat(game.piece(h1), is(nullValue()));
-		assertThat(game.piece(g1).type(), is(WhiteKing));
-		assertThat(game.piece(f1).type(), is(WhiteRook));
 		assertThat(game.enPassant(), is(removed));
 		
 		undoMove(game);
@@ -53,31 +48,27 @@ public class MakeWhiteKingSideCastlingMoveTest {
 		assertThat(game.castlingRight().white().queenside(), is(true));
 		assertThat(game.castlingRight().black().kingside(), is(true));
 		assertThat(game.castlingRight().black().queenside(), is(true));
+		assertThat(game.piece(move.from()).type(), is(WhiteKing));
+		assertThat(game.piece(e2), is(nullValue()));
 		assertThat(game.halfMoveClock(), is(13));
 		assertThat(game.fullMoveNumber(), is(10));
-		assertThat(game.piece(f1), is(nullValue()));
-		assertThat(game.piece(g1), is(nullValue()));
-		assertThat(game.piece(e1).type(), is(WhiteKing));
-		assertThat(game.piece(h1).type(), is(WhiteRook));
 		assertThat(game.enPassant(), is(removed));
 	}
 
 	@Test
 	public void enPassantIsSetCorrectly() {
-		Game game = fromFen("r3k2r/8/8/4p3/8/8/8/R3K2R w KQkq e6 13 10");
-		Move move = find("e1g1", game);
-		
+		Game game = fromFen("r3k2r/8/8/2p5/8/8/8/R3K2R w KQkq c6 13 10");
+		Move move = find("e1e2", game);
+
 		makeMove(move, game);
 		assertThat(game.castlingRight().white().kingside(), is(false));
 		assertThat(game.castlingRight().white().queenside(), is(false));
 		assertThat(game.castlingRight().black().kingside(), is(true));
 		assertThat(game.castlingRight().black().queenside(), is(true));
+		assertThat(game.piece(move.to()).type(), is(WhiteKing));
+		assertThat(game.piece(e1), is(nullValue()));
 		assertThat(game.halfMoveClock(), is(14));
 		assertThat(game.fullMoveNumber(), is(10));
-		assertThat(game.piece(e1), is(nullValue()));
-		assertThat(game.piece(h1), is(nullValue()));
-		assertThat(game.piece(g1).type(), is(WhiteKing));
-		assertThat(game.piece(f1).type(), is(WhiteRook));
 		assertThat(game.enPassant(), is(removed));
 		
 		undoMove(game);
@@ -85,13 +76,11 @@ public class MakeWhiteKingSideCastlingMoveTest {
 		assertThat(game.castlingRight().white().queenside(), is(true));
 		assertThat(game.castlingRight().black().kingside(), is(true));
 		assertThat(game.castlingRight().black().queenside(), is(true));
+		assertThat(game.piece(move.from()).type(), is(WhiteKing));
+		assertThat(game.piece(e2), is(nullValue()));
 		assertThat(game.halfMoveClock(), is(13));
 		assertThat(game.fullMoveNumber(), is(10));
-		assertThat(game.piece(f1), is(nullValue()));
-		assertThat(game.piece(g1), is(nullValue()));
-		assertThat(game.piece(e1).type(), is(WhiteKing));
-		assertThat(game.piece(h1).type(), is(WhiteRook));
-		assertThat(game.enPassant(), is(e6));
+		assertThat(game.enPassant(), is(c6));
 	}
 	
 }

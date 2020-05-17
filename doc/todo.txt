@@ -1,3 +1,5 @@
+- create class FenFromPosition and use it in unit tests
+- create a parameterized test for make move with fen and expected fen
 - assert generating of capture moves with normal move generation and vice versa
 - improve time management
 - improve stopping of search

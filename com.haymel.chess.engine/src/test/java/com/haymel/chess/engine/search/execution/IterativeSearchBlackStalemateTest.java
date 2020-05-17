@@ -25,7 +25,7 @@ public class IterativeSearchBlackStalemateTest {
 	
 	@Test
 	public void test() {
-		Game game = new GameFromFEN(fen).execute();
+		Game game = new GameFromFEN(fen).value();
 		
 		IterativeSearch search = new IterativeSearch(game);
 		BestMove bestMove = search.execute(10_000, 10_000);

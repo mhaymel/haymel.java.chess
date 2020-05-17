@@ -7,7 +7,7 @@
  */
 package com.haymel.chess.engine.search.performance;
 
-import static com.haymel.chess.engine.fen.GameFromFEN.initalFen;
+import static com.haymel.chess.engine.fen.PositionFromFEN.initalFen;
 import static com.haymel.chess.engine.search.SearchInfo.noopSearchInfo;
 import static com.haymel.chess.engine.search.SearchInfoImpl.nodeStatisticsConsumer;
 import static com.haymel.chess.engine.search.performance.Assertion.assumeNoAssertion;
@@ -61,7 +61,7 @@ public class PerformanceTest {
 	private static void warmUp(String fen) {
 		out.println(format("fen: %s", fen));
 		
-		Game game = new GameFromFEN(fen).execute();
+		Game game = new GameFromFEN(fen).value();
 		IterativeSearch search = new IterativeSearch(game, noopSearchInfo, new NodesCalculator(0.1));
 		search.execute(warmUpSearchTime, warmUpSearchTime);
 	}
@@ -85,7 +85,7 @@ public class PerformanceTest {
 		assumeNoAssertion();
 
 		out.println(fen);
-		Game game = new GameFromFEN(fen).execute();
+		Game game = new GameFromFEN(fen).value();
 		IterativeSearch search = new IterativeSearch(game);
 		StopWatch stopWatch = new StopWatch();
 		stopWatch.start();

@@ -225,7 +225,7 @@ public class MoveTest {
 	}
 	
 	private static Game fromFen(String fen) {
-		return new GameFromFEN(fen).execute();		
+		return new GameFromFEN(fen).value();		
 	}
 	
 	private static Move find(String move, Game game) {

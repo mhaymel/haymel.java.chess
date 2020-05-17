@@ -8,136 +8,90 @@
 package com.haymel.chess.engine.game.black;
 
 import static com.haymel.chess.engine.board.Field.e3;
-import static com.haymel.chess.engine.board.Field.e4;
 import static com.haymel.chess.engine.board.Field.e5;
 import static com.haymel.chess.engine.board.Field.e6;
 import static com.haymel.chess.engine.board.Field.e7;
 import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
-import static com.haymel.chess.engine.moves.MoveType.pawn;
+import static com.haymel.chess.engine.game.TestHelper.find;
+import static com.haymel.chess.engine.game.TestHelper.fromFen;
+import static com.haymel.chess.engine.game.TestHelper.makeMove;
+import static com.haymel.chess.engine.game.TestHelper.undoMove;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
-import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import com.haymel.chess.engine.game.Game;
-import com.haymel.chess.engine.game.MakeMove;
 import com.haymel.chess.engine.moves.Move;
-import com.haymel.chess.engine.piece.Piece;
 
 public class MakeBlackPawnMoveTest {
 
-	private Game game;
-	private MakeMove moveMaker;
-	
-	@Before
-	public void setup() {
-		game = new Game();
-		moveMaker = new MakeMove(game);
-	}
-	
 	@Test
 	public void e7e6() {
-		Piece piece = new Piece(BlackPawn, e7);
-		game.addBlack(piece);
-		game.place(piece);
-		game.halfMoveClock(30);
-		game.fullMoveNumber(45);
-		game.activeColorBlack();
-		game.assertVerify();
-
-		Move e7e6 = new Move(e7, e6, pawn);
-		moveMaker.makeMove(e7e6);
-
-		game.assertVerify();
-		assertThat(piece.field(), is(e6));
-		assertThat(game.piece(e7) == null, is(true));
+		Game game = fromFen("7k/4p3/8/8/8/8/8/7K b - - 45 30");
+		Move move = find("e7e6", game);
+		
+		makeMove(move, game);
+		assertThat(game.piece(e6).type(), is(BlackPawn));
+		assertThat(game.piece(e7), is(nullValue()));
 		assertThat(game.halfMoveClock(), is(0));
-		assertThat(game.fullMoveNumber(), is(46));
+		assertThat(game.fullMoveNumber(), is(31));
 		assertThat(game.enPassant(), is(removed));
 		assertThat(game.activeColor(), is(white));
 		
-		moveMaker.undoMove();
-
-		game.assertVerify();
-		assertThat(piece.field(), is(e7));
-		assertThat(game.piece(e5) == null, is(true));
-		assertThat(game.halfMoveClock(), is(30));
-		assertThat(game.fullMoveNumber(), is(45));
+		undoMove(game);
+		assertThat(game.piece(e7).type(), is(BlackPawn));
+		assertThat(game.piece(e6), is(nullValue()));
+		assertThat(game.halfMoveClock(), is(45));
+		assertThat(game.fullMoveNumber(), is(30));
 		assertThat(game.enPassant(), is(removed));
 		assertThat(game.activeColor(), is(black));
 	}
 	
 	@Test
 	public void e6e5() {
-		Piece piece = new Piece(BlackPawn, e6);
-		game.addBlack(piece);
-		game.place(piece);
-		game.halfMoveClock(30);
-		game.fullMoveNumber(45);
-		game.activeColorBlack();
-		game.assertVerify();
-
-		Move e6e5 = new Move(e6, e5, pawn);
-		moveMaker.makeMove(e6e5);
-
-		game.assertVerify();
-		assertThat(piece.field(), is(e5));
-		assertThat(game.piece(e6) == null, is(true));
+		Game game = fromFen("7k/8/4p3/8/8/8/8/7K b - - 45 30");
+		Move move = find("e6e5", game);
+		
+		makeMove(move, game);
+		assertThat(game.piece(e5).type(), is(BlackPawn));
+		assertThat(game.piece(e6), is(nullValue()));
 		assertThat(game.halfMoveClock(), is(0));
-		assertThat(game.fullMoveNumber(), is(46));
+		assertThat(game.fullMoveNumber(), is(31));
 		assertThat(game.enPassant(), is(removed));
 		assertThat(game.activeColor(), is(white));
-		
-		moveMaker.undoMove();
 
-		game.assertVerify();
-		assertThat(piece.field(), is(e6));
-		assertThat(game.piece(e5) == null, is(true));
-		assertThat(game.halfMoveClock(), is(30));
-		assertThat(game.fullMoveNumber(), is(45));
+		undoMove(game);
+		assertThat(game.piece(e6).type(), is(BlackPawn));
+		assertThat(game.piece(e5), is(nullValue()));
+		assertThat(game.halfMoveClock(), is(45));
+		assertThat(game.fullMoveNumber(), is(30));
 		assertThat(game.enPassant(), is(removed));
 		assertThat(game.activeColor(), is(black));
 	}
 
 	@Test
 	public void e6e5ResetsEnpassant() {
-		game.activeColorWhite();
-		Piece piece = new Piece(WhitePawn, e4);
-		game.addWhite(piece);
-		game.place(piece);
-		game.enPassant(e3);
-		
-		game.activeColorBlack();
-		piece = new Piece(BlackPawn, e6);
-		game.addBlack(piece);
-		game.place(piece);
-		game.halfMoveClock(30);
-		game.fullMoveNumber(45);
-		game.assertVerify();
-
-		Move e6e5 = new Move(e6, e5, pawn);
-		moveMaker.makeMove(e6e5);
-
-		game.assertVerify();
-		assertThat(piece.field(), is(e5));
-		assertThat(game.piece(e6) == null, is(true));
+		Game game = fromFen("7k/8/4p3/8/4P3/8/8/7K b - e3 45 30");
+		Move move = find("e6e5", game);
+	
+		makeMove(move, game);
+		assertThat(game.piece(e5).type(), is(BlackPawn));
+		assertThat(game.piece(e6), is(nullValue()));
 		assertThat(game.halfMoveClock(), is(0));
-		assertThat(game.fullMoveNumber(), is(46));
+		assertThat(game.fullMoveNumber(), is(31));
 		assertThat(game.enPassant(), is(removed));
 		assertThat(game.activeColor(), is(white));
-		
-		moveMaker.undoMove();
 
-		game.assertVerify();
-		assertThat(piece.field(), is(e6));
-		assertThat(game.piece(e5) == null, is(true));
-		assertThat(game.halfMoveClock(), is(30));
-		assertThat(game.fullMoveNumber(), is(45));
+		undoMove(game);
+		assertThat(game.piece(e6).type(), is(BlackPawn));
+		assertThat(game.piece(e5), is(nullValue()));
+		assertThat(game.halfMoveClock(), is(45));
+		assertThat(game.fullMoveNumber(), is(30));
 		assertThat(game.enPassant(), is(e3));
 		assertThat(game.activeColor(), is(black));
 	}

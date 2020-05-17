@@ -1,7 +1,7 @@
 /***************************************************
  * (c) Markus Heumel
  *
- * @date: 	12.02.2020
+ * @date: 	17.05.2020
  * @author: Markus.Heumel
  *
  */
@@ -65,41 +65,40 @@ import static org.junit.Assert.assertThat;
 import org.junit.Test;
 
 import com.haymel.chess.engine.board.Field;
-import com.haymel.chess.engine.game.Game;
+import com.haymel.chess.engine.game.Position;
 import com.haymel.chess.engine.piece.PieceType;
 import com.haymel.util.exception.HaymelIllegalArgumentException;
 
-public class GameFromFENTest {
-
+public class PositionFromFENTest {
 
 	@Test
 	public void enpassant() {
-		Game game = from("7k/8/7K/8/4P3/8/pppppppp/8 b - e3 30 10");
+		Position game = from("7k/8/7K/8/4P3/8/pppppppp/8 b - e3 30 10");
 		assertThat(game.activeColor(), is(black));
 		assertThat(game.enPassant(), is(e3));
 	}
 	
 	@Test
 	public void activeColorWhite() {
-		Game game = from("r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 10");
+		Position game = from("r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 10");
 		assertThat(game.activeColor(), is(white));
 	}
 	
 	@Test
 	public void activeColorBlack() {
-		Game game = from("r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R b KQkq - 0 10");
+		Position game = from("r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R b KQkq - 0 10");
 		assertThat(game.activeColor(), is(black));
 	}
 	
 	@Test(expected = HaymelIllegalArgumentException.class)
 	public void invalidCharacterForActiveColorThrowsException() {
-		Game game = from("r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R x KQkq - 0 10");
+		Position game = from("r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R x KQkq - 0 10");
 		assertThat(game.activeColor(), is(black));
 	}
 
 	@Test
 	public void startposition() {
-		Game game = from("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+		Position game = from("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
 
 		//position
 		assertPieces(game, BlackPawn, a7);
@@ -157,7 +156,7 @@ public class GameFromFENTest {
 
 	@Test
 	public void startposition_e4() {
-		Game game = from("rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1");
+		Position game = from("rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1");
 
 		//position
 		assertPieces(game, BlackPawn, a7);
@@ -215,7 +214,7 @@ public class GameFromFENTest {
 
 	@Test
 	public void startposition_e4_c5() {
-		Game game = from("rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2");
+		Position game = from("rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2");
 
 		//position
 		assertPieces(game, BlackPawn, a7);
@@ -273,7 +272,7 @@ public class GameFromFENTest {
 	
 	@Test
 	public void startposition_e4_c5_Nf3() {
-		Game game = from("rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2");
+		Position game = from("rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2");
 
 		//position
 		assertPieces(game, BlackPawn, a7);
@@ -351,7 +350,7 @@ public class GameFromFENTest {
 
 	@Test
 	public void whiteKingsideCastling() {
-		Game game = from("r3k2r/8/8/8/8/8/8/R3K2R w K - 1 2 ");
+		Position game = from("r3k2r/8/8/8/8/8/8/R3K2R w K - 1 2 ");
 		assertThat(game.castlingRight().white().kingside(), is(true));
 		assertThat(game.castlingRight().white().queenside(), is(false));
 		assertThat(game.castlingRight().black().kingside(), is(false));
@@ -360,7 +359,7 @@ public class GameFromFENTest {
 	
 	@Test
 	public void whiteQueensideCastling() {
-		Game game = from("r3k2r/8/8/8/8/8/8/R3K2R w Q - 1 2 ");
+		Position game = from("r3k2r/8/8/8/8/8/8/R3K2R w Q - 1 2 ");
 		assertThat(game.castlingRight().white().kingside(), is(false));
 		assertThat(game.castlingRight().white().queenside(), is(true));
 		assertThat(game.castlingRight().black().kingside(), is(false));
@@ -369,7 +368,7 @@ public class GameFromFENTest {
 
 	@Test
 	public void blackKingsideCastling() {
-		Game game = from("r3k2r/8/8/8/8/8/8/R3K2R w k - 1 2 ");
+		Position game = from("r3k2r/8/8/8/8/8/8/R3K2R w k - 1 2 ");
 		assertThat(game.castlingRight().white().kingside(), is(false));
 		assertThat(game.castlingRight().white().queenside(), is(false));
 		assertThat(game.castlingRight().black().kingside(), is(true));
@@ -378,7 +377,7 @@ public class GameFromFENTest {
 
 	@Test
 	public void blackQueensideCastling() {
-		Game game = from("r3k2r/8/8/8/8/8/8/R3K2R w q - 1 2 ");
+		Position game = from("r3k2r/8/8/8/8/8/8/R3K2R w q - 1 2 ");
 		assertThat(game.castlingRight().white().kingside(), is(false));
 		assertThat(game.castlingRight().white().queenside(), is(false));
 		assertThat(game.castlingRight().black().kingside(), is(false));
@@ -387,22 +386,22 @@ public class GameFromFENTest {
 
 	@Test
 	public void castling() {
-		Game game = from("r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 1 2 ");
+		Position game = from("r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 1 2 ");
 		assertThat(game.castlingRight().white().kingside(), is(true));
 		assertThat(game.castlingRight().white().queenside(), is(true));
 		assertThat(game.castlingRight().black().kingside(), is(true));
 		assertThat(game.castlingRight().black().queenside(), is(true));
 	}
 
-	private void assertPieces(Game game, int type, int field) {
+	private void assertPieces(Position game, int type, int field) {
 		assert Field.valid(field);
 		assert PieceType.pieceTypeValid(type);
 		
-		assertThat(game.piece(field).type(), is(type));
+		assertThat(game.board()[field].type(), is(type));
 	}
 	
-	private static Game from(String fen) {
-		return new GameFromFEN(fen).execute();
+	private static Position from(String fen) {
+		return new PositionFromFEN(fen).value();
 	}
 
 }

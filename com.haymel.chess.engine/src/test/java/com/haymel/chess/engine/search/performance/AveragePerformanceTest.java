@@ -7,7 +7,7 @@
  */
 package com.haymel.chess.engine.search.performance;
 
-import static com.haymel.chess.engine.fen.GameFromFEN.initalFen;
+import static com.haymel.chess.engine.fen.PositionFromFEN.initalFen;
 import static com.haymel.chess.engine.search.SearchInfoImpl.nodeStatisticsConsumer;
 import static com.haymel.chess.engine.search.performance.Assertion.assumeNoAssertion;
 import static java.lang.String.format;
@@ -83,7 +83,7 @@ public class AveragePerformanceTest {
 	
 	private long test(String fen) {
 		out.println(fen);
-		Game game = new GameFromFEN(fen).execute();
+		Game game = new GameFromFEN(fen).value();
 		IterativeSearch search = new IterativeSearch(game);
 		BestMove bestMove = search.execute(searchTime, searchTime);
 		return bestMove.nodes().count();

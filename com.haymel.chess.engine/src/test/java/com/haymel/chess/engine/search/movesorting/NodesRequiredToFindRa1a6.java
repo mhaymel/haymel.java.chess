@@ -26,7 +26,7 @@ public class NodesRequiredToFindRa1a6 {
 	@Test
 	public void test() {
 		String fen = "8/8/6k1/1R6/8/8/6K1/R7 w - - 1 1";
-		Game game = new GameFromFEN(fen).execute();
+		Game game = new GameFromFEN(fen).value();
 		
 		SearchAlphaBeta search = new SearchAlphaBeta(game, sysoutSearchInfo, new PVMoveIteratorCreator(game));
 		BestMove bestMove = search.execute(6);

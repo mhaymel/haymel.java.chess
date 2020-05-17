@@ -55,7 +55,7 @@ public class SearchAlphaBetaItIsBlacksTurnButBlackIsAlreadyStalemateTest {
 	
 	private void test(int depth) {
 		String fen = "7k/4N3/8/5NN1/8/8/8/6K1 b - - 0 73";
-		Game game = new GameFromFEN(fen).execute();
+		Game game = new GameFromFEN(fen).value();
 		
 		SearchAlphaBeta search = new SearchAlphaBeta(game);
 		BestMove bestMove = search.execute(depth);

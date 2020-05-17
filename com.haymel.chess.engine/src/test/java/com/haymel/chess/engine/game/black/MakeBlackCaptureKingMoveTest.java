@@ -7,17 +7,17 @@
  */
 package com.haymel.chess.engine.game.black;
 
-import static com.haymel.util.Require.nonNull;
+import static com.haymel.chess.engine.game.TestHelper.find;
+import static com.haymel.chess.engine.game.TestHelper.fromFen;
+import static com.haymel.chess.engine.game.TestHelper.makeMove;
+import static com.haymel.chess.engine.game.TestHelper.undoMove;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
-import com.haymel.chess.engine.fen.GameFromFEN;
 import com.haymel.chess.engine.game.Game;
-import com.haymel.chess.engine.game.MakeMove;
 import com.haymel.chess.engine.moves.Move;
-import com.haymel.chess.engine.moves.algebraic.MoveFinder;
 
 public class MakeBlackCaptureKingMoveTest {
 
@@ -148,22 +148,21 @@ public class MakeBlackCaptureKingMoveTest {
 		assertThat(game.castlingRight().white().kingside(), is(false));
 		assertThat(game.castlingRight().white().queenside(), is(false));
 	}
-
-	private void undoMove(Game game) {
-		new MakeMove(game).undoMove();
-	}
-
-	private static void makeMove(Move move, Game game) {
-		new MakeMove(game).makeMove(move);
-	}
-
-	private static Game fromFen(String fen) {
-		return new GameFromFEN(fen).execute();		
-	}
 	
-	private static Move find(String move, Game game) {
-		return nonNull(new MoveFinder(game.moves()).find(move), "move");
+	@Test
+	public void fullMoveNumberWillBeIncreasedOnMakeMoveAndDecreasedOnUndo() {
+		Game game = fromFen("4k3/4R3/8/8/8/8/8/4K3 b - - 13 5");
+		Move move = find("e8e7", game);
+
+		makeMove(move, game);
+		assertThat(game.fullMoveNumber(), is(6));
+		assertThat(game.halfMoveClock(), is(0));
+		
+		undoMove(game);
+		assertThat(game.fullMoveNumber(), is(5));
+		assertThat(game.halfMoveClock(), is(13));
 	}
-	
+
+
 }
 

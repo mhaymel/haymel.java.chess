@@ -14,7 +14,7 @@ import static com.haymel.chess.engine.board.Field.e5;
 import static com.haymel.chess.engine.board.Field.e7;
 import static com.haymel.chess.engine.board.Field.e8;
 import static com.haymel.chess.engine.board.Field.valid;
-import static com.haymel.chess.engine.fen.GameFromFEN.initalFen;
+import static com.haymel.chess.engine.fen.PositionFromFEN.initalFen;
 import static com.haymel.chess.engine.moves.MoveType.pawnDoubleStep;
 import static com.haymel.chess.engine.moves.MoveType.promotion;
 import static com.haymel.chess.engine.moves.MoveType.validMoveType;
@@ -134,11 +134,11 @@ public class MoveFinderTest {
 	
 	
 	private static Moves whiteMoves(String fen) {
-		return new GameFromFEN(fen).execute().whiteMoves();
+		return new GameFromFEN(fen).value().whiteMoves();
 	}
 
 	private static Moves blackMoves(String fen) {
-		return new GameFromFEN(fen).execute().blackMoves();
+		return new GameFromFEN(fen).value().blackMoves();
 	}
 
 }

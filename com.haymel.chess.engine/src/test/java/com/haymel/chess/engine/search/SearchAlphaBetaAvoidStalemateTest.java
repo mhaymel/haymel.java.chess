@@ -23,7 +23,7 @@ public class SearchAlphaBetaAvoidStalemateTest {
 	@Test
 	public void whiteSetsBlackStalemate() {
 		String fen = "3k4/8/3KP3/8/8/8/8/8 w - - 5 6";
-		Game game = new GameFromFEN(fen).execute();
+		Game game = new GameFromFEN(fen).value();
 		
 		SearchAlphaBeta search = new SearchAlphaBeta(game, sysoutSearchInfo);
 		BestMove bestMove = search.execute(6);

@@ -18,34 +18,34 @@ import static com.haymel.util.Require.nonNull;
 import static com.haymel.util.exception.HaymelIllegalArgumentException.throwIAE;
 
 import com.haymel.chess.engine.board.FieldFromString;
-import com.haymel.chess.engine.game.Game;
+import com.haymel.chess.engine.game.Position;
 
 class Enpassant {
 
-	private final Game game;
+	private final Position position;
 	private final String fieldAsString; 
 	
-	Enpassant(Game game, String fieldAsString) {
-		this.game = nonNull(game, "game");
+	Enpassant(Position position, String fieldAsString) {
+		this.position = nonNull(position, "position");
 		this.fieldAsString = verify(fieldAsString);
 	}
 	
 	void execute() {
-		game.resetEnPassant();
+		position.resetEnPassant();
 		if (fieldAsString.equals("-"))
 			return;
 
 		int field = new FieldFromString(fieldAsString).value();
 		
-		if (game.activeColor() == white)
+		if (position.activeColor() == white)
 			handleWhite(field);
 		else 
 			handleBlack(field);
 		
-		if (game.activeColor() == white && rank(field) != rank(a6))
+		if (position.activeColor() == white && rank(field) != rank(a6))
 			throwIAE("wrong enpassant field '%s' for active color white", fieldAsString(field));
 			
-		if (game.activeColor() == black && rank(field) != rank(a3))
+		if (position.activeColor() == black && rank(field) != rank(a3))
 			throwIAE("wrong enpassant field '%s' for active color white", fieldAsString(field));
 
 	}
@@ -54,18 +54,18 @@ class Enpassant {
 		if (rank(field) != rank(a3))
 			throwIAE("wrong enpassant field '%s' for black", fieldAsString(field));
 
-		game.activeColorWhite();
-		game.enPassant(field);
-		game.activeColorBlack();	
+		position.activeColorWhite();
+		position.enPassant(field);
+		position.activeColorBlack();	
 	}
 
 	private void handleWhite(int field) {
 		if (rank(field) != rank(a6))
 			throwIAE("wrong enpassant field '%s' for white", fieldAsString(field));
 
-		game.activeColorBlack();	
-		game.enPassant(field);
-		game.activeColorWhite();
+		position.activeColorBlack();	
+		position.enPassant(field);
+		position.activeColorWhite();
 	}
 
 	private static String verify(String fieldAsString) {

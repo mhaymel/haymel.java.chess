@@ -10,6 +10,9 @@ package com.haymel.chess.engine.game.black;
 import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
+import static com.haymel.chess.engine.game.TestHelper.fromFen;
+import static com.haymel.chess.engine.game.TestHelper.makeMove;
+import static com.haymel.chess.engine.game.TestHelper.undoMove;
 import static com.haymel.chess.engine.moves.MoveType.promotion;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 import static org.hamcrest.CoreMatchers.is;
@@ -17,9 +20,7 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
-import com.haymel.chess.engine.fen.GameFromFEN;
 import com.haymel.chess.engine.game.Game;
-import com.haymel.chess.engine.game.MakeMove;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.piece.Piece;
@@ -74,7 +75,7 @@ public class MakeBlackPromotionMoveTest {
 		game.assertVerify();
 		assertThat(piece.field(), is(move.from()));
 		assertThat(game.piece(move.to()) == null, is(true));
-		assertThat(piece.type() == BlackPawn, is(true));
+		assertThat(piece.type(), is(BlackPawn));
 		assertThat(game.containsBlackPiece(piece), is(true));
 		assertThat(game.halfMoveClock(), is(30));
 		assertThat(game.fullMoveNumber(), is(10));
@@ -82,16 +83,4 @@ public class MakeBlackPromotionMoveTest {
 		assertThat(game.activeColor(), is(black));
 	}
 
-	private void undoMove(Game game) {
-		new MakeMove(game).undoMove();
-	}
-
-	private static void makeMove(Move move, Game game) {
-		new MakeMove(game).makeMove(move);
-	}
-
-	private static Game fromFen(String fen) {
-		return new GameFromFEN(fen).execute();		
-	}
-	
 }

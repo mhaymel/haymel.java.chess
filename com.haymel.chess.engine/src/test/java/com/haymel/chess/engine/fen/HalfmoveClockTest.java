@@ -13,17 +13,17 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.haymel.chess.engine.game.Game;
+import com.haymel.chess.engine.game.Position;
 import com.haymel.util.exception.HaymelIllegalArgumentException;
 import com.haymel.util.exception.HaymelNullPointerException;
 
 public class HalfmoveClockTest {
 
-	private Game game;
+	private Position position;
 	
 	@Before
 	public void setup() {
-		game = new Game();
+		position = new Position();
 	}
 	
 	@Test(expected = HaymelNullPointerException.class)
@@ -33,26 +33,26 @@ public class HalfmoveClockTest {
 
 	@Test(expected = HaymelNullPointerException.class)
 	public void constructorWithNullAsFieldAsStringThrowsException() {
-		new HalfmoveClock(game, null);
+		new HalfmoveClock(position, null);
 	}
 
 	@Test(expected = HaymelIllegalArgumentException.class)
 	public void constructorWithEmptyStringAsFieldAsStringThrowsException() {
-		new HalfmoveClock(game, "");
+		new HalfmoveClock(position, "");
 	}
 
 	@Test
 	public void halfmoveClock() {
-		new HalfmoveClock(game, "0").execute();
-		assertThat(game.halfMoveClock(), is(0));
+		new HalfmoveClock(position, "0").execute();
+		assertThat(position.halfMoveClock(), is(0));
 
-		new HalfmoveClock(game, "17").execute();
-		assertThat(game.halfMoveClock(), is(17));
+		new HalfmoveClock(position, "17").execute();
+		assertThat(position.halfMoveClock(), is(17));
 	}
 
 	@Test(expected = HaymelIllegalArgumentException.class)
 	public void illegalValueAsHalfmoveThrowsException() {
-		new HalfmoveClock(game, "a3").execute();
+		new HalfmoveClock(position, "a3").execute();
 	}
 
 }
