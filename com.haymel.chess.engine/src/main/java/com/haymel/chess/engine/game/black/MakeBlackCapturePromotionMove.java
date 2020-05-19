@@ -61,9 +61,10 @@ public final class MakeBlackCapturePromotionMove {
 		
 		Piece piece = game.piece(move.from());
 		game.clear(move.from());
+		game.removeBlack(piece);
 		piece.type(move.pieceType());
-		game.blackPromotion(move);
 		piece.field(move.to());
+		game.addBlack(piece);
 		game.place(piece);
 		game.removeWhite(move.capturedPiece());
 		game.push(move);
@@ -100,13 +101,15 @@ public final class MakeBlackCapturePromotionMove {
 		assert Math.abs(Field.file(move.from()) - Field.file(move.to())) == 1;
 
 		Piece piece = game.piece(move.to());
-		piece.field(move.from());
+		game.removeBlack(piece);
 		piece.type(BlackPawn);
-		game.blackUndoPromotion(move);
+		game.addBlack(piece);
+		piece.field(move.from());
 		game.place(piece);
 		game.addWhite(move.capturedPiece());
 		game.place(move.capturedPiece());
 		game.popCastlingRight();
+		game.blackPositionValue(piece.type(), move.to(), move.from());
 		
 		assert game.halfMoveClock() >= 0;
 		assert game.activeColor() == black;

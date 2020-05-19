@@ -32,12 +32,11 @@ public final class MakeWhitePawnDoubleStepMove {		//TODO unit test
 		assert rank(move.from()) == 1;
 		
 		Piece piece = game.piece(move.from());
+		game.whitePositionValue(piece.type(), move.from(), move.to());
 		game.clear(move.from());
 		piece.field(move.to());
 		game.place(piece);
-		
 		game.push(move);
-		
 		game.enPassant(up(move.from()));
 		game.resetHalfMoveClock();
 		game.activeColorBlack();
@@ -59,6 +58,7 @@ public final class MakeWhitePawnDoubleStepMove {		//TODO unit test
 		game.clear(move.to());
 		piece.field(move.from());
 		game.place(piece);
+		game.whitePositionValue(piece.type(), move.to(), move.from());
 		
 		assert game.halfMoveClock() >= 0;
 		assert game.activeColor() == white; 

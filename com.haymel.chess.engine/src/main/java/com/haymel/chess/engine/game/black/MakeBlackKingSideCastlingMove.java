@@ -34,6 +34,10 @@ public final class MakeBlackKingSideCastlingMove {
 		assert game.piece(f8) == null;
 		assert game.piece(g8) == null;
 		assert game.castlingRight().black().kingside();
+		
+		
+		game.blackPositionValue(BlackKing, e8, g8);
+		game.blackPositionValue(BlackRook, h8, f8);
 		game.pushCastlingRight();
 		game.castlingRight().black().disable();
 
@@ -86,6 +90,8 @@ public final class MakeBlackKingSideCastlingMove {
 		rook.field(h8);
 		game.place(rook);
 		game.popCastlingRight();
+		game.blackPositionValue(BlackKing, g8, e8);
+		game.blackPositionValue(BlackRook, f8, h8);
 		
 		assert game.activeColor() == black;
 		assert move.from() == e8;

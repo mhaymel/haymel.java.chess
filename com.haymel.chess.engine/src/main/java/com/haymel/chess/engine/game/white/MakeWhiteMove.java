@@ -39,12 +39,11 @@ public final class MakeWhiteMove {
 		assert game.piece(move.to()) == null;
 		
 		Piece piece = game.piece(move.from());
+		game.whitePositionValue(piece.type(), move.from(), move.to());
 		game.clear(move.from());
 		piece.field(move.to());
 		game.place(piece);
-		
 		game.push(move);
-		
 		game.incHalfMoveClock();
 		game.activeColorBlack();
 
@@ -74,6 +73,7 @@ public final class MakeWhiteMove {
 		game.clear(move.to());
 		piece.field(move.from());
 		game.place(piece);
+		game.whitePositionValue(piece.type(), move.to(), move.from());
 		
 		assert game.halfMoveClock() >= 0;
 		assert game.activeColor() == white; 

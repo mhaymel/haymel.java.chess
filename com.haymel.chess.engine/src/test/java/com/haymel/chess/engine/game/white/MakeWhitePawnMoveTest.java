@@ -26,24 +26,13 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import com.haymel.chess.engine.game.Game;
-import com.haymel.chess.engine.game.MakeMove;
 import com.haymel.chess.engine.moves.Move;
 
 public class MakeWhitePawnMoveTest {
 
-	private Game game;
-	private MakeMove moveMaker;
-	
-	@Before
-	public void setup() {
-		game = new Game();
-		moveMaker = new MakeMove(game);
-	}
-	
 	@Test
 	public void e2e3() {
 		Game game = fromFen("7k/8/8/8/8/8/4P3/7K w - - 45 30");

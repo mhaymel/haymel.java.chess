@@ -33,6 +33,7 @@ public final class MakeBlackPawnDoubleStepMove {
 		assert rank(move.from()) == 6;
 		
 		Piece piece = game.piece(move.from());
+		game.blackPositionValue(piece.type(), move.from(), move.to());
 		game.clear(move.from());
 		piece.field(move.to());
 		game.place(piece);
@@ -62,6 +63,7 @@ public final class MakeBlackPawnDoubleStepMove {
 		game.clear(move.to());
 		piece.field(move.from());
 		game.place(piece);
+		game.blackPositionValue(piece.type(), move.to(), move.from());
 		
 		assert game.halfMoveClock() >= 0;
 		assert game.fullMoveNumber() >= 1;

@@ -62,9 +62,10 @@ public final class MakeWhiteCapturePromotionMove {
 
 		Piece piece = game.piece(move.from());
 		game.clear(move.from());
+		game.removeWhite(piece);
 		piece.type(move.pieceType());
-		game.whitePromotion(move);
 		piece.field(move.to());
+		game.addWhite(piece);
 		game.place(piece);
 		game.removeBlack(move.capturedPiece());
 		game.push(move);
@@ -99,13 +100,15 @@ public final class MakeWhiteCapturePromotionMove {
 		assert Math.abs(file(move.from()) - file(move.to())) == 1;
 
 		Piece piece = game.piece(move.to());
-		piece.field(move.from());
+		game.removeWhite(piece);
 		piece.type(WhitePawn);
-		game.whiteUndoPromotion(move);
+		game.addWhite(piece);
+		piece.field(move.from());
 		game.place(piece);
 		game.addBlack(move.capturedPiece());
 		game.place(move.capturedPiece());
 		game.popCastlingRight();
+		game.whitePositionValue(piece.type(), move.to(), move.from());
 		
 		assert game.halfMoveClock() >= 0;
 		assert game.activeColor() == white;

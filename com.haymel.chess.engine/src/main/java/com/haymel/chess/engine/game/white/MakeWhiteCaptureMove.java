@@ -51,6 +51,7 @@ public final class MakeWhiteCaptureMove {
 		}
 		
 		Piece piece = game.piece(move.from());
+ 		game.whitePositionValue(piece.type(), move.from(), move.to());
 		game.clear(move.from());
 		piece.field(move.to());
 		game.place(piece);
@@ -88,9 +89,9 @@ public final class MakeWhiteCaptureMove {
 		Piece piece = game.piece(move.to());
 		piece.field(move.from());
 		game.place(piece);
-
 		game.addBlack(move.capturedPiece());
 		game.place(move.capturedPiece());
+		game.whitePositionValue(piece.type(), move.to(), move.from());
 		
 		assert game.halfMoveClock() >= 0;
 		assert game.activeColor() == white;

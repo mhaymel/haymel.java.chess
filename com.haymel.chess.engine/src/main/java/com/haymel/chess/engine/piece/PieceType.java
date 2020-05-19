@@ -7,6 +7,8 @@
  */
 package com.haymel.chess.engine.piece;
 
+import static java.lang.String.format;
+
 public class PieceType {
 
 	public static final int white 			= 0b00100000;
@@ -53,7 +55,7 @@ public class PieceType {
 	}
 	
 	public static boolean white(int type) {
-		assert pieceTypeValid(type);
+		assert pieceTypeValid(type) : format("invalid piece type %s", type);
 		return (type & white) != 0; 
 	}
 

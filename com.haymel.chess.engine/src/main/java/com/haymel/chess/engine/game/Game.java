@@ -23,8 +23,6 @@ import static com.haymel.chess.engine.board.Field.valid;
 import static com.haymel.chess.engine.fen.PositionFromFEN.positionFromInitialFen;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
-import static com.haymel.chess.engine.moves.MoveType.capturePromotion;
-import static com.haymel.chess.engine.moves.MoveType.promotion;
 import static com.haymel.chess.engine.piece.PieceType.BlackKing;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 import static com.haymel.chess.engine.piece.PieceType.BlackRook;
@@ -74,6 +72,8 @@ public final class Game {	//TODO unit test and refactor
 	private PiecePositionValue whitePiecePositionValue;
 	private PiecePositionValue blackPiecePositionValue;
 	private final CastlingRightHistory castlingRightHistory = new CastlingRightHistory();
+	private int whitePositionValue;
+	private int blackPositionValue;
 	
 	public Game(Position position) {
 		this(position, new WhitePiecesPositionValue(), new BlackPiecesPositionValue());
@@ -105,7 +105,7 @@ public final class Game {	//TODO unit test and refactor
 	private void init() {
 		for(int i = 0; i < board.length; i++)
 			if (board[i] != null)
-				add( board[i]);
+				add(board[i]);
 	}
 
 	private void add(Piece piece) {
@@ -278,6 +278,8 @@ public final class Game {	//TODO unit test and refactor
 		assert halfMoveClock >= 0;
 		assert fullMoveNumber > 0;
 		assert pieceValue == calculatePieceValue();
+		assert whitePositionValue == calculateWhitePositionValue() : format("%s != %s", whitePositionValue, calculateWhitePositionValue());
+		assert blackPositionValue == calculateBlackPositionValue() : format("%s != %s", blackPositionValue, calculateBlackPositionValue());
 		
 		int size = whitePieces.size();
 		for(int i = 0; i < size; i++) {
@@ -358,7 +360,25 @@ public final class Game {	//TODO unit test and refactor
 		return true;
 	}
 
-	public void addWhite(Piece piece) {
+ 	public void whitePositionValue(int type, int from, int to) {
+ 		assert PieceType.white(type);
+ 		assert Field.valid(from);
+ 		assert Field.valid(to);
+ 		
+		whitePositionValue -= whitePiecePositionValue.value(type, from);
+		whitePositionValue += whitePiecePositionValue.value(type, to);
+ 	}
+
+ 	public void blackPositionValue(int type, int from, int to) {
+ 		assert PieceType.black(type);
+ 		assert Field.valid(from);
+ 		assert Field.valid(to);
+ 		
+ 		blackPositionValue -= blackPiecePositionValue.value(type, from);
+ 		blackPositionValue += blackPiecePositionValue.value(type, to);
+ 	}
+ 	
+  	public void addWhite(Piece piece) {
 		assert piece != null;
 		assert PieceType.white(piece.type());
 		assert !whitePieces.contains(piece);
@@ -366,7 +386,8 @@ public final class Game {	//TODO unit test and refactor
 
 		whitePieces.add(piece);
 		pieceValue += PieceValue.pieceValue(piece.type());
-				
+		whitePositionValue += whitePiecePositionValue.value(piece);
+		
 		assert pieceValue == calculatePieceValue();
 	}
 	
@@ -379,7 +400,8 @@ public final class Game {	//TODO unit test and refactor
 		
 		whitePieces.remove(piece);
 		pieceValue -= PieceValue.pieceValue(piece.type());
-
+		whitePositionValue -= whitePiecePositionValue.value(piece);
+		
 		assert pieceValue == calculatePieceValue();
 	}
 	
@@ -391,6 +413,7 @@ public final class Game {	//TODO unit test and refactor
 
 		blackPieces.add(piece);
 		pieceValue -= PieceValue.pieceValue(piece.type());
+		blackPositionValue += blackPiecePositionValue.value(piece);
 
 		assert pieceValue == calculatePieceValue();
 	}
@@ -404,6 +427,7 @@ public final class Game {	//TODO unit test and refactor
 		
 		blackPieces.remove(piece);
 		pieceValue += PieceValue.pieceValue(piece.type());
+		blackPositionValue -= blackPiecePositionValue.value(piece);
 
 		assert pieceValue == calculatePieceValue();
 	}
@@ -421,18 +445,29 @@ public final class Game {	//TODO unit test and refactor
 	}
 	
 	private int calculatePiecePositionValue() {
+		assert whitePositionValue == calculateWhitePositionValue();
+		assert blackPositionValue == calculateBlackPositionValue();
+		
+		return whitePositionValue - blackPositionValue;
+	}
+
+	private int calculateWhitePositionValue() {
 		int value = 0;
 		int size = whitePieces.size();
 		for(int i = 0; i < size; i++) 
 			value += whitePiecePositionValue.value(whitePieces.piece(i));
-
-		size = blackPieces.size();
-		for(int i = 0; i < size; i++) 
-			value -= blackPiecePositionValue.value(blackPieces.piece(i));
-		
 		return value;
 	}
 
+	private int calculateBlackPositionValue() {
+		int value = 0;
+		int size = blackPieces.size();
+		for(int i = 0; i < size; i++) 
+			value += blackPiecePositionValue.value(blackPieces.piece(i));
+		
+		return value;
+	}
+	
 	private static int pieceValues(PieceList pieces) {
 		int value = 0;
 		int size = pieces.size();
@@ -446,42 +481,6 @@ public final class Game {	//TODO unit test and refactor
 		return board;
 	}
 
-	public void blackPromotion(Move move) {
-		assert move != null;
-		assert move.type() == capturePromotion || move.type() == promotion;
-		
-		pieceValue = pieceValue + PieceValue.pieceValue(BlackPawn) - PieceValue.pieceValue(move.pieceType());
-		
-		assert pieceValue == calculatePieceValue() : String.format("%s != %s", pieceValue, calculatePieceValue());
-	}
-
-	public void blackUndoPromotion(Move move) {
-		assert move != null;
-		assert move.type() == capturePromotion || move.type() == promotion;
-
-		pieceValue = pieceValue - PieceValue.pieceValue(BlackPawn) + PieceValue.pieceValue(move.pieceType());
-
-		assert pieceValue == calculatePieceValue();
-	}
-
-	public void whitePromotion(Move move) {
-		assert move != null;
-		assert move.type() == capturePromotion || move.type() == promotion;
-
-		pieceValue = pieceValue - PieceValue.pieceValue(WhitePawn) + PieceValue.pieceValue(move.pieceType());
-		
-		assert pieceValue == calculatePieceValue();
-	}
-
-	public void whiteUndoPromotion(Move move) {
-		assert move != null;
-		assert move.type() == capturePromotion || move.type() == promotion;
-
-		pieceValue = pieceValue + PieceValue.pieceValue(BlackPawn) - PieceValue.pieceValue(move.pieceType());
-		
-		assert pieceValue == calculatePieceValue();
-	}
-	
 	public PositionCastlingRight castlingRight() {
 		return castlingRightHistory.castlingRight();
 	}

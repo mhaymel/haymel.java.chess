@@ -39,6 +39,7 @@ public final class MakeBlackMove {
 		assert game.piece(move.to()) == null;
 		
 		Piece piece = game.piece(move.from());
+		game.blackPositionValue(piece.type(), move.from(), move.to());
 		game.clear(move.from());
 		piece.field(move.to());
 		game.place(piece);
@@ -73,6 +74,7 @@ public final class MakeBlackMove {
 		game.clear(move.to());
 		piece.field(move.from());
 		game.place(piece);
+		game.blackPositionValue(piece.type(), move.to(), move.from());
 		
 		assert game.halfMoveClock() >= 0;
 		assert game.activeColor() == black; 

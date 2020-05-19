@@ -36,6 +36,7 @@ public final class MakeWhiteEnpassantMove {
 		assert game.containsBlackPiece(move.capturedPiece());
 		
 		Piece piece = game.piece(move.from());
+		game.whitePositionValue(piece.type(), move.from(), move.to());
 		game.clear(move.from());
 		piece.field(move.to());
 		game.place(piece);
@@ -72,6 +73,7 @@ public final class MakeWhiteEnpassantMove {
 		game.place(piece);
 		game.addBlack(move.capturedPiece());
 		game.place(move.capturedPiece());
+		game.whitePositionValue(piece.type(), move.to(), move.from());
 		
 		assert game.halfMoveClock() >= 0;
 		assert game.activeColor() == white; 
