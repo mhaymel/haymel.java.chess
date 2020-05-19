@@ -15,7 +15,7 @@ import org.junit.Test;
 
 import com.haymel.chess.engine.fen.GameFromFEN;
 import com.haymel.chess.engine.game.Game;
-import com.haymel.chess.engine.game.MakeMove;
+import com.haymel.chess.engine.game.white.WhiteMakeMove;
 
 public class SearchAlphaBetaItIsWhitesTurnButBlackWouldBeStalemateTest {
 
@@ -39,7 +39,7 @@ public class SearchAlphaBetaItIsWhitesTurnButBlackWouldBeStalemateTest {
 		assertThat(bestMove.variant(), is(notNullValue()));
 
 		System.out.println("---------------------------");
-		new MakeMove(game).makeMove(bestMove.move());
+		WhiteMakeMove.makeMove(game, bestMove.move());
 		bestMove = search.execute(0);
 		assertThat(bestMove.variant(), is(notNullValue()));
 	}

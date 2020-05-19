@@ -16,7 +16,8 @@ import static com.haymel.util.Require.nonNull;
 import static java.lang.String.format;
 
 import com.haymel.chess.engine.game.Game;
-import com.haymel.chess.engine.game.MakeMove;
+import com.haymel.chess.engine.game.black.BlackMakeMove;
+import com.haymel.chess.engine.game.white.WhiteMakeMove;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.search.movesorting.MoveIterator;
@@ -35,7 +36,6 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 	private int maxSelDepth;
 	private Move[] principalVariation;
 	private final NodesCalculator nodesCalculator;	
-	private final MakeMove makeMove;
 	private final MoveIteratorCreator moveIteratorCreator;
 	private final Move[] history = new Move[1000];
 	
@@ -56,7 +56,6 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 		this.stop = false;
 		this.info = nonNull(info, "info");
 		this.nodesCalculator = nonNull(nodesCalculator, "nodesCalculator");
-		this.makeMove = new MakeMove(game);
 		this.moveIteratorCreator = nonNull(moveIteratorCreator, "moveIteratorCreator");
 	}
 
@@ -107,7 +106,7 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 			i++;
 			
 			Variant v = new Variant(move);
-			makeMove.makeMove(move);
+			WhiteMakeMove.makeMove(game, move);
 			
 			Moves blackMoves = (depth + 1) < maxDepth ? game.blackMoves() : game.blackCaptureMoves();
 			if (blackMoves.kingCaptureCount() == 0) {
@@ -119,7 +118,7 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 				}
 			}
 
-			makeMove.undoMove();
+			WhiteMakeMove.undoMove(game);
 		}
 
 		if (bestMove != null) 	
@@ -142,13 +141,13 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 		Move move;
 		while((move = moveIter.next()) != null) {
 			Variant v = new Variant(move);
-			makeMove.makeMove(move);
+			WhiteMakeMove.makeMove(game, move);
 
 			Moves blackMoves = (depth + 1) < maxDepth ? game.blackMoves() : game.blackCaptureMoves();
 			if (blackMoves.kingCaptureCount() == 0) {
 				validMovesCount++;
 				int score = black(blackMoves, depth + 1, alpha, beta, v);
-				makeMove.undoMove();
+				WhiteMakeMove.undoMove(game);
 				
 				if (score >= beta) {
 					if (!move.capture())
@@ -162,7 +161,7 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 				}
 			}
 			else
-				makeMove.undoMove();
+				WhiteMakeMove.undoMove(game);
 		}
 
 		return validMovesCount > 0
@@ -203,13 +202,13 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 					continue;
 	
 				Variant v = new Variant(move);
-				makeMove.makeMove(move);
+				WhiteMakeMove.makeMove(game, move);
 				
 				Moves blackMoves = game.blackCaptureMoves();
 				if (blackMoves.kingCaptureCount() == 0) {
 					validMovesCount++;
 					int score = blackQuiet(blackMoves, depth + 1, alpha, beta, v);
-					makeMove.undoMove();
+					WhiteMakeMove.undoMove(game);
 						
 					if (score >= beta) 
 						return beta;
@@ -220,7 +219,7 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 					}
 				}
 				else
-					makeMove.undoMove();
+					WhiteMakeMove.undoMove(game);
 			}
 		}
 		
@@ -231,12 +230,12 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 			for(int i = 0; i < size; i++) {
 				Move move = whiteMoves.move(i);
 				if (!move.capture()) {
-					makeMove.makeMove(move);
+					WhiteMakeMove.makeMove(game, move);
 					if (!whiteIsInCheck()) {
-						makeMove.undoMove();
+						WhiteMakeMove.undoMove(game);
 						return alpha;
 					}
-					makeMove.undoMove();
+					WhiteMakeMove.undoMove(game);
 				}
 			}
 			
@@ -265,7 +264,7 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 			i++;
 
 			Variant v = new Variant(move);
-			makeMove.makeMove(move);
+			BlackMakeMove.makeMove(game, move);
 			
 			Moves whiteMoves = (depth + 1) < maxDepth ? game.whiteMoves() : game.whiteCaptureMoves();
 			if (whiteMoves.kingCaptureCount() == 0) {
@@ -277,7 +276,7 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 				}
 			}
 			
-			makeMove.undoMove();
+			BlackMakeMove.undoMove(game);
 		}
 		
 		if (bestMove != null) 	
@@ -303,13 +302,13 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 		Move move;
 		while((move = moveIter.next()) != null) {
 			Variant v = new Variant(move);
-			makeMove.makeMove(move);
+			BlackMakeMove.makeMove(game, move);
 			
 			Moves whiteMoves = (depth + 1) < maxDepth ? game.whiteMoves() : game.whiteCaptureMoves();
 			if (whiteMoves.kingCaptureCount() == 0) {
 				validMovesCount++;
 				int score = white(whiteMoves, depth + 1, alpha, beta, v);
-				makeMove.undoMove();
+				BlackMakeMove.undoMove(game);
 
 				if (score <= alpha) { 
 					if (!move.capture())
@@ -323,7 +322,7 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 				}
 			}
 			else
-				makeMove.undoMove();
+				BlackMakeMove.undoMove(game);
 
 		}
 
@@ -365,13 +364,13 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 					continue;
 	
 				Variant v = new Variant(move);
-				makeMove.makeMove(move);
+				BlackMakeMove.makeMove(game, move);
 	
 				Moves whiteMoves = game.whiteCaptureMoves();
 				if (whiteMoves.kingCaptureCount() == 0) {
 					validMovesCount++;
 					int score = whiteQuiet(whiteMoves, depth + 1, alpha, beta, v);
-					makeMove.undoMove();
+					BlackMakeMove.undoMove(game);
 	
 					if (score <= alpha)
 						return alpha;
@@ -382,7 +381,7 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 					}
 				}
 				else
-					makeMove.undoMove();
+					BlackMakeMove.undoMove(game);
 			}
 		}
 		
@@ -393,12 +392,12 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 			for(int i = 0; i < size; i++) {
 				Move move = blackMoves.move(i);
 				if (!move.capture()) {
-					makeMove.makeMove(move);
+					BlackMakeMove.makeMove(game, move);
 					if (!blackIsInCheck()) {
-						makeMove.undoMove();
+						BlackMakeMove.undoMove(game);
 						return beta;
 					}
-					makeMove.undoMove();
+					BlackMakeMove.undoMove(game);
 				}
 			}
 			

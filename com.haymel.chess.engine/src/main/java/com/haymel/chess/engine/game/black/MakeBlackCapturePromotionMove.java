@@ -29,8 +29,6 @@ import com.haymel.chess.engine.piece.PieceType;
 public final class MakeBlackCapturePromotionMove {
 
 	public static void make(Game game, Move move) {
-		assert game != null;
-		assert move != null;
 		assert game.assertVerify();
 		assert game.activeColor() == black; 
 		assert move.type() == capturePromotion;
@@ -73,7 +71,6 @@ public final class MakeBlackCapturePromotionMove {
 		game.activeColorWhite();
 
 		assert game.containsBlackPiece(piece);
-		assert game.activeColor() == white; 
 		assert game.piece(move.from()) == null;
 		assert game.piece(move.to()).type() == move.pieceType();
 		assert PieceType.black(game.piece(move.to()).type());
@@ -82,12 +79,11 @@ public final class MakeBlackCapturePromotionMove {
 		assert game.fullMoveNumber() >= 1;
 		assert !game.containsWhitePiece(move.capturedPiece());
 		assert game.containsBlackPiece(piece);
+		assert game.activeColor() == white; 
 		assert game.assertVerify();
 	}
 
 	public static void undo(Game game, Move move) {
-		assert game != null;
-		assert move != null;
 		assert game.assertVerify();
 		assert game.activeColor() == black;
 		assert move.type() == capturePromotion;

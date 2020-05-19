@@ -25,8 +25,6 @@ import com.haymel.chess.engine.piece.Piece;
 public final class MakeWhitePromotionMove {
 
 	public static void make(Game game, Move move) {
-		assert game != null;
-		assert move != null;
 		assert game.assertVerify();
 		assert game.activeColor() == white; 
 		assert move.type() == promotion;
@@ -64,8 +62,6 @@ public final class MakeWhitePromotionMove {
 	}
 
 	public static void undo(Game game, Move move) {
-		assert game != null;
-		assert move != null;
 		assert game.assertVerify();
 		assert game.activeColor() == white; 
 		assert move.type() == promotion;

@@ -10,7 +10,7 @@ package com.haymel.chess.engine.game;
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.moves.Move;
 
-final class Undo {			//TODO unit test
+public class Undo {			//TODO unit test
 
 	private final Move move;
 	private ActiveColor activeColor;

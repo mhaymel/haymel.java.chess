@@ -34,7 +34,7 @@ public class AveragePerformanceTest {
 	private static final String[] fens = {
 		"r3k2r/ppp2ppp/3p4/4p3/4P3/PBPP4/2P3q1/R1B1K1n1 b - - 1 1", 	
 		"r1bk2Br/1ppp1Qpp/8/p3P3/4P3/8/P5PP/qN5K w - - 0 1", 			
-		"1n2kb1r/p4ppp/4q3/4p1B1/4P3/8/PPP2PPP/2QR4 w - - 1 1",		
+		"1n2kb1r/p4ppp/4q3/4p1B1/4P3/8/PPP2PPP/2KR4 w - - 1 1 ",		
 		"r2kqR2/pbp1b3/1p4Q1/3pP1B1/3P4/8/PPP4P/6K1 w - - 1 1",		
 		"8/p4pkp/8/3B1b2/P2b1ppP/2N1r1n1/1PP3PR/R4QK1 b - - 1 1",		
 		initalFen, 													
@@ -71,7 +71,7 @@ public class AveragePerformanceTest {
 		long nodesPerSecond = searchFens();
 		
 		out.println("finished test");
-		assertThat(nodesPerSecond, greaterThan(2869_000L));
+		assertThat(nodesPerSecond, greaterThan(2687_000L));
 	}
 
 	private void warmUp() {

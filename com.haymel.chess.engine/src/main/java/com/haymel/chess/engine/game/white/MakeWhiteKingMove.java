@@ -7,27 +7,58 @@
  */
 package com.haymel.chess.engine.game.white;
 
+import static com.haymel.chess.engine.game.ActiveColor.black;
+import static com.haymel.chess.engine.game.ActiveColor.white;
+import static com.haymel.chess.engine.moves.MoveType.normalKingMove;
+import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
+
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.moves.Move;
+import com.haymel.chess.engine.piece.Piece;
 
 public final class MakeWhiteKingMove {
 
 	public static void make(Game game, Move move) {
 		assert game.assertVerify();
-
+		assert game.activeColor() == white; 
+		assert move.type() == normalKingMove;
+		assert game.piece(move.from()).type() == WhiteKing;
+		assert game.piece(move.to()) == null;
+		
 		game.pushCastlingRight();
 		game.castlingRight().white().disable();
-		MakeWhiteMove.doMake(game, move);
+		Piece piece = game.piece(move.from());
+		game.whitePositionValue(piece.type(), move.from(), move.to());
+		game.clear(move.from());
+		piece.field(move.to());
+		game.place(piece);
+		game.push(move);
+		game.incHalfMoveClock();
+		game.activeColorBlack();
 
+		assert game.piece(move.from()) == null;
+		assert game.activeColor() == black; 
 		assert game.assertVerify();
 	}
 	
 	public static void undo(Game game, Move move) {
 		assert game.assertVerify();
+		assert game.activeColor() == white; 
+		assert move.type() == normalKingMove;
+		assert game.piece(move.to()).type() == WhiteKing;
+		assert game.piece(move.from()) == null;
 
-		MakeWhiteMove.doUndo(game, move);
+		Piece piece = game.piece(move.to());
+		game.clear(move.to());
+		piece.field(move.from());
+		game.place(piece);
+		game.whitePositionValue(piece.type(), move.to(), move.from());
 		game.popCastlingRight();
-
+		
+		assert game.halfMoveClock() >= 0;
+		assert game.piece(move.to()) == null;
+		assert game.piece(move.from()).type() == WhiteKing;
+		assert game.activeColor() == white; 
 		assert game.assertVerify();
 	}
 

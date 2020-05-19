@@ -69,9 +69,9 @@ public class PerformanceTest {
 	@Parameters(name = "{index}: value={0}")
     public static Iterable<Object[]> data() {
            return Arrays.asList(new Object[][] {
-                  { initalFen, 															2538_000 },
-                  { fenKiwipete, 														1316_000 },
-                  { "4k3/8/8/8/8/8/4P3/4K3 w - - 0 1",									4215_000 },
+                  { initalFen, 															2477_000 },
+                  { fenKiwipete, 														1013_000 },
+                  { "4k3/8/8/8/8/8/4P3/4K3 w - - 0 1",									4144_000 },
            	});
     }
 	

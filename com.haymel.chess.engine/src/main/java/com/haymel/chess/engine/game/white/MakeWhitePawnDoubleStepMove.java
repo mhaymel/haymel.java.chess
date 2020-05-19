@@ -19,11 +19,9 @@ import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.piece.Piece;
 import com.haymel.chess.engine.piece.PieceType;
 
-public final class MakeWhitePawnDoubleStepMove {		//TODO unit test
+public final class MakeWhitePawnDoubleStepMove {
 
 	public static void make(Game game, Move move) {
-		assert game != null;
-		assert move != null;
 		assert game.assertVerify();
 		assert game.activeColor() == white; 
 		assert move.type() == pawnDoubleStep;
@@ -41,17 +39,15 @@ public final class MakeWhitePawnDoubleStepMove {		//TODO unit test
 		game.resetHalfMoveClock();
 		game.activeColorBlack();
 
-		assert game.activeColor() == black; 
 		assert game.piece(move.from()) == null;
 		assert PieceType.white(game.piece(move.to()).type());
+		assert game.activeColor() == black; 
 		assert game.assertVerify();
 	}
 
 	public static void undo(Game game, Move move) {
-		assert game != null;
-		assert move != null;
 		assert game.assertVerify();
-		assert PieceType.white(game.piece(move.to()).type());
+		assert game.piece(move.to()).type() == WhitePawn;
 		assert game.piece(move.from()) == null;
 
 		Piece piece = game.piece(move.to());
@@ -62,8 +58,8 @@ public final class MakeWhitePawnDoubleStepMove {		//TODO unit test
 		
 		assert game.halfMoveClock() >= 0;
 		assert game.activeColor() == white; 
+		assert game.piece(move.from()).type() == WhitePawn;
 		assert game.piece(move.to()) == null;
-		assert PieceType.white(game.piece(move.from()).type());
 		assert game.assertVerify();
 	}
 

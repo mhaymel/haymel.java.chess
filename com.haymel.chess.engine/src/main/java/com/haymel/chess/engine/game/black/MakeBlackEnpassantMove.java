@@ -22,8 +22,6 @@ import com.haymel.chess.engine.piece.PieceType;
 public final class MakeBlackEnpassantMove {
 
 	public static void make(Game game, Move move) {
-		assert game != null;
-		assert move != null;
 		assert game.assertVerify();
 		assert game.activeColor() == black; 
 		assert move.type() == enpassant;
@@ -56,8 +54,6 @@ public final class MakeBlackEnpassantMove {
 	}
 
 	public static void undo(Game game, Move move) {
-		assert game != null;
-		assert move != null;
 		assert game.assertVerify();
 		assert move.type() == enpassant;
 		assert move.to() == game.enPassant();

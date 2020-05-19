@@ -13,7 +13,7 @@ import org.junit.Test;
 
 import com.haymel.chess.engine.fen.GameFromFEN;
 import com.haymel.chess.engine.game.Game;
-import com.haymel.chess.engine.game.MakeMove;
+import com.haymel.chess.engine.game.white.WhiteMakeMove;
 import com.haymel.chess.engine.moves.Move;
 
 public class SearchAlphaBetaTest {
@@ -55,7 +55,7 @@ public class SearchAlphaBetaTest {
 		
 		System.out.println(move.nodes().count());
 		System.out.println("play: " + asString(move.move()));
-		new MakeMove(game).makeMove(move.move());
+		WhiteMakeMove.makeMove(game, move.move());
 	}
 	
 //	@Test

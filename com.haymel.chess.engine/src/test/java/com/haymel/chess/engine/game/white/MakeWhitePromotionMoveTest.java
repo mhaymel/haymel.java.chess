@@ -19,7 +19,6 @@ import org.junit.Test;
 
 import com.haymel.chess.engine.fen.GameFromFEN;
 import com.haymel.chess.engine.game.Game;
-import com.haymel.chess.engine.game.MakeMove;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.piece.Piece;
@@ -83,11 +82,11 @@ public class MakeWhitePromotionMoveTest {
 	}
 
 	private void undoMove(Game game) {
-		new MakeMove(game).undoMove();
+		WhiteMakeMove.undoMove(game);
 	}
 
 	private static void makeMove(Move move, Game game) {
-		new MakeMove(game).makeMove(move);
+		WhiteMakeMove.makeMove(game, move);
 	}
 
 	private static Game fromFen(String fen) {

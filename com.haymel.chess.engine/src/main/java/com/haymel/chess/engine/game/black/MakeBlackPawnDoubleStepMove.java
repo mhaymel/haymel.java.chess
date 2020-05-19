@@ -22,8 +22,6 @@ import com.haymel.chess.engine.piece.Piece;
 public final class MakeBlackPawnDoubleStepMove {
 
 	public static void make(Game game, Move move) {
-		assert game != null;
-		assert move != null;
 		assert game.assertVerify();
 		assert game.activeColor() == black; 
 		assert move.type() == pawnDoubleStep;
@@ -43,15 +41,13 @@ public final class MakeBlackPawnDoubleStepMove {
 		game.incFullMoveNumber();
 		game.activeColorWhite();
 
-		assert game.activeColor() == white; 
 		assert game.piece(move.from()) == null;
 		assert game.piece(move.to()).type() == BlackPawn;
+		assert game.activeColor() == white; 
 		assert game.assertVerify();
 	}
 
 	public static void undo(Game game, Move move) {
-		assert game != null;
-		assert move != null;
 		assert game.assertVerify();
 		assert game.piece(move.to()).type() == BlackPawn;
 		assert game.piece(up(move.to())) == null;
