@@ -46,6 +46,7 @@ public final class MakeBlackCaptureKingMove {
 		game.clear(move.from());
 		piece.field(move.to());
 		game.place(piece);
+		move.capturedPiece().captured(true);
 		game.removeWhite(move.capturedPiece());
 		game.push(move);
 		game.resetHalfMoveClock();
@@ -55,7 +56,7 @@ public final class MakeBlackCaptureKingMove {
 		assert game.piece(move.from()) == null;
 		assert PieceType.black(game.piece(move.to()).type());
 		assert game.piece(move.to()) == piece;
-		assert !game.containsWhitePiece(move.capturedPiece());
+		assert move.capturedPiece().captured();
 		assert game.containsBlackPiece(piece);
 		assert game.activeColor() == white; 
 		assert game.assertVerify();
@@ -67,11 +68,12 @@ public final class MakeBlackCaptureKingMove {
 		assert game.piece(move.to()).type() == BlackKing;
 		assert game.piece(move.from()) == null;
 		assert PieceType.white(move.capturedPiece().type());
-		assert !game.containsWhitePiece(move.capturedPiece());
+		assert game.containsWhitePiece(move.capturedPiece());
 
 		Piece piece = game.piece(move.to());
 		piece.field(move.from());
 		game.place(piece);
+		move.capturedPiece().captured(false);
 		game.addWhite(move.capturedPiece());
 		game.place(move.capturedPiece());
 		game.blackPositionValue(piece.type(), move.to(), move.from());

@@ -47,7 +47,7 @@ public class SearchAlphaBetaMateTest {
                   { "1n2kb1r/p4ppp/4q3/4p1B1/4P3/8/PPP2PPP/2KR4 w - - 1 1", 2, "d1d8", blackMate(1) },
                   { "r2kqR2/pbp1b3/1p4Q1/3pP1B1/3P4/8/PPP4P/6K1 w - - 1 1", 2, "g6e8", blackMate(1) },
                   { "8/p4pkp/8/3B1b2/P2b1ppP/2N1r1n1/1PP3PR/R4QK1 b - - 1 1", 2, "e3e1", whiteMate(1) },
-                  { "1Q1RKR2/1P2n2P/1r2k2r/4P3/4P3/8/8/8 w - - 1 1", 4, "b8c7 h6h7 f8f6", blackMate(3) },
+                  { "1Q1RKR2/1P2n2P/1r2k2r/4P3/4P3/8/8/8 w - - 1 1", 4, "b8c7 b6b7 c7d6", blackMate(3) },
            });
     }
     

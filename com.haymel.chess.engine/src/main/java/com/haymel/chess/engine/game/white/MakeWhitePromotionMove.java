@@ -44,9 +44,11 @@ public final class MakeWhitePromotionMove {
 		
 		Piece piece = game.piece(move.from());
 		game.clear(move.from());
+		piece.captured(true);
 		game.removeWhite(piece);
 		piece.type(move.pieceType());
 		piece.field(move.to());
+		piece.captured(false);
 		game.addWhite(piece);
 		game.place(piece);
 		game.push(move);
@@ -76,9 +78,11 @@ public final class MakeWhitePromotionMove {
 	
 		Piece piece = game.piece(move.to());
 		game.clear(move.to());
+		piece.captured(true);
 		game.removeWhite(piece);
 		piece.type(WhitePawn);
 		piece.field(move.from());
+		piece.captured(false);
 		game.addWhite(piece);
 		game.place(piece);
 		

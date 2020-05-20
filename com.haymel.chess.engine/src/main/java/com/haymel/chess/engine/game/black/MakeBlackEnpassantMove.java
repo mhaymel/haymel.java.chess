@@ -39,6 +39,7 @@ public final class MakeBlackEnpassantMove {
 		piece.field(move.to());
 		game.place(piece);
 		game.clear(move.capturedPiece().field());
+		move.capturedPiece().captured(true);
 		game.removeWhite(move.capturedPiece());
 		game.push(move);
 		game.resetHalfMoveClock();
@@ -48,7 +49,8 @@ public final class MakeBlackEnpassantMove {
 		assert game.activeColor() == white; 
 		assert game.piece(move.from()) == null;
 		assert game.piece(move.to()) == piece;
-		assert !game.containsWhitePiece(move.capturedPiece());
+		assert game.containsWhitePiece(move.capturedPiece());
+		assert move.capturedPiece().captured();
 		assert game.halfMoveClock() == 0;
 		assert game.assertVerify();
 	}
@@ -60,7 +62,8 @@ public final class MakeBlackEnpassantMove {
 		assert game.activeColor() == black; 
 		assert game.piece(move.to()).type() == BlackPawn;
 		assert game.piece(move.from()) == null;
-		assert !game.containsWhitePiece(move.capturedPiece());
+		assert game.containsWhitePiece(move.capturedPiece());
+		assert move.capturedPiece().captured();
 		assert game.piece(Field.up(game.enPassant())) == null;
 		assert game.assertVerify();
 		
@@ -68,6 +71,7 @@ public final class MakeBlackEnpassantMove {
 		game.clear(move.to());
 		piece.field(move.from());
 		game.place(piece);
+		move.capturedPiece().captured(false);
 		game.addWhite(move.capturedPiece());
 		game.place(move.capturedPiece());
 		game.blackPositionValue(piece.type(), move.to(), move.from());

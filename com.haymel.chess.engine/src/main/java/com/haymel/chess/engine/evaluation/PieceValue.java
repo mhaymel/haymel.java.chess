@@ -62,9 +62,10 @@ public class PieceValue {		//TODO unit test
 	
 	public static int pieceValue(PieceList pieces) {
 		int value = 0;
-		int size = pieces.size();
-		for(int i = 0; i < size; i++) 
-			value += pieceValue(pieces.piece(i).type());
+		int size = pieces.index();
+		for(int i = 0; i < size; i++)
+			if (!pieces.piece(i).captured())
+				value += pieceValue(pieces.piece(i).type());
 	
 		return value;
 	}

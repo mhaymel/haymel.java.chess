@@ -39,17 +39,30 @@ public final class Position {	//TODO unit test and refactor
 	private int enPassant;
 	private int halfMoveClock = 0;
 	private int fullMoveNumber = 1;
-	private final PositionCastlingRight casting;
+	private final PositionCastlingRight castling;
+	
+	public Position(
+		Piece[] board, 
+		ActiveColor activeColor,
+		int enPassant,
+		int halfMoveClock,
+		int fullMoveNumber,
+		PositionCastlingRight castling) {
+		
+		this.board = board;
+		this.activeColor = activeColor;
+		this.enPassant = enPassant;
+		this.halfMoveClock = halfMoveClock;
+		this.fullMoveNumber = fullMoveNumber;
+		this.castling = castling;
+	}
 	
 	public Position() {
-		board = Board.newBoard();
-		activeColor = white;
-		resetEnPassant();
-		casting = new PositionCastlingRight();
+		this(Board.newBoard(), white, removed, 0, 1, new PositionCastlingRight());
 	}
 
 	public PositionCastlingRight castlingRight() {
-		return casting;
+		return castling;
 	}
 
 	public Piece[] board() {

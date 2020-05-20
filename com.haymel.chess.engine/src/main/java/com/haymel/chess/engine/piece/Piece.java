@@ -21,6 +21,8 @@ public final class Piece {
 
 	private int type;
 	private int field; 
+	private int index;
+	private boolean captured;
 
 	public static final Piece border = new Piece(Border, removed);
 	
@@ -30,6 +32,8 @@ public final class Piece {
 		
 		this.type = type;
 		this.field = field;
+		this.index = -1;
+		this.captured = false;
 	}
 	
 	public int type() {
@@ -60,4 +64,27 @@ public final class Piece {
 	public String toString() {
 		return format("Piece(%s, %s)", type, fieldAsString(field));
 	}
+
+	public int index() {
+		return index;
+	}
+
+	public void index(int index) {
+		assert index >= 0;
+		assert index < 16;
+		this.index = index;
+	}
+	
+	public boolean captured() {
+		return captured;
+	}
+	
+	public void captured(boolean captured) {
+		assert 
+			this.captured && !captured ||
+			!this.captured && captured;
+		
+		this.captured = captured;
+	}
+	
 }

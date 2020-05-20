@@ -56,12 +56,14 @@ public class UciEngine extends com.haymel.chess.uci.Engine {
 	public void positionStart(Moves moves) { 
 		game = gameFromInitialFen();
 		makeMoves(moves);
+		game = new Game(game.position());
 	}
 
 	@Override
 	public void positionFen(String fen, Moves moves) {
 		game = new GameFromFEN(fen).value();
 		makeMoves(moves);
+		game = new Game(game.position());
 	}
 
 	private void makeMoves(Moves moves) {

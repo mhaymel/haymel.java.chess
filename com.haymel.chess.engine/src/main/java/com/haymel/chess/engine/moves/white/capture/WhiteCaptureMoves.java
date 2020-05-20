@@ -44,11 +44,11 @@ public final class WhiteCaptureMoves {		//TODO unit test
 	public void generate(PieceList pieces, int epField, Moves moves) {
 		assert pieces != null;
 		assert moves != null;
-		assert pieces.size() > 0;
+		assert pieces.verify();
 		assert epField == removed || rank(epField) == 5;
 		assert !moves.kingCaptured();
 		
-		int size = pieces.size();
+		int size = pieces.index();
 		for(int i = 0; i < size && !moves.kingCaptured(); i++)
 			generate(pieces.piece(i), epField, moves);
 	}
@@ -56,6 +56,9 @@ public final class WhiteCaptureMoves {		//TODO unit test
 	private void generate(Piece piece, int epField, Moves moves) {
 		assert piece != null;
 		assert PieceType.white(piece.type());
+		
+		if (piece.captured())
+			return;
 		
 		switch(piece.type()) {
 		case WhitePawn:

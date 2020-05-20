@@ -102,6 +102,10 @@ public final class Game {	//TODO unit test and refactor
 		assertVerify();
 	}
 
+	public Position position() {
+		return new Position(board, activeColor, enPassant, halfMoveClock, fullMoveNumber, castlingRight());
+	}
+	
 	private void init() {
 		for(int i = 0; i < board.length; i++)
 			if (board[i] != null)
@@ -110,11 +114,15 @@ public final class Game {	//TODO unit test and refactor
 
 	private void add(Piece piece) {
 		assert piece != null;
-		if (PieceType.white(piece.type()))
+		if (PieceType.white(piece.type())) {
+			whitePieces.init(piece);
 			addWhite(piece);
+		}
 		
-		if (PieceType.black(piece.type()))
+		if (PieceType.black(piece.type())) {
+			blackPieces.init(piece);
 			addBlack(piece);
+		}
 	}
 
 	public void push(Move move) {
@@ -281,18 +289,24 @@ public final class Game {	//TODO unit test and refactor
 		assert whitePositionValue == calculateWhitePositionValue() : format("%s != %s", whitePositionValue, calculateWhitePositionValue());
 		assert blackPositionValue == calculateBlackPositionValue() : format("%s != %s", blackPositionValue, calculateBlackPositionValue());
 		
-		int size = whitePieces.size();
+		int size = whitePieces.index();
 		for(int i = 0; i < size; i++) {
 			Piece piece = whitePieces.piece(i);
 			assert PieceType.white(piece.type());
-			assert board[piece.field()] == piece : piece.toString() + " != " + board[piece.field()];
+			assert 
+				(!piece.captured() && board[piece.field()] == piece) ||
+				(piece.captured() && board[piece.field()] != piece) 				
+					: piece.toString() + " != " + board[piece.field()];
 		}
 
-		size = blackPieces.size();
+		size = blackPieces.index();
 		for(int i = 0; i < size; i++) {
 			Piece piece = blackPieces.piece(i);
 			assert PieceType.black(piece.type());
-			assert board[piece.field()] == piece;
+			assert 
+				(!piece.captured() && board[piece.field()] == piece) ||
+				(piece.captured() && board[piece.field()] != piece) 				
+					: piece.toString() + " != " + board[piece.field()];
 		}
 		
 		int fy = Field.a1;
@@ -381,10 +395,8 @@ public final class Game {	//TODO unit test and refactor
   	public void addWhite(Piece piece) {
 		assert piece != null;
 		assert PieceType.white(piece.type());
-		assert !whitePieces.contains(piece);
-		assert pieceValue == calculatePieceValue();
+		assert whitePieces.contains(piece);
 
-		whitePieces.add(piece);
 		pieceValue += PieceValue.pieceValue(piece.type());
 		whitePositionValue += whitePiecePositionValue.value(piece);
 		
@@ -396,9 +408,7 @@ public final class Game {	//TODO unit test and refactor
 		assert PieceType.white(piece.type());
 		assert piece.type() != WhiteKing;
 		assert whitePieces.contains(piece);
-		assert pieceValue == calculatePieceValue() : format("%s != %s, %s", pieceValue, calculatePieceValue(), piece);
 		
-		whitePieces.remove(piece);
 		pieceValue -= PieceValue.pieceValue(piece.type());
 		whitePositionValue -= whitePiecePositionValue.value(piece);
 		
@@ -408,10 +418,8 @@ public final class Game {	//TODO unit test and refactor
 	public void addBlack(Piece piece) {
 		assert piece != null;
 		assert PieceType.black(piece.type());
-		assert !blackPieces.contains(piece);
-		assert pieceValue == calculatePieceValue();
+		assert blackPieces.contains(piece);
 
-		blackPieces.add(piece);
 		pieceValue -= PieceValue.pieceValue(piece.type());
 		blackPositionValue += blackPiecePositionValue.value(piece);
 
@@ -423,9 +431,7 @@ public final class Game {	//TODO unit test and refactor
 		assert PieceType.black(piece.type());
 		assert piece.type() != BlackKing;
 		assert blackPieces.contains(piece);
-		assert pieceValue == calculatePieceValue();
 		
-		blackPieces.remove(piece);
 		pieceValue += PieceValue.pieceValue(piece.type());
 		blackPositionValue -= blackPiecePositionValue.value(piece);
 
@@ -453,25 +459,28 @@ public final class Game {	//TODO unit test and refactor
 
 	private int calculateWhitePositionValue() {
 		int value = 0;
-		int size = whitePieces.size();
-		for(int i = 0; i < size; i++) 
-			value += whitePiecePositionValue.value(whitePieces.piece(i));
+		int size = whitePieces.index();
+		for(int i = 0; i < size; i++)
+			if (!whitePieces.piece(i).captured())
+				value += whitePiecePositionValue.value(whitePieces.piece(i));
 		return value;
 	}
 
 	private int calculateBlackPositionValue() {
 		int value = 0;
-		int size = blackPieces.size();
+		int size = blackPieces.index();
 		for(int i = 0; i < size; i++) 
-			value += blackPiecePositionValue.value(blackPieces.piece(i));
+			if (!blackPieces.piece(i).captured())
+				value += blackPiecePositionValue.value(blackPieces.piece(i));
 		
 		return value;
 	}
 	
 	private static int pieceValues(PieceList pieces) {
 		int value = 0;
-		int size = pieces.size();
+		int size = pieces.index();
 		for(int i = 0; i < size; i++) 
+			if (!pieces.piece(i).captured())
 			value += PieceValue.pieceValue(pieces.piece(i).type());
 		
 		return value;

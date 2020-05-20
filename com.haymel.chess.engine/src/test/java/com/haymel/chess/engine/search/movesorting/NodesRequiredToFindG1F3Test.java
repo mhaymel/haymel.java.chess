@@ -32,7 +32,7 @@ public class NodesRequiredToFindG1F3Test {
 		BestMove bestMove = search.execute(3);
 		assertThat(asString(bestMove.move()), is("g1f3"));
 		System.out.println(bestMove.nodes().count());
-		assertThat(bestMove.nodes().count(), lessThan(600L));
+		assertThat(bestMove.nodes().count(), lessThan(710L));
 	}
 	
 	private static String asString(Move move) {

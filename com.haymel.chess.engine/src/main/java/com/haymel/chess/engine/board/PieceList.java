@@ -7,56 +7,56 @@
  */
 package com.haymel.chess.engine.board;
 
-import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.piece.PieceType.Border;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import com.haymel.chess.engine.piece.Piece;
 
 public final class PieceList {	//TODO unit test
 
-	private final List<Piece> pieces = new ArrayList<Piece>();
+	private int index = 0;
+	private final Piece[] pieces = new Piece[16];
 	
-	public void add(Piece piece) {
+	public void init(Piece piece) {
 		assert piece != null;
 		assert piece != null;
 		assert piece.type() != Border;
-		assert piece.field() != removed;
-		assert size() <= 16;
-
-		pieces.add(piece);
+		assert piece.field() != Field.removed;
+		assert index < 16;
+		assert piece.index() == -1;
 		
-		assert size() <= 16;
+		piece.index(index);
+		pieces[index] = piece;
+		index++;
 	}
 
-	public void remove(Piece piece) {
-		assert piece != null;
-		assert size() > 0;
-
-		boolean removed = pieces.remove(piece);
-		
-		assert removed;
+	public int index() {
+		return index;
 	}
 	
-	public int size() {
-		return pieces.size();
-	}
-	
-	public Piece piece(int index) {
-		assert index >= 0;
-		assert index < size();
+	public Piece piece(int pos) {
+		assert pos >= 0;
+		assert pos < index;
 		
-		return pieces.get(index);
+		return pieces[pos];
 	}
 
 	public boolean contains(Piece p) {
-		return pieces.contains(p);
+		for(int i = 0; i < index; i++)
+			if (pieces[i].field() == p.field())
+				return true;
+		
+		return false;
 	}
-	
-	public void clear() {
-		pieces.clear();
+
+	public boolean verify() {
+		if (index == 0)
+			return false;
+		
+		for(int i = 0; i < index; i++)
+			if (!pieces[i].captured())
+				return true;
+		
+		return false;
 	}
 	
 }

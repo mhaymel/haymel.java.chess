@@ -45,10 +45,10 @@ public final class BlackMoves {		//TODO unit test
 	public void generate(PieceList pieces, CastlingRight castling, int epField, Moves moves) {
 		assert pieces != null;
 		assert moves != null;
-		assert pieces.size() > 0;
+		assert pieces.verify();
 		assert epField == removed || Field.rank(epField) == 2 : String.format("wrong enpassant field: %s", Field.fieldAsString(epField));
 		
-		int size = pieces.size();
+		int size = pieces.index();
 		for(int i = 0; i < size && !moves.kingCaptured(); i++)
 			generate(pieces.piece(i), castling, epField, moves);
 	}
@@ -56,6 +56,9 @@ public final class BlackMoves {		//TODO unit test
 	private void generate(Piece piece, CastlingRight castling, int epField, Moves moves) {
 		assert piece != null;
 		assert PieceType.black(piece.type());
+	
+		if (piece.captured())
+			return;
 		
 		switch(piece.type()) {
 		case BlackPawn:

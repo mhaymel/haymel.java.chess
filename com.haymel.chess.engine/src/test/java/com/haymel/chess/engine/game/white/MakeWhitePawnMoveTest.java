@@ -109,7 +109,8 @@ public class MakeWhitePawnMoveTest {
 		assertThat(game.piece(e2), is(nullValue()));
 		assertThat(move.capturedPiece(), is(notNullValue()));
 		assertThat(move.capturedPiece().type(), is(BlackPawn));
-		assertThat(game.containsBlackPiece(move.capturedPiece()), is(false));
+		assertThat(game.containsBlackPiece(move.capturedPiece()), is(true));
+		assertThat(move.capturedPiece().captured(), is(true));
 		assertThat(game.halfMoveClock(), is(0));
 		assertThat(game.fullMoveNumber(), is(30));
 		assertThat(game.enPassant(), is(removed));
