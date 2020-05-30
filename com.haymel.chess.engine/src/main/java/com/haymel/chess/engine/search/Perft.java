@@ -7,6 +7,8 @@
  */
 package com.haymel.chess.engine.search;
 
+import static com.haymel.chess.engine.game.ActiveColor.black;
+import static com.haymel.chess.engine.game.ActiveColor.white;
 import static com.haymel.util.Require.nonNull;
 
 import com.haymel.chess.engine.game.Game;

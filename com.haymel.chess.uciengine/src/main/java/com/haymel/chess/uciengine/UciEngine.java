@@ -16,7 +16,6 @@ import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 
 import com.haymel.chess.engine.fen.GameFromFEN;
-import com.haymel.chess.engine.game.ActiveColor;
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.game.MakeMoveFromString;
 import com.haymel.chess.engine.moves.Move;
@@ -88,7 +87,7 @@ public class UciEngine extends com.haymel.chess.uci.Engine {
 	}
 
 	private Consumer<BestMove> bestMoveConsumer() {
-		ActiveColor activeColor = game.activeColor();
+		int activeColor = game.activeColor();
 		
 		return (bm) -> { 
 			info(new InfosFromBestMove(activeColor, bm).value()); 

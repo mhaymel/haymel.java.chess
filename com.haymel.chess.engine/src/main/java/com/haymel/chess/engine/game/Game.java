@@ -60,7 +60,7 @@ public final class Game {	//TODO unit test and refactor
 	private final PieceList whitePieces = new PieceList();
 	private final PieceList blackPieces = new PieceList();
 	private Piece[] board;
-	private ActiveColor activeColor;
+	private int activeColor;
 	private int enPassant;
 	private int halfMoveClock;
 	private int fullMoveNumber;
@@ -141,7 +141,7 @@ public final class Game {	//TODO unit test and refactor
 		return undo;
 	}
 
-	public ActiveColor activeColor() {
+	public int activeColor() {
 		return activeColor;
 	}
 

@@ -11,7 +11,6 @@ import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
 import static com.haymel.util.Require.nonNull;
 
-import com.haymel.chess.engine.game.ActiveColor;
 import com.haymel.chess.engine.search.BestMove;
 import com.haymel.chess.engine.search.Variant;
 import com.haymel.chess.uci.moves.Moves;
@@ -19,11 +18,11 @@ import com.haymel.chess.uci.result.Infos;
 
 class InfosFromBestMove {
 	
-	private final ActiveColor activeColor; 
+	private final int activeColor; 
 	private final BestMove bestmove;
 	
-	InfosFromBestMove(ActiveColor activeColor, BestMove bestmove) {
-		this.activeColor = nonNull(activeColor, "activeColor");
+	InfosFromBestMove(int activeColor, BestMove bestmove) {
+		this.activeColor = activeColor;
 		this.bestmove = nonNull(bestmove, "bestmove");
 	}
 	

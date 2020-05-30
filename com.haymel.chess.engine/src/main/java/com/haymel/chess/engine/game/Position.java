@@ -35,7 +35,7 @@ import com.haymel.chess.engine.piece.Piece;
 public final class Position {	//TODO unit test and refactor
 
 	private Piece[] board;
-	private ActiveColor activeColor;
+	private int activeColor;
 	private int enPassant;
 	private int halfMoveClock = 0;
 	private int fullMoveNumber = 1;
@@ -43,7 +43,7 @@ public final class Position {	//TODO unit test and refactor
 	
 	public Position(
 		Piece[] board, 
-		ActiveColor activeColor,
+		int activeColor,
 		int enPassant,
 		int halfMoveClock,
 		int fullMoveNumber,
@@ -81,7 +81,7 @@ public final class Position {	//TODO unit test and refactor
 		enPassant = removed;
 	}
 
-	public ActiveColor activeColor() {
+	public int activeColor() {
 		return activeColor;
 	}
 

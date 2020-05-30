@@ -7,7 +7,7 @@
  */
 package com.haymel.chess.engine.game;
 
-public enum ActiveColor {
-	white,
-	black,
+public interface ActiveColor {
+	public static final int white 			= 0b00100000;
+	public static final int black 			= 0b01000000;
 }

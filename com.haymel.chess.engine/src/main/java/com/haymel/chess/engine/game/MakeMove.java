@@ -49,7 +49,7 @@ public final class MakeMove {	//TODO unit test
 		assert game.assertVerify();
 	}
 
-	private ActiveColor activeColor() {
+	private int activeColor() {
 		return game.activeColor();
 	}
 
