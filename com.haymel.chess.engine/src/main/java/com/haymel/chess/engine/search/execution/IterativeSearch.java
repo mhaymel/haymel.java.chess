@@ -17,6 +17,7 @@ import com.haymel.chess.engine.search.MovesFromVariant;
 import com.haymel.chess.engine.search.NodesCalculator;
 import com.haymel.chess.engine.search.SearchAlphaBeta;
 import com.haymel.chess.engine.search.SearchInfo;
+import com.haymel.chess.engine.search.SearchTimeout;
 import com.haymel.chess.engine.search.TimeCalculator;
 import com.haymel.chess.engine.search.movesorting.PVMoveIteratorCreator;
 
@@ -44,7 +45,7 @@ public class IterativeSearch implements Search {  	//TODO unit test
 	public BestMove execute(int wtimeInMilliSeconds, int btimeInMilliSeconds) {
 		stop = false;
 		long maxCalcTime = new TimeCalculator(game, wtimeInMilliSeconds, btimeInMilliSeconds).value();
-		long start = now();
+		long stopAt = now() + maxCalcTime;
 		
 		int initialDepth = 3;
 		
@@ -54,15 +55,18 @@ public class IterativeSearch implements Search {  	//TODO unit test
 		
 		for(int depth = initialDepth + 1; ; depth++) {
 			Move[] pv = new MovesFromVariant(bestMove.variant()).value();
-			bestMove = search.execute(depth, pv);
+			
+			try {
+				bestMove = search.execute(depth, pv, stopAt);
+			}
+			catch(SearchTimeout e) {
+				return bestMove;
+			}
 			
 			if (bestMove.futureMate() || bestMove.mateOrStalemate())
 				return bestMove;
 			
 			if (stop)
-				return bestMove;
-			
-			if (!timeLeft(maxCalcTime, now() - start, depth)) 
 				return bestMove;
 		}
 	}
@@ -71,21 +75,6 @@ public class IterativeSearch implements Search {  	//TODO unit test
 	public void stop() {
 		search.stop();
 		stop = true;
-	}
-
-	private boolean timeLeft(long maxCalcTime, long elapsed, int depth) {
-		if (elapsed >= maxCalcTime)
-			return false;
-		
-		if (depth == 1)
-			return true;
-		
-		if (elapsed == 0)
-			return true;
-		
-		double factor = Math.pow(elapsed, 1.0/depth);
-		
-		return maxCalcTime / elapsed > factor;
 	}
 
 	private static long now() {

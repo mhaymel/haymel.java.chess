@@ -30,11 +30,11 @@ public class TimeCalculator {
 	
 	public int value() {
 		switch(game.activeColor()) {
-		case black: 	return max(1,  btimeInMilliSeconds / 20);
-		case white: 	return max(1,  wtimeInMilliSeconds / 20);
+		case black: 	return max(1,  btimeInMilliSeconds / 30);
+		case white: 	return max(1,  wtimeInMilliSeconds / 30);
 		default:
 			assert false;
-			return max(1,  min(wtimeInMilliSeconds, btimeInMilliSeconds) / 20);
+			return max(1,  min(wtimeInMilliSeconds, btimeInMilliSeconds) / 30);
 		}
 	}
 	

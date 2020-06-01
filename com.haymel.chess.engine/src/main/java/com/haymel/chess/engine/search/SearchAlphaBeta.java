@@ -38,6 +38,7 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 	private final NodesCalculator nodesCalculator;	
 	private final MoveIteratorCreator moveIteratorCreator;
 	private final Move[] history = new Move[1000];
+	private long stopSearchAt;
 	
 	public SearchAlphaBeta(Game game) {
 		this(game, noopSearchInfo, new NodesCalculator(), new PVMoveIteratorCreator(game));
@@ -60,19 +61,24 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 	}
 
 	public BestMove execute(int depth) {
-		return execute(depth, null);
+		return execute(depth, Long.MAX_VALUE);
 	}
 	
-	public BestMove execute(int depth, Move[] principalVariation) { 
+	public BestMove execute(int depth, long stopSearchAt) {
+		return execute(depth, null, stopSearchAt);
+	}
+	
+	public BestMove execute(int depth, Move[] principalVariation, long stopSearchAt) { 
 		info.searchDepth(depth);
-		return doExecute(depth, principalVariation);
+		return doExecute(depth, principalVariation, stopSearchAt);
 	}
 
-	private BestMove doExecute(int depth, Move[] principalVariation) {
+	private BestMove doExecute(int depth, Move[] principalVariation, long stopSearchAt) {
 		stop = false;
 		maxDepth = depth;
 		maxSelDepth = depth;
 		this.principalVariation = principalVariation;
+		this.stopSearchAt = stopSearchAt;
 		
 		clearHistory();
 		return game.activeColor() == white ? white() : black();
@@ -408,12 +414,24 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 	}
 
 	private int evaluate() {
-		if (nodesCalculator.inc())
+		if (nodesCalculator.inc()) {
 			info.nodes(nodesCalculator);
+			checkTimeout();
+		}
 		
 		return game.evaluate();
 	}
 
+	private void checkTimeout() {
+		if (now() > stopSearchAt)
+			throw new SearchTimeout();
+		
+	}
+
+	private static long now() {
+		return System.currentTimeMillis();
+	}
+	
 	private void currentMove(int size, int i, Move move) {
 		info.currentMove(new AnalyzedMove(move, i + 1, size));
 	}
