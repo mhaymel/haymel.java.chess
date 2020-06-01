@@ -50,6 +50,7 @@ public final class MakeWhitePawnDoubleStepMove {
 		assert game.piece(move.to()).type() == WhitePawn;
 		assert game.piece(move.from()) == null;
 
+		game.activeColorWhite();
 		Piece piece = game.piece(move.to());
 		game.clear(move.to());
 		piece.field(move.from());

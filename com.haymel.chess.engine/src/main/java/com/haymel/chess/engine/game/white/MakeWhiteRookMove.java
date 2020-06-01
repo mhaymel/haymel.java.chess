@@ -51,11 +51,12 @@ public final class MakeWhiteRookMove {
 	
 	public static void undo(Game game, Move move) {
 		assert game.assertVerify();
-		assert game.activeColor() == white; 
+		assert game.activeColor() == black; 
 		assert move.type() == normalRookMove;
 		assert game.piece(move.to()).type() == WhiteRook;
 		assert game.piece(move.from()) == null;
 
+		game.activeColorWhite();
 		Piece piece = game.piece(move.to());
 		game.clear(move.to());
 		piece.field(move.from());

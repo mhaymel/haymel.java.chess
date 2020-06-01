@@ -70,6 +70,7 @@ public final class MakeBlackCaptureKingMove {
 		assert PieceType.white(move.capturedPiece().type());
 		assert game.containsWhitePiece(move.capturedPiece());
 
+		game.activeColorBlack();
 		Piece piece = game.piece(move.to());
 		piece.field(move.from());
 		game.place(piece);

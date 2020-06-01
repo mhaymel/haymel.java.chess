@@ -53,8 +53,9 @@ public final class MakeBlackPawnDoubleStepMove {
 		assert game.piece(up(move.to())) == null;
 		assert game.piece(move.from()) == null;
 		assert rank(move.from()) == 6;
-		assert game.activeColor() == black; 
+		assert game.activeColor() == white; 
 
+		game.activeColorBlack();
 		Piece piece = game.piece(move.to());
 		game.clear(move.to());
 		piece.field(move.from());

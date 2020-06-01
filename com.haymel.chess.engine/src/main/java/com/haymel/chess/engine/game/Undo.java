@@ -13,19 +13,17 @@ import com.haymel.chess.engine.moves.Move;
 public class Undo {			//TODO unit test
 
 	private final Move move;
-	private int activeColor;
 	private int enPassant;
 	private int halfMoveClock;
 	private int fullMoveNumber;
 	
-	public Undo(Move move, int activeColor, int enPassant, int halfMoveClock, int fullMoveNumber) {
+	public Undo(Move move, int enPassant, int halfMoveClock, int fullMoveNumber) {
 		assert move != null;
 		assert Field.valid(enPassant);
 		assert halfMoveClock >= 0;
 		assert fullMoveNumber >= 1;
 		
 		this.move = move;
-		this.activeColor = activeColor;
 		this.enPassant = enPassant;
 		this.halfMoveClock = halfMoveClock;
 		this.fullMoveNumber = fullMoveNumber;
@@ -37,10 +35,6 @@ public class Undo {			//TODO unit test
 
 	public int enPassant() {
 		return enPassant;
-	}
-
-	public int activeColor() {
-		return activeColor;
 	}
 
 	public int halfMoveClock() {

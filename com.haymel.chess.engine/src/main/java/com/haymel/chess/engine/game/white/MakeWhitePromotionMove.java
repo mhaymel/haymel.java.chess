@@ -65,7 +65,7 @@ public final class MakeWhitePromotionMove {
 
 	public static void undo(Game game, Move move) {
 		assert game.assertVerify();
-		assert game.activeColor() == white; 
+		assert game.activeColor() == black; 
 		assert move.type() == promotion;
 		assert game.piece(move.to()).type() == move.pieceType();
 		assert game.piece(move.from()) == null;
@@ -76,6 +76,7 @@ public final class MakeWhitePromotionMove {
 		assert game.fullMoveNumber() >= 1;
 		assert game.containsWhitePiece(game.piece(move.to()));
 	
+		game.activeColorWhite();
 		Piece piece = game.piece(move.to());
 		game.clear(move.to());
 		piece.captured(true);

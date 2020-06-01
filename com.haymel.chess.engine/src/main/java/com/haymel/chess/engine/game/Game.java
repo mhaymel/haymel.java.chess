@@ -126,14 +126,13 @@ public final class Game {	//TODO unit test and refactor
 	}
 
 	public void push(Move move) {
-		push(new Undo(move, activeColor, enPassant, halfMoveClock, fullMoveNumber));
+		push(new Undo(move, enPassant, halfMoveClock, fullMoveNumber));
 		resetEnPassant();
 	}
 	
 	public Undo pop() {
 		Undo undo = undos.remove(undos.size() - 1);
 		
-		activeColor = undo.activeColor();
 		enPassant = undo.enPassant();
 		halfMoveClock = undo.halfMoveClock();
 		fullMoveNumber = undo.fullMoveNumber();

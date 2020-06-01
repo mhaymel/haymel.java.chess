@@ -43,11 +43,12 @@ public final class MakeWhiteKingMove {
 	
 	public static void undo(Game game, Move move) {
 		assert game.assertVerify();
-		assert game.activeColor() == white; 
+		assert game.activeColor() == black; 
 		assert move.type() == normalKingMove;
 		assert game.piece(move.to()).type() == WhiteKing;
 		assert game.piece(move.from()) == null;
 
+		game.activeColorWhite();
 		Piece piece = game.piece(move.to());
 		game.clear(move.to());
 		piece.field(move.from());

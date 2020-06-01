@@ -89,7 +89,7 @@ public final class MakeBlackCapturePromotionMove {
 
 	public static void undo(Game game, Move move) {
 		assert game.assertVerify();
-		assert game.activeColor() == black;
+		assert game.activeColor() == white;
 		assert move.type() == capturePromotion;
 		assert game.piece(move.from()) == null;
 		assert game.piece(move.to()).type() == move.pieceType();
@@ -101,6 +101,7 @@ public final class MakeBlackCapturePromotionMove {
 		assert Field.rank(move.to()) == 0;
 		assert Math.abs(Field.file(move.from()) - Field.file(move.to())) == 1;
 
+		game.activeColorBlack();
 		Piece piece = game.piece(move.to());
 		piece.captured(true);
 		game.removeBlack(piece);

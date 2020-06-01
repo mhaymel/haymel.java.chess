@@ -50,10 +50,11 @@ public final class MakeBlackPawnMove {
 		assert game != null;
 		assert move != null;
 		assert game.assertVerify();
-		assert game.activeColor() == black; 
+		assert game.activeColor() == white; 
 		assert game.piece(move.to()).type() == BlackPawn;
 		assert game.piece(move.from()) == null;
 
+		game.activeColorBlack();
 		Piece piece = game.piece(move.to());
 		game.clear(move.to());
 		piece.field(move.from());

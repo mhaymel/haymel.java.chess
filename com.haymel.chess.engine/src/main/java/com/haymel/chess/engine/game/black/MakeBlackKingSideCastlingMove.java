@@ -74,6 +74,7 @@ public final class MakeBlackKingSideCastlingMove {
 		assert !game.castlingRight().black().kingside();
 		assert !game.castlingRight().black().queenside();
 
+		game.activeColorBlack();
 		Piece king = game.piece(g8);
 		Piece rook = game.piece(f8);
 		

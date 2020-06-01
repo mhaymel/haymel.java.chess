@@ -59,7 +59,7 @@ public final class MakeBlackEnpassantMove {
 		assert game.assertVerify();
 		assert move.type() == enpassant;
 		assert move.to() == game.enPassant();
-		assert game.activeColor() == black; 
+		assert game.activeColor() == white; 
 		assert game.piece(move.to()).type() == BlackPawn;
 		assert game.piece(move.from()) == null;
 		assert game.containsWhitePiece(move.capturedPiece());
@@ -67,6 +67,7 @@ public final class MakeBlackEnpassantMove {
 		assert game.piece(Field.up(game.enPassant())) == null;
 		assert game.assertVerify();
 		
+		game.activeColorBlack();
 		Piece piece = game.piece(move.to());
 		game.clear(move.to());
 		piece.field(move.from());

@@ -75,6 +75,7 @@ public final class MakeWhiteKingSideCastlingMove {
 		assert !game.castlingRight().white().kingside();
 		assert !game.castlingRight().white().queenside();
 
+		game.activeColorWhite();
 		Piece king = game.piece(g1);
 		Piece rook = game.piece(f1);
 		

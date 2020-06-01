@@ -71,7 +71,7 @@ public final class MakeBlackPromotionMove {
 		assert game != null;
 		assert move != null;
 		assert game.assertVerify();
-		assert game.activeColor() == black; 
+		assert game.activeColor() == white; 
 		assert move.type() == promotion;
 		assert game.piece(move.to()).type() == move.pieceType();
 		assert game.piece(move.from()) == null;
@@ -82,6 +82,7 @@ public final class MakeBlackPromotionMove {
 		assert game.fullMoveNumber() >= 1;
 		assert game.containsBlackPiece(game.piece(move.to()));
 	
+		game.activeColorBlack();
 		Piece piece = game.piece(move.to());
 		game.clear(move.to());
 		piece.captured(true);
