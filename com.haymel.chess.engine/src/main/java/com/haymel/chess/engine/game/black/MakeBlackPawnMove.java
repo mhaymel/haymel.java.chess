@@ -54,6 +54,7 @@ public final class MakeBlackPawnMove {
 		assert game.piece(move.to()).type() == BlackPawn;
 		assert game.piece(move.from()) == null;
 
+		game.decFullMoveNumber();
 		game.activeColorBlack();
 		Piece piece = game.piece(move.to());
 		game.clear(move.to());

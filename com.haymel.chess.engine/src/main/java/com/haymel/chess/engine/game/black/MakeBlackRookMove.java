@@ -57,6 +57,7 @@ public final class MakeBlackRookMove {
 		assert game.piece(move.to()).type() == BlackRook;
 		assert game.piece(move.from()) == null;
 
+		game.decFullMoveNumber();
 		game.activeColorBlack();
 		Piece piece = game.piece(move.to());
 		game.clear(move.to());

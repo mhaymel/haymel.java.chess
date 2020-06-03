@@ -82,6 +82,7 @@ public final class MakeBlackPromotionMove {
 		assert game.fullMoveNumber() >= 1;
 		assert game.containsBlackPiece(game.piece(move.to()));
 	
+		game.decFullMoveNumber();
 		game.activeColorBlack();
 		Piece piece = game.piece(move.to());
 		game.clear(move.to());

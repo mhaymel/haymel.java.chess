@@ -101,6 +101,7 @@ public final class MakeBlackCapturePromotionMove {
 		assert Field.rank(move.to()) == 0;
 		assert Math.abs(Field.file(move.from()) - Field.file(move.to())) == 1;
 
+		game.decFullMoveNumber();
 		game.activeColorBlack();
 		Piece piece = game.piece(move.to());
 		piece.captured(true);

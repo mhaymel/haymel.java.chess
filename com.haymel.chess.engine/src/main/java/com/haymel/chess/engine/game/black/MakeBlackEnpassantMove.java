@@ -67,6 +67,7 @@ public final class MakeBlackEnpassantMove {
 		assert game.piece(Field.up(game.enPassant())) == null;
 		assert game.assertVerify();
 		
+		game.decFullMoveNumber();
 		game.activeColorBlack();
 		Piece piece = game.piece(move.to());
 		game.clear(move.to());

@@ -126,7 +126,7 @@ public final class Game {	//TODO unit test and refactor
 	}
 
 	public void push(Move move) {
-		push(new Undo(move, enPassant, halfMoveClock, fullMoveNumber));
+		push(new Undo(move, enPassant, halfMoveClock));
 		resetEnPassant();
 	}
 	
@@ -135,7 +135,6 @@ public final class Game {	//TODO unit test and refactor
 		
 		enPassant = undo.enPassant();
 		halfMoveClock = undo.halfMoveClock();
-		fullMoveNumber = undo.fullMoveNumber();
 		
 		return undo;
 	}
@@ -231,6 +230,11 @@ public final class Game {	//TODO unit test and refactor
 		fullMoveNumber++;
 	}
 
+	public void decFullMoveNumber() {
+		assert fullMoveNumber > 1;
+		fullMoveNumber--;
+	}
+	
 	public boolean containsBlackPiece(Piece piece) {
 		assert piece != null;
 		assert PieceType.black(piece.type());
@@ -500,5 +504,5 @@ public final class Game {	//TODO unit test and refactor
 	public void popCastlingRight() {
 		castlingRightHistory.pop();
 	}
-	
+
 }
