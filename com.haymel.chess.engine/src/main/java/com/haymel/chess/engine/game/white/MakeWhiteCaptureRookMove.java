@@ -53,7 +53,7 @@ public final class MakeWhiteCaptureRookMove {
 		move.capturedPiece().captured(true);
 		game.removeBlack(move.capturedPiece());
 		game.push(move);
-		game.resetHalfMoveClock();
+		game.pushHalfMoveClock();
 		game.activeColorBlack();
 
 		assert game.activeColor() == black; 
@@ -76,6 +76,7 @@ public final class MakeWhiteCaptureRookMove {
 		assert move.capturedPiece().captured();
 
 		game.activeColorWhite();
+		game.popHalfMoveClock();
 		Piece piece = game.piece(move.to());
 		piece.field(move.from());
 		game.place(piece);

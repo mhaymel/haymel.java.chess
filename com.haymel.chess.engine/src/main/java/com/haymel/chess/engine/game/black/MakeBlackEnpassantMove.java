@@ -42,7 +42,7 @@ public final class MakeBlackEnpassantMove {
 		move.capturedPiece().captured(true);
 		game.removeWhite(move.capturedPiece());
 		game.push(move);
-		game.resetHalfMoveClock();
+		game.pushHalfMoveClock();
 		game.incFullMoveNumber();
 		game.activeColorWhite();
 
@@ -69,6 +69,7 @@ public final class MakeBlackEnpassantMove {
 		
 		game.decFullMoveNumber();
 		game.activeColorBlack();
+		game.popHalfMoveClock();
 		Piece piece = game.piece(move.to());
 		game.clear(move.to());
 		piece.field(move.from());

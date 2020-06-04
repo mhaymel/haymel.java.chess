@@ -44,7 +44,7 @@ public final class MakeWhiteEnpassantMove {
 		move.capturedPiece().captured(true);
 		game.removeBlack(move.capturedPiece());
 		game.push(move);
-		game.resetHalfMoveClock();
+		game.pushHalfMoveClock();
 		game.activeColorBlack();
 
 		assert game.activeColor() == black; 
@@ -71,6 +71,7 @@ public final class MakeWhiteEnpassantMove {
 		assert game.assertVerify();
 		
 		game.activeColorWhite();
+		game.popHalfMoveClock();
 		Piece piece = game.piece(move.to());
 		game.clear(move.to());
 		piece.field(move.from());

@@ -52,7 +52,7 @@ public final class MakeWhitePromotionMove {
 		game.addWhite(piece);
 		game.place(piece);
 		game.push(move);
-		game.resetHalfMoveClock();
+		game.pushHalfMoveClock();
 		game.activeColorBlack();
 
 		assert game.containsWhitePiece(piece);
@@ -77,6 +77,7 @@ public final class MakeWhitePromotionMove {
 		assert game.containsWhitePiece(game.piece(move.to()));
 	
 		game.activeColorWhite();
+		game.popHalfMoveClock();
 		Piece piece = game.piece(move.to());
 		game.clear(move.to());
 		piece.captured(true);

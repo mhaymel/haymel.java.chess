@@ -37,7 +37,7 @@ public final class MakeBlackPawnDoubleStepMove {
 		game.place(piece);
 		game.push(move);
 		game.enPassant(down(move.from()));
-		game.resetHalfMoveClock();
+		game.pushHalfMoveClock();
 		game.incFullMoveNumber();
 		game.activeColorWhite();
 
@@ -57,6 +57,7 @@ public final class MakeBlackPawnDoubleStepMove {
 
 		game.decFullMoveNumber();
 		game.activeColorBlack();
+		game.popHalfMoveClock();
 		Piece piece = game.piece(move.to());
 		game.clear(move.to());
 		piece.field(move.from());

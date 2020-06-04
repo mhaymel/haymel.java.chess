@@ -14,16 +14,13 @@ public class Undo {			//TODO unit test
 
 	private final Move move;
 	private int enPassant;
-	private int halfMoveClock;
 	
-	public Undo(Move move, int enPassant, int halfMoveClock) {
+	public Undo(Move move, int enPassant) {
 		assert move != null;
 		assert Field.valid(enPassant);
-		assert halfMoveClock >= 0;
 		
 		this.move = move;
 		this.enPassant = enPassant;
-		this.halfMoveClock = halfMoveClock;
 	}
 
 	public Move move() {
@@ -32,10 +29,6 @@ public class Undo {			//TODO unit test
 
 	public int enPassant() {
 		return enPassant;
-	}
-
-	public int halfMoveClock() {
-		return halfMoveClock;
 	}
 
 }

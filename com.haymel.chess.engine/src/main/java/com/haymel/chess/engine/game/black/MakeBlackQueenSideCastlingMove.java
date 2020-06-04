@@ -84,6 +84,7 @@ public final class MakeBlackQueenSideCastlingMove {
 
 		game.decFullMoveNumber();
 		game.activeColorBlack();
+		game.decHalfMoveClock();
 		Piece king = game.piece(c8);
 		Piece rook = game.piece(d8);
 		game.clear(c8);

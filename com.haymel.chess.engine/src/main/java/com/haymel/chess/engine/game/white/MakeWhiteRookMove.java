@@ -57,6 +57,7 @@ public final class MakeWhiteRookMove {
 		assert game.piece(move.from()) == null;
 
 		game.activeColorWhite();
+		game.decHalfMoveClock();
 		Piece piece = game.piece(move.to());
 		game.clear(move.to());
 		piece.field(move.from());

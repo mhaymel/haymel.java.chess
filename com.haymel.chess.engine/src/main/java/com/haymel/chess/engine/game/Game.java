@@ -62,7 +62,11 @@ public final class Game {	//TODO unit test and refactor
 	private Piece[] board;
 	private int activeColor;
 	private int enPassant;
+	
 	private int halfMoveClock;
+	private final int[] halfMoveClockStack = new int[(15+8*6)*2 + 100];
+	private int halfMoveClockStackIndex = 0;
+	
 	private int fullMoveNumber;
 	private final WhiteMoves whiteMoves;
 	private final WhiteCaptureMoves whiteCaptureMoves;
@@ -126,7 +130,7 @@ public final class Game {	//TODO unit test and refactor
 	}
 
 	public void push(Move move) {
-		push(new Undo(move, enPassant, halfMoveClock));
+		push(new Undo(move, enPassant));
 		resetEnPassant();
 	}
 	
@@ -134,7 +138,6 @@ public final class Game {	//TODO unit test and refactor
 		Undo undo = undos.remove(undos.size() - 1);
 		
 		enPassant = undo.enPassant();
-		halfMoveClock = undo.halfMoveClock();
 		
 		return undo;
 	}
@@ -191,16 +194,20 @@ public final class Game {	//TODO unit test and refactor
 		halfMoveClock++;
 	}
 
-	public void resetHalfMoveClock() {
-		halfMoveClock(0);
-	}
-	
-	public void halfMoveClock(int value) {
-		assert value >= 0;
-		
-		halfMoveClock = value;
+	public void decHalfMoveClock() {
+		assert halfMoveClock > 0;
+		halfMoveClock--;
 	}
 
+	public void pushHalfMoveClock() {
+		halfMoveClockStack[halfMoveClockStackIndex++] = halfMoveClock;
+		halfMoveClock = 0;
+	}
+
+	public void popHalfMoveClock() {
+		halfMoveClock = halfMoveClockStack[--halfMoveClockStackIndex];
+	}
+	
 	public void resetFullMoveNumber() {
 		fullMoveNumber = 1;
 	}

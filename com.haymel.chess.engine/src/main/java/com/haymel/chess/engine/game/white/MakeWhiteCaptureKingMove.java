@@ -49,7 +49,7 @@ public final class MakeWhiteCaptureKingMove {
 		move.capturedPiece().captured(true);
 		game.removeBlack(move.capturedPiece());
 		game.push(move);
-		game.resetHalfMoveClock();
+		game.pushHalfMoveClock();
 		game.activeColorBlack();
 
 		assert game.piece(move.from()) == null;
@@ -74,6 +74,7 @@ public final class MakeWhiteCaptureKingMove {
 		assert move.capturedPiece().captured();
 
 		game.activeColorWhite();
+		game.popHalfMoveClock();
 		Piece piece = game.piece(move.to());
 		piece.field(move.from());
 		game.place(piece);

@@ -72,7 +72,7 @@ public final class MakeWhiteCapturePromotionMove {
 		move.capturedPiece().captured(true);
 		game.removeBlack(move.capturedPiece());
 		game.push(move);
-		game.resetHalfMoveClock();
+		game.pushHalfMoveClock();
 		game.activeColorBlack();
 
 		assert game.containsWhitePiece(piece);
@@ -105,6 +105,7 @@ public final class MakeWhiteCapturePromotionMove {
 		assert Math.abs(file(move.from()) - file(move.to())) == 1;
 
 		game.activeColorWhite();
+		game.popHalfMoveClock();
 		Piece piece = game.piece(move.to());
 		piece.captured(true);
 		game.removeWhite(piece);

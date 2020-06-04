@@ -36,7 +36,7 @@ public final class MakeBlackPawnMove {
 		piece.field(move.to());
 		game.place(piece);
 		game.push(move);
-		game.resetHalfMoveClock();
+		game.pushHalfMoveClock();
 		game.incFullMoveNumber();
 		game.activeColorWhite();
 
@@ -56,6 +56,7 @@ public final class MakeBlackPawnMove {
 
 		game.decFullMoveNumber();
 		game.activeColorBlack();
+		game.popHalfMoveClock();
 		Piece piece = game.piece(move.to());
 		game.clear(move.to());
 		piece.field(move.from());

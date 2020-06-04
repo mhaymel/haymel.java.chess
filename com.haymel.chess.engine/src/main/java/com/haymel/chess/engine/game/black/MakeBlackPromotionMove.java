@@ -54,7 +54,7 @@ public final class MakeBlackPromotionMove {
 		game.addBlack(piece);
 		game.place(piece);
 		game.push(move);
-		game.resetHalfMoveClock();
+		game.pushHalfMoveClock();
 		game.incFullMoveNumber();
 		game.activeColorWhite();
 
@@ -84,6 +84,7 @@ public final class MakeBlackPromotionMove {
 	
 		game.decFullMoveNumber();
 		game.activeColorBlack();
+		game.popHalfMoveClock();
 		Piece piece = game.piece(move.to());
 		game.clear(move.to());
 		piece.captured(true);

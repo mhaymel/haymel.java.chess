@@ -55,6 +55,7 @@ public final class MakeBlackKingMove {
 
 		game.decFullMoveNumber();
 		game.activeColorBlack();
+		game.decHalfMoveClock();
 		Piece piece = game.piece(move.to());
 		game.clear(move.to());
 		piece.field(move.from());

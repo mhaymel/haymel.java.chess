@@ -36,7 +36,7 @@ public final class MakeWhitePawnDoubleStepMove {
 		game.place(piece);
 		game.push(move);
 		game.enPassant(up(move.from()));
-		game.resetHalfMoveClock();
+		game.pushHalfMoveClock();
 		game.activeColorBlack();
 
 		assert game.piece(move.from()) == null;
@@ -51,6 +51,7 @@ public final class MakeWhitePawnDoubleStepMove {
 		assert game.piece(move.from()) == null;
 
 		game.activeColorWhite();
+		game.popHalfMoveClock();
 		Piece piece = game.piece(move.to());
 		game.clear(move.to());
 		piece.field(move.from());

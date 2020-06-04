@@ -51,7 +51,7 @@ public final class MakeBlackCaptureMove {
 		move.capturedPiece().captured(true);
 		game.removeWhite(move.capturedPiece());
 		game.push(move);
-		game.resetHalfMoveClock();
+		game.pushHalfMoveClock();
 		game.incFullMoveNumber();
 		game.activeColorWhite();
 
@@ -78,6 +78,7 @@ public final class MakeBlackCaptureMove {
 
 		game.decFullMoveNumber();
 		game.activeColorBlack();
+		game.popHalfMoveClock();
 		Piece piece = game.piece(move.to());
 		piece.field(move.from());
 		game.place(piece);
