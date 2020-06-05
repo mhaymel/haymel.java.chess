@@ -12,7 +12,6 @@ import static com.haymel.chess.engine.game.ActiveColor.white;
 import static java.lang.String.format;
 
 import com.haymel.chess.engine.game.Game;
-import com.haymel.chess.engine.game.Undo;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.MoveType;
 import com.haymel.chess.engine.piece.PieceType;
@@ -77,50 +76,50 @@ public final class BlackMakeMove {	//TODO unit test
 		assert game.assertVerify();
 		assert game.activeColor() == white; 
 		
-		Undo undo = game.pop();
+		Move move = game.pop();
 		
-		switch(undo.move().type()) {
+		switch(move.type()) {
 		case MoveType.normal:
-			MakeBlackMove.undo(game, undo.move());
+			MakeBlackMove.undo(game, move);
 			break;
 		case MoveType.normalRookMove:
-			MakeBlackRookMove.undo(game, undo.move());
+			MakeBlackRookMove.undo(game, move);
 			break;
 		case MoveType.normalKingMove:
-			MakeBlackKingMove.undo(game, undo.move());
+			MakeBlackKingMove.undo(game, move);
 			break;
 		case MoveType.pawn:
-			MakeBlackPawnMove.undo(game, undo.move());
+			MakeBlackPawnMove.undo(game, move);
 			break;
 		case MoveType.pawnDoubleStep:
-			MakeBlackPawnDoubleStepMove.undo(game, undo.move());
+			MakeBlackPawnDoubleStepMove.undo(game, move);
 			break;
 		case MoveType.capture:
-			MakeBlackCaptureMove.undo(game, undo.move());		
+			MakeBlackCaptureMove.undo(game, move);		
 			break;
 		case MoveType.captureRookMove:
-			MakeBlackCaptureRookMove.undo(game, undo.move());		
+			MakeBlackCaptureRookMove.undo(game, move);		
 			break;
 		case MoveType.captureKingMove:
-			MakeBlackCaptureKingMove.undo(game, undo.move());		
+			MakeBlackCaptureKingMove.undo(game, move);		
 			break;
 		case MoveType.capturePromotion:
-			MakeBlackCapturePromotionMove.undo(game, undo.move());			
+			MakeBlackCapturePromotionMove.undo(game, move);			
 			break;
 		case MoveType.enpassant:
-			MakeBlackEnpassantMove.undo(game, undo.move());
+			MakeBlackEnpassantMove.undo(game, move);
 			break;
 		case MoveType.kingsideCastling:
-			MakeBlackKingSideCastlingMove.undo(game, undo.move());
+			MakeBlackKingSideCastlingMove.undo(game, move);
 			break;
 		case MoveType.queensideCastling:
-			MakeBlackQueenSideCastlingMove.undo(game, undo.move());
+			MakeBlackQueenSideCastlingMove.undo(game, move);
 			break;
 		case MoveType.promotion:
-			MakeBlackPromotionMove.undo(game, undo.move());			
+			MakeBlackPromotionMove.undo(game, move);			
 			break;
 		default:
-			assert false : "unknown move type " + undo.move().type();
+			assert false : "unknown move type " + move.type();
 			break;
 		}
 		

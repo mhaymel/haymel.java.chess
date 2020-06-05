@@ -12,7 +12,6 @@ import static com.haymel.chess.engine.board.Field.b1;
 import static com.haymel.chess.engine.board.Field.c1;
 import static com.haymel.chess.engine.board.Field.d1;
 import static com.haymel.chess.engine.board.Field.e1;
-import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
 import static com.haymel.chess.engine.moves.MoveType.queensideCastling;
@@ -53,7 +52,6 @@ public final class MakeWhiteQueenSideCastlingMove {
 		rook.field(d1);
 		game.place(rook);
 		game.push(move);
-		game.enPassant(removed);
 		game.incHalfMoveClock();
 		game.activeColorBlack();
 

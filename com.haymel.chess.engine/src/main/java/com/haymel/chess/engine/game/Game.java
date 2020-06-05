@@ -33,9 +33,6 @@ import static com.haymel.util.Require.nonNull;
 import static com.haymel.util.exception.HaymelException.throwHE;
 import static java.lang.String.format;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.haymel.chess.engine.board.Board;
 import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.board.PieceList;
@@ -56,12 +53,17 @@ import com.haymel.chess.engine.piece.PieceType;
 
 public final class Game {	//TODO unit test and refactor
 
-	private final List<Undo> undos = new ArrayList<>();
 	private final PieceList whitePieces = new PieceList();
 	private final PieceList blackPieces = new PieceList();
 	private Piece[] board;
 	private int activeColor;
+
+	private final Move[] undos = new Move[1000];
+	private int undosIndex = 0;
+	
 	private int enPassant;
+	private final int[] enPassantStack = new int[1000];
+	private int enPassantStackIndex = 0;
 	
 	private int halfMoveClock;
 	private final int[] halfMoveClockStack = new int[(15+8*6)*2 + 100];
@@ -130,15 +132,14 @@ public final class Game {	//TODO unit test and refactor
 	}
 
 	public void push(Move move) {
-		push(new Undo(move, enPassant));
-		resetEnPassant();
+		undos[undosIndex++] = move;
+		enPassantStack[enPassantStackIndex++] = enPassant;
+		enPassant = removed;
 	}
 	
-	public Undo pop() {
-		Undo undo = undos.remove(undos.size() - 1);
-		
-		enPassant = undo.enPassant();
-		
+	public Move pop() {
+		Move undo = undos[--undosIndex];
+		enPassant = enPassantStack[--enPassantStackIndex];
 		return undo;
 	}
 
@@ -167,19 +168,11 @@ public final class Game {	//TODO unit test and refactor
 		board[piece.field()] = piece;
 	}
 
-	private void push(Undo undo) {
-		undos.add(undo);
-	}
-
-	public void resetEnPassant() {
-		enPassant(removed);
-	}
-
 	public void enPassant(int field) {
+		assert field != removed;
+		assert board[field] == null;
 		assert Field.valid(field);
-		assert field == removed || board[field] == null;
 		assert 
-			field == removed ||
 			activeColor == white && rank(field) == rank(a3) && board[Field.up(field)] != null && board[Field.up(field)].type() == WhitePawn||
 			activeColor == black && rank(field) == rank(a6) && board[Field.down(field)] != null && board[Field.down(field)].type() == BlackPawn;
 		
