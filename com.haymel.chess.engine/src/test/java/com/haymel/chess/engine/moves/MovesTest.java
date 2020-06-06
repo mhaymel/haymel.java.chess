@@ -16,8 +16,10 @@ import static com.haymel.chess.engine.board.Field.e3;
 import static com.haymel.chess.engine.board.Field.e4;
 import static com.haymel.chess.engine.board.Field.e7;
 import static com.haymel.chess.engine.board.Field.e8;
-import static com.haymel.chess.engine.moves.MoveType.capturePromotion;
-import static com.haymel.chess.engine.moves.MoveType.promotion;
+import static com.haymel.chess.engine.moves.MoveType.capturePromotionBishop;
+import static com.haymel.chess.engine.moves.MoveType.capturePromotionKnight;
+import static com.haymel.chess.engine.moves.MoveType.capturePromotionQueen;
+import static com.haymel.chess.engine.moves.MoveType.capturePromotionRook;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 import static com.haymel.chess.engine.piece.PieceType.BlackQueen;
 import static org.hamcrest.CoreMatchers.is;
@@ -156,7 +158,11 @@ public class MovesTest {
 		assertThat(foundMoves.size(), is(4));
 
 		for (Move move : foundMoves) 
-			assertThat(move.type(), is(promotion));
+			assertThat(
+				move.type() == MoveType.promotionQueen || 
+				move.type() == MoveType.promotionRook || 
+				move.type() == MoveType.promotionBishop || 
+				move.type() == MoveType.promotionKnight, is(true));
 	}
 	
 	@Test
@@ -167,8 +173,12 @@ public class MovesTest {
 		List<Move> foundMoves = moves.findMoves(e7, d8);
 		assertThat(foundMoves.size(), is(4));
 
-		for (Move move : foundMoves) 
-			assertThat(move.type(), is(capturePromotion));
+		for (Move move : foundMoves)  
+			assertThat(
+				move.type() == capturePromotionQueen || 
+				move.type() == capturePromotionRook || 
+				move.type() == capturePromotionBishop || 
+				move.type() == capturePromotionKnight, is(true));
 	}
 	
 }

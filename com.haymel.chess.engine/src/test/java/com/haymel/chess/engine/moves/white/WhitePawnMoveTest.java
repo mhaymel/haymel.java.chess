@@ -44,17 +44,21 @@ import static com.haymel.chess.engine.board.Field.h3;
 import static com.haymel.chess.engine.board.Field.h4;
 import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.moves.MoveType.capture;
+import static com.haymel.chess.engine.moves.MoveType.capturePromotionBishop;
+import static com.haymel.chess.engine.moves.MoveType.capturePromotionKnight;
+import static com.haymel.chess.engine.moves.MoveType.capturePromotionQueen;
+import static com.haymel.chess.engine.moves.MoveType.capturePromotionRook;
 import static com.haymel.chess.engine.moves.MoveType.enpassant;
 import static com.haymel.chess.engine.moves.MoveType.pawn;
 import static com.haymel.chess.engine.moves.MoveType.pawnDoubleStep;
-import static com.haymel.chess.engine.moves.MoveType.promotion;
+import static com.haymel.chess.engine.moves.MoveType.promotionBishop;
+import static com.haymel.chess.engine.moves.MoveType.promotionKnight;
+import static com.haymel.chess.engine.moves.MoveType.promotionQueen;
+import static com.haymel.chess.engine.moves.MoveType.promotionRook;
 import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 import static com.haymel.chess.engine.piece.PieceType.WhiteBishop;
-import static com.haymel.chess.engine.piece.PieceType.WhiteKnight;
 import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
-import static com.haymel.chess.engine.piece.PieceType.WhiteQueen;
-import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -254,10 +258,10 @@ public class WhitePawnMoveTest {
 		assertThat(moves.size(), is(4));
 		
 		Set<Move> result = movesAsSet();
-		assertThat(result.contains(new Move(e7, e8, promotion, null, WhiteQueen)), is(true));
-		assertThat(result.contains(new Move(e7, e8, promotion, null, WhiteRook)), is(true));
-		assertThat(result.contains(new Move(e7, e8, promotion, null, WhiteBishop)), is(true));
-		assertThat(result.contains(new Move(e7, e8, promotion, null, WhiteKnight)), is(true));
+		assertThat(result.contains(new Move(e7, e8, promotionQueen)), is(true));
+		assertThat(result.contains(new Move(e7, e8, promotionRook)), is(true));
+		assertThat(result.contains(new Move(e7, e8, promotionBishop)), is(true));
+		assertThat(result.contains(new Move(e7, e8, promotionKnight)), is(true));
 	}
 
 	@Test
@@ -285,10 +289,10 @@ public class WhitePawnMoveTest {
 		assertThat(moves.size(), is(4));
 		
 		Set<Move> result = movesAsSet();
-		assertThat(result.contains(new Move(e7, d8, captured, WhiteQueen)), is(true));
-		assertThat(result.contains(new Move(e7, d8, captured, WhiteRook)), is(true));
-		assertThat(result.contains(new Move(e7, d8, captured, WhiteBishop)), is(true));
-		assertThat(result.contains(new Move(e7, d8, captured, WhiteKnight)), is(true));
+		assertThat(result.contains(new Move(e7, d8, capturePromotionQueen, captured)), is(true));
+		assertThat(result.contains(new Move(e7, d8, capturePromotionRook, captured)), is(true));
+		assertThat(result.contains(new Move(e7, d8, capturePromotionBishop, captured)), is(true));
+		assertThat(result.contains(new Move(e7, d8, capturePromotionKnight, captured)), is(true));
 	}
 	
 	@Test
@@ -300,10 +304,10 @@ public class WhitePawnMoveTest {
 		assertThat(moves.size(), is(4));
 		
 		Set<Move> result = movesAsSet();
-		assertThat(result.contains(new Move(e7, f8, captured, WhiteQueen)), is(true));
-		assertThat(result.contains(new Move(e7, f8, captured, WhiteRook)), is(true));
-		assertThat(result.contains(new Move(e7, f8, captured, WhiteBishop)), is(true));
-		assertThat(result.contains(new Move(e7, f8, captured, WhiteKnight)), is(true));
+		assertThat(result.contains(new Move(e7, f8, capturePromotionQueen, captured)), is(true));
+		assertThat(result.contains(new Move(e7, f8, capturePromotionRook, captured)), is(true));
+		assertThat(result.contains(new Move(e7, f8, capturePromotionBishop, captured)), is(true));
+		assertThat(result.contains(new Move(e7, f8, capturePromotionKnight, captured)), is(true));
 	}
 	
 	@Test
@@ -315,18 +319,18 @@ public class WhitePawnMoveTest {
 		assertThat(moves.size(), is(12));
 		
 		Set<Move> result = movesAsSet();
-		assertThat(result.contains(new Move(e7, e8, promotion, null, WhiteQueen)), is(true));
-		assertThat(result.contains(new Move(e7, e8, promotion, null, WhiteRook)), is(true));
-		assertThat(result.contains(new Move(e7, e8, promotion, null, WhiteBishop)), is(true));
-		assertThat(result.contains(new Move(e7, e8, promotion, null, WhiteKnight)), is(true));
-		assertThat(result.contains(new Move(e7, d8, capturedD8, WhiteQueen)), is(true));
-		assertThat(result.contains(new Move(e7, d8, capturedD8, WhiteRook)), is(true));
-		assertThat(result.contains(new Move(e7, d8, capturedD8, WhiteBishop)), is(true));
-		assertThat(result.contains(new Move(e7, d8, capturedD8, WhiteKnight)), is(true));
-		assertThat(result.contains(new Move(e7, f8, capturedF8, WhiteQueen)), is(true));
-		assertThat(result.contains(new Move(e7, f8, capturedF8, WhiteRook)), is(true));
-		assertThat(result.contains(new Move(e7, f8, capturedF8, WhiteBishop)), is(true));
-		assertThat(result.contains(new Move(e7, f8, capturedF8, WhiteKnight)), is(true));
+		assertThat(result.contains(new Move(e7, e8, promotionQueen)), is(true));
+		assertThat(result.contains(new Move(e7, e8, promotionRook)), is(true));
+		assertThat(result.contains(new Move(e7, e8, promotionBishop)), is(true));
+		assertThat(result.contains(new Move(e7, e8, promotionKnight)), is(true));
+		assertThat(result.contains(new Move(e7, d8, capturePromotionQueen, capturedD8)), is(true));
+		assertThat(result.contains(new Move(e7, d8, capturePromotionRook, capturedD8)), is(true));
+		assertThat(result.contains(new Move(e7, d8, capturePromotionBishop, capturedD8)), is(true));
+		assertThat(result.contains(new Move(e7, d8, capturePromotionKnight, capturedD8)), is(true));
+		assertThat(result.contains(new Move(e7, f8, capturePromotionQueen, capturedF8)), is(true));
+		assertThat(result.contains(new Move(e7, f8, capturePromotionRook, capturedF8)), is(true));
+		assertThat(result.contains(new Move(e7, f8, capturePromotionBishop, capturedF8)), is(true));
+		assertThat(result.contains(new Move(e7, f8, capturePromotionKnight, capturedF8)), is(true));
 	}
 
 	@Test

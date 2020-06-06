@@ -8,18 +8,18 @@
 
 package com.haymel.chess.engine.moves.algebraic;
 
+import static com.haymel.chess.engine.moves.MoveType.capturePromotionBishop;
+import static com.haymel.chess.engine.moves.MoveType.capturePromotionKnight;
+import static com.haymel.chess.engine.moves.MoveType.capturePromotionQueen;
+import static com.haymel.chess.engine.moves.MoveType.capturePromotionRook;
+import static com.haymel.chess.engine.moves.MoveType.promotionBishop;
+import static com.haymel.chess.engine.moves.MoveType.promotionKnight;
+import static com.haymel.chess.engine.moves.MoveType.promotionQueen;
+import static com.haymel.chess.engine.moves.MoveType.promotionRook;
 import static com.haymel.chess.engine.moves.algebraic.Promotion.Bishop;
 import static com.haymel.chess.engine.moves.algebraic.Promotion.Knight;
 import static com.haymel.chess.engine.moves.algebraic.Promotion.Queen;
 import static com.haymel.chess.engine.moves.algebraic.Promotion.Rook;
-import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
-import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
-import static com.haymel.chess.engine.piece.PieceType.BlackQueen;
-import static com.haymel.chess.engine.piece.PieceType.BlackRook;
-import static com.haymel.chess.engine.piece.PieceType.WhiteBishop;
-import static com.haymel.chess.engine.piece.PieceType.WhiteKnight;
-import static com.haymel.chess.engine.piece.PieceType.WhiteQueen;
-import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
 
 import java.util.List;
 
@@ -50,24 +50,24 @@ public class MoveFinder {
 	
 	private Move promotion(Promotion promotion, List<Move> moves) {
 		for (Move move : moves) {
-			switch(move.pieceType()) {
-			case WhiteQueen:
-			case BlackQueen:
+			switch(move.type()) {
+			case promotionQueen:
+			case capturePromotionQueen:
 				if (promotion == Queen)
 					return move;
 				break;
-			case WhiteRook:
-			case BlackRook:
+			case promotionRook:
+			case capturePromotionRook:
 				if (promotion == Rook)
 					return move;
 				break;
-			case WhiteBishop:
-			case BlackBishop:
+			case promotionBishop:
+			case capturePromotionBishop:
 				if (promotion == Bishop)
 					return move;
 				break;
-			case WhiteKnight:
-			case BlackKnight:
+			case promotionKnight:
+			case capturePromotionKnight:
 				if (promotion == Knight)
 					return move;
 				break;

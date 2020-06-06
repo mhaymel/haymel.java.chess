@@ -9,6 +9,10 @@ package com.haymel.chess.engine.game.white;
 
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
+import static com.haymel.chess.engine.piece.PieceType.WhiteBishop;
+import static com.haymel.chess.engine.piece.PieceType.WhiteKnight;
+import static com.haymel.chess.engine.piece.PieceType.WhiteQueen;
+import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
 
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.moves.Move;
@@ -47,8 +51,17 @@ public final class WhiteMakeMove {	//TODO unit test
 		case MoveType.captureKingMove:
 			MakeWhiteCaptureKingMove.make(game, move);		
 			break;
-		case MoveType.capturePromotion:
-			MakeWhiteCapturePromotionMove.make(game, move);		
+		case MoveType.capturePromotionQueen:
+			MakeWhiteCapturePromotionMove.make(game, move, WhiteQueen);		
+			break;
+		case MoveType.capturePromotionRook:
+			MakeWhiteCapturePromotionMove.make(game, move, WhiteRook);		
+			break;
+		case MoveType.capturePromotionBishop:
+			MakeWhiteCapturePromotionMove.make(game, move, WhiteBishop);		
+			break;
+		case MoveType.capturePromotionKnight:
+			MakeWhiteCapturePromotionMove.make(game, move, WhiteKnight);		
 			break;
 		case MoveType.enpassant:
 			MakeWhiteEnpassantMove.make(game, move);
@@ -59,8 +72,17 @@ public final class WhiteMakeMove {	//TODO unit test
 		case MoveType.queensideCastling:
 			MakeWhiteQueenSideCastlingMove.make(game, move);
 			break;
-		case MoveType.promotion:
-			MakeWhitePromotionMove.make(game, move);
+		case MoveType.promotionQueen:
+			MakeWhitePromotionMove.make(game, move, WhiteQueen);
+			break;
+		case MoveType.promotionRook:
+			MakeWhitePromotionMove.make(game, move, WhiteRook);
+			break;
+		case MoveType.promotionBishop:
+			MakeWhitePromotionMove.make(game, move, WhiteBishop);
+			break;
+		case MoveType.promotionKnight:
+			MakeWhitePromotionMove.make(game, move, WhiteKnight);
 			break;
 		default:
 			assert false : "unknown move type " + move.type();
@@ -102,7 +124,10 @@ public final class WhiteMakeMove {	//TODO unit test
 		case MoveType.captureKingMove:
 			MakeWhiteCaptureKingMove.undo(game, move);		
 			break;
-		case MoveType.capturePromotion:
+		case MoveType.capturePromotionQueen:
+		case MoveType.capturePromotionRook:
+		case MoveType.capturePromotionBishop:
+		case MoveType.capturePromotionKnight:
 			MakeWhiteCapturePromotionMove.undo(game, move);
 			break;
 		case MoveType.enpassant:
@@ -114,7 +139,10 @@ public final class WhiteMakeMove {	//TODO unit test
 		case MoveType.queensideCastling:
 			MakeWhiteQueenSideCastlingMove.undo(game, move);
 			break;
-		case MoveType.promotion:
+		case MoveType.promotionQueen:
+		case MoveType.promotionRook:
+		case MoveType.promotionBishop:
+		case MoveType.promotionKnight:
 			MakeWhitePromotionMove.undo(game, move);
 			break;
 		default:

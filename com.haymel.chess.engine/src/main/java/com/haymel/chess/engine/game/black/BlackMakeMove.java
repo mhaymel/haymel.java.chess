@@ -9,6 +9,10 @@ package com.haymel.chess.engine.game.black;
 
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
+import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
+import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
+import static com.haymel.chess.engine.piece.PieceType.BlackQueen;
+import static com.haymel.chess.engine.piece.PieceType.BlackRook;
 import static java.lang.String.format;
 
 import com.haymel.chess.engine.game.Game;
@@ -48,14 +52,32 @@ public final class BlackMakeMove {	//TODO unit test
 		case MoveType.captureKingMove:
 			MakeBlackCaptureKingMove.make(game, move);		
 			break;
-		case MoveType.capturePromotion:
-			MakeBlackCapturePromotionMove.make(game, move);			
+		case MoveType.capturePromotionQueen:
+			MakeBlackCapturePromotionMove.make(game, move, BlackQueen);			
+			break;
+		case MoveType.capturePromotionRook:
+			MakeBlackCapturePromotionMove.make(game, move, BlackRook);			
+			break;
+		case MoveType.capturePromotionBishop:
+			MakeBlackCapturePromotionMove.make(game, move, BlackBishop);			
+			break;
+		case MoveType.capturePromotionKnight:
+			MakeBlackCapturePromotionMove.make(game, move, BlackKnight);			
 			break;
 		case MoveType.enpassant:
 			MakeBlackEnpassantMove.make(game, move);
 			break;
-		case MoveType.promotion:
-			MakeBlackPromotionMove.make(game, move);		
+		case MoveType.promotionQueen:
+			MakeBlackPromotionMove.make(game, move, BlackQueen);		
+			break;
+		case MoveType.promotionRook:
+			MakeBlackPromotionMove.make(game, move, BlackRook);		
+			break;
+		case MoveType.promotionBishop:
+			MakeBlackPromotionMove.make(game, move, BlackBishop);		
+			break;
+		case MoveType.promotionKnight:
+			MakeBlackPromotionMove.make(game, move, BlackKnight);		
 			break;
 		case MoveType.kingsideCastling:
 			MakeBlackKingSideCastlingMove.make(game, move);
@@ -103,7 +125,10 @@ public final class BlackMakeMove {	//TODO unit test
 		case MoveType.captureKingMove:
 			MakeBlackCaptureKingMove.undo(game, move);		
 			break;
-		case MoveType.capturePromotion:
+		case MoveType.capturePromotionQueen:
+		case MoveType.capturePromotionRook:
+		case MoveType.capturePromotionBishop:
+		case MoveType.capturePromotionKnight:
 			MakeBlackCapturePromotionMove.undo(game, move);			
 			break;
 		case MoveType.enpassant:
@@ -115,7 +140,10 @@ public final class BlackMakeMove {	//TODO unit test
 		case MoveType.queensideCastling:
 			MakeBlackQueenSideCastlingMove.undo(game, move);
 			break;
-		case MoveType.promotion:
+		case MoveType.promotionQueen:
+		case MoveType.promotionRook:
+		case MoveType.promotionBishop:
+		case MoveType.promotionKnight:
 			MakeBlackPromotionMove.undo(game, move);			
 			break;
 		default:

@@ -16,16 +16,11 @@ import static com.haymel.chess.engine.board.Field.e8;
 import static com.haymel.chess.engine.board.Field.valid;
 import static com.haymel.chess.engine.fen.PositionFromFEN.initalFen;
 import static com.haymel.chess.engine.moves.MoveType.pawnDoubleStep;
-import static com.haymel.chess.engine.moves.MoveType.promotion;
+import static com.haymel.chess.engine.moves.MoveType.promotionBishop;
+import static com.haymel.chess.engine.moves.MoveType.promotionKnight;
+import static com.haymel.chess.engine.moves.MoveType.promotionQueen;
+import static com.haymel.chess.engine.moves.MoveType.promotionRook;
 import static com.haymel.chess.engine.moves.MoveType.validMoveType;
-import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
-import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
-import static com.haymel.chess.engine.piece.PieceType.BlackQueen;
-import static com.haymel.chess.engine.piece.PieceType.BlackRook;
-import static com.haymel.chess.engine.piece.PieceType.WhiteBishop;
-import static com.haymel.chess.engine.piece.PieceType.WhiteKnight;
-import static com.haymel.chess.engine.piece.PieceType.WhiteQueen;
-import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
@@ -35,7 +30,6 @@ import org.junit.Test;
 import com.haymel.chess.engine.fen.GameFromFEN;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.Moves;
-import com.haymel.chess.engine.piece.PieceType;
 
 public class MoveFinderTest {
 
@@ -43,28 +37,28 @@ public class MoveFinderTest {
 	public void findWhiteQueenPromotion() {
 		Moves moves = whiteMoves("6k1/4P3/8/8/8/8/8/4K3 w - - 2 1");
 		MoveFinder find = new MoveFinder(moves);
-		testPromotion(find.find("e7e8q"), e7, e8, WhiteQueen);
+		testPromotion(find.find("e7e8q"), e7, e8, promotionQueen);
 	}
 
 	@Test
 	public void findWhiteRookPromotion() {
 		Moves moves = whiteMoves("6k1/4P3/8/8/8/8/8/4K3 w - - 2 1");
 		MoveFinder find = new MoveFinder(moves);
-		testPromotion(find.find("e7e8r"), e7, e8, WhiteRook);
+		testPromotion(find.find("e7e8r"), e7, e8, promotionRook);
 	}
 
 	@Test
 	public void findWhiteBishopPromotion() {
 		Moves moves = whiteMoves("6k1/4P3/8/8/8/8/8/4K3 w - - 2 1");
 		MoveFinder find = new MoveFinder(moves);
-		testPromotion(find.find("e7e8b"), e7, e8, WhiteBishop);
+		testPromotion(find.find("e7e8b"), e7, e8, promotionBishop);
 	}
 	
 	@Test
 	public void findWhiteKnightPromotion() {
 		Moves moves = whiteMoves("6k1/4P3/8/8/8/8/8/4K3 w - - 2 1");
 		MoveFinder find = new MoveFinder(moves);
-		testPromotion(find.find("e7e8n"), e7, e8, WhiteKnight);
+		testPromotion(find.find("e7e8n"), e7, e8, promotionKnight);
 	}
 
 	@Test
@@ -78,28 +72,28 @@ public class MoveFinderTest {
 	public void findBlackQueenPromotion() {
 		Moves moves = blackMoves("6k1/8/8/8/8/8/4p3/6K1 b - - 2 1");
 		MoveFinder find = new MoveFinder(moves);
-		testPromotion(find.find("e2e1q"), e2, e1, BlackQueen);
+		testPromotion(find.find("e2e1q"), e2, e1, promotionQueen);
 	}
 
 	@Test
 	public void findBlackRookPromotion() {
 		Moves moves = blackMoves("6k1/8/8/8/8/8/4p3/6K1 b - - 2 1");
 		MoveFinder find = new MoveFinder(moves);
-		testPromotion(find.find("e2e1r"), e2, e1, BlackRook);
+		testPromotion(find.find("e2e1r"), e2, e1, promotionRook);
 	}
 	
 	@Test
 	public void findBlackBishopPromotion() {
 		Moves moves = blackMoves("6k1/8/8/8/8/8/4p3/6K1 b - - 2 1");
 		MoveFinder find = new MoveFinder(moves);
-		testPromotion(find.find("e2e1b"), e2, e1, BlackBishop);
+		testPromotion(find.find("e2e1b"), e2, e1, promotionBishop);
 	}
 
 	@Test
 	public void findBlackKnightPromotion() {
 		Moves moves = blackMoves("6k1/8/8/8/8/8/4p3/6K1 b - - 2 1");
 		MoveFinder find = new MoveFinder(moves);
-		testPromotion(find.find("e2e1n"), e2, e1, BlackKnight);
+		testPromotion(find.find("e2e1n"), e2, e1, promotionKnight);
 	}
 
 	@Test
@@ -109,14 +103,13 @@ public class MoveFinderTest {
 		test(find.find("e7e5"), e7, e5, pawnDoubleStep);
 	}
 	
-	private static void testPromotion(Move move, int from, int to, int promoted) {
+	private static void testPromotion(Move move, int from, int to, int moveType) {
 		assert valid(from);
 		assert valid(to);
-		assert PieceType.pieceTypeValid(promoted);
+		assert validMoveType(moveType);
 		
 		assertThat(move, notNullValue());
-		assertThat(move.type(), is(promotion));
-		assertThat(move.pieceType(), is(promoted));
+		assertThat(move.type(), is(moveType));
 		assertThat(move.from(), is(from));
 		assertThat(move.to(), is(to));
 	}

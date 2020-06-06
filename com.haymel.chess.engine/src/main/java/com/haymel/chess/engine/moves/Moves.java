@@ -19,6 +19,10 @@ import static com.haymel.chess.engine.board.Field.up;
 import static com.haymel.chess.engine.board.Field.valid;
 import static com.haymel.chess.engine.moves.MoveType.capture;
 import static com.haymel.chess.engine.moves.MoveType.captureKingMove;
+import static com.haymel.chess.engine.moves.MoveType.capturePromotionBishop;
+import static com.haymel.chess.engine.moves.MoveType.capturePromotionKnight;
+import static com.haymel.chess.engine.moves.MoveType.capturePromotionQueen;
+import static com.haymel.chess.engine.moves.MoveType.capturePromotionRook;
 import static com.haymel.chess.engine.moves.MoveType.captureRookMove;
 import static com.haymel.chess.engine.moves.MoveType.enpassant;
 import static com.haymel.chess.engine.moves.MoveType.kingsideCastling;
@@ -26,21 +30,16 @@ import static com.haymel.chess.engine.moves.MoveType.normalKingMove;
 import static com.haymel.chess.engine.moves.MoveType.normalRookMove;
 import static com.haymel.chess.engine.moves.MoveType.pawn;
 import static com.haymel.chess.engine.moves.MoveType.pawnDoubleStep;
-import static com.haymel.chess.engine.moves.MoveType.promotion;
+import static com.haymel.chess.engine.moves.MoveType.promotionBishop;
+import static com.haymel.chess.engine.moves.MoveType.promotionKnight;
+import static com.haymel.chess.engine.moves.MoveType.promotionQueen;
+import static com.haymel.chess.engine.moves.MoveType.promotionRook;
 import static com.haymel.chess.engine.moves.MoveType.queensideCastling;
 import static com.haymel.chess.engine.moves.MoveType.validMoveType;
-import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
 import static com.haymel.chess.engine.piece.PieceType.BlackKing;
-import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
-import static com.haymel.chess.engine.piece.PieceType.BlackQueen;
-import static com.haymel.chess.engine.piece.PieceType.BlackRook;
-import static com.haymel.chess.engine.piece.PieceType.WhiteBishop;
 import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
-import static com.haymel.chess.engine.piece.PieceType.WhiteKnight;
 import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
-import static com.haymel.chess.engine.piece.PieceType.WhiteQueen;
-import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
 import static com.haymel.util.Require.nonNull;
 import static java.lang.Math.abs;
 import static java.lang.String.join;
@@ -149,10 +148,10 @@ public class Moves {
 		assert rank(from) == 6;
 		
 		int to = up(from);
-		add(new Move(from, to, promotion, null, WhiteQueen));
-		add(new Move(from, to, promotion, null, WhiteRook));
-		add(new Move(from, to, promotion, null, WhiteBishop));
-		add(new Move(from, to, promotion, null, WhiteKnight));
+		add(new Move(from, to, promotionQueen));
+		add(new Move(from, to, promotionRook));
+		add(new Move(from, to, promotionBishop));
+		add(new Move(from, to, promotionKnight));
 	}
 
 	public void addWhiteCapturePromotion(int from, int to, Piece piece) {		//TODO unit test
@@ -164,10 +163,10 @@ public class Moves {
 		assert rank(to) == 7;
 		assert PieceType.black(piece.type());
 		
-		add(new Move(from, to, piece, WhiteQueen));
-		add(new Move(from, to, piece, WhiteRook));
-		add(new Move(from, to, piece, WhiteBishop));
-		add(new Move(from, to, piece, WhiteKnight));
+		add(new Move(from, to, capturePromotionQueen, piece));
+		add(new Move(from, to, capturePromotionRook, piece));
+		add(new Move(from, to, capturePromotionBishop, piece));
+		add(new Move(from, to, capturePromotionKnight, piece));
 
 		if (piece.type() == PieceType.BlackKing || piece.type() == WhiteKing)
 			kingCaptureCount++;
@@ -178,10 +177,10 @@ public class Moves {
 		assert rank(from) == 1;
 		
 		int to = Field.down(from);
-		add(new Move(from, to, promotion, null, BlackQueen));
-		add(new Move(from, to, promotion, null, BlackRook));
-		add(new Move(from, to, promotion, null, BlackBishop));
-		add(new Move(from, to, promotion, null, BlackKnight));
+		add(new Move(from, to, promotionQueen));
+		add(new Move(from, to, promotionRook));
+		add(new Move(from, to, promotionBishop));
+		add(new Move(from, to, promotionKnight));
 	}
 
 	public void addBlackCapturePromotion(int from, int to, Piece piece) {
@@ -192,10 +191,10 @@ public class Moves {
 		assert rank(to) == 0;
 		assert PieceType.white(piece.type());
 		
-		add(new Move(from, to, piece, BlackQueen));
-		add(new Move(from, to, piece, BlackRook));
-		add(new Move(from, to, piece, BlackBishop));
-		add(new Move(from, to, piece, BlackKnight));
+		add(new Move(from, to, capturePromotionQueen, piece));
+		add(new Move(from, to, capturePromotionRook, piece));
+		add(new Move(from, to, capturePromotionBishop, piece));
+		add(new Move(from, to, capturePromotionKnight, piece));
 
 		if (piece.type() == PieceType.BlackKing || piece.type() == WhiteKing)
 			kingCaptureCount++;

@@ -11,7 +11,10 @@ import static com.haymel.chess.engine.board.Field.file;
 import static com.haymel.chess.engine.board.Field.rank;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
-import static com.haymel.chess.engine.moves.MoveType.promotion;
+import static com.haymel.chess.engine.moves.MoveType.promotionBishop;
+import static com.haymel.chess.engine.moves.MoveType.promotionKnight;
+import static com.haymel.chess.engine.moves.MoveType.promotionQueen;
+import static com.haymel.chess.engine.moves.MoveType.promotionRook;
 import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
 import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
@@ -24,12 +27,16 @@ import com.haymel.chess.engine.piece.Piece;
 
 public final class MakeBlackPromotionMove {
 
-	public static void make(Game game, Move move) {
+	public static void make(Game game, Move move, int pieceType) {
 		assert game != null;
 		assert move != null;
 		assert game.assertVerify();
 		assert game.activeColor() == black; 
-		assert move.type() == promotion;
+		assert 
+			move.type() == promotionQueen ||
+			move.type() == promotionRook ||
+			move.type() == promotionBishop ||
+			move.type() == promotionKnight;
 		assert game.piece(move.from()).type() == BlackPawn;
 		assert game.piece(move.to()) == null;
 		assert rank(move.from()) == 1;
@@ -37,18 +44,14 @@ public final class MakeBlackPromotionMove {
 		assert file(move.from()) == file(move.to());
 		assert game.halfMoveClock() >= 0;
 		assert game.fullMoveNumber() >= 1;
-		assert 
-			move.pieceType() == BlackQueen || 
-			move.pieceType() == BlackRook  ||
-			move.pieceType() == BlackBishop  ||
-			move.pieceType() == BlackKnight;
+		assert pieceType == BlackQueen || pieceType == BlackRook  || pieceType == BlackBishop  || pieceType == BlackKnight;
 		assert game.containsBlackPiece(game.piece(move.from()));
 		
 		Piece piece = game.piece(move.from());
 		game.clear(move.from());
 		piece.captured(true);
 		game.removeBlack(piece);
-		piece.type(move.pieceType());
+		piece.type(pieceType);
 		piece.field(move.to());
 		piece.captured(false);
 		game.addBlack(piece);
@@ -61,7 +64,7 @@ public final class MakeBlackPromotionMove {
 		assert game.containsBlackPiece(piece);
 		assert game.activeColor() == white; 
 		assert game.piece(move.from()) == null;
-		assert game.piece(move.to()).type() == move.pieceType();
+		assert game.piece(move.to()).type() == pieceType;
 		assert game.halfMoveClock() == 0;
 		assert game.fullMoveNumber() >= 2;
 		assert game.assertVerify();
@@ -72,8 +75,11 @@ public final class MakeBlackPromotionMove {
 		assert move != null;
 		assert game.assertVerify();
 		assert game.activeColor() == white; 
-		assert move.type() == promotion;
-		assert game.piece(move.to()).type() == move.pieceType();
+		assert 
+			move.type() == promotionQueen ||
+			move.type() == promotionRook ||
+			move.type() == promotionBishop ||
+			move.type() == promotionKnight;
 		assert game.piece(move.from()) == null;
 		assert rank(move.from()) == 1;
 		assert rank(move.to()) == 0;
