@@ -17,4 +17,11 @@ dependencies {
 	testCompile group: 'org.mockito', name: 'mockito-core', version: '2.25.0'
 }
 
+test {
+
+  minHeapSize = "1g"
+  maxHeapSize = "5g"
+
+}
+
  

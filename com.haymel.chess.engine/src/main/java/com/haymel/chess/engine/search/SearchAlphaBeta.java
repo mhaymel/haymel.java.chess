@@ -39,6 +39,7 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 	private final MoveIteratorCreator moveIteratorCreator;
 	private final Move[] history = new Move[1000];
 	private long stopSearchAt;
+	private final Hashtable hashtable = new Hashtable();
 	
 	public SearchAlphaBeta(Game game) {
 		this(game, noopSearchInfo, new NodesCalculator(), new PVMoveIteratorCreator(game));
@@ -121,6 +122,7 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 					alpha = score;
 					bestMove = newBestMove(v, score);
 					info.bestMoveConsumer(bestMove);
+					hashtable.put(game.hash(), move);
 				}
 			}
 
@@ -158,12 +160,15 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 				if (score >= beta) {
 					if (!move.capture())
 						history[depth] = move;
+
+					hashtable.put(game.hash(), move);
 					return beta;
 				}
 				
 				if (score > alpha) {
 					alpha = score;
 					variant.add(v);
+					hashtable.put(game.hash(), move);
 				}
 			}
 			else
@@ -279,6 +284,7 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 					beta = score;
 					bestMove = newBestMove(v, score);
 					info.bestMoveConsumer(bestMove);
+					hashtable.put(game.hash(), move);
 				}
 			}
 			
@@ -319,12 +325,14 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 				if (score <= alpha) { 
 					if (!move.capture())
 						history[depth] = move;
+					hashtable.put(game.hash(), move);
 					return alpha;
 				}
 				
 				if (score < beta) {
 					beta = score;
 					variant.add(v);
+					hashtable.put(game.hash(), move);
 				}
 			}
 			else

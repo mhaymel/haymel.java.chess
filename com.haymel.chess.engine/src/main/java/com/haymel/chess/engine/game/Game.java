@@ -42,6 +42,7 @@ import com.haymel.chess.engine.evaluation.BlackPiecesPositionValue;
 import com.haymel.chess.engine.evaluation.PiecePositionValue;
 import com.haymel.chess.engine.evaluation.PieceValue;
 import com.haymel.chess.engine.evaluation.WhitePiecesPositionValue;
+import com.haymel.chess.engine.hash.Hash;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.moves.black.BlackMoves;
@@ -80,6 +81,7 @@ public final class Game {	//TODO unit test and refactor
 	private final CastlingRightHistory castlingRightHistory = new CastlingRightHistory();
 	private int whitePositionValue;
 	private int blackPositionValue;
+	private Hash hash = new Hash();
 	
 	public Game(Position position) {
 		this(position, new WhitePiecesPositionValue(), new BlackPiecesPositionValue());
@@ -505,4 +507,36 @@ public final class Game {	//TODO unit test and refactor
 		castlingRightHistory.pop();
 	}
 
+	public long hash() {
+		long h = hash.activeColor(activeColor) ^ hash.enpassant(enPassant);
+		
+		if (castlingRightHistory.castlingRight().white().kingside())
+			h ^= hash.whiteKingsideCastling();
+
+		if (castlingRightHistory.castlingRight().white().queenside())
+			h ^= hash.whiteQueensideCastling();
+
+		if (castlingRightHistory.castlingRight().black().kingside())
+			h ^= hash.blackKingsideCastling();
+
+		if (castlingRightHistory.castlingRight().black().queenside())
+			h ^= hash.blackQueensideCastling();
+
+		int size = whitePieces.index();
+		for(int i = 0; i < size; i++) {
+			Piece piece = whitePieces.piece(i);
+			if (!piece.captured());
+				h ^= hash.piece(piece.type(), piece.field());
+		}
+
+		size = blackPieces.index();
+		for(int i = 0; i < size; i++) {
+			Piece piece = blackPieces.piece(i);
+			if (piece.captured());
+				h ^= hash.piece(piece.type(), piece.field());
+		}
+		
+		return h;
+	}
+	
 }
