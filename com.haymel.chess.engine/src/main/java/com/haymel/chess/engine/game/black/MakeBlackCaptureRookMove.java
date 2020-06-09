@@ -31,12 +31,13 @@ public final class MakeBlackCaptureRookMove {
 		assert game.piece(move.from()).type() == BlackRook;
 		assert PieceType.black(game.piece(move.from()).type());
 		assert PieceType.white(game.piece(move.to()).type());
-		assert game.piece(move.to()) == move.capturedPiece();
-		assert PieceType.white(move.capturedPiece().type());
-		assert game.containsWhitePiece(move.capturedPiece());
-		assert game.piece(move.to()).type() != WhiteKing;
 		assert game.containsBlackPiece(game.piece(move.from()));
-		
+
+		Piece victim = game.piece(move.to());
+		assert PieceType.white(victim.type());
+		assert victim.type() != WhiteKing;
+		game.pushVictim(victim);
+
 		game.pushCastlingRight();
 		switch(move.from()) {
 		case a8: game.castlingRight().black().disableQueenside(); break;
@@ -53,8 +54,8 @@ public final class MakeBlackCaptureRookMove {
 		game.clear(move.from());
 		piece.field(move.to());
 		game.place(piece);
-		move.capturedPiece().captured(true);
-		game.removeWhite(move.capturedPiece());
+		victim.captured(true);
+		game.removeWhite(victim);
 		game.push(move);
 		game.pushHalfMoveClock();
 		game.incFullMoveNumber();
@@ -63,21 +64,17 @@ public final class MakeBlackCaptureRookMove {
 		assert game.piece(move.from()) == null;
 		assert PieceType.black(game.piece(move.to()).type());
 		assert game.piece(move.to()) == piece;
-		assert game.containsWhitePiece(move.capturedPiece());
-		assert move.capturedPiece().captured();
-		assert game.containsBlackPiece(piece);
+		assert victim.captured();
 		assert game.activeColor() == white; 
 		assert game.assertVerify();
 	}
 	
 	public static void undo(Game game, Move move) {
 		assert game.assertVerify();
+		assert game.activeColor() == white; 
 		assert move.type() == captureRookMove;
 		assert game.piece(move.from()) == null;
 		assert game.piece(move.to()).type() == BlackRook;
-		assert PieceType.white(move.capturedPiece().type());
-		assert game.containsWhitePiece(move.capturedPiece());
-		assert move.capturedPiece().captured();
 		
 		game.decFullMoveNumber();
 		game.activeColorBlack();
@@ -85,19 +82,23 @@ public final class MakeBlackCaptureRookMove {
 		Piece piece = game.piece(move.to());
 		piece.field(move.from());
 		game.place(piece);
-		move.capturedPiece().captured(false);
-		game.addWhite(move.capturedPiece());
-		game.place(move.capturedPiece());
+		Piece victim = game.popVictim();
+		
+		assert PieceType.white(victim.type());
+		assert victim.type() != WhiteKing;
+		assert victim.captured();
+	
+		victim.captured(false);
+		game.addWhite(victim);
+		game.place(victim);
 		game.blackPositionValue(piece.type(), move.to(), move.from());
 		game.popCastlingRight();
 		
 		assert game.halfMoveClock() >= 0;
 		assert game.piece(move.from()).type() == BlackRook;
 		assert PieceType.white(game.piece(move.to()).type());
-		assert game.piece(move.to()) == move.capturedPiece();
-		assert PieceType.white(move.capturedPiece().type());
-		assert game.containsWhitePiece(move.capturedPiece());
-		assert game.piece(move.to()).type() != WhiteKing;
+		assert game.piece(move.to()) == victim;
+		assert !victim.captured();
 		assert game.containsBlackPiece(piece);
 		assert game.activeColor() == black;
 		assert game.assertVerify();

@@ -55,4 +55,21 @@ public class MoveType {
 		return false;
 	}
 	
+	public static boolean capture(int type) {
+		assert validMoveType(type);
+		switch(type) {
+		case capture:
+		case enpassant:
+		case capturePromotionQueen:
+		case capturePromotionRook:
+		case capturePromotionBishop:
+		case capturePromotionKnight:
+		case captureKingMove:
+		case captureRookMove:
+			return true;
+		default:
+			return false;
+		}
+	}
+	
 }

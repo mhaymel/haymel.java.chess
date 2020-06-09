@@ -146,7 +146,7 @@ public class WhiteKingMovesTest {
 	}
 
 	private Move capture(int from, int to) {
-		return new Move(from, to, captureKingMove, board[to]);
+		return new Move(from, to, captureKingMove);
 	}
 
 	@Test

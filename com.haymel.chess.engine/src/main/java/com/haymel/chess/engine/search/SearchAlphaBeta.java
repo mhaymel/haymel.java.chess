@@ -7,19 +7,32 @@
  */
 package com.haymel.chess.engine.search;
 
+import static com.haymel.chess.engine.board.Field.down;
 import static com.haymel.chess.engine.evaluation.PieceValue.pieceValue;
 import static com.haymel.chess.engine.game.ActiveColor.white;
+import static com.haymel.chess.engine.moves.MoveType.capture;
+import static com.haymel.chess.engine.moves.MoveType.captureKingMove;
+import static com.haymel.chess.engine.moves.MoveType.capturePromotionBishop;
+import static com.haymel.chess.engine.moves.MoveType.capturePromotionKnight;
+import static com.haymel.chess.engine.moves.MoveType.capturePromotionQueen;
+import static com.haymel.chess.engine.moves.MoveType.capturePromotionRook;
+import static com.haymel.chess.engine.moves.MoveType.captureRookMove;
+import static com.haymel.chess.engine.moves.MoveType.enpassant;
+import static com.haymel.chess.engine.piece.PieceType.BlackKing;
 import static com.haymel.chess.engine.piece.PieceType.BlackQueen;
+import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
 import static com.haymel.chess.engine.piece.PieceType.WhiteQueen;
 import static com.haymel.chess.engine.search.SearchInfo.noopSearchInfo;
 import static com.haymel.util.Require.nonNull;
 import static java.lang.String.format;
 
+import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.game.black.BlackMakeMove;
 import com.haymel.chess.engine.game.white.WhiteMakeMove;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.Moves;
+import com.haymel.chess.engine.piece.PieceType;
 import com.haymel.chess.engine.search.movesorting.MoveIterator;
 import com.haymel.chess.engine.search.movesorting.MoveIteratorCreator;
 import com.haymel.chess.engine.search.movesorting.PVMoveIteratorCreator;
@@ -208,8 +221,8 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 			Move move;
 			while((move = moveIter.next()) != null) {
 				assert move.capture();
-	
-				if (pieceValue(move.capturedPiece().type()) <= alpha - positionValue)
+				
+				if (pieceValue(victimOfWhiteType(move)) <= alpha - positionValue)
 					continue;
 	
 				Variant v = new Variant(move);
@@ -255,6 +268,7 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 		
 		return alpha;
 	}
+
 
 	private BestMove black() {
 		int beta = MAX_VALUE;
@@ -374,7 +388,7 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 			while((move = moveIter.next()) != null) {
 				assert move.capture();
 				
-				if (pieceValue(move.capturedPiece().type()) <= positionValue - beta)
+				if (pieceValue(victimOfBlackType(move)) <= positionValue - beta)
 					continue;
 	
 				Variant v = new Variant(move);
@@ -499,4 +513,56 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 		return MIN_VALUE + depth;
 	}
 	
+	private int victimOfWhiteType(Move move) {
+		int type = 0;
+		switch(move.type()) {
+		case capture:
+		case capturePromotionQueen:
+		case capturePromotionRook:
+		case capturePromotionBishop:
+		case capturePromotionKnight:
+		case captureKingMove:
+		case captureRookMove:
+			type = game.piece(move.to()).type();
+			break;
+		case enpassant:
+			type = game.piece(down(game.enPassant())).type();
+			break;
+		default:
+			assert false;
+		}
+
+		assert PieceType.pieceTypeValid(type);
+		assert PieceType.black(type);
+		assert type != BlackKing;
+		
+		return type;
+	}
+
+	private int victimOfBlackType(Move move) {
+		int type = 0;
+		switch(move.type()) {
+		case capture:
+		case capturePromotionQueen:
+		case capturePromotionRook:
+		case capturePromotionBishop:
+		case capturePromotionKnight:
+		case captureKingMove:
+		case captureRookMove:
+			type = game.piece(move.to()).type();
+			break;
+		case enpassant:
+			type = game.piece(Field.up(game.enPassant())).type();
+			break;
+		default:
+			assert false;
+		}
+
+		assert PieceType.pieceTypeValid(type);
+		assert PieceType.white(type);
+		assert type != WhiteKing;
+		
+		return type;
+	}
+
 }

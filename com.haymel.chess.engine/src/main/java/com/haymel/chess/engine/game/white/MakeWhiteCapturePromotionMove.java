@@ -43,20 +43,21 @@ public final class MakeWhiteCapturePromotionMove {
 			move.type() == capturePromotionBishop ||
 			move.type() == capturePromotionKnight;
 		assert game.piece(move.from()).type() == WhitePawn;
-		assert PieceType.black(game.piece(move.to()).type());
-		assert game.piece(move.to()) == move.capturedPiece();
-		assert PieceType.black(move.capturedPiece().type());
-		assert game.containsBlackPiece(move.capturedPiece());
-		assert game.piece(move.to()).type() != BlackKing;
-		assert game.piece(move.to()).type() != BlackPawn;
 		assert rank(move.from()) == 6;
 		assert rank(move.to()) == 7;
-		assert Math.abs(file(move.from()) - file(move.to())) == 1;
 		assert game.halfMoveClock() >= 0;
 		assert game.fullMoveNumber() >= 1;
 		assert game.containsWhitePiece(game.piece(move.from()));
 		assert pieceType == WhiteQueen || pieceType == WhiteRook  || pieceType == WhiteBishop  || pieceType == WhiteKnight;
+
+		Piece victim = game.piece(move.to());
 		
+		assert PieceType.black(victim.type());
+		assert game.containsBlackPiece(victim);
+		assert victim.type() != BlackKing;
+		assert victim.type() != BlackPawn;
+		game.pushVictim(victim);
+	
 		game.pushCastlingRight();
 		switch(move.to()) {
 		case a8: game.castlingRight().black().disableQueenside(); break;
@@ -72,8 +73,8 @@ public final class MakeWhiteCapturePromotionMove {
 		piece.captured(false);
 		game.addWhite(piece);
 		game.place(piece);
-		move.capturedPiece().captured(true);
-		game.removeBlack(move.capturedPiece());
+		victim.captured(true);
+		game.removeBlack(victim);
 		game.push(move);
 		game.pushHalfMoveClock();
 		game.activeColorBlack();
@@ -86,8 +87,7 @@ public final class MakeWhiteCapturePromotionMove {
 		assert game.piece(move.to()) == piece;
 		assert game.halfMoveClock() == 0;
 		assert game.fullMoveNumber() >= 1;
-		assert game.containsBlackPiece(move.capturedPiece());
-		assert move.capturedPiece().captured();
+		assert victim.captured();
 		assert game.containsWhitePiece(piece);
 		assert game.assertVerify();
 	}
@@ -104,9 +104,6 @@ public final class MakeWhiteCapturePromotionMove {
 			move.type() == capturePromotionKnight;
 		assert game.piece(move.from()) == null;
 		assert PieceType.white(game.piece(move.to()).type());
-		assert PieceType.black(move.capturedPiece().type());
-		assert game.containsBlackPiece(move.capturedPiece());
-		assert move.capturedPiece().captured();
 		assert rank(move.from()) == 6;
 		assert rank(move.to()) == 7;
 		assert Math.abs(file(move.from()) - file(move.to())) == 1;
@@ -121,9 +118,15 @@ public final class MakeWhiteCapturePromotionMove {
 		game.addWhite(piece);
 		piece.field(move.from());
 		game.place(piece);
-		move.capturedPiece().captured(false);
-		game.addBlack(move.capturedPiece());
-		game.place(move.capturedPiece());
+		Piece victim = game.popVictim();
+
+		assert PieceType.black(victim.type());
+		assert victim.type() != BlackKing;
+		assert victim.captured();
+		
+		victim.captured(false);
+		game.addBlack(victim);
+		game.place(victim);
 		game.popCastlingRight();
 		game.whitePositionValue(piece.type(), move.to(), move.from());
 		
@@ -131,9 +134,7 @@ public final class MakeWhiteCapturePromotionMove {
 		assert game.activeColor() == white;
 		assert PieceType.white(game.piece(move.from()).type());
 		assert PieceType.black(game.piece(move.to()).type());
-		assert game.piece(move.to()) == move.capturedPiece();
-		assert PieceType.black(move.capturedPiece().type());
-		assert game.containsBlackPiece(move.capturedPiece());
+		assert game.piece(move.to()) == victim;
 		assert game.piece(move.to()).type() != BlackKing;
 		assert game.containsWhitePiece(piece);
 		assert game.assertVerify();

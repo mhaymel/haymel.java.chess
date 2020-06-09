@@ -116,7 +116,7 @@ public class Moves {
 		assert validMoveType(type);
 		assert type == capture || type == captureKingMove || type == captureRookMove;
 		
-		add(new Move(from, to, type, piece));
+		add(new Move(from, to, type));
 		
 		if (piece.type() == BlackKing || piece.type() == WhiteKing)
 			kingCaptureCount++;
@@ -163,10 +163,10 @@ public class Moves {
 		assert rank(to) == 7;
 		assert PieceType.black(piece.type());
 		
-		add(new Move(from, to, capturePromotionQueen, piece));
-		add(new Move(from, to, capturePromotionRook, piece));
-		add(new Move(from, to, capturePromotionBishop, piece));
-		add(new Move(from, to, capturePromotionKnight, piece));
+		add(new Move(from, to, capturePromotionQueen));
+		add(new Move(from, to, capturePromotionRook));
+		add(new Move(from, to, capturePromotionBishop));
+		add(new Move(from, to, capturePromotionKnight));
 
 		if (piece.type() == PieceType.BlackKing || piece.type() == WhiteKing)
 			kingCaptureCount++;
@@ -191,10 +191,10 @@ public class Moves {
 		assert rank(to) == 0;
 		assert PieceType.white(piece.type());
 		
-		add(new Move(from, to, capturePromotionQueen, piece));
-		add(new Move(from, to, capturePromotionRook, piece));
-		add(new Move(from, to, capturePromotionBishop, piece));
-		add(new Move(from, to, capturePromotionKnight, piece));
+		add(new Move(from, to, capturePromotionQueen));
+		add(new Move(from, to, capturePromotionRook));
+		add(new Move(from, to, capturePromotionBishop));
+		add(new Move(from, to, capturePromotionKnight));
 
 		if (piece.type() == PieceType.BlackKing || piece.type() == WhiteKing)
 			kingCaptureCount++;
@@ -211,7 +211,7 @@ public class Moves {
 			rank(from) == 4 && rank(to) == 5 ||
 			rank(from) == 3 && rank(to) == 2;
 		
-		add(new Move(from, to, enpassant, captured));
+		add(new Move(from, to, enpassant));
 	}
 	
 	public void addWhiteKingSideCastling() {

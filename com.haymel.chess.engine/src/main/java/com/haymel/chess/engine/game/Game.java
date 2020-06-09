@@ -69,6 +69,8 @@ public final class Game {	//TODO unit test and refactor
 	private int halfMoveClock;
 	private final int[] halfMoveClockStack = new int[(15+8*6)*2 + 100];
 	private int halfMoveClockStackIndex = 0;
+
+	private int victimIndex = 0;
 	
 	private int fullMoveNumber;
 	private final WhiteMoves whiteMoves;
@@ -82,6 +84,7 @@ public final class Game {	//TODO unit test and refactor
 	private int whitePositionValue;
 	private int blackPositionValue;
 	private Hash hash = new Hash();
+	private Piece[] victimStack = new Piece[30];
 	
 	public Game(Position position) {
 		this(position, new WhitePiecesPositionValue(), new BlackPiecesPositionValue());
@@ -134,6 +137,8 @@ public final class Game {	//TODO unit test and refactor
 	}
 
 	public void push(Move move) {
+		assert move != null;
+
 		undos[undosIndex++] = move;
 		enPassantStack[enPassantStackIndex++] = enPassant;
 		enPassant = removed;
@@ -145,6 +150,22 @@ public final class Game {	//TODO unit test and refactor
 		return undo;
 	}
 
+	public void pushVictim(Piece victim) {
+		assert victim != null;
+		assert victim.type() != BlackKing;
+		assert victim.type() != WhiteKing;
+		assert victimIndex  < 30;
+		
+		victimStack [victimIndex++] = victim;
+	}
+	
+	public Piece popVictim() {
+		assert victimIndex > 0;
+
+		return victimStack[--victimIndex];
+	}
+
+	
 	public int activeColor() {
 		return activeColor;
 	}
@@ -538,5 +559,5 @@ public final class Game {	//TODO unit test and refactor
 		
 		return h;
 	}
-	
+
 }

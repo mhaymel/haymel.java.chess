@@ -22,7 +22,6 @@ import static com.haymel.chess.engine.game.TestHelper.undoMove;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
@@ -107,10 +106,6 @@ public class MakeWhitePawnMoveTest {
 		makeMove(move, game);
 		assertThat(game.piece(d3).type(), is(WhitePawn));
 		assertThat(game.piece(e2), is(nullValue()));
-		assertThat(move.capturedPiece(), is(notNullValue()));
-		assertThat(move.capturedPiece().type(), is(BlackPawn));
-		assertThat(game.containsBlackPiece(move.capturedPiece()), is(true));
-		assertThat(move.capturedPiece().captured(), is(true));
 		assertThat(game.halfMoveClock(), is(0));
 		assertThat(game.fullMoveNumber(), is(30));
 		assertThat(game.enPassant(), is(removed));
@@ -119,7 +114,6 @@ public class MakeWhitePawnMoveTest {
 		undoMove(game);
 		assertThat(game.piece(e2).type(), is(WhitePawn));
 		assertThat(game.piece(d3).type(), is(BlackPawn));
-		assertThat(game.containsBlackPiece(move.capturedPiece()), is(true));
 		assertThat(game.halfMoveClock(), is(45));
 		assertThat(game.fullMoveNumber(), is(30));
 		assertThat(game.enPassant(), is(removed));

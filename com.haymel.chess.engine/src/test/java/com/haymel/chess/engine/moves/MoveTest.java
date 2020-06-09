@@ -18,7 +18,6 @@ import static com.haymel.chess.engine.board.Field.e2;
 import static com.haymel.chess.engine.board.Field.e4;
 import static com.haymel.chess.engine.board.Field.e8;
 import static com.haymel.chess.engine.board.Field.g1;
-import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.moves.MoveType.capturePromotionBishop;
 import static com.haymel.chess.engine.moves.MoveType.capturePromotionKnight;
 import static com.haymel.chess.engine.moves.MoveType.capturePromotionQueen;
@@ -29,31 +28,18 @@ import static com.haymel.chess.engine.moves.MoveType.promotionKnight;
 import static com.haymel.chess.engine.moves.MoveType.promotionQueen;
 import static com.haymel.chess.engine.moves.MoveType.promotionRook;
 import static com.haymel.chess.engine.moves.MoveType.queensideCastling;
-import static com.haymel.chess.engine.piece.PieceType.BlackRook;
-import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
 import static com.haymel.util.Require.nonNull;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import com.haymel.chess.engine.fen.GameFromFEN;
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.moves.algebraic.MoveFinder;
-import com.haymel.chess.engine.piece.Piece;
 
 public class MoveTest {
 
-	private Piece capturedWhitePiece;
-	private Piece capturedBlackPiece;
-	
-	@Before
-	public void setup() {
-		capturedWhitePiece = new Piece(WhiteRook, removed);
-		capturedBlackPiece = new Piece(BlackRook, removed);
-	}
-	
 	@Test
 	public void fromAndToReturnValuesSetByConstructor() {
 		Move move = new Move(e2, e4);
@@ -117,32 +103,32 @@ public class MoveTest {
 	
 	@Test
 	public void testToStringCapturePromotionQueen() {
-		assertThat(new Move(d7, e8, capturePromotionQueen, capturedBlackPiece).toString(), is("d7xe8Q"));
-		assertThat(new Move(d2, e1, capturePromotionQueen, capturedWhitePiece).toString(), is("d2xe1Q"));
+		assertThat(new Move(d7, e8, capturePromotionQueen).toString(), is("d7xe8Q"));
+		assertThat(new Move(d2, e1, capturePromotionQueen).toString(), is("d2xe1Q"));
 	}
 
 	@Test
 	public void captureReturnsTrueForCapturePromotion() {
-		assertThat(new Move(d7, e8, capturePromotionQueen, capturedBlackPiece).capture(), is(true));
-		assertThat(new Move(d7, e8, capturePromotionQueen, capturedWhitePiece).capture(), is(true));
+		assertThat(new Move(d7, e8, capturePromotionQueen).capture(), is(true));
+		assertThat(new Move(d7, e8, capturePromotionQueen).capture(), is(true));
 	}
 	
 	@Test
 	public void testToStringCapturePromotionRook() {
-		assertThat(new Move(d7, e8, capturePromotionRook, capturedBlackPiece).toString(), is("d7xe8R"));
-		assertThat(new Move(d2, e1, capturePromotionRook, capturedWhitePiece).toString(), is("d2xe1R"));
+		assertThat(new Move(d7, e8, capturePromotionRook).toString(), is("d7xe8R"));
+		assertThat(new Move(d2, e1, capturePromotionRook).toString(), is("d2xe1R"));
 	}
 	
 	@Test
 	public void testToStringCapturePromotionBishop() {
-		assertThat(new Move(d7, e8, capturePromotionBishop, capturedBlackPiece).toString(), is("d7xe8B"));
-		assertThat(new Move(d2, e1, capturePromotionBishop, capturedWhitePiece).toString(), is("d2xe1B"));
+		assertThat(new Move(d7, e8, capturePromotionBishop).toString(), is("d7xe8B"));
+		assertThat(new Move(d2, e1, capturePromotionBishop).toString(), is("d2xe1B"));
 	}
 	
 	@Test
 	public void testToStringCapturePromotionKnight() {
-		assertThat(new Move(d7, e8, capturePromotionKnight, capturedBlackPiece).toString(), is("d7xe8N"));
-		assertThat(new Move(d2, e1, capturePromotionKnight, capturedWhitePiece).toString(), is("d2xe1N"));
+		assertThat(new Move(d7, e8, capturePromotionKnight).toString(), is("d7xe8N"));
+		assertThat(new Move(d2, e1, capturePromotionKnight).toString(), is("d2xe1N"));
 	}
 	
 	@Test

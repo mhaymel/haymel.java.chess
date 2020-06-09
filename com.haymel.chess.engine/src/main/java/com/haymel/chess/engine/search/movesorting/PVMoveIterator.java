@@ -7,10 +7,22 @@
  */
 package com.haymel.chess.engine.search.movesorting;
 
+import static com.haymel.chess.engine.board.Field.down;
+import static com.haymel.chess.engine.board.Field.up;
+import static com.haymel.chess.engine.moves.MoveType.capture;
+import static com.haymel.chess.engine.moves.MoveType.captureKingMove;
+import static com.haymel.chess.engine.moves.MoveType.capturePromotionBishop;
+import static com.haymel.chess.engine.moves.MoveType.capturePromotionKnight;
+import static com.haymel.chess.engine.moves.MoveType.capturePromotionQueen;
+import static com.haymel.chess.engine.moves.MoveType.capturePromotionRook;
+import static com.haymel.chess.engine.moves.MoveType.captureRookMove;
+import static com.haymel.chess.engine.moves.MoveType.enpassant;
+
 import com.haymel.chess.engine.evaluation.PieceValue;
+import com.haymel.chess.engine.game.ActiveColor;
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.moves.Move;
-import com.haymel.chess.engine.piece.Piece;
+import com.haymel.chess.engine.piece.PieceType;
 
 public class PVMoveIterator implements MoveIterator { //TODO refactor, unit test
 
@@ -106,14 +118,10 @@ public class PVMoveIterator implements MoveIterator { //TODO refactor, unit test
 	private int captureValue(Move move) {
 		assert move.capture();
 		
-		int aggressorValue = pieceValue(game.piece(move.from()));
-		int victimValue = pieceValue(move.capturedPiece());
+		int aggressorValue = PieceValue.pieceValue(game.piece(move.from()).type());
+		int victimValue = PieceValue.pieceValue(victim(move));
 		
 		return victimValue - aggressorValue;
-	}
-
-	private static int pieceValue(Piece piece) {
-		return PieceValue.pieceValue(piece.type());
 	}
 
 	private Move nextAll() {
@@ -176,6 +184,30 @@ public class PVMoveIterator implements MoveIterator { //TODO refactor, unit test
 		for(int i = 0; i < count; i++)
 			assert move(i) == null : String.format("was not analyzed: %s", move(i));
 		return true;
+	}
+
+	private int victim(Move move) {
+		int type = 0;
+		switch(move.type()) {
+		case capture:
+		case capturePromotionQueen:
+		case capturePromotionRook:
+		case capturePromotionBishop:
+		case capturePromotionKnight:
+		case captureKingMove:
+		case captureRookMove:
+			type = game.piece(move.to()).type();
+			break;
+		case enpassant:
+			type = game.piece(game.activeColor() == ActiveColor.white ? down(game.enPassant()) : up(game.enPassant())).type();
+			break;
+		default:
+			assert false;
+		}
+
+		assert PieceType.pieceTypeValid(type);
+		
+		return type;
 	}
 	
 }

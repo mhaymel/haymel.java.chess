@@ -31,11 +31,12 @@ public final class MakeWhiteCaptureMove {
 		assert PieceType.black(game.piece(move.to()).type());
 		assert game.piece(move.from()).type() != WhiteKing;
 		assert game.piece(move.from()).type() != WhiteRook;
-		assert game.piece(move.to()) == move.capturedPiece();
-		assert PieceType.black(move.capturedPiece().type());
-		assert game.containsBlackPiece(move.capturedPiece());
-		assert game.piece(move.to()).type() != BlackKing;
 		assert game.containsWhitePiece(game.piece(move.from()));
+		
+		Piece victim = game.piece(move.to());
+		assert PieceType.black(victim.type());
+		assert victim.type() != BlackKing;
+		game.pushVictim(victim);
 		
 		game.pushCastlingRight();
 		switch(move.to()) {
@@ -47,8 +48,8 @@ public final class MakeWhiteCaptureMove {
 		game.clear(move.from());
 		piece.field(move.to());
 		game.place(piece);
-		move.capturedPiece().captured(true);
-		game.removeBlack(move.capturedPiece());
+		victim.captured(true);
+		game.removeBlack(victim);
 		game.push(move);
 		game.pushHalfMoveClock();
 		game.activeColorBlack();
@@ -57,8 +58,7 @@ public final class MakeWhiteCaptureMove {
 		assert game.piece(move.from()) == null;
 		assert PieceType.white(game.piece(move.to()).type());
 		assert game.piece(move.to()) == piece;
-		assert game.containsBlackPiece(move.capturedPiece());
-		assert move.capturedPiece().captured();
+		assert victim.captured();
 		assert game.containsWhitePiece(piece);
 		assert game.assertVerify();
 	}
@@ -70,27 +70,28 @@ public final class MakeWhiteCaptureMove {
 		assert PieceType.white(game.piece(move.to()).type());
 		assert game.piece(move.to()).type() != WhiteKing;
 		assert game.piece(move.to()).type() != WhiteRook;
-		assert PieceType.black(move.capturedPiece().type());
-		assert game.containsBlackPiece(move.capturedPiece());
-		assert move.capturedPiece().captured();
 
 		game.activeColorWhite();
 		game.popHalfMoveClock();
 		Piece piece = game.piece(move.to());
 		piece.field(move.from());
 		game.place(piece);
-		move.capturedPiece().captured(false);
-		game.addBlack(move.capturedPiece());
-		game.place(move.capturedPiece());
+		Piece victim = game.popVictim();
+	
+		assert PieceType.black(victim.type());
+		assert victim.type() != BlackKing;
+		assert victim.captured();
+		
+		victim.captured(false);
+		game.addBlack(victim);
+		game.place(victim);
 		game.whitePositionValue(piece.type(), move.to(), move.from());
 		game.popCastlingRight();
 		
 		assert game.halfMoveClock() >= 0;
 		assert PieceType.white(game.piece(move.from()).type());
 		assert PieceType.black(game.piece(move.to()).type());
-		assert game.piece(move.to()) == move.capturedPiece();
-		assert PieceType.black(move.capturedPiece().type());
-		assert game.containsBlackPiece(move.capturedPiece());
+		assert game.piece(move.to()) == victim;
 		assert game.piece(move.to()).type() != BlackKing;
 		assert game.containsWhitePiece(piece);
 		assert game.activeColor() == white;

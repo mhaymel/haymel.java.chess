@@ -283,37 +283,37 @@ public class WhitePawnMoveTest {
 	@Test
 	public void testE7CapturePromotionD8() {
 		piece(e8, BlackBishop);
-		Piece captured = piece(d8, BlackBishop);
+		piece(d8, BlackBishop);
 		pawnMoves.generate(whitePawn(e7), removed, moves);
 		
 		assertThat(moves.size(), is(4));
 		
 		Set<Move> result = movesAsSet();
-		assertThat(result.contains(new Move(e7, d8, capturePromotionQueen, captured)), is(true));
-		assertThat(result.contains(new Move(e7, d8, capturePromotionRook, captured)), is(true));
-		assertThat(result.contains(new Move(e7, d8, capturePromotionBishop, captured)), is(true));
-		assertThat(result.contains(new Move(e7, d8, capturePromotionKnight, captured)), is(true));
+		assertThat(result.contains(new Move(e7, d8, capturePromotionQueen)), is(true));
+		assertThat(result.contains(new Move(e7, d8, capturePromotionRook)), is(true));
+		assertThat(result.contains(new Move(e7, d8, capturePromotionBishop)), is(true));
+		assertThat(result.contains(new Move(e7, d8, capturePromotionKnight)), is(true));
 	}
 	
 	@Test
 	public void testE7CapturePromotionF8() {
 		piece(e8, BlackBishop);
-		Piece captured = piece(f8, BlackBishop);
+		piece(f8, BlackBishop);
 		pawnMoves.generate(whitePawn(e7), removed, moves);
 		
 		assertThat(moves.size(), is(4));
 		
 		Set<Move> result = movesAsSet();
-		assertThat(result.contains(new Move(e7, f8, capturePromotionQueen, captured)), is(true));
-		assertThat(result.contains(new Move(e7, f8, capturePromotionRook, captured)), is(true));
-		assertThat(result.contains(new Move(e7, f8, capturePromotionBishop, captured)), is(true));
-		assertThat(result.contains(new Move(e7, f8, capturePromotionKnight, captured)), is(true));
+		assertThat(result.contains(new Move(e7, f8, capturePromotionQueen)), is(true));
+		assertThat(result.contains(new Move(e7, f8, capturePromotionRook)), is(true));
+		assertThat(result.contains(new Move(e7, f8, capturePromotionBishop)), is(true));
+		assertThat(result.contains(new Move(e7, f8, capturePromotionKnight)), is(true));
 	}
 	
 	@Test
 	public void testPromotion() {
-		Piece capturedD8 = piece(d8, BlackBishop);
-		Piece capturedF8 = piece(f8, BlackBishop);
+		piece(d8, BlackBishop);
+		piece(f8, BlackBishop);
 		pawnMoves.generate(whitePawn(e7), removed, moves);
 		
 		assertThat(moves.size(), is(12));
@@ -323,42 +323,42 @@ public class WhitePawnMoveTest {
 		assertThat(result.contains(new Move(e7, e8, promotionRook)), is(true));
 		assertThat(result.contains(new Move(e7, e8, promotionBishop)), is(true));
 		assertThat(result.contains(new Move(e7, e8, promotionKnight)), is(true));
-		assertThat(result.contains(new Move(e7, d8, capturePromotionQueen, capturedD8)), is(true));
-		assertThat(result.contains(new Move(e7, d8, capturePromotionRook, capturedD8)), is(true));
-		assertThat(result.contains(new Move(e7, d8, capturePromotionBishop, capturedD8)), is(true));
-		assertThat(result.contains(new Move(e7, d8, capturePromotionKnight, capturedD8)), is(true));
-		assertThat(result.contains(new Move(e7, f8, capturePromotionQueen, capturedF8)), is(true));
-		assertThat(result.contains(new Move(e7, f8, capturePromotionRook, capturedF8)), is(true));
-		assertThat(result.contains(new Move(e7, f8, capturePromotionBishop, capturedF8)), is(true));
-		assertThat(result.contains(new Move(e7, f8, capturePromotionKnight, capturedF8)), is(true));
+		assertThat(result.contains(new Move(e7, d8, capturePromotionQueen)), is(true));
+		assertThat(result.contains(new Move(e7, d8, capturePromotionRook)), is(true));
+		assertThat(result.contains(new Move(e7, d8, capturePromotionBishop)), is(true));
+		assertThat(result.contains(new Move(e7, d8, capturePromotionKnight)), is(true));
+		assertThat(result.contains(new Move(e7, f8, capturePromotionQueen)), is(true));
+		assertThat(result.contains(new Move(e7, f8, capturePromotionRook)), is(true));
+		assertThat(result.contains(new Move(e7, f8, capturePromotionBishop)), is(true));
+		assertThat(result.contains(new Move(e7, f8, capturePromotionKnight)), is(true));
 	}
 
 	@Test
 	public void testEnPassantLeft() {
-		Piece blackPawn = piece(d5, BlackPawn);
+		piece(d5, BlackPawn);
 		pawnMoves.generate(whitePawn(e5), d6, moves);
 		
 		assertThat(moves.size(), is(2));
 		
 		Set<Move> result = movesAsSet();
 		assertThat(result.contains(new Move(e5, e6, pawn)), is(true));
-		assertThat(result.contains(new Move(e5, d6, enpassant, blackPawn)), is(true));
+		assertThat(result.contains(new Move(e5, d6, enpassant)), is(true));
 	}
 
 	@Test
 	public void testEnPassantRight() {
-		Piece blackPawn = piece(f5, BlackPawn);
+		piece(f5, BlackPawn);
 		pawnMoves.generate(whitePawn(e5), f6, moves);
 		
 		assertThat(moves.size(), is(2));
 		
 		Set<Move> result = movesAsSet();
 		assertThat(result.contains(new Move(e5, e6, pawn)), is(true));
-		assertThat(result.contains(new Move(e5, f6, enpassant, blackPawn)), is(true));
+		assertThat(result.contains(new Move(e5, f6, enpassant)), is(true));
 	}
 	
 	private Move capture(int from, int to) {
-		return new Move(from, to, capture, board[to]);
+		return new Move(from, to, capture);
 	}
 	
 	private Piece whitePawn(int field) {

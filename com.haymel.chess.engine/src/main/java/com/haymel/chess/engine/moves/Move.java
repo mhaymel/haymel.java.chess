@@ -33,37 +33,26 @@ import static java.lang.String.format;
 import java.util.Objects;
 
 import com.haymel.chess.engine.board.Field;
-import com.haymel.chess.engine.piece.Piece;
 
 public class Move {
 	
 	private final int type;
 	private final int from;
 	private final int to;
-	private final Piece capturedPiece;
 
 	public Move(int from, int to) {
 		this(from, to, normal);
 	}
 	
 	public Move(int from, int to, int type) {
-		this(from, to, type, null);
-	}	
-
-	public Move(int from, int to, int type, Piece capturedPiece) {
 		assert Field.valid(from);
 		assert Field.valid(to);
 		assert validMoveType(type);
 		assert from != to;
 		
-		assert 
-			(capturedPiece == null && !(type==capture||type==enpassant||type==capturePromotionQueen||type==capturePromotionRook||type==capturePromotionBishop||type==capturePromotionKnight||type==captureKingMove||type==captureRookMove)) ||
-			(capturedPiece != null && (type==capture||type==enpassant||type==capturePromotionQueen||type==capturePromotionRook||type==capturePromotionBishop||type==capturePromotionKnight||type==captureKingMove||type==captureRookMove));
-		
 		this.from = from;
 		this.to = to;
 		this.type = type;
-		this.capturedPiece = capturedPiece;
 	}
 	
 	public int from() {
@@ -110,7 +99,7 @@ public class Move {
 	
 	@Override
 	public int hashCode() {			//TODO unit test
-		return Objects.hash(type, from, to, capturedPiece);
+		return Objects.hash(type, from, to);
 	}
 	
 	@Override			
@@ -126,20 +115,11 @@ public class Move {
 		return 
 			from == that.from && 
 			to == that.to && 
-			type == that.type &&
-			Objects.equals(capturedPiece, that.capturedPiece);
+			type == that.type;
 	}
 
-	public Piece capturedPiece() {
-		return capturedPiece;
-	}
-	
 	public boolean capture() {
-		assert 
-			(capturedPiece == null && !(type==capture||type==enpassant||type==capturePromotionQueen||type==capturePromotionRook||type==capturePromotionBishop||type==capturePromotionKnight||type==captureKingMove||type==captureRookMove)) ||
-			(capturedPiece != null && (type==capture||type==enpassant||type==capturePromotionQueen||type==capturePromotionRook||type==capturePromotionBishop||type==capturePromotionKnight||type==captureKingMove||type==captureRookMove));
-		
-		return capturedPiece != null;
+		return MoveType.capture(type);
 	}
 	
 }

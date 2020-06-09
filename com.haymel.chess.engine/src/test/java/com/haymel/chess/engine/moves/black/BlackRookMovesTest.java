@@ -183,7 +183,7 @@ public class BlackRookMovesTest {
 	}
 	
 	private Move capture(int from, int to) {
-		return new Move(from, to, captureRookMove, board[to]);
+		return new Move(from, to, captureRookMove);
 	}
 	
 	private Piece blackPawn(int field) {

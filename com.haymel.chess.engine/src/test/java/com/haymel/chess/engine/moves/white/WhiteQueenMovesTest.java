@@ -193,7 +193,7 @@ public class WhiteQueenMovesTest {
 	}
 	
 	private Move capture(int from, int to) {
-		return new Move(from, to, capture, board[to]);
+		return new Move(from, to, capture);
 	}
 	
 	private Piece blackPawn(int field) {

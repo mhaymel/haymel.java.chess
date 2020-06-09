@@ -1,3 +1,4 @@
+- remove Game.containsWhitePiece(), Game.containsBlackPiece(), PieceList.contains()
 - MoveFinderTest: add capturePromotionTests
 - create class FenFromPosition and use it in unit tests
 - create a parameterized test for make move with fen and expected fen
