@@ -280,26 +280,30 @@ public final class Game {	//TODO unit test and refactor
 
 	public Moves whiteMoves() {
 		Moves moves = new Moves();
-		whiteMoves.generate(whitePieces, castlingRightHistory.castlingRight().white(), enPassant, moves);
-		return moves;
+		return whiteMoves.generate(whitePieces, castlingRightHistory.castlingRight().white(), enPassant, moves)
+			? moves
+			: null;
 	}
 	
 	public Moves whiteCaptureMoves() {
 		Moves moves = new Moves();
-		whiteCaptureMoves.generate(whitePieces, enPassant, moves);
-		return moves;
+		return whiteCaptureMoves.generate(whitePieces, enPassant, moves)
+			? moves
+			: null;
 	}
 	
 	public Moves blackMoves() {
 		Moves moves = new Moves();
-		blackMoves.generate(blackPieces, castlingRightHistory.castlingRight().black(), enPassant, moves);
-		return moves;
+		return blackMoves.generate(blackPieces, castlingRightHistory.castlingRight().black(), enPassant, moves)
+			? moves
+			: null;
 	}
 
 	public Moves blackCaptureMoves() {
 		Moves moves = new Moves();
-		blackCaptureMoves.generate(blackPieces, enPassant, moves);
-		return moves;
+		return blackCaptureMoves.generate(blackPieces, enPassant, moves)
+			? moves
+			: null;
 	}
 
 	public boolean assertVerify() {

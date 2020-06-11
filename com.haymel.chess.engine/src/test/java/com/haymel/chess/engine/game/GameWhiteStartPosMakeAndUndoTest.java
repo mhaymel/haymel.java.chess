@@ -95,7 +95,7 @@ public class GameWhiteStartPosMakeAndUndoTest {
 
 	private void white(int depth) {
 		Moves moves = game.whiteMoves();
-		if (moves.kingCaptureCount() > 0)
+		if (moves == null)
 			return;
 		
 		if (depth == maxDepth) {
@@ -124,7 +124,7 @@ public class GameWhiteStartPosMakeAndUndoTest {
 	
 	private void black(int depth) {
 		Moves moves = game.blackMoves();
-		if (moves.kingCaptureCount() > 0)
+		if (moves == null)
 			return;
 
 		if (depth == maxDepth) {

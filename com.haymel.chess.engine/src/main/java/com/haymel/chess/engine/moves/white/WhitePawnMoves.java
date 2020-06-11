@@ -37,6 +37,7 @@ import static com.haymel.chess.engine.board.Field.rank;
 import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.board.Field.rightUp;
 import static com.haymel.chess.engine.board.Field.up;
+import static com.haymel.chess.engine.piece.PieceType.BlackKing;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
 
@@ -54,7 +55,7 @@ public final class WhitePawnMoves {
 		this.pieces = pieces;
 	}
 	
-	public void generate(Piece piece, int epField, Moves moves) {
+	public boolean generate(Piece piece, int epField, Moves moves) {
 		assert piece != null;
 		assert moves != null;
 		assert epField == removed || rank(epField) == 5;
@@ -72,8 +73,7 @@ public final class WhitePawnMoves {
 		case f2:
 		case g2:
 		case h2:
-			doubleStepMove(piece, moves);
-			break;
+			return doubleStepMove(piece, moves);
 		case a5:
 		case b5:
 		case c5:
@@ -82,8 +82,7 @@ public final class WhitePawnMoves {
 		case f5:
 		case g5:
 		case h5:
-			enpassant(piece, epField, moves);
-			break;
+			return enpassant(piece, epField, moves);
 		case a7:
 		case b7:
 		case c7:
@@ -92,16 +91,13 @@ public final class WhitePawnMoves {
 		case f7:
 		case g7:
 		case h7:
-			promotion(piece, moves);
-			break;
+			return promotion(piece, moves);
 		default:
-			assert rank(piece.field()) == 2 || rank(piece.field()) == 3 || rank(piece.field()) == 5;
-			normal(piece, moves);
-			break;
+			return normal(piece, moves);
 		}
 	}
 
-	private void enpassant(Piece piece, int epField, Moves moves) {
+	private boolean enpassant(Piece piece, int epField, Moves moves) {
 		assert rank(piece.field()) == 4;
 		
 		int from = piece.field();
@@ -111,18 +107,20 @@ public final class WhitePawnMoves {
 		
 		int leftUp = leftUp(from);
 		if (leftUp == epField)
-			moves.addEnpassant(from, leftUp, pieces[down(epField)]);
-		else
-			capture(from, leftUp, moves);
+			moves.addEnpassant(from, leftUp);
+		else if (!capture(from, leftUp, moves))
+			return false;
 		
 		int rightUp = Field.rightUp(from);
 		if (rightUp == epField)
-			moves.addEnpassant(from, rightUp, pieces[down(epField)]);
-		else
-			capture(from, rightUp, moves);
+			moves.addEnpassant(from, rightUp);
+		else if (!capture(from, rightUp, moves))
+			return false;
+		
+		return true;
 	}
 
-	private void promotion(Piece piece, Moves moves) {
+	private boolean promotion(Piece piece, Moves moves) {
 		assert rank(piece.field()) == 6;
 
 		int from = piece.field();
@@ -130,21 +128,27 @@ public final class WhitePawnMoves {
 		if (isFree(to))
 			moves.addWhitePromotion(from);
 		
-		capturePromotion(from, moves);
+		return capturePromotion(from, moves);
 	}
 
-	private void capturePromotion(int from, Moves moves) {
-		capturePromotion(from, leftUp(from), moves);
-		capturePromotion(from, rightUp(from), moves);
+	private boolean capturePromotion(int from, Moves moves) {
+		return 
+				capturePromotion(from, leftUp(from), moves) &&
+				capturePromotion(from, rightUp(from), moves);
 	}
 	
-	private void capturePromotion(int from, int to, Moves moves) {
+	private boolean capturePromotion(int from, int to, Moves moves) {
 		Piece piece = pieces[to];
-		if (black(piece))
-			moves.addWhiteCapturePromotion(from, to, piece);
+		if (black(piece)) {
+			if (piece.type() == BlackKing)
+				return false;
+			
+			moves.addWhiteCapturePromotion(from, to);
+		}
+		return true;
 	}
 
-	private void normal(Piece piece, Moves moves) {
+	private boolean normal(Piece piece, Moves moves) {
 		assert 
 			rank(piece.field()) == 2 || 
 			rank(piece.field()) == 3 || 
@@ -155,10 +159,10 @@ public final class WhitePawnMoves {
 		if (isFree(to)) 
 			moves.addPawnMove(from, to);
 		
-		capture(from, moves);
+		return capture(from, moves);
 	}
 
-	private void doubleStepMove(Piece piece, Moves moves) {
+	private boolean doubleStepMove(Piece piece, Moves moves) {
 		assert rank(piece.field()) == 1;
 		
 		int from = piece.field();
@@ -170,18 +174,24 @@ public final class WhitePawnMoves {
 				moves.addPawnDoubleStep(from, doubleTo);		
 		}
 		
-		capture(from, moves);
+		return capture(from, moves);
 	}
 
-	private void capture(int from, Moves moves) {
-		capture(from, leftUp(from), moves);
-		capture(from, rightUp(from), moves);
+	private boolean capture(int from, Moves moves) {
+		return
+			capture(from, leftUp(from), moves) &&
+			capture(from, rightUp(from), moves);
 	}
 	
-	private void capture(int from, int to, Moves moves) {
+	private boolean capture(int from, int to, Moves moves) {
 		Piece piece = pieces[to];
-		if (black(piece))
-			moves.addCapture(from, to, piece);
+		if (black(piece)) {
+			if (piece.type() == BlackKing)
+				return false;
+
+			moves.addCapture(from, to);
+		}
+		return true;
 	}
 
 	private static boolean black(Piece piece) {

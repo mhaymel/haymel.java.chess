@@ -19,13 +19,13 @@ import static com.haymel.chess.engine.board.Field.e2;
 import static com.haymel.chess.engine.board.Field.e4;
 import static com.haymel.chess.engine.board.Field.f2;
 import static com.haymel.chess.engine.board.Field.f4;
-import static com.haymel.chess.engine.board.Field.fieldAsString;
 import static com.haymel.chess.engine.board.Field.g2;
 import static com.haymel.chess.engine.board.Field.g4;
 import static com.haymel.chess.engine.board.Field.h2;
 import static com.haymel.chess.engine.board.Field.h4;
 import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
+import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
 import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
 
 import com.haymel.chess.engine.board.Field;
@@ -42,7 +42,7 @@ public final class BlackPawnCaptureMoves {
 		this.pieces = pieces;
 	}
 	
-	public void generate(Piece piece, int epField, Moves moves) {
+	public boolean generate(Piece piece, int epField, Moves moves) {
 		assert piece != null;
 		assert moves != null;
 		assert epField == removed || Field.rank(epField) == 2;
@@ -60,8 +60,7 @@ public final class BlackPawnCaptureMoves {
 		case f2:
 		case g2:
 		case h2:
-			capturePromotion(piece, moves);
-			break;
+			return capturePromotion(piece, moves);
 		case a4:
 		case b4:
 		case c4:
@@ -70,52 +69,52 @@ public final class BlackPawnCaptureMoves {
 		case f4:
 		case g4:
 		case h4:
-			enpassant(piece, epField, moves);
-			break;
+			return enpassant(piece, epField, moves);
 		default:
-			assert 
-				Field.rank(piece.field()) == 2 || 
-				Field.rank(piece.field()) == 4 || 
-				Field.rank(piece.field()) == 5 || 
-				Field.rank(piece.field()) == 6   : "field: " + fieldAsString(piece.field());
-
-			capture(piece, moves);
-			break;
+			return capture(piece, moves);
 		}
 	}
 
-	private void enpassant(Piece piece, int epField, Moves moves) {
+	private boolean enpassant(Piece piece, int epField, Moves moves) {
 		assert Field.rank(piece.field()) == 3;
 		
 		int from = piece.field();
 		int leftDown = Field.leftDown(from);
 		if (leftDown == epField)
-			moves.addEnpassant(from, leftDown, pieces[Field.up(epField)]);
-		else
-			capture(from, leftDown, moves);
+			moves.addEnpassant(from, leftDown);
+		else if (!capture(from, leftDown, moves))
+			return false;
 		
 		int rightDown = Field.rightDown(from);
 		if (rightDown == epField)
-			moves.addEnpassant(from, rightDown, pieces[Field.up(epField)]);
-		else
-			capture(from, rightDown, moves);
+			moves.addEnpassant(from, rightDown);
+		else if (!capture(from, rightDown, moves))
+			return false;
+		
+		return true;
 	}
 
-	private void capturePromotion(Piece piece, Moves moves) {
+	private boolean capturePromotion(Piece piece, Moves moves) {
 		assert Field.rank(piece.field()) == 1;
 
 		int from = piece.field();
-		capturePromotion(from, Field.leftDown(from), moves);
-		capturePromotion(from, Field.rightDown(from), moves);
+		return 
+			capturePromotion(from, Field.leftDown(from), moves) &&
+			capturePromotion(from, Field.rightDown(from), moves);
 	}
 	
-	private void capturePromotion(int from, int to, Moves moves) {
+	private boolean capturePromotion(int from, int to, Moves moves) {
 		Piece piece = pieces[to];
-		if (white(piece))
-			moves.addBlackCapturePromotion(from, to, piece);
+		if (white(piece)) {
+			if (piece.type() == WhiteKing)
+				return false;
+			
+			moves.addBlackCapturePromotion(from, to);
+		}
+		return true;
 	}
 
-	private void capture(Piece piece, Moves moves) {
+	private boolean capture(Piece piece, Moves moves) {
 		assert 
 			Field.rank(piece.field()) == 2 || 
 			Field.rank(piece.field()) == 4 || 
@@ -123,14 +122,20 @@ public final class BlackPawnCaptureMoves {
 			Field.rank(piece.field()) == 6;
 		
 		int from = piece.field();
-		capture(from, Field.leftDown(from), moves);
-		capture(from, Field.rightDown(from), moves);
+		return 
+			capture(from, Field.leftDown(from), moves) &&
+			capture(from, Field.rightDown(from), moves);
 	}
 
-	private void capture(int from, int to, Moves moves) {
+	private boolean capture(int from, int to, Moves moves) {
 		Piece piece = pieces[to];
-		if (white(piece))
-			moves.addCapture(from, to, piece);
+		if (white(piece)) {
+			if (piece.type() == WhiteKing)
+				return false;
+			
+			moves.addCapture(from, to);
+		}
+		return true;
 	}
 
 	private static boolean white(Piece piece) {

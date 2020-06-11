@@ -36,10 +36,6 @@ import static com.haymel.chess.engine.moves.MoveType.promotionQueen;
 import static com.haymel.chess.engine.moves.MoveType.promotionRook;
 import static com.haymel.chess.engine.moves.MoveType.queensideCastling;
 import static com.haymel.chess.engine.moves.MoveType.validMoveType;
-import static com.haymel.chess.engine.piece.PieceType.BlackKing;
-import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
-import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
-import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
 import static com.haymel.util.Require.nonNull;
 import static java.lang.Math.abs;
 import static java.lang.String.join;
@@ -51,19 +47,14 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import com.haymel.chess.engine.board.Field;
-import com.haymel.chess.engine.piece.Piece;
-import com.haymel.chess.engine.piece.PieceType;
 
 public class Moves {
-	
-	private int kingCaptureCount;
 	
 	private final Move[] moves;
 	private int index = 0;
 	
 	public Moves() {
 		moves = new Move[200];
-		kingCaptureCount = 0;
 	}
 	
 	public Move[] moves() {
@@ -95,31 +86,26 @@ public class Moves {
 	}
 
 	
-	public void addCapture(int from, int to, Piece piece) {
-		addCapture(from, to, piece, capture);
+	public void addCapture(int from, int to) {
+		addCapture(from, to, capture);
 	}
 
-	public void addKingCapture(int from, int to, Piece piece) {
-		addCapture(from, to, piece, captureKingMove);
+	public void addKingCapture(int from, int to) {
+		addCapture(from, to, captureKingMove);
 	}
 	
-	public void addRookCapture(int from, int to, Piece piece) {
-		addCapture(from, to, piece, captureRookMove);
+	public void addRookCapture(int from, int to) {
+		addCapture(from, to, captureRookMove);
 	}
 
-	private void addCapture(int from, int to, Piece piece, int type) {
+	private void addCapture(int from, int to, int type) {
 		assert valid(from);
 		assert valid(to);
 		assert from != to;
-		assert piece != null;
-		assert PieceType.black(piece.type()) || PieceType.white(piece.type());
 		assert validMoveType(type);
 		assert type == capture || type == captureKingMove || type == captureRookMove;
 		
 		add(new Move(from, to, type));
-		
-		if (piece.type() == BlackKing || piece.type() == WhiteKing)
-			kingCaptureCount++;
 	}
 	
 	public void addPawnMove(int from, int to) {
@@ -154,22 +140,18 @@ public class Moves {
 		add(new Move(from, to, promotionKnight));
 	}
 
-	public void addWhiteCapturePromotion(int from, int to, Piece piece) {		//TODO unit test
+	public void addWhiteCapturePromotion(int from, int to) {		//TODO unit test
 		assert valid(from);
 		assert valid(to);
 		assert from != to;
 		assert Math.abs(file(from) - file(to)) == 1;
 		assert rank(from) == 6;
 		assert rank(to) == 7;
-		assert PieceType.black(piece.type());
 		
 		add(new Move(from, to, capturePromotionQueen));
 		add(new Move(from, to, capturePromotionRook));
 		add(new Move(from, to, capturePromotionBishop));
 		add(new Move(from, to, capturePromotionKnight));
-
-		if (piece.type() == PieceType.BlackKing || piece.type() == WhiteKing)
-			kingCaptureCount++;
 	}
 
 	public void addBlackPromotion(int from) {
@@ -183,28 +165,22 @@ public class Moves {
 		add(new Move(from, to, promotionKnight));
 	}
 
-	public void addBlackCapturePromotion(int from, int to, Piece piece) {
+	public void addBlackCapturePromotion(int from, int to) {
 		assert valid(from);
 		assert valid(to);
 		assert abs(file(from) - file(to)) == 1;
 		assert rank(from) == 1;
 		assert rank(to) == 0;
-		assert PieceType.white(piece.type());
 		
 		add(new Move(from, to, capturePromotionQueen));
 		add(new Move(from, to, capturePromotionRook));
 		add(new Move(from, to, capturePromotionBishop));
 		add(new Move(from, to, capturePromotionKnight));
-
-		if (piece.type() == PieceType.BlackKing || piece.type() == WhiteKing)
-			kingCaptureCount++;
 	}
 
-	public void addEnpassant(int from, int to, Piece captured) {
+	public void addEnpassant(int from, int to) {
 		assert valid(from);
 		assert valid(to);
-		assert captured != null;
-		assert captured.type() == BlackPawn || captured.type() == WhitePawn;
 		assert from != to;
 		assert Math.abs(file(from) - file(to)) == 1;
 		assert 
@@ -254,14 +230,6 @@ public class Moves {
 	public Move move(int index) {
 		return moves[index];
 	}
-	
-	public int kingCaptureCount() {
-		return kingCaptureCount;
-	}
-	
-	public boolean kingCaptured() {
-		return kingCaptureCount > 0;
-	};
 	
 	public List<Move> findMoves(int from, int to) {
 		nonNull(from, "from");

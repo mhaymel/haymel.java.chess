@@ -7,11 +7,19 @@
  */
 package com.haymel.chess.engine.moves.black;
 
+import static com.haymel.chess.engine.board.Field.leftDownDown;
+import static com.haymel.chess.engine.board.Field.leftLeftDown;
+import static com.haymel.chess.engine.board.Field.leftLeftUp;
+import static com.haymel.chess.engine.board.Field.leftUpUp;
 import static com.haymel.chess.engine.board.Field.removed;
+import static com.haymel.chess.engine.board.Field.rightDownDown;
+import static com.haymel.chess.engine.board.Field.rightRightDown;
+import static com.haymel.chess.engine.board.Field.rightRightUp;
+import static com.haymel.chess.engine.board.Field.rightUpUp;
 import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
+import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
 import static com.haymel.chess.engine.piece.PieceType.white;
 
-import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.piece.Piece;
 
@@ -25,7 +33,7 @@ public final class BlackKnightMoves {
 		this.pieces = pieces;
 	}
 	
-	public void generate(Piece piece, Moves moves) {
+	public boolean generate(Piece piece, Moves moves) {
 		assert piece != null;
 		assert moves != null;
 		assert piece.field() != removed;
@@ -34,25 +42,31 @@ public final class BlackKnightMoves {
 
 		int from = piece.field();
 		
-		add(from, Field.leftLeftUp(from), moves);
-		add(from, Field.leftDownDown(from), moves);
-		add(from, Field.rightRightUp(from), moves);
-		add(from, Field.rightRightDown(from), moves);
-		add(from, Field.rightDownDown(from), moves);
-		add(from, Field.leftUpUp(from), moves);
-		add(from, Field.rightUpUp(from), moves);
-		add(from, Field.leftLeftDown(from), moves);
+		return
+			add(from, leftLeftUp(from), moves) &&
+			add(from, leftDownDown(from), moves) &&
+			add(from, rightRightUp(from), moves) &&
+			add(from, rightRightDown(from), moves) &&
+			add(from, rightDownDown(from), moves) &&
+			add(from, leftUpUp(from), moves) &&
+			add(from, rightUpUp(from), moves) &&
+			add(from, leftLeftDown(from), moves);
 	}
 
-	private void add(int from, int to, Moves moves) {
+	private boolean add(int from, int to, Moves moves) {
 		Piece piece = pieces[to];
 		
 		if (piece == null) {
 			moves.add(from, to);
 		}
 		else if (white(piece.type())) {
-			moves.addCapture(from, to, piece);
+			if (piece.type() == WhiteKing)
+				return false;
+			
+			moves.addCapture(from, to);
 		}
+		
+		return true;
 	}
 	
 }

@@ -42,44 +42,36 @@ public final class WhiteMoves {		//TODO unit test
 		this.pawnMoves = new WhitePawnMoves(pieces);
 	}
 	
-	public void generate(PieceList pieces, CastlingRight castling, int epField, Moves moves) {
+	public boolean generate(PieceList pieces, CastlingRight castling, int epField, Moves moves) {
 		assert pieces != null;
 		assert pieces.verify();
 		assert epField == removed || rank(epField) == 5;
 		
 		int size = pieces.index();
-		for(int i = 0; i < size && !moves.kingCaptured(); i++)
-			generate(pieces.piece(i), castling, epField, moves);
+		for(int i = 0; i < size; i++)
+			if (!generate(pieces.piece(i), castling, epField, moves))
+				return false;
+		
+		return true;
 	}
 
-	private void generate(Piece piece, CastlingRight castling, int epField, Moves moves) {
+	private boolean generate(Piece piece, CastlingRight castling, int epField, Moves moves) {
 		assert piece != null;
 		assert PieceType.white(piece.type());
 		
 		if (piece.captured())
-			return;
+			return true;
 		
 		switch(piece.type()) {
-		case WhitePawn:
-			pawnMoves.generate(piece, epField, moves);
-			break;
-		case WhiteRook:
-			rookMoves.generate(piece, moves);
-			break;
-		case WhiteKnight:
-			knightMoves.generate(piece, moves);
-			break;
-		case WhiteBishop:
-			bishopMoves.generate(piece, moves);
-			break;
-		case WhiteQueen:
-			queenMoves.generate(piece, moves);
-			break;
-		case WhiteKing:
-			kingMoves.generate(piece, castling, moves);
-			break;
+		case WhitePawn:		return pawnMoves.generate(piece, epField, moves);
+		case WhiteRook:		return rookMoves.generate(piece, moves);
+		case WhiteKnight:	return knightMoves.generate(piece, moves);
+		case WhiteBishop:	return bishopMoves.generate(piece, moves);
+		case WhiteQueen:	return queenMoves.generate(piece, moves);
+		case WhiteKing:		return kingMoves.generate(piece, castling, moves);
 		default:
 			assert false;
+			return false;
 		}
 	}
 	

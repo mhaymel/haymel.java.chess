@@ -16,6 +16,7 @@ import static com.haymel.chess.engine.board.Field.rightDownDown;
 import static com.haymel.chess.engine.board.Field.rightRightDown;
 import static com.haymel.chess.engine.board.Field.rightRightUp;
 import static com.haymel.chess.engine.board.Field.rightUpUp;
+import static com.haymel.chess.engine.piece.PieceType.BlackKing;
 
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.piece.Piece;
@@ -30,7 +31,7 @@ public final class WhiteKnightCaptureMoves {
 		this.pieces = pieces;
 	}
 	
-	public void generate(Piece knight, Moves moves) {
+	public boolean generate(Piece knight, Moves moves) {
 		assert knight != null;
 		assert moves != null;
 		assert knight.field() != removed;
@@ -38,21 +39,29 @@ public final class WhiteKnightCaptureMoves {
 
 		int from = knight.field();
 		
-		add(from, leftLeftUp(from), moves);
-		add(from, leftDownDown(from), moves);
-		add(from, rightRightUp(from), moves);
-		add(from, rightRightDown(from), moves);
-		add(from, rightDownDown(from), moves);
-		add(from, leftUpUp(from), moves);
-		add(from, rightUpUp(from), moves);
-		add(from, leftLeftDown(from), moves);
+		return
+			add(from, leftLeftUp(from), moves) &&
+			add(from, leftDownDown(from), moves) &&
+			add(from, rightRightUp(from), moves) &&
+			add(from, rightRightDown(from), moves) &&
+			add(from, rightDownDown(from), moves) &&
+			add(from, leftUpUp(from), moves) &&
+			add(from, rightUpUp(from), moves) &&
+			add(from, leftLeftDown(from), moves);
 	}
 
-	private void add(int from, int to, Moves moves) {
+	private boolean add(int from, int to, Moves moves) {
 		Piece piece = pieces[to];
 		
-		if (black(piece)) 
-			moves.addCapture(from, to, piece);
+		if (!black(piece))
+			return true;
+
+		if (piece.type() == BlackKing)
+			return false;
+
+		moves.addCapture(from, to);
+		
+		return true;
 	}
 
 	private static boolean black(Piece piece) {

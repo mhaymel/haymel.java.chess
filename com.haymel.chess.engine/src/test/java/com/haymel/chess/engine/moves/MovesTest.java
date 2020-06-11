@@ -20,8 +20,6 @@ import static com.haymel.chess.engine.moves.MoveType.capturePromotionBishop;
 import static com.haymel.chess.engine.moves.MoveType.capturePromotionKnight;
 import static com.haymel.chess.engine.moves.MoveType.capturePromotionQueen;
 import static com.haymel.chess.engine.moves.MoveType.capturePromotionRook;
-import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
-import static com.haymel.chess.engine.piece.PieceType.BlackQueen;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -29,8 +27,6 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import com.haymel.chess.engine.piece.Piece;
 
 public class MovesTest {
 
@@ -65,8 +61,7 @@ public class MovesTest {
 	
 	@Test
 	public void addOneCapture() {
-		Piece blackPawn = new Piece(BlackPawn, d5);
-		moves.addCapture(e4, d5, blackPawn);
+		moves.addCapture(e4, d5);
 		
 		assertThat(moves.size(), is(1));
 		assertThat(moves.toString(), is("Moves(e4xd5)"));
@@ -74,10 +69,8 @@ public class MovesTest {
 
 	@Test
 	public void addTwoCaptures() {
-		Piece blackPawn1 = new Piece(BlackPawn, d5);
-		Piece blackPawn2 = new Piece(BlackPawn, c5);
-		moves.addCapture(e4, d5, blackPawn1);
-		moves.addCapture(d4, c5, blackPawn2);
+		moves.addCapture(e4, d5);
+		moves.addCapture(d4, c5);
 		
 		assertThat(moves.size(), is(2));
 		assertThat(moves.toString(), is("Moves(e4xd5, d4xc5)"));
@@ -167,8 +160,7 @@ public class MovesTest {
 	
 	@Test
 	public void findCapturePromotionMoves() {
-		Piece blackQueen = new Piece(BlackQueen, d8);
-		moves.addWhiteCapturePromotion(e7, d8, blackQueen);
+		moves.addWhiteCapturePromotion(e7, d8);
 
 		List<Move> foundMoves = moves.findMoves(e7, d8);
 		assertThat(foundMoves.size(), is(4));

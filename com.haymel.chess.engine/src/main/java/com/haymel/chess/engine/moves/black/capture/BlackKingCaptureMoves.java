@@ -9,6 +9,7 @@ package com.haymel.chess.engine.moves.black.capture;
 
 import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.piece.PieceType.BlackKing;
+import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
 import static java.lang.String.format;
 
 import com.haymel.chess.engine.board.Field;
@@ -25,7 +26,7 @@ public final class BlackKingCaptureMoves {		//TODO unit test
 		this.pieces = pieces;
 	}
 	
-	public void generate(Piece king, Moves moves) {
+	public boolean generate(Piece king, Moves moves) {
 		assert king != null;
 		assert moves != null;
 		assert king.field() != removed;
@@ -34,21 +35,29 @@ public final class BlackKingCaptureMoves {		//TODO unit test
 
 		int from = king.field();
 		
-		add(from, Field.left(from), moves);
-		add(from, Field.right(from), moves);
-		add(from, Field.up(from), moves);
-		add(from, Field.down(from), moves);
-		add(from, Field.leftUp(from), moves);
-		add(from, Field.leftDown(from), moves);
-		add(from, Field.rightUp(from), moves);
-		add(from, Field.rightDown(from), moves);
+		return
+			add(from, Field.left(from), moves) &&
+			add(from, Field.right(from), moves) &&
+			add(from, Field.up(from), moves) &&
+			add(from, Field.down(from), moves) &&
+			add(from, Field.leftUp(from), moves) &&
+			add(from, Field.leftDown(from), moves) &&
+			add(from, Field.rightUp(from), moves) &&
+			add(from, Field.rightDown(from), moves);
 	}
 
-	private void add(int from, int to, Moves moves) {
+	private boolean add(int from, int to, Moves moves) {
 		Piece piece = pieces[to];
 		
-		if (white(piece)) 
-			moves.addKingCapture(from, to, piece);
+		if (!white(piece)) 
+			return true;
+		
+		if (piece.type() == WhiteKing)
+			return false;
+
+		moves.addKingCapture(from, to);
+		
+		return true;
 	}
 
 	private boolean white(Piece piece) {

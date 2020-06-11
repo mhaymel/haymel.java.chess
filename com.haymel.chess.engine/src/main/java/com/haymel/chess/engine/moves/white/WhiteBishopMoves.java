@@ -9,6 +9,7 @@ package com.haymel.chess.engine.moves.white;
 
 import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.piece.PieceType.WhiteBishop;
+import static com.haymel.chess.engine.piece.PieceType.BlackKing;
 import static com.haymel.chess.engine.piece.PieceType.black;
 
 import com.haymel.chess.engine.board.Field;
@@ -24,7 +25,7 @@ public final class WhiteBishopMoves {
 		this.pieces = pieces;
 	}
 	
-	public void generate(Piece piece, Moves moves) {
+	public boolean generate(Piece piece, Moves moves) {
 		assert piece != null;
 		assert moves != null;
 		assert piece.field() != removed;
@@ -32,13 +33,14 @@ public final class WhiteBishopMoves {
 		assert piece.type() == WhiteBishop;
 
 		int from = piece.field();
-		leftUp(from, moves);
-		leftDown(from, moves);
-		rightUp(from, moves);
-		rightDown(from, moves);
+		return 
+			leftUp(from, moves) &&
+			leftDown(from, moves) &&
+			rightUp(from, moves) &&
+			rightDown(from, moves);
 	}
 
-	private void leftUp(int from, Moves moves) {
+	private boolean leftUp(int from, Moves moves) {
 		int to = Field.leftUp(from);
 		Piece piece = pieces[to];
 		while(piece == null) {
@@ -46,11 +48,17 @@ public final class WhiteBishopMoves {
 			to = Field.leftUp(to);
 			piece = pieces[to];
 		}
+		
+		if (piece.type() == BlackKing)
+			return false;
+		
 		if (black(piece.type())) 
-			moves.addCapture(from, to, piece);
+			moves.addCapture(from, to);
+		
+		return true;
 	}
 
-	private void leftDown(int from, Moves moves) {
+	private boolean leftDown(int from, Moves moves) {
 		int to = Field.leftDown(from);
 		Piece piece = pieces[to];
 		while(piece == null) {
@@ -58,11 +66,17 @@ public final class WhiteBishopMoves {
 			to = Field.leftDown(to);
 			piece = pieces[to];
 		}
+		
+		if (piece.type() == BlackKing)
+			return false;
+		
 		if (black(piece.type())) 
-			moves.addCapture(from, to, piece);
+			moves.addCapture(from, to);
+		
+		return true;
 	}
 
-	private void rightUp(int from, Moves moves) {
+	private boolean rightUp(int from, Moves moves) {
 		int to = Field.rightUp(from);
 		Piece piece = pieces[to];
 		while(piece == null) {
@@ -70,11 +84,17 @@ public final class WhiteBishopMoves {
 			to = Field.rightUp(to);
 			piece = pieces[to];
 		}
+		
+		if (piece.type() == BlackKing)
+			return false;
+		
 		if (black(piece.type())) 
-			moves.addCapture(from, to, piece);
+			moves.addCapture(from, to);
+		
+		return true;
 	}
 
-	private void rightDown(int from, Moves moves) {
+	private boolean rightDown(int from, Moves moves) {
 		int to = Field.rightDown(from);
 		Piece piece = pieces[to];
 		while(piece == null) {
@@ -82,8 +102,14 @@ public final class WhiteBishopMoves {
 			to = Field.rightDown(to);
 			piece = pieces[to];
 		}
+		
+		if (piece.type() == BlackKing)
+			return false;
+		
 		if (black(piece.type())) 
-			moves.addCapture(from, to, piece);
+			moves.addCapture(from, to);
+		
+		return true;
 	}
 	
 }

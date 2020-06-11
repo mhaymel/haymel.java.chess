@@ -21,6 +21,7 @@ import static com.haymel.chess.engine.moves.black.castling.E8Attacked.e8Attacked
 import static com.haymel.chess.engine.moves.black.castling.F8Attacked.f8Attacked;
 import static com.haymel.chess.engine.piece.PieceType.BlackKing;
 import static com.haymel.chess.engine.piece.PieceType.BlackRook;
+import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
 import static com.haymel.chess.engine.piece.PieceType.white;
 import static java.lang.String.format;
 
@@ -38,7 +39,7 @@ public final class BlackKingMoves {
 		this.pieces = pieces;
 	}
 	
-	public void generate(Piece king, CastlingRight castling, Moves moves) {
+	public boolean generate(Piece king, CastlingRight castling, Moves moves) {
 		assert king != null;
 		assert castling != null;
 		assert moves != null;
@@ -48,20 +49,26 @@ public final class BlackKingMoves {
 
 		int from = king.field();
 		
-		add(from, Field.left(from), moves);
-		add(from, Field.right(from), moves);
-		add(from, Field.up(from), moves);
-		add(from, Field.down(from), moves);
-		add(from, Field.leftUp(from), moves);
-		add(from, Field.leftDown(from), moves);
-		add(from, Field.rightUp(from), moves);
-		add(from, Field.rightDown(from), moves);
-		
+		return
+			add(from, Field.left(from), moves) &&
+			add(from, Field.right(from), moves) &&
+			add(from, Field.up(from), moves) &&
+			add(from, Field.down(from), moves) &&
+			add(from, Field.leftUp(from), moves) &&
+			add(from, Field.leftDown(from), moves) &&
+			add(from, Field.rightUp(from), moves) &&
+			add(from, Field.rightDown(from), moves) &&
+			castling(king, castling, moves);
+	}
+
+	private boolean castling(Piece king, CastlingRight castling, Moves moves) {
 		if (castling.kingside())
 			kingSidecasteling(king, moves);
 		
 		if (castling.queenside())
 			queenSidecasteling(king, moves);
+		
+		return true;
 	}
 
 	private void kingSidecasteling(Piece king, Moves moves) {
@@ -109,15 +116,20 @@ public final class BlackKingMoves {
 		return pieces[field] != null && pieces[field].type() == BlackRook;
 	}
 
-	private void add(int from, int to, Moves moves) {
+	private boolean add(int from, int to, Moves moves) {
 		Piece piece = pieces[to];
 		
-		if (piece == null) 
+		if (piece == null) {
 			moves.addKingMove(from, to);
+		}
+		else if (white(piece.type())) { 
+			if (piece.type() == WhiteKing)
+				return false;
+	
+			moves.addKingCapture(from, to);
+		}
 		
-		else if (white(piece.type())) 
-			moves.addKingCapture(from, to, piece);
-		
+		return true;
 	}
 
 	private boolean isFree(int field) {

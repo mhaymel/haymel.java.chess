@@ -42,48 +42,39 @@ public final class BlackCaptureMoves {		//TODO unit test
 		this.pawnMoves = new BlackPawnCaptureMoves(pieces);
 	}
 	
-	public void generate(PieceList pieces, int epField, Moves moves) {
+	public boolean generate(PieceList pieces, int epField, Moves moves) {
 		assert pieces != null;
 		assert pieces.verify();
 		assert Field.valid(epField);
 		assert moves != null;
 		assert pieces.index() > 0;
 		assert epField == removed || Field.rank(epField) == 2 : String.format("wrong enpassant field: %s", fieldAsString(epField));
-		assert !moves.kingCaptured();
 		
 		int size = pieces.index();
-		for(int i = 0; i < size && !moves.kingCaptured(); i++)
-			generate(pieces.piece(i), epField, moves);
+		for(int i = 0; i < size; i++)
+			if (!generate(pieces.piece(i), epField, moves))
+				return false;
+		
+		return true;
 	}
 
-	private void generate(Piece piece, int epField, Moves moves) {
+	private boolean generate(Piece piece, int epField, Moves moves) {
 		assert piece != null;
 		assert PieceType.black(piece.type());
 
 		if (piece.captured())
-			return;
+			return true;
 		
 		switch(piece.type()) {
-		case BlackPawn:
-			pawnMoves.generate(piece, epField, moves);
-			break;
-		case BlackRook:
-			rookMoves.generate(piece, moves);
-			break;
-		case BlackKnight:
-			knightMoves.generate(piece, moves);
-			break;
-		case BlackBishop:
-			bishopMoves.generate(piece, moves);
-			break;
-		case BlackQueen:
-			queenMoves.generate(piece, moves);
-			break;
-		case BlackKing:
-			kingMoves.generate(piece, moves);
-			break;
+		case BlackPawn: 	return pawnMoves.generate(piece, epField, moves);
+		case BlackRook:		return rookMoves.generate(piece, moves);
+		case BlackKnight:	return knightMoves.generate(piece, moves);
+		case BlackBishop:   return bishopMoves.generate(piece, moves);
+		case BlackQueen:	return queenMoves.generate(piece, moves);
+		case BlackKing:		return kingMoves.generate(piece, moves);
 		default:
 			assert false;
+			return false;
 		}
 	}
 	

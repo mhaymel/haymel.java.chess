@@ -35,7 +35,7 @@ public class ValidMovesWhite {		//TODO unit test
 		List<Move> validMoves = new ArrayList<>();
 		
 		Moves moves = game.whiteMoves();
-		if (moves.kingCaptureCount() > 0)
+		if (moves == null)
 			return empty;
 
 		MakeMove makeMove = new MakeMove(game);
@@ -51,8 +51,7 @@ public class ValidMovesWhite {		//TODO unit test
 	}
 
 	private boolean isInCheck() {
-		return game.blackMoves().kingCaptureCount() > 0;
-		
+		return game.blackMoves() == null;
 	}
 	
 }

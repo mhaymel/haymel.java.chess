@@ -55,25 +55,25 @@ public class MoveTest {
 	
 	@Test
 	public void testToStringOfWhiteCapture() {
-		Move move = find("a1a8", fromFen("q6k/8/8/8/8/8/8/Q6K w - - 0 1"));
-		assertThat(move.toString(), is("a1xa8"));
+		Move move = find("a2a8", fromFen("q6k/8/8/8/8/8/Q7/7K w - - 0 1"));
+		assertThat(move.toString(), is("a2xa8"));
 	}
 	
 	@Test
 	public void testToStringOfBlackCapture() {
-		Move move = find("a8a1", fromFen("q6k/8/8/8/8/8/8/Q6K b - - 0 1"));
-		assertThat(move.toString(), is("a8xa1"));
+		Move move = find("a7a1", fromFen("7k/q7/8/8/8/8/8/Q6K b - - 0 1"));
+		assertThat(move.toString(), is("a7xa1"));
 	}
 	
 	@Test
 	public void captureReturnsTrueForWhiteCaptureMove() {
-		Move move = find("a1a8", fromFen("q6k/8/8/8/8/8/8/Q6K w - - 0 1"));
+		Move move = find("a2a8", fromFen("q6k/8/8/8/8/8/Q7/7K w - - 0 1"));
 		assertThat(move.capture(), is(true));
 	}
 
 	@Test
 	public void captureReturnsTrueForBlackCaptureMove() {
-		Move move = find("a8a1", fromFen("q6k/8/8/8/8/8/8/Q6K b - - 0 1"));
+		Move move = find("a7a1", fromFen("7k/q7/8/8/8/8/8/Q6K b - - 0 1"));
 		assertThat(move.capture(), is(true));
 	}
 	
