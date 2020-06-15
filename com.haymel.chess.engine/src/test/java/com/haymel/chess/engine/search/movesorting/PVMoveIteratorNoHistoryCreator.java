@@ -20,13 +20,12 @@ class PVMoveIteratorNoHistoryCreator implements MoveIteratorCreator {	//TODO uni
 	}
 	
 	@Override
-	public MoveIterator create(Move[] moves, int start, int count, Move pv, Move history) {
+	public MoveIterator create(Move[] moves, int count, Move pv, Move history) {
 		assert moves != null;
-		assert start >= 0 && start < moves.length;
 		assert count > 0;
-		assert start + count <= moves.length;
+		assert count <= moves.length;
 		
-		return new PVMoveIterator(game, moves, start, count, pv, null);
+		return new PVMoveIterator(game, moves, count, pv, null);
 	}
 
 }

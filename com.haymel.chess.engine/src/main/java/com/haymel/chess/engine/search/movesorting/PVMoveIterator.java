@@ -40,23 +40,20 @@ public class PVMoveIterator implements MoveIterator { //TODO refactor, unit test
 	
 	private final Game game;
 	private final Move[] moves;
-	private final int start;
 	private final int count;
 	private Move pv;
 	private Move history;
 	private int index = 0;
 	private int state = 0;
 	
-	public PVMoveIterator(Game game, Move[] moves, int start, int count, Move pv, Move history) { 
+	public PVMoveIterator(Game game, Move[] moves, int count, Move pv, Move history) { 
 		assert game != null;
 		assert moves != null;
-		assert start >= 0 && start < moves.length;
 		assert count > 0;
-		assert start + count <= moves.length;
+		assert count <= moves.length;
 		
 		this.game = game;
 		this.moves = moves;
-		this.start = start;
 		this.count = count;
 		this.pv = pv;			//pv can be null
 		this.history = history;	//killer can be null
@@ -173,11 +170,11 @@ public class PVMoveIterator implements MoveIterator { //TODO refactor, unit test
 	}
 
 	private Move move(int i) {
-		return moves[i + start];
+		return moves[i];
 	}
 
 	private void moveReset(int i) {
-		moves[i + start] = null;
+		moves[i] = null;
 	}
 
 	private boolean assertAllMoveUsed() {

@@ -117,7 +117,7 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 		
 		final int depth = 0;
 		
-		MoveIterator moveIter = moveIteratorCreator.create(moves.moves(), 0, moves.size(), principal(depth), null);
+		MoveIterator moveIter = moveIteratorCreator.create(moves.moves(), moves.size(), principal(depth), null);
 		
 		Move move;
 		int i = 0;
@@ -155,7 +155,7 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 		if (depth >= maxDepth)
 			return whiteQuiet(moves, depth, alpha, beta, variant);
 		
-		MoveIterator moveIter = moveIteratorCreator.create(moves.moves(), 0, moves.size(), principal(depth), history[depth]);
+		MoveIterator moveIter = moveIteratorCreator.create(moves.moves(), moves.size(), principal(depth), history[depth]);
 
 		int validMovesCount = 0;
 		Move move;
@@ -214,7 +214,7 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 		int validMovesCount = 0;
 		
 		if (moves.size() > 0) {
-			MoveIterator moveIter = moveIteratorCreator.create(moves.moves(), 0, moves.size(), principal(depth), null);
+			MoveIterator moveIter = moveIteratorCreator.create(moves.moves(), moves.size(), principal(depth), null);
 			Move move;
 			while((move = moveIter.next()) != null) {
 				assert move.capture();
@@ -276,7 +276,7 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 
 		final int depth = 0;
 
-		MoveIterator moveIter = moveIteratorCreator.create(moves.moves(), 0, moves.size(), principal(depth), null);
+		MoveIterator moveIter = moveIteratorCreator.create(moves.moves(), moves.size(), principal(depth), null);
 		
 		Move move;
 		int i = 0;
@@ -317,7 +317,7 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 		if (depth >= maxDepth || stop)
 			return evaluate();
 		
-		MoveIterator moveIter = moveIteratorCreator.create(moves.moves(), 0, moves.size(), principal(depth), history[depth]);
+		MoveIterator moveIter = moveIteratorCreator.create(moves.moves(), moves.size(), principal(depth), history[depth]);
 
 		int validMovesCount = 0;
 		Move move;
@@ -376,7 +376,7 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 		int validMovesCount = 0;
 
 		if (moves.size() > 0) {
-		    MoveIterator moveIter = moveIteratorCreator.create(moves.moves(), 0, moves.size(), principal(depth), null);
+		    MoveIterator moveIter = moveIteratorCreator.create(moves.moves(), moves.size(), principal(depth), null);
 			Move move;
 			while((move = moveIter.next()) != null) {
 				assert move.capture();

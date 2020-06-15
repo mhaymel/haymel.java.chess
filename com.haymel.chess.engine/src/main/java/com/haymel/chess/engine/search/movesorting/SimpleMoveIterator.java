@@ -12,18 +12,15 @@ import com.haymel.chess.engine.moves.Move;
 public class SimpleMoveIterator implements MoveIterator { //TODO unit test
 
 	private final Move[] moves;
-	private final int start;
 	private final int count;
 	private int index;
 	
-	public SimpleMoveIterator(Move[] moves, int start, int count) { 
+	public SimpleMoveIterator(Move[] moves, int count) { 
 		assert moves != null;
-		assert start >= 0 && start < moves.length;
 		assert count > 0;
-		assert start + count <= moves.length;
+		assert count <= moves.length;
 		
 		this.moves = moves;
-		this.start = start;
 		this.count = count;
 		this.index = 0;
 	}
@@ -33,6 +30,6 @@ public class SimpleMoveIterator implements MoveIterator { //TODO unit test
 		if (index >= count)
 			return null;
 		
-		return moves[start + index++];
+		return moves[index++];
 	}
 }

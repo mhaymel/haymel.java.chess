@@ -12,8 +12,8 @@ import com.haymel.chess.engine.moves.Move;
 class SimpleMoveIteratorCreator implements MoveIteratorCreator {	//TODO unit test
 
 	@Override
-	public MoveIterator create(Move[] move, int start, int count, Move pv, Move killer) {
-		return new SimpleMoveIterator(move, start, count);
+	public MoveIterator create(Move[] move, int count, Move pv, Move killer) {
+		return new SimpleMoveIterator(move, count);
 	}
 
 }
