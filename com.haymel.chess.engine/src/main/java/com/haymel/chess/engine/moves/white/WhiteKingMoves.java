@@ -24,6 +24,10 @@ import static com.haymel.chess.engine.board.Field.right;
 import static com.haymel.chess.engine.board.Field.rightDown;
 import static com.haymel.chess.engine.board.Field.rightUp;
 import static com.haymel.chess.engine.board.Field.up;
+import static com.haymel.chess.engine.moves.MoveType.captureKingMove;
+import static com.haymel.chess.engine.moves.MoveType.kingsideCastling;
+import static com.haymel.chess.engine.moves.MoveType.normalKingMove;
+import static com.haymel.chess.engine.moves.MoveType.queensideCastling;
 import static com.haymel.chess.engine.moves.white.castling.D1Attacked.d1Attacked;
 import static com.haymel.chess.engine.moves.white.castling.E1Attacked.e1Attacked;
 import static com.haymel.chess.engine.moves.white.castling.F1Attacked.f1Attacked;
@@ -94,7 +98,7 @@ public final class WhiteKingMoves {
 		if (f1Attacked(pieces))
 			return; 
 		
-		moves.addWhiteKingSideCastling();
+		moves.add(e1, g1, kingsideCastling);
 	}
 
 	private void queenSidecasteling(Piece king, Moves moves) {
@@ -116,7 +120,7 @@ public final class WhiteKingMoves {
 		if (d1Attacked(pieces))
 			return;
 
-		moves.addWhiteQueenSideCastling();
+		moves.add(e1, c1, queensideCastling);
 	}
 
 	private boolean isWhiteRook(int field) {
@@ -131,13 +135,13 @@ public final class WhiteKingMoves {
 		Piece piece = pieces[to];
 		
 		if (piece == null) {
-			moves.addKingMove(from, to);
+			moves.add(from, to, normalKingMove);
 		}
 		else if (PieceType.black(piece.type())) {
 			if (piece.type() == BlackKing)
 				return false;
 		
-			moves.addKingCapture(from, to);
+			moves.add(from, to, captureKingMove);
 		}
 		return true;
 	}

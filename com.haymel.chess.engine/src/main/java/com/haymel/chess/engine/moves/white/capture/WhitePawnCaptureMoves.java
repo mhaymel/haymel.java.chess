@@ -27,6 +27,12 @@ import static com.haymel.chess.engine.board.Field.leftUp;
 import static com.haymel.chess.engine.board.Field.rank;
 import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.board.Field.rightUp;
+import static com.haymel.chess.engine.moves.MoveType.capture;
+import static com.haymel.chess.engine.moves.MoveType.capturePromotionBishop;
+import static com.haymel.chess.engine.moves.MoveType.capturePromotionKnight;
+import static com.haymel.chess.engine.moves.MoveType.capturePromotionQueen;
+import static com.haymel.chess.engine.moves.MoveType.capturePromotionRook;
+import static com.haymel.chess.engine.moves.MoveType.enpassant;
 import static com.haymel.chess.engine.piece.PieceType.BlackKing;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 
@@ -84,13 +90,13 @@ public final class WhitePawnCaptureMoves {	//TODO unit test
 		
 		int leftUp = leftUp(from);
 		if (leftUp == epField)
-			moves.addEnpassant(from, leftUp);
+			moves.add(from, leftUp, enpassant);
 		else if (!capture(from, leftUp, moves))
 			return false;
 		
 		int rightUp = Field.rightUp(from);
 		if (rightUp == epField)
-			moves.addEnpassant(from, rightUp);
+			moves.add(from, rightUp, enpassant);
 		else if (!capture(from, rightUp, moves))
 			return false;
 		
@@ -112,7 +118,10 @@ public final class WhitePawnCaptureMoves {	//TODO unit test
 			if (piece.type() == BlackKing)
 				return false;
 			
-			moves.addWhiteCapturePromotion(from, to);
+			moves.add(from, to, capturePromotionQueen);
+			moves.add(from, to, capturePromotionRook);
+			moves.add(from, to, capturePromotionBishop);
+			moves.add(from, to, capturePromotionKnight);
 		}
 		return true;
 	}
@@ -139,7 +148,7 @@ public final class WhitePawnCaptureMoves {	//TODO unit test
 		if (piece.type() == BlackKing)
 			return false;
 		
-		moves.addCapture(from, to);
+		moves.add(from, to, capture);
 		
 		return true;
 	}

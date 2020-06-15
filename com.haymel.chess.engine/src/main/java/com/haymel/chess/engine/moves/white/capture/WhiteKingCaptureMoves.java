@@ -16,6 +16,7 @@ import static com.haymel.chess.engine.board.Field.right;
 import static com.haymel.chess.engine.board.Field.rightDown;
 import static com.haymel.chess.engine.board.Field.rightUp;
 import static com.haymel.chess.engine.board.Field.up;
+import static com.haymel.chess.engine.moves.MoveType.captureKingMove;
 import static com.haymel.chess.engine.piece.PieceType.BlackKing;
 import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
 import static java.lang.String.format;
@@ -63,7 +64,7 @@ public final class WhiteKingCaptureMoves {	//TODO unit test
 		if (piece.type() == BlackKing)
 			return false;
 		
-		moves.addKingCapture(from, to);
+		moves.add(from, to, captureKingMove);
 		
 		return true;
 	}

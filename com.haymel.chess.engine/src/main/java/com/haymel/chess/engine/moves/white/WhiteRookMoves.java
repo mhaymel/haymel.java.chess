@@ -8,6 +8,8 @@
 package com.haymel.chess.engine.moves.white;
 
 import static com.haymel.chess.engine.board.Field.removed;
+import static com.haymel.chess.engine.moves.MoveType.captureRookMove;
+import static com.haymel.chess.engine.moves.MoveType.normalRookMove;
 import static com.haymel.chess.engine.piece.PieceType.BlackKing;
 import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
 import static com.haymel.chess.engine.piece.PieceType.black;
@@ -45,7 +47,7 @@ public final class WhiteRookMoves {
 		int to = Field.up(from);
 		Piece piece = pieces[to];
 		while(piece == null) {
-			moves.addRook(from, to);
+			moves.add(from, to, normalRookMove);
 			to = Field.up(to);
 			piece = pieces[to];
 		}
@@ -54,7 +56,7 @@ public final class WhiteRookMoves {
 			return false;
 		
 		if (black(piece.type())) 
-			moves.addRookCapture(from, to);
+			moves.add(from, to, captureRookMove);
 
 		return true;
 	}
@@ -63,7 +65,7 @@ public final class WhiteRookMoves {
 		int to = Field.down(from);
 		Piece piece = pieces[to];
 		while(piece == null) {
-			moves.addRook(from, to);
+			moves.add(from, to, normalRookMove);
 			to = Field.down(to);
 			piece = pieces[to];		
 		}
@@ -72,7 +74,7 @@ public final class WhiteRookMoves {
 			return false;
 		
 		if (black(piece.type())) 
-			moves.addRookCapture(from, to);
+			moves.add(from, to, captureRookMove);
 
 		return true;
 	}
@@ -81,7 +83,7 @@ public final class WhiteRookMoves {
 		int to = Field.left(from);
 		Piece piece = pieces[to];
 		while(piece == null) {
-			moves.addRook(from, to);
+			moves.add(from, to, normalRookMove);
 			to = Field.left(to);
 			piece = pieces[to];
 		}
@@ -90,7 +92,7 @@ public final class WhiteRookMoves {
 			return false;
 		
 		if (black(piece.type())) 
-			moves.addRookCapture(from, to);
+			moves.add(from, to, captureRookMove);
 
 		return true;
 	}
@@ -99,7 +101,7 @@ public final class WhiteRookMoves {
 		int to = Field.right(from);
 		Piece piece = pieces[to];
 		while(piece == null) {
-			moves.addRook(from, to);
+			moves.add(from, to, normalRookMove);
 			to = Field.right(to);
 			piece = pieces[to];
 		}
@@ -108,7 +110,7 @@ public final class WhiteRookMoves {
 			return false;
 		
 		if (black(piece.type())) 
-			moves.addRookCapture(from, to);
+			moves.add(from, to, captureRookMove);
 
 		return true;
 	}

@@ -8,6 +8,7 @@
 package com.haymel.chess.engine.moves.white.capture;
 
 import static com.haymel.chess.engine.board.Field.removed;
+import static com.haymel.chess.engine.moves.MoveType.capture;
 import static com.haymel.chess.engine.piece.PieceType.BlackKing;
 import static com.haymel.chess.engine.piece.PieceType.WhiteBishop;
 import static com.haymel.chess.engine.piece.PieceType.black;
@@ -52,7 +53,7 @@ public final class WhiteBishopCaptureMoves {	//TODO unit test
 			return false;
 		
 		if (black(piece.type())) 
-			moves.addCapture(from, to);
+			moves.add(from, to, capture);
 		
 		return true;
 	}
@@ -69,7 +70,7 @@ public final class WhiteBishopCaptureMoves {	//TODO unit test
 			return false;
 		
 		if (black(piece.type())) 
-			moves.addCapture(from, to);
+			moves.add(from, to, capture);
 		
 		return true;
 	}
@@ -86,7 +87,7 @@ public final class WhiteBishopCaptureMoves {	//TODO unit test
 			return false;
 		
 		if (black(piece.type())) 
-			moves.addCapture(from, to);
+			moves.add(from, to, capture);
 		
 		return true;
 	}
@@ -103,7 +104,7 @@ public final class WhiteBishopCaptureMoves {	//TODO unit test
 			return false;
 		
 		if (black(piece.type())) 
-			moves.addCapture(from, to);
+			moves.add(from, to, capture);
 		
 		return true;
 	}

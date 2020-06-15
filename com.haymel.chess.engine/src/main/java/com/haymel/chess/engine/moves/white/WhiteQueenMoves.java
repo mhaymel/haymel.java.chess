@@ -8,6 +8,8 @@
 package com.haymel.chess.engine.moves.white;
 
 import static com.haymel.chess.engine.board.Field.removed;
+import static com.haymel.chess.engine.moves.MoveType.capture;
+import static com.haymel.chess.engine.moves.MoveType.normal;
 import static com.haymel.chess.engine.piece.PieceType.BlackKing;
 import static com.haymel.chess.engine.piece.PieceType.WhiteQueen;
 import static com.haymel.chess.engine.piece.PieceType.black;
@@ -47,7 +49,7 @@ public final class WhiteQueenMoves {
 		int to = Field.up(from);
 		Piece piece = pieces[to];
 		while(piece == null) {
-			moves.add(from, to);
+			moves.add(from, to, normal);
 			to = Field.up(to);
 			piece = pieces[to];
 		}
@@ -56,7 +58,7 @@ public final class WhiteQueenMoves {
 			return false;
 		
 		if (black(piece.type())) 
-			moves.addCapture(from, to);
+			moves.add(from, to, capture);
 		
 		return true;
 	}
@@ -65,7 +67,7 @@ public final class WhiteQueenMoves {
 		int to = Field.down(from);
 		Piece piece = pieces[to];
 		while(piece == null) {
-			moves.add(from, to);
+			moves.add(from, to, normal);
 			to = Field.down(to);
 			piece = pieces[to];		
 		}
@@ -74,7 +76,7 @@ public final class WhiteQueenMoves {
 			return false;
 		
 		if (black(piece.type())) 
-			moves.addCapture(from, to);
+			moves.add(from, to, capture);
 		
 		return true;
 	}
@@ -83,7 +85,7 @@ public final class WhiteQueenMoves {
 		int to = Field.left(from);
 		Piece piece = pieces[to];
 		while(piece == null) {
-			moves.add(from, to);
+			moves.add(from, to, normal);
 			to = Field.left(to);
 			piece = pieces[to];
 		}
@@ -92,7 +94,7 @@ public final class WhiteQueenMoves {
 			return false;
 		
 		if (black(piece.type())) 
-			moves.addCapture(from, to);
+			moves.add(from, to, capture);
 		
 		return true;
 	}
@@ -101,7 +103,7 @@ public final class WhiteQueenMoves {
 		int to = Field.right(from);
 		Piece piece = pieces[to];
 		while(piece == null) {
-			moves.add(from, to);
+			moves.add(from, to, normal);
 			to = Field.right(to);
 			piece = pieces[to];
 		}
@@ -110,7 +112,7 @@ public final class WhiteQueenMoves {
 			return false;
 		
 		if (black(piece.type())) 
-			moves.addCapture(from, to);
+			moves.add(from, to, capture);
 		
 		return true;
 	}
@@ -119,7 +121,7 @@ public final class WhiteQueenMoves {
 		int to = Field.leftUp(from);
 		Piece piece = pieces[to];
 		while(piece == null) {
-			moves.add(from, to);
+			moves.add(from, to, normal);
 			to = Field.leftUp(to);
 			piece = pieces[to];
 		}
@@ -128,7 +130,7 @@ public final class WhiteQueenMoves {
 			return false;
 		
 		if (black(piece.type())) 
-			moves.addCapture(from, to);
+			moves.add(from, to, capture);
 		
 		return true;
 	}
@@ -137,7 +139,7 @@ public final class WhiteQueenMoves {
 		int to = Field.leftDown(from);
 		Piece piece = pieces[to];
 		while(piece == null) {
-			moves.add(from, to);
+			moves.add(from, to, normal);
 			to = Field.leftDown(to);
 			piece = pieces[to];
 		}
@@ -146,7 +148,7 @@ public final class WhiteQueenMoves {
 			return false;
 		
 		if (black(piece.type())) 
-			moves.addCapture(from, to);
+			moves.add(from, to, capture);
 		
 		return true;
 	}
@@ -155,7 +157,7 @@ public final class WhiteQueenMoves {
 		int to = Field.rightUp(from);
 		Piece piece = pieces[to];
 		while(piece == null) {
-			moves.add(from, to);
+			moves.add(from, to, normal);
 			to = Field.rightUp(to);
 			piece = pieces[to];
 		}
@@ -164,7 +166,7 @@ public final class WhiteQueenMoves {
 			return false;
 		
 		if (black(piece.type())) 
-			moves.addCapture(from, to);
+			moves.add(from, to, capture);
 		
 		return true;
 	}
@@ -173,7 +175,7 @@ public final class WhiteQueenMoves {
 		int to = Field.rightDown(from);
 		Piece piece = pieces[to];
 		while(piece == null) {
-			moves.add(from, to);
+			moves.add(from, to, normal);
 			to = Field.rightDown(to);
 			piece = pieces[to];
 		}
@@ -182,7 +184,7 @@ public final class WhiteQueenMoves {
 			return false;
 		
 		if (black(piece.type())) 
-			moves.addCapture(from, to);
+			moves.add(from, to, capture);
 		
 		return true;
 	}

@@ -16,6 +16,8 @@ import static com.haymel.chess.engine.board.Field.rightDownDown;
 import static com.haymel.chess.engine.board.Field.rightRightDown;
 import static com.haymel.chess.engine.board.Field.rightRightUp;
 import static com.haymel.chess.engine.board.Field.rightUpUp;
+import static com.haymel.chess.engine.moves.MoveType.capture;
+import static com.haymel.chess.engine.moves.MoveType.normal;
 import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
 import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
 import static com.haymel.chess.engine.piece.PieceType.white;
@@ -57,13 +59,13 @@ public final class BlackKnightMoves {
 		Piece piece = pieces[to];
 		
 		if (piece == null) {
-			moves.add(from, to);
+			moves.add(from, to, normal);
 		}
 		else if (white(piece.type())) {
 			if (piece.type() == WhiteKing)
 				return false;
 			
-			moves.addCapture(from, to);
+			moves.add(from, to, capture);
 		}
 		
 		return true;

@@ -8,6 +8,7 @@
 package com.haymel.chess.engine.moves.white.capture;
 
 import static com.haymel.chess.engine.board.Field.removed;
+import static com.haymel.chess.engine.moves.MoveType.captureRookMove;
 import static com.haymel.chess.engine.piece.PieceType.BlackKing;
 import static com.haymel.chess.engine.piece.PieceType.WhiteRook;
 import static com.haymel.chess.engine.piece.PieceType.black;
@@ -53,7 +54,7 @@ public final class WhiteRookCaptureMoves {	//TODO unit test
 			return false;
 		
 		if (black(piece.type())) 
-			moves.addRookCapture(from, to);
+			moves.add(from, to, captureRookMove);
 
 		return true;
 	}
@@ -70,7 +71,7 @@ public final class WhiteRookCaptureMoves {	//TODO unit test
 			return false;
 		
 		if (black(piece.type())) 
-			moves.addRookCapture(from, to);
+			moves.add(from, to, captureRookMove);
 
 		return true;
 	}
@@ -87,7 +88,7 @@ public final class WhiteRookCaptureMoves {	//TODO unit test
 			return false;
 		
 		if (black(piece.type())) 
-			moves.addRookCapture(from, to);
+			moves.add(from, to, captureRookMove);
 
 		return true;
 	}
@@ -104,7 +105,7 @@ public final class WhiteRookCaptureMoves {	//TODO unit test
 			return false;
 		
 		if (black(piece.type())) 
-			moves.addRookCapture(from, to);
+			moves.add(from, to, captureRookMove);
 
 		return true;
 	}

@@ -8,6 +8,8 @@
 package com.haymel.chess.engine.moves.black;
 
 import static com.haymel.chess.engine.board.Field.removed;
+import static com.haymel.chess.engine.moves.MoveType.capture;
+import static com.haymel.chess.engine.moves.MoveType.normal;
 import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
 import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
 import static com.haymel.chess.engine.piece.PieceType.white;
@@ -44,7 +46,7 @@ public final class BlackBishopMoves {
 		int to = Field.leftUp(from);
 		Piece piece = board[to];
 		while(piece == null) {
-			moves.add(from, to);
+			moves.add(from, to, normal);
 			to = Field.leftUp(to);
 			piece = board[to];
 		}
@@ -53,7 +55,7 @@ public final class BlackBishopMoves {
 			return false;
 
 		if (white(piece.type())) 
-			moves.addCapture(from, to);
+			moves.add(from, to, capture);
 
 		return true;
 	}
@@ -62,7 +64,7 @@ public final class BlackBishopMoves {
 		int to = Field.leftDown(from);
 		Piece piece = board[to];
 		while(piece == null) {
-			moves.add(from, to);
+			moves.add(from, to, normal);
 			to = Field.leftDown(to);
 			piece = board[to];
 		}
@@ -71,7 +73,7 @@ public final class BlackBishopMoves {
 			return false;
 
 		if (white(piece.type())) 
-			moves.addCapture(from, to);
+			moves.add(from, to, capture);
 
 		return true;
 	}
@@ -80,7 +82,7 @@ public final class BlackBishopMoves {
 		int to = Field.rightUp(from);
 		Piece piece = board[to];
 		while(piece == null) {
-			moves.add(from, to);
+			moves.add(from, to, normal);
 			to = Field.rightUp(to);
 			piece = board[to];
 		}
@@ -89,7 +91,7 @@ public final class BlackBishopMoves {
 			return false;
 
 		if (white(piece.type())) 
-			moves.addCapture(from, to);
+			moves.add(from, to, capture);
 
 		return true;
 	}
@@ -98,7 +100,7 @@ public final class BlackBishopMoves {
 		int to = Field.rightDown(from);
 		Piece piece = board[to];
 		while(piece == null) {
-			moves.add(from, to);
+			moves.add(from, to, normal);
 			to = Field.rightDown(to);
 			piece = board[to];
 		}
@@ -107,7 +109,7 @@ public final class BlackBishopMoves {
 			return false;
 
 		if (white(piece.type())) 
-			moves.addCapture(from, to);
+			moves.add(from, to, capture);
 
 		return true;
 	}

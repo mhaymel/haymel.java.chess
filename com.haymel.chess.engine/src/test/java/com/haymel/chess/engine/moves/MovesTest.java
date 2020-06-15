@@ -7,19 +7,22 @@
  */
 package com.haymel.chess.engine.moves;
 
+import static com.haymel.chess.engine.board.Field.c1;
 import static com.haymel.chess.engine.board.Field.c5;
+import static com.haymel.chess.engine.board.Field.c8;
 import static com.haymel.chess.engine.board.Field.d4;
 import static com.haymel.chess.engine.board.Field.d5;
-import static com.haymel.chess.engine.board.Field.d8;
+import static com.haymel.chess.engine.board.Field.e1;
 import static com.haymel.chess.engine.board.Field.e2;
 import static com.haymel.chess.engine.board.Field.e3;
 import static com.haymel.chess.engine.board.Field.e4;
-import static com.haymel.chess.engine.board.Field.e7;
 import static com.haymel.chess.engine.board.Field.e8;
-import static com.haymel.chess.engine.moves.MoveType.capturePromotionBishop;
-import static com.haymel.chess.engine.moves.MoveType.capturePromotionKnight;
-import static com.haymel.chess.engine.moves.MoveType.capturePromotionQueen;
-import static com.haymel.chess.engine.moves.MoveType.capturePromotionRook;
+import static com.haymel.chess.engine.board.Field.g1;
+import static com.haymel.chess.engine.board.Field.g8;
+import static com.haymel.chess.engine.moves.MoveType.capture;
+import static com.haymel.chess.engine.moves.MoveType.kingsideCastling;
+import static com.haymel.chess.engine.moves.MoveType.normal;
+import static com.haymel.chess.engine.moves.MoveType.queensideCastling;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -44,7 +47,7 @@ public class MovesTest {
 	
 	@Test
 	public void addOneMove() {
-		moves.add(e2, e4);
+		moves.add(e2, e4, normal);
 		
 		assertThat(moves.size(), is(1));
 		assertThat(moves.toString(), is("Moves(e2-e4)"));
@@ -52,8 +55,8 @@ public class MovesTest {
 	
 	@Test
 	public void addTwoMoves() {
-		moves.add(e2, e4);
-		moves.add(e2, e3);
+		moves.add(e2, e4, normal);
+		moves.add(e2, e3, normal);
 		
 		assertThat(moves.size(), is(2));
 		assertThat(moves.toString(), is("Moves(e2-e4, e2-e3)"));
@@ -61,16 +64,16 @@ public class MovesTest {
 	
 	@Test
 	public void addOneCapture() {
-		moves.addCapture(e4, d5);
-		
+		moves.add(e4, d5, capture);
+	
 		assertThat(moves.size(), is(1));
 		assertThat(moves.toString(), is("Moves(e4xd5)"));
 	}
 
 	@Test
 	public void addTwoCaptures() {
-		moves.addCapture(e4, d5);
-		moves.addCapture(d4, c5);
+		moves.add(e4, d5, capture);
+		moves.add(d4, c5, capture);
 		
 		assertThat(moves.size(), is(2));
 		assertThat(moves.toString(), is("Moves(e4xd5, d4xc5)"));
@@ -78,7 +81,7 @@ public class MovesTest {
 
 	@Test
 	public void addWhiteKingSideCastling() {
-		moves.addWhiteKingSideCastling();
+		moves.add(e1, g1, kingsideCastling);
 		
 		assertThat(moves.size(), is(1));
 		assertThat(moves.toString(), is("Moves(O-O)"));
@@ -86,7 +89,7 @@ public class MovesTest {
 	
 	@Test
 	public void addWhiteQueenSideCastling() {
-		moves.addWhiteQueenSideCastling();
+		moves.add(e1, c1, queensideCastling);
 		
 		assertThat(moves.size(), is(1));
 		assertThat(moves.toString(), is("Moves(O-O-O)"));
@@ -94,8 +97,8 @@ public class MovesTest {
 
 	@Test
 	public void addWhiteCastling() {
-		moves.addWhiteKingSideCastling();
-		moves.addWhiteQueenSideCastling();
+		moves.add(e1, g1, kingsideCastling);
+		moves.add(e1, c1, queensideCastling);
 		
 		assertThat(moves.size(), is(2));
 		assertThat(moves.toString(), is("Moves(O-O, O-O-O)"));
@@ -103,7 +106,7 @@ public class MovesTest {
 	
 	@Test
 	public void addBlackKingSideCastling() {
-		moves.addBlackKingSideCastling();
+		moves.add(e8, g8, kingsideCastling);
 		
 		assertThat(moves.size(), is(1));
 		assertThat(moves.toString(), is("Moves(O-O)"));
@@ -111,7 +114,7 @@ public class MovesTest {
 	
 	@Test
 	public void addBlackQueenSideCastling() {
-		moves.addBlackQueenSideCastling();
+		moves.add(e8, c8, queensideCastling);
 		
 		assertThat(moves.size(), is(1));
 		assertThat(moves.toString(), is("Moves(O-O-O)"));
@@ -119,8 +122,8 @@ public class MovesTest {
 
 	@Test
 	public void addBlackCastling() {
-		moves.addBlackKingSideCastling();
-		moves.addBlackQueenSideCastling();
+		moves.add(e8, g8, kingsideCastling);
+		moves.add(e8, c8, queensideCastling);
 		
 		assertThat(moves.size(), is(2));
 		assertThat(moves.toString(), is("Moves(O-O, O-O-O)"));
@@ -133,8 +136,8 @@ public class MovesTest {
 
 	@Test
 	public void findMoveReturnsTheRightMove() {
-		moves.add(e2, e4);
-		moves.add(e2, e3);
+		moves.add(e2, e4, normal);
+		moves.add(e2, e3, normal);
 
 		List<Move> foundMoves = moves.findMoves(e2, e4);
 		assertThat(foundMoves.size(), is(1));
@@ -143,34 +146,4 @@ public class MovesTest {
 		assertThat(move.to(), is(e4));
 	}
 
-	@Test
-	public void findPromotionMoves() {
-		moves.addWhitePromotion(e7);
-
-		List<Move> foundMoves = moves.findMoves(e7, e8);
-		assertThat(foundMoves.size(), is(4));
-
-		for (Move move : foundMoves) 
-			assertThat(
-				move.type() == MoveType.promotionQueen || 
-				move.type() == MoveType.promotionRook || 
-				move.type() == MoveType.promotionBishop || 
-				move.type() == MoveType.promotionKnight, is(true));
-	}
-	
-	@Test
-	public void findCapturePromotionMoves() {
-		moves.addWhiteCapturePromotion(e7, d8);
-
-		List<Move> foundMoves = moves.findMoves(e7, d8);
-		assertThat(foundMoves.size(), is(4));
-
-		for (Move move : foundMoves)  
-			assertThat(
-				move.type() == capturePromotionQueen || 
-				move.type() == capturePromotionRook || 
-				move.type() == capturePromotionBishop || 
-				move.type() == capturePromotionKnight, is(true));
-	}
-	
 }

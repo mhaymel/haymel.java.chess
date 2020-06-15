@@ -8,6 +8,7 @@
 package com.haymel.chess.engine.moves.black.capture;
 
 import static com.haymel.chess.engine.board.Field.removed;
+import static com.haymel.chess.engine.moves.MoveType.capture;
 import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
 import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
 
@@ -54,7 +55,7 @@ public final class BlackKnightCaptureMoves {	//TODO unit test
 		if (piece.type() == WhiteKing)
 			return false;
 
-		moves.addCapture(from, to);
+		moves.add(from, to, capture);
 		
 		return true;
 	}
