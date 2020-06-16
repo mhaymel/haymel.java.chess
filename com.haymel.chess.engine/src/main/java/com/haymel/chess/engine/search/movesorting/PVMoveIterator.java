@@ -27,14 +27,18 @@ import com.haymel.chess.engine.piece.PieceType;
 public class PVMoveIterator implements MoveIterator { //TODO refactor, unit test
 
 	private static final int statePv = 0;
-	private static final int stateCaptures = 1;
-	private static final int stateAll = 2;
-	private static final int stateHistoryMove = 3;
+	private static final int stateWinningCaptures = 1;
+	private static final int stateCaptures = 2;
+	private static final int stateAll = 3;
+	private static final int stateHistoryMove = 4;
+	private static final int stateNonCapture = 5;
 	
 	private static final int[] order = {
 		statePv,
-		stateCaptures,
+		stateWinningCaptures,
 		stateHistoryMove,
+		stateCaptures,
+		stateNonCapture,
 		stateAll 
 	};
 	
@@ -61,25 +65,34 @@ public class PVMoveIterator implements MoveIterator { //TODO refactor, unit test
 
 	@Override
 	public Move next() {
+		if (index >= count)
+			return null;
+		
+		assert index < moves.length;
+		assert state < order.length;
+		
 		while(state < order.length) {
 			Move move = find();
-			if (move != null)
+			if (move != null) {
+				assert moves[index] == move;
+				index++;
 				return move;
+			}
 			state++;
-			index = 0;
 		}
 		
-		assert assertAllMoveUsed();
-		
+		assert false; 
 		return null;
 	}
 	
 	private Move find() {
 		switch(order[state]) {
-		case statePv: 			return pv();
-		case stateCaptures: 	return nextWinningCapture();
-		case stateHistoryMove: 	return nextHistoryMove();
-		case stateAll:			return nextAll();
+		case statePv: 				return pv();
+		case stateWinningCaptures: 	return nextWinningCapture();
+		case stateCaptures: 		return nextCapture();
+		case stateHistoryMove: 		return nextHistoryMove();
+		case stateNonCapture: 		return nextNonCapture();
+		case stateAll:				return moves[index];
 		default:
 			assert false;
 		}
@@ -87,50 +100,67 @@ public class PVMoveIterator implements MoveIterator { //TODO refactor, unit test
 	}
 
 	private Move nextWinningCapture() {
-		int i = 0;
-		Move foundMove = null;
-		int foundIndex = 0;
+		boolean found = false;
 		int foundValue = Integer.MIN_VALUE;
+
+		for(int i = index; i < count; i++) {
+			Move move = moves[i];
 		
-		while(i < count) {
-			Move move = move(i);
-			if (move != null && move.capture()) {
-				int value = captureValue(move);
-				if (value > foundValue) {
-					foundIndex = i;
-					foundValue = value;
-					foundMove = move;
+			if (move.capture()) {
+				int aggressorValue = PieceValue.pieceValue(game.piece(move.from()).type());
+				int victimValue = PieceValue.pieceValue(victim(move));
+				if (aggressorValue < victimValue) {
+					int value = victimValue - aggressorValue;
+					if (value > foundValue) {
+						swap(i);
+						found = true;
+						foundValue = value;
+					}
 				}
 			}
-			i++;
 		}
 		
-		if (foundMove == null)
-			return null;
+		if (found)
+			return moves[index];
 
-		moveReset(foundIndex);
-		return foundMove;
-	}
-	
-	private int captureValue(Move move) {
-		assert move.capture();
-		
-		int aggressorValue = PieceValue.pieceValue(game.piece(move.from()).type());
-		int victimValue = PieceValue.pieceValue(victim(move));
-		
-		return victimValue - aggressorValue;
+		return null;
 	}
 
-	private Move nextAll() {
-		while(index < count) {
-			Move move = move(index);
-			if (move != null) {
-				moveReset(index);
-				index++;
+	private Move nextNonCapture() {
+		for(int i = index; i < count; i++) {
+			Move move = moves[i];
+		
+			if (!move.capture()) {
+				swap(i);
 				return move;
 			}
-			index++;
 		}
+		return null;
+	}
+
+	
+	private Move nextCapture() {
+		boolean found = false;
+		int foundValue = Integer.MIN_VALUE;
+
+		for(int i = index; i < count; i++) {
+			Move move = moves[i];
+		
+			if (move.capture()) {
+				int aggressorValue = PieceValue.pieceValue(game.piece(move.from()).type());
+				int victimValue = PieceValue.pieceValue(victim(move));
+				int value = victimValue - aggressorValue;
+				if (value > foundValue) {
+					swap(i);
+					found = true;
+					foundValue = value;
+				}
+			}
+		}
+		
+		if (found)
+			return moves[index];
+
 		return null;
 	}
 
@@ -159,28 +189,20 @@ public class PVMoveIterator implements MoveIterator { //TODO refactor, unit test
 	}
 	
 	private Move findAndMarkItAsUsed(Move move) {
-		for(int i = 0; i < count; i++) {
-			Move m = move(i);
+		for(int i = index; i < count; i++) {
+			Move m = moves[i];
 			if (m != null && m.from() == move.from() && m.to() == move.to()) {
-				moveReset(i);
+				swap(i);
 				return m;
 			}
 		}
 		return null;
 	}
 
-	private Move move(int i) {
-		return moves[i];
-	}
-
-	private void moveReset(int i) {
-		moves[i] = null;
-	}
-
-	private boolean assertAllMoveUsed() {
-		for(int i = 0; i < count; i++)
-			assert move(i) == null : String.format("was not analyzed: %s", move(i));
-		return true;
+	private void swap(int i) {
+		Move tmp = moves[i];
+		moves[i] = moves[index];
+		moves[index] = tmp;
 	}
 
 	private int victim(Move move) {
