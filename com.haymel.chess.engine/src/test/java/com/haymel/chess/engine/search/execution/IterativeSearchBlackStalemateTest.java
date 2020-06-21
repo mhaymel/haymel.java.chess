@@ -34,8 +34,8 @@ public class IterativeSearchBlackStalemateTest {
 		assertThat(asString(bestMove.move()), is("d6e6"));
 	}
 
-	private static String asString(Move move) {
-		return Field.fieldAsString(move.from()) + fieldAsString(move.to());
+	private static String asString(int move) {
+		return Field.fieldAsString(Move.from(move)) + fieldAsString(Move.to(move));
 	}
 	
 }

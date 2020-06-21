@@ -58,7 +58,7 @@ public class Perft {
 			if (depth == 0)
 				System.out.print(format("%s:  ", size - i));
 		
-			Move move = moves.move(i);
+			int move = moves.move(i);
 			makeMove.makeMove(move);
 			black(depth + 1);
 			makeMove.undoMove();
@@ -88,7 +88,7 @@ public class Perft {
 			if (depth == 1)
 				System.out.print(format("%s ", size - i));
 			
-			Move move = moves.move(i);
+			int move = moves.move(i);
 			makeMove.makeMove(move);
 			white(depth + 1);
 			makeMove.undoMove();

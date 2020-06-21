@@ -47,10 +47,10 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 	private volatile boolean stop;
 	private final SearchInfo info;
 	private int maxSelDepth;
-	private Move[] principalVariation;
+	private int[] principalVariation;
 	private final NodesCalculator nodesCalculator;	
 	private final MoveIteratorCreator moveIteratorCreator;
-	private final Move[] history = new Move[1000];
+	private final int[] history = new int[1000];
 	private long stopSearchAt;
 	private final Hashtable hashtable = new Hashtable();
 	
@@ -82,12 +82,12 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 		return execute(depth, null, stopSearchAt);
 	}
 	
-	public BestMove execute(int depth, Move[] principalVariation, long stopSearchAt) { 
+	public BestMove execute(int depth, int[] principalVariation, long stopSearchAt) { 
 		info.searchDepth(depth);
 		return doExecute(depth, principalVariation, stopSearchAt);
 	}
 
-	private BestMove doExecute(int depth, Move[] principalVariation, long stopSearchAt) {
+	private BestMove doExecute(int depth, int[] principalVariation, long stopSearchAt) {
 		stop = false;
 		maxDepth = depth;
 		maxSelDepth = depth;
@@ -100,7 +100,7 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 	
 	private void clearHistory() {
 		for(int i = 0; i < history.length; i++)
-			history[i] = null;
+			history[i] = 0;
 	}
 
 	public void stop() {
@@ -117,11 +117,11 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 		
 		final int depth = 0;
 		
-		MoveIterator moveIter = moveIteratorCreator.create(moves.moves(), moves.size(), principal(depth), null);
+		MoveIterator moveIter = moveIteratorCreator.create(moves, moves.size(), principal(depth), 0);
 		
-		Move move;
+		int move;
 		int i = 0;
-		while((move = moveIter.next()) != null) {
+		while((move = moveIter.next()) != 0) {
 			currentMove(moves.size(), i, move);
 			i++;
 			
@@ -155,11 +155,11 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 		if (depth >= maxDepth)
 			return whiteQuiet(moves, depth, alpha, beta, variant);
 		
-		MoveIterator moveIter = moveIteratorCreator.create(moves.moves(), moves.size(), principal(depth), history[depth]);
+		MoveIterator moveIter = moveIteratorCreator.create(moves, moves.size(), principal(depth), history[depth]);
 
 		int validMovesCount = 0;
-		Move move;
-		while((move = moveIter.next()) != null) {
+		int move;
+		while((move = moveIter.next()) != 0) {
 			Variant v = new Variant(move);
 			WhiteMakeMove.makeMove(game, move);
 
@@ -170,7 +170,7 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 				WhiteMakeMove.undoMove(game);
 				
 				if (score >= beta) {
-					if (!move.capture())
+					if (!Move.capture(move))
 						history[depth] = move;
 
 					hashtable.put(game.hash(), move);
@@ -214,10 +214,10 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 		int validMovesCount = 0;
 		
 		if (moves.size() > 0) {
-			MoveIterator moveIter = moveIteratorCreator.create(moves.moves(), moves.size(), principal(depth), null);
-			Move move;
-			while((move = moveIter.next()) != null) {
-				assert move.capture();
+			MoveIterator moveIter = moveIteratorCreator.create(moves, moves.size(), principal(depth), 0);
+			int move;
+			while((move = moveIter.next()) != 0) {
+				assert Move.capture(move);
 				
 				if (pieceValue(victimOfWhiteType(move)) <= alpha - positionValue)
 					continue;
@@ -249,8 +249,8 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 			assert whiteMoves != null;
 			int size = whiteMoves.size();
 			for(int i = 0; i < size; i++) {
-				Move move = whiteMoves.move(i);
-				if (!move.capture()) {
+				int move = whiteMoves.move(i);
+				if (!Move.capture(move)) {
 					WhiteMakeMove.makeMove(game, move);
 					if (!whiteIsInCheck()) {
 						WhiteMakeMove.undoMove(game);
@@ -276,11 +276,11 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 
 		final int depth = 0;
 
-		MoveIterator moveIter = moveIteratorCreator.create(moves.moves(), moves.size(), principal(depth), null);
+		MoveIterator moveIter = moveIteratorCreator.create(moves, moves.size(), principal(depth), 0);
 		
-		Move move;
+		int move;
 		int i = 0;
-		while((move = moveIter.next()) != null) {
+		while((move = moveIter.next()) != 0) {
 			currentMove(moves.size(), i, move);
 			i++;
 
@@ -317,11 +317,11 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 		if (depth >= maxDepth || stop)
 			return evaluate();
 		
-		MoveIterator moveIter = moveIteratorCreator.create(moves.moves(), moves.size(), principal(depth), history[depth]);
+		MoveIterator moveIter = moveIteratorCreator.create(moves, moves.size(), principal(depth), history[depth]);
 
 		int validMovesCount = 0;
-		Move move;
-		while((move = moveIter.next()) != null) {
+		int move;
+		while((move = moveIter.next()) != 0) {
 			Variant v = new Variant(move);
 			BlackMakeMove.makeMove(game, move);
 			
@@ -332,7 +332,7 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 				BlackMakeMove.undoMove(game);
 
 				if (score <= alpha) { 
-					if (!move.capture())
+					if (!Move.capture(move))
 						history[depth] = move;
 					hashtable.put(game.hash(), move);
 					return alpha;
@@ -376,10 +376,10 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 		int validMovesCount = 0;
 
 		if (moves.size() > 0) {
-		    MoveIterator moveIter = moveIteratorCreator.create(moves.moves(), moves.size(), principal(depth), null);
-			Move move;
-			while((move = moveIter.next()) != null) {
-				assert move.capture();
+		    MoveIterator moveIter = moveIteratorCreator.create(moves, moves.size(), principal(depth), 0);
+			int move;
+			while((move = moveIter.next()) != 0) {
+				assert Move.capture(move);
 				
 				if (pieceValue(victimOfBlackType(move)) <= positionValue - beta)
 					continue;
@@ -411,8 +411,8 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 			assert blackMoves != null;
 			int size = blackMoves.size();
 			for(int i = 0; i < size; i++) {
-				Move move = blackMoves.move(i);
-				if (!move.capture()) {
+				int move = blackMoves.move(i);
+				if (!Move.capture(move)) {
 					BlackMakeMove.makeMove(game, move);
 					if (!blackIsInCheck()) {
 						BlackMakeMove.undoMove(game);
@@ -447,13 +447,14 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 		return System.currentTimeMillis();
 	}
 	
-	private void currentMove(int size, int i, Move move) {
+	private void currentMove(int size, int i, int move) {
+		Move.validMove(move);
 		info.currentMove(new AnalyzedMove(move, i + 1, size));
 	}
 
-	private Move principal(int depth) {
+	private int principal(int depth) {
 		if (principalVariation == null)
-			return null;
+			return 0;
 		
 		assert depth < principalVariation.length;
 		
@@ -506,9 +507,9 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 		return MIN_VALUE + depth;
 	}
 	
-	private int victimOfWhiteType(Move move) {
+	private int victimOfWhiteType(int move) {
 		int type = 0;
-		switch(move.type()) {
+		switch(Move.type(move)) {
 		case capture:
 		case capturePromotionQueen:
 		case capturePromotionRook:
@@ -516,7 +517,7 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 		case capturePromotionKnight:
 		case captureKingMove:
 		case captureRookMove:
-			type = game.piece(move.to()).type();
+			type = game.piece(Move.to(move)).type();
 			break;
 		case enpassant:
 			type = game.piece(down(game.enPassant())).type();
@@ -532,9 +533,9 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 		return type;
 	}
 
-	private int victimOfBlackType(Move move) {
+	private int victimOfBlackType(int move) {
 		int type = 0;
-		switch(move.type()) {
+		switch(Move.type(move)) {
 		case capture:
 		case capturePromotionQueen:
 		case capturePromotionRook:
@@ -542,7 +543,7 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 		case capturePromotionKnight:
 		case captureKingMove:
 		case captureRookMove:
-			type = game.piece(move.to()).type();
+			type = game.piece(Move.to(move)).type();
 			break;
 		case enpassant:
 			type = game.piece(Field.up(game.enPassant())).type();

@@ -10,7 +10,6 @@ package com.haymel.chess.engine.game;
 import static com.haymel.util.Require.nonNull;
 
 import com.haymel.chess.engine.fen.GameFromFEN;
-import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.algebraic.MoveFinder;
 
 public interface TestHelper {
@@ -19,7 +18,7 @@ public interface TestHelper {
 		new MakeMove(game).undoMove();
 	}
 
-	static void makeMove(Move move, Game game) {
+	static void makeMove(int move, Game game) {
 		new MakeMove(game).makeMove(move);
 	}
 
@@ -27,7 +26,7 @@ public interface TestHelper {
 		return new GameFromFEN(fen).value();		
 	}
 	
-	static Move find(String move, Game game) {
+	static int find(String move, Game game) {
 		return nonNull(new MoveFinder(game.moves()).find(move), "move");
 	}
 	

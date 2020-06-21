@@ -7,10 +7,10 @@
  */
 package com.haymel.chess.engine.search.movesorting;
 
-import com.haymel.chess.engine.moves.Move;
+import com.haymel.chess.engine.moves.Moves;
 
 public interface MoveIteratorCreator {
 	
-	MoveIterator create(Move[] moves, int count, Move pv, Move history);
+	MoveIterator create(Moves moves, int count, int pv, int history);
 	
 }

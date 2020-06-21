@@ -19,21 +19,21 @@ import com.haymel.chess.engine.piece.Piece;
 
 public final class MakeBlackPawnMove {
 
-	public static void make(Game game, Move move) {
+	public static void make(Game game, int move) {
 		assert game != null;
-		assert move != null;
+		assert Move.validMove(move);
 		assert game.assertVerify();
 		assert game.activeColor() == black; 
-		assert move.type() == pawn;
-		assert game.piece(move.from()).type() == BlackPawn;
-		assert game.piece(move.to()) == null;
-		assert rank(move.from()) != 7;
-		assert rank(move.to()) != 0;
+		assert Move.type(move) == pawn;
+		assert game.piece(Move.from(move)).type() == BlackPawn;
+		assert game.piece(Move.to(move)) == null;
+		assert rank(Move.from(move)) != 7;
+		assert rank(Move.to(move)) != 0;
 		
-		Piece piece = game.piece(move.from());
-		game.blackPositionValue(piece.type(), move.from(), move.to());
-		game.clear(move.from());
-		piece.field(move.to());
+		Piece piece = game.piece(Move.from(move));
+		game.blackPositionValue(piece.type(), Move.from(move), Move.to(move));
+		game.clear(Move.from(move));
+		piece.field(Move.to(move));
 		game.place(piece);
 		game.push(move);
 		game.pushHalfMoveClock();
@@ -41,33 +41,33 @@ public final class MakeBlackPawnMove {
 		game.activeColorWhite();
 
 		assert game.activeColor() == white; 
-		assert game.piece(move.from()) == null;
-		assert game.piece(move.to()).type() == BlackPawn;
+		assert game.piece(Move.from(move)) == null;
+		assert game.piece(Move.to(move)).type() == BlackPawn;
 		assert game.assertVerify();
 	}
 
-	public static void undo(Game game, Move move) {
+	public static void undo(Game game, int move) {
 		assert game != null;
-		assert move != null;
+		assert Move.validMove(move);
 		assert game.assertVerify();
 		assert game.activeColor() == white; 
-		assert game.piece(move.to()).type() == BlackPawn;
-		assert game.piece(move.from()) == null;
+		assert game.piece(Move.to(move)).type() == BlackPawn;
+		assert game.piece(Move.from(move)) == null;
 
 		game.decFullMoveNumber();
 		game.activeColorBlack();
 		game.popHalfMoveClock();
-		Piece piece = game.piece(move.to());
-		game.clear(move.to());
-		piece.field(move.from());
+		Piece piece = game.piece(Move.to(move));
+		game.clear(Move.to(move));
+		piece.field(Move.from(move));
 		game.place(piece);
-		game.blackPositionValue(piece.type(), move.to(), move.from());
+		game.blackPositionValue(piece.type(), Move.to(move), Move.from(move));
 		
 		assert game.halfMoveClock() >= 0;
 		assert game.fullMoveNumber() >= 1;
 		assert game.activeColor() == black; 
-		assert game.piece(move.to()) == null;
-		assert game.piece(move.from()).type() == BlackPawn;
+		assert game.piece(Move.to(move)) == null;
+		assert game.piece(Move.from(move)).type() == BlackPawn;
 		assert game.assertVerify();
 	}
 

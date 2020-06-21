@@ -33,10 +33,10 @@ public class MakeWhitePawnDoubleStepMoveTest {
 	@Test
 	public void pawnDoubleStepMove() {
 		Game game = fromFen("7k/8/8/8/8/8/4P3/7K w - - 37 30");
-		Move move = find("e2e4", game);
+		int move = find("e2e4", game);
 		
 		makeMove(move, game);
-		assertThat(game.piece(move.to()).type(), is(WhitePawn));
+		assertThat(game.piece(Move.to(move)).type(), is(WhitePawn));
 		assertThat(game.piece(e7), is(nullValue()));
 		assertThat(game.halfMoveClock(), is(0));
 		assertThat(game.fullMoveNumber(), is(30));
@@ -44,7 +44,7 @@ public class MakeWhitePawnDoubleStepMoveTest {
 		assertThat(game.activeColor(), is(black));
 		
 		undoMove(game);
-		assertThat(game.piece(move.from()).type(), is(WhitePawn));
+		assertThat(game.piece(Move.from(move)).type(), is(WhitePawn));
 		assertThat(game.piece(e4), is(nullValue()));
 		assertThat(game.halfMoveClock(), is(37));
 		assertThat(game.fullMoveNumber(), is(30));
@@ -55,10 +55,10 @@ public class MakeWhitePawnDoubleStepMoveTest {
 	@Test
 	public void e2DoubleStepMoveEnPassantResetted() {
 		Game game = fromFen("7k/8/8/4p3/8/8/4P3/7K w - e6 37 30");
-		Move move = find("e2e4", game);
+		int move = find("e2e4", game);
 		
 		makeMove(move, game);
-		assertThat(game.piece(move.to()).type(), is(WhitePawn));
+		assertThat(game.piece(Move.to(move)).type(), is(WhitePawn));
 		assertThat(game.piece(e7), is(nullValue()));
 		assertThat(game.halfMoveClock(), is(0));
 		assertThat(game.fullMoveNumber(), is(30));
@@ -66,7 +66,7 @@ public class MakeWhitePawnDoubleStepMoveTest {
 		assertThat(game.activeColor(), is(black));
 		
 		undoMove(game);
-		assertThat(game.piece(move.from()).type(), is(WhitePawn));
+		assertThat(game.piece(Move.from(move)).type(), is(WhitePawn));
 		assertThat(game.piece(e4), is(nullValue()));
 		assertThat(game.halfMoveClock(), is(37));
 		assertThat(game.fullMoveNumber(), is(30));

@@ -36,8 +36,8 @@ public class NodesRequiredToFindRa1a6 {
 		assertThat(bestMove.nodes().count(), lessThan(40_000L));
 	}
 	
-	private static String asString(Move move) {
-		return fieldAsString(move.from()) + fieldAsString(move.to());
+	private static String asString(int move) {
+		return fieldAsString(Move.from(move)) + fieldAsString(Move.to(move));
 	}
 
 }

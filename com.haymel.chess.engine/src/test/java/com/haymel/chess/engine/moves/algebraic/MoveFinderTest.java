@@ -103,26 +103,26 @@ public class MoveFinderTest {
 		test(find.find("e7e5"), e7, e5, pawnDoubleStep);
 	}
 	
-	private static void testPromotion(Move move, int from, int to, int moveType) {
+	private static void testPromotion(int move, int from, int to, int moveType) {
 		assert valid(from);
 		assert valid(to);
 		assert validMoveType(moveType);
 		
 		assertThat(move, notNullValue());
-		assertThat(move.type(), is(moveType));
-		assertThat(move.from(), is(from));
-		assertThat(move.to(), is(to));
+		assertThat(Move.type(move), is(moveType));
+		assertThat(Move.from(move), is(from));
+		assertThat(Move.to(move), is(to));
 	}
 
-	private static void test(Move move, int from, int to, int type) {
+	private static void test(int move, int from, int to, int type) {
 		assert valid(from);
 		assert valid(to);
 		assert validMoveType(type);
 		
 		assertThat(move, notNullValue());
-		assertThat(move.type(), is(type));
-		assertThat(move.from(), is(from));
-		assertThat(move.to(), is(to));
+		assertThat(Move.type(move), is(type));
+		assertThat(Move.from(move), is(from));
+		assertThat(Move.to(move), is(to));
 	}
 	
 	

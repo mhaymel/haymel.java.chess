@@ -139,11 +139,11 @@ public class MovesTest {
 		moves.add(e2, e4, normal);
 		moves.add(e2, e3, normal);
 
-		List<Move> foundMoves = moves.findMoves(e2, e4);
+		List<Integer> foundMoves = moves.findMoves(e2, e4);
 		assertThat(foundMoves.size(), is(1));
-		Move move = foundMoves.get(0);
-		assertThat(move.from(), is(e2));
-		assertThat(move.to(), is(e4));
+		int move = foundMoves.get(0);
+		assertThat(Move.from(move), is(e2));
+		assertThat(Move.to(move), is(e4));
 	}
 
 }

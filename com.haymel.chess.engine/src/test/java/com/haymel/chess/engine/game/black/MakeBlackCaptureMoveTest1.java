@@ -33,8 +33,8 @@ public class MakeBlackCaptureMoveTest1 {
 	public void makeAndUndo() {
 		Game game = fromFen("7k/8/8/8/8/8/2P5/n6K b - - 13 5");
 
-		Move move = find("a1c2", game);
-		assertThat(move.type(), is(capture));
+		int move = find("a1c2", game);
+		assertThat(Move.type(move), is(capture));
 		
 		makeMove(move, game);
 		assertThat(game.piece(c2).type(), is(BlackKnight));
@@ -55,8 +55,8 @@ public class MakeBlackCaptureMoveTest1 {
 	public void enPassantIsSetCorrectly() {
 		Game game = fromFen("7k/8/8/8/7P/8/2P5/n6K b - h3 13 5");
 
-		Move move = find("a1c2", game);
-		assertThat(move.type(), is(capture));
+		int move = find("a1c2", game);
+		assertThat(Move.type(move), is(capture));
 		
 		makeMove(move, game);
 		assertThat(game.piece(c2).type(), is(BlackKnight));

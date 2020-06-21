@@ -7,18 +7,17 @@
  */
 package com.haymel.chess.engine.search.movesorting;
 
-import com.haymel.chess.engine.moves.Move;
+import com.haymel.chess.engine.moves.Moves;
 
 public class SimpleMoveIterator implements MoveIterator { //TODO unit test
 
-	private final Move[] moves;
+	private final Moves moves;
 	private final int count;
 	private int index;
 	
-	public SimpleMoveIterator(Move[] moves, int count) { 
+	public SimpleMoveIterator(Moves moves, int count) { 
 		assert moves != null;
 		assert count > 0;
-		assert count <= moves.length;
 		
 		this.moves = moves;
 		this.count = count;
@@ -26,10 +25,10 @@ public class SimpleMoveIterator implements MoveIterator { //TODO unit test
 	}
 
 	@Override
-	public Move next() {
+	public int next() {
 		if (index >= count)
-			return null;
+			return 0;
 		
-		return moves[index++];
+		return moves.move(index++);
 	}
 }

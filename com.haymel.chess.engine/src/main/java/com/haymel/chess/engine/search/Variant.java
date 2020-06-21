@@ -7,26 +7,25 @@
  */
 package com.haymel.chess.engine.search;
 
-import static com.haymel.util.Require.nonNull;
-
 import com.haymel.chess.engine.moves.Move;
 
 public class Variant {			//TODO unit test
 
-	private final Move move;
-	private Move[] moves;
+	private final int move;
+	private int[] moves;
 	
-	public Variant(Move move) {
-		this.move = nonNull(move, "move");
+	public Variant(int move) {
+		Move.validMove(move);
+		this.move = move;
 	}
 	
 	public void add(Variant variant) {
 		assert variant != null;
 
 		int size = variant.size();
-		moves = new Move[size];
+		moves = new int[size];
 
-		assert variant.move != null;
+		assert variant.move != 0;
 		moves[0] = variant.move;
 
 		if (size > 1) 
@@ -35,11 +34,11 @@ public class Variant {			//TODO unit test
 		assert verify();
 	}
 
-	public Move move() {
+	public int move() {
 		return move;
 	}
 	
-	public Move[] moves() {
+	public int[] moves() {
 		return moves;
 	}
 	
@@ -48,11 +47,11 @@ public class Variant {			//TODO unit test
 	}
 
 	private boolean verify() {
-		assert move != null;
+		assert move != 0;
 		assert moves != null;
 		
 		for(int i = 0; i < moves.length; i++)
-			assert moves[i] != null;
+			assert moves[i] != 0;
 		
 		return true;
 	}

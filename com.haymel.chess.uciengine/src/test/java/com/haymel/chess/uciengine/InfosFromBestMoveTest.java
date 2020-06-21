@@ -11,6 +11,8 @@ import static com.haymel.chess.engine.board.Field.e2;
 import static com.haymel.chess.engine.board.Field.e4;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
+import static com.haymel.chess.engine.moves.Move.newMove;
+import static com.haymel.chess.engine.moves.MoveType.normal;
 import static com.haymel.chess.engine.search.SearchAlphaBeta.blackMate;
 import static com.haymel.chess.engine.search.SearchAlphaBeta.whiteMate;
 import static org.hamcrest.CoreMatchers.is;
@@ -18,7 +20,6 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
-import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.search.BestMove;
 import com.haymel.chess.engine.search.Variant;
 import com.haymel.chess.uci.result.Infos;
@@ -28,7 +29,7 @@ public class InfosFromBestMoveTest {
 
 	private static final int aDepth = 10;
 	private static final int aSelDepth = 15;
-	private static final Variant variant = new Variant(new Move(e2, e4));
+	private static final Variant variant = new Variant(newMove(e2, e4, normal));
 
 	@Test
 	public void activeColorWhiteWillBeMate() {

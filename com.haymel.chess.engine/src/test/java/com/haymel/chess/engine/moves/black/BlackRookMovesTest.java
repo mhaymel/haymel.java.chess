@@ -48,6 +48,7 @@ import static com.haymel.chess.engine.board.Field.h6;
 import static com.haymel.chess.engine.board.Field.h7;
 import static com.haymel.chess.engine.board.Field.h8;
 import static com.haymel.chess.engine.board.Field.removed;
+import static com.haymel.chess.engine.moves.Move.newMove;
 import static com.haymel.chess.engine.moves.MoveType.captureRookMove;
 import static com.haymel.chess.engine.moves.MoveType.normalRookMove;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
@@ -62,7 +63,6 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.piece.Piece;
 
@@ -87,21 +87,21 @@ public class BlackRookMovesTest {
 		
 		assertThat(moves.size(), is(14));
 		
-		Set<Move> result = movesAsSet();
-		assertThat(result.contains(new Move(a1, a2, normalRookMove)), is(true));
-		assertThat(result.contains(new Move(a1, a3, normalRookMove)), is(true));
-		assertThat(result.contains(new Move(a1, a4, normalRookMove)), is(true));
-		assertThat(result.contains(new Move(a1, a5, normalRookMove)), is(true));
-		assertThat(result.contains(new Move(a1, a6, normalRookMove)), is(true));
-		assertThat(result.contains(new Move(a1, a7, normalRookMove)), is(true));
-		assertThat(result.contains(new Move(a1, a8, normalRookMove)), is(true));
-		assertThat(result.contains(new Move(a1, b1, normalRookMove)), is(true));
-		assertThat(result.contains(new Move(a1, c1, normalRookMove)), is(true));
-		assertThat(result.contains(new Move(a1, d1, normalRookMove)), is(true));
-		assertThat(result.contains(new Move(a1, e1, normalRookMove)), is(true));
-		assertThat(result.contains(new Move(a1, f1, normalRookMove)), is(true));
-		assertThat(result.contains(new Move(a1, g1, normalRookMove)), is(true));
-		assertThat(result.contains(new Move(a1, h1, normalRookMove)), is(true));
+		Set<Integer> result = movesAsSet();
+		assertThat(result.contains(newMove(a1, a2, normalRookMove)), is(true));
+		assertThat(result.contains(newMove(a1, a3, normalRookMove)), is(true));
+		assertThat(result.contains(newMove(a1, a4, normalRookMove)), is(true));
+		assertThat(result.contains(newMove(a1, a5, normalRookMove)), is(true));
+		assertThat(result.contains(newMove(a1, a6, normalRookMove)), is(true));
+		assertThat(result.contains(newMove(a1, a7, normalRookMove)), is(true));
+		assertThat(result.contains(newMove(a1, a8, normalRookMove)), is(true));
+		assertThat(result.contains(newMove(a1, b1, normalRookMove)), is(true));
+		assertThat(result.contains(newMove(a1, c1, normalRookMove)), is(true));
+		assertThat(result.contains(newMove(a1, d1, normalRookMove)), is(true));
+		assertThat(result.contains(newMove(a1, e1, normalRookMove)), is(true));
+		assertThat(result.contains(newMove(a1, f1, normalRookMove)), is(true));
+		assertThat(result.contains(newMove(a1, g1, normalRookMove)), is(true));
+		assertThat(result.contains(newMove(a1, h1, normalRookMove)), is(true));
 	}
 
 	@Test
@@ -111,22 +111,22 @@ public class BlackRookMovesTest {
 		
 		assertThat(moves.size(), is(14));
 		
-		Set<Move> result = movesAsSet();
-		assertThat(result.contains(new Move(h8, g8, normalRookMove)), is(true));
-		assertThat(result.contains(new Move(h8, f8, normalRookMove)), is(true));
-		assertThat(result.contains(new Move(h8, g8, normalRookMove)), is(true));
-		assertThat(result.contains(new Move(h8, e8, normalRookMove)), is(true));
-		assertThat(result.contains(new Move(h8, d8, normalRookMove)), is(true));
-		assertThat(result.contains(new Move(h8, c8, normalRookMove)), is(true));
-		assertThat(result.contains(new Move(h8, b8, normalRookMove)), is(true));
-		assertThat(result.contains(new Move(h8, a8, normalRookMove)), is(true));
-		assertThat(result.contains(new Move(h8, h7, normalRookMove)), is(true));
-		assertThat(result.contains(new Move(h8, h6, normalRookMove)), is(true));
-		assertThat(result.contains(new Move(h8, h5, normalRookMove)), is(true));
-		assertThat(result.contains(new Move(h8, h4, normalRookMove)), is(true));
-		assertThat(result.contains(new Move(h8, h3, normalRookMove)), is(true));
-		assertThat(result.contains(new Move(h8, h2, normalRookMove)), is(true));
-		assertThat(result.contains(new Move(h8, h1, normalRookMove)), is(true));
+		Set<Integer> result = movesAsSet();
+		assertThat(result.contains(newMove(h8, g8, normalRookMove)), is(true));
+		assertThat(result.contains(newMove(h8, f8, normalRookMove)), is(true));
+		assertThat(result.contains(newMove(h8, g8, normalRookMove)), is(true));
+		assertThat(result.contains(newMove(h8, e8, normalRookMove)), is(true));
+		assertThat(result.contains(newMove(h8, d8, normalRookMove)), is(true));
+		assertThat(result.contains(newMove(h8, c8, normalRookMove)), is(true));
+		assertThat(result.contains(newMove(h8, b8, normalRookMove)), is(true));
+		assertThat(result.contains(newMove(h8, a8, normalRookMove)), is(true));
+		assertThat(result.contains(newMove(h8, h7, normalRookMove)), is(true));
+		assertThat(result.contains(newMove(h8, h6, normalRookMove)), is(true));
+		assertThat(result.contains(newMove(h8, h5, normalRookMove)), is(true));
+		assertThat(result.contains(newMove(h8, h4, normalRookMove)), is(true));
+		assertThat(result.contains(newMove(h8, h3, normalRookMove)), is(true));
+		assertThat(result.contains(newMove(h8, h2, normalRookMove)), is(true));
+		assertThat(result.contains(newMove(h8, h1, normalRookMove)), is(true));
 	}
 
 	@Test
@@ -136,21 +136,21 @@ public class BlackRookMovesTest {
 		
 		assertThat(moves.size(), is(14));
 		
-		Set<Move> result = movesAsSet();
-		assertThat(result.contains(new Move(e4, e3, normalRookMove)), is(true));
-		assertThat(result.contains(new Move(e4, e2, normalRookMove)), is(true));
-		assertThat(result.contains(new Move(e4, e1, normalRookMove)), is(true));
-		assertThat(result.contains(new Move(e4, e5, normalRookMove)), is(true));
-		assertThat(result.contains(new Move(e4, e6, normalRookMove)), is(true));
-		assertThat(result.contains(new Move(e4, e7, normalRookMove)), is(true));
-		assertThat(result.contains(new Move(e4, e8, normalRookMove)), is(true));
-		assertThat(result.contains(new Move(e4, d4, normalRookMove)), is(true));
-		assertThat(result.contains(new Move(e4, c4, normalRookMove)), is(true));
-		assertThat(result.contains(new Move(e4, b4, normalRookMove)), is(true));
-		assertThat(result.contains(new Move(e4, a4, normalRookMove)), is(true));
-		assertThat(result.contains(new Move(e4, f4, normalRookMove)), is(true));
-		assertThat(result.contains(new Move(e4, g4, normalRookMove)), is(true));
-		assertThat(result.contains(new Move(e4, h4, normalRookMove)), is(true));
+		Set<Integer> result = movesAsSet();
+		assertThat(result.contains(newMove(e4, e3, normalRookMove)), is(true));
+		assertThat(result.contains(newMove(e4, e2, normalRookMove)), is(true));
+		assertThat(result.contains(newMove(e4, e1, normalRookMove)), is(true));
+		assertThat(result.contains(newMove(e4, e5, normalRookMove)), is(true));
+		assertThat(result.contains(newMove(e4, e6, normalRookMove)), is(true));
+		assertThat(result.contains(newMove(e4, e7, normalRookMove)), is(true));
+		assertThat(result.contains(newMove(e4, e8, normalRookMove)), is(true));
+		assertThat(result.contains(newMove(e4, d4, normalRookMove)), is(true));
+		assertThat(result.contains(newMove(e4, c4, normalRookMove)), is(true));
+		assertThat(result.contains(newMove(e4, b4, normalRookMove)), is(true));
+		assertThat(result.contains(newMove(e4, a4, normalRookMove)), is(true));
+		assertThat(result.contains(newMove(e4, f4, normalRookMove)), is(true));
+		assertThat(result.contains(newMove(e4, g4, normalRookMove)), is(true));
+		assertThat(result.contains(newMove(e4, h4, normalRookMove)), is(true));
 	}
 	
 	@Test
@@ -163,7 +163,7 @@ public class BlackRookMovesTest {
 		rookMoves.generate(rook, moves);
 		
 		assertThat(moves.size(), is(4));
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(result.contains(capture(e4, e5)), is(true));
 		assertThat(result.contains(capture(e4, e3)), is(true));
 		assertThat(result.contains(capture(e4, d4)), is(true));
@@ -182,8 +182,8 @@ public class BlackRookMovesTest {
 		assertThat(moves.size(), is(0));
 	}
 	
-	private Move capture(int from, int to) {
-		return new Move(from, to, captureRookMove);
+	private int capture(int from, int to) {
+		return newMove(from, to, captureRookMove);
 	}
 	
 	private Piece blackPawn(int field) {
@@ -205,8 +205,8 @@ public class BlackRookMovesTest {
 		board[rook.field()] = rook;
 	}
 	
-	private Set<Move> movesAsSet() {
-		Set<Move> result = new HashSet<Move>(moves.size());
+	private Set<Integer> movesAsSet() {
+		Set<Integer> result = new HashSet<>(moves.size());
 
 		int size = moves.size();
 		for(int i = 0; i < size; i++) 

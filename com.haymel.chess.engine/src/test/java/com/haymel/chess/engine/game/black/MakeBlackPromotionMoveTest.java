@@ -51,8 +51,8 @@ public class MakeBlackPromotionMoveTest {
 		Moves moves = game.moves();
 		int size = moves.size();
 		for(int i = 0; i < size; i++) {
-			Move move = moves.move(i);
-			switch(move.type()) {
+			int move = moves.move(i);
+			switch(Move.type(move)) {
 			case promotionQueen:
 				count++;
 				test(move, game, promotionQueen, BlackQueen);
@@ -75,19 +75,19 @@ public class MakeBlackPromotionMoveTest {
 		assertThat(count, is(8*4));
 	}
 	
-	private void test(Move move, Game game, int moveType, int pieceType) {
+	private void test(int move, Game game, int moveType, int pieceType) {
 		game.assertVerify();
 		assertThat(MoveType.validMoveType(moveType), is(true));
 		assertThat(PieceType.pieceTypeValid(pieceType), is(true));
-		assertThat(move.type(), is(moveType));
+		assertThat(Move.type(move), is(moveType));
 		
-		Piece piece = game.piece(move.from());
+		Piece piece = game.piece(Move.from(move));
 		int enPassant = game.enPassant();
 		makeMove(move, game);
 		
 		game.assertVerify();
-		assertThat(piece.field(), is(move.to()));
-		assertThat(game.piece(move.from()) == null, is(true));
+		assertThat(piece.field(), is(Move.to(move)));
+		assertThat(game.piece(Move.from(move)) == null, is(true));
 		assertThat(piece.type(), is(pieceType));
 		assertThat(game.containsBlackPiece(piece), is(true));
 		assertThat(game.halfMoveClock(), is(0));
@@ -98,8 +98,8 @@ public class MakeBlackPromotionMoveTest {
 		undoMove(game);
 
 		game.assertVerify();
-		assertThat(piece.field(), is(move.from()));
-		assertThat(game.piece(move.to()) == null, is(true));
+		assertThat(piece.field(), is(Move.from(move)));
+		assertThat(game.piece(Move.to(move)) == null, is(true));
 		assertThat(piece.type(), is(BlackPawn));
 		assertThat(game.containsBlackPiece(piece), is(true));
 		assertThat(game.halfMoveClock(), is(30));

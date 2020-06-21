@@ -7,7 +7,6 @@
  */
 package com.haymel.chess.engine.search;
 
-import com.haymel.chess.engine.moves.Move;
 import com.haymel.util.Require;
 
 public class MovesFromVariant {
@@ -18,13 +17,13 @@ public class MovesFromVariant {
 		this.variant = Require.nonNull(variant, "variant");
 	}
 	
-	public Move[] value() {
+	public int[] value() {
 		int size = variant.size(); 
-		Move[] moves = new Move[size];
+		int[] moves = new int[size];
 		
 		moves[0] = variant.move();
 		
-		Move[] src = variant.moves();
+		int[] src = variant.moves();
 		if (size > 1)
 			System.arraycopy(src, 0, moves, 1, src.length);
 		

@@ -27,7 +27,9 @@ import static com.haymel.chess.engine.board.Field.g6;
 import static com.haymel.chess.engine.board.Field.h1;
 import static com.haymel.chess.engine.board.Field.h8;
 import static com.haymel.chess.engine.board.Field.removed;
+import static com.haymel.chess.engine.moves.Move.newMove;
 import static com.haymel.chess.engine.moves.MoveType.capture;
+import static com.haymel.chess.engine.moves.MoveType.normal;
 import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
@@ -41,7 +43,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.haymel.chess.engine.board.Board;
-import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.piece.Piece;
 
@@ -66,9 +67,9 @@ public class BlackKnightMovesTest {
 		
 		assertThat(moves.size(), is(2));
 		
-		Set<Move> result = movesAsSet();
-		assertThat(result.contains(new Move(a1, b3)), is(true));
-		assertThat(result.contains(new Move(a1, c2)), is(true));
+		Set<Integer> result = movesAsSet();
+		assertThat(result.contains(newMove(a1, b3, normal)), is(true));
+		assertThat(result.contains(newMove(a1, c2, normal)), is(true));
 	}
 
 	@Test
@@ -78,9 +79,9 @@ public class BlackKnightMovesTest {
 		
 		assertThat(moves.size(), is(2));
 		
-		Set<Move> result = movesAsSet();
-		assertThat(result.contains(new Move(h1, g3)), is(true));
-		assertThat(result.contains(new Move(h1, f2)), is(true));
+		Set<Integer> result = movesAsSet();
+		assertThat(result.contains(newMove(h1, g3, normal)), is(true));
+		assertThat(result.contains(newMove(h1, f2, normal)), is(true));
 	}
 
 	@Test
@@ -90,9 +91,9 @@ public class BlackKnightMovesTest {
 		
 		assertThat(moves.size(), is(2));
 		
-		Set<Move> result = movesAsSet();
-		assertThat(result.contains(new Move(a8, b6)), is(true));
-		assertThat(result.contains(new Move(a8, c7)), is(true));
+		Set<Integer> result = movesAsSet();
+		assertThat(result.contains(newMove(a8, b6, normal)), is(true));
+		assertThat(result.contains(newMove(a8, c7, normal)), is(true));
 	}
 	
 	@Test
@@ -102,9 +103,9 @@ public class BlackKnightMovesTest {
 		
 		assertThat(moves.size(), is(2));
 		
-		Set<Move> result = movesAsSet();
-		assertThat(result.contains(new Move(h8, f7)), is(true));
-		assertThat(result.contains(new Move(h8, g6)), is(true));
+		Set<Integer> result = movesAsSet();
+		assertThat(result.contains(newMove(h8, f7, normal)), is(true));
+		assertThat(result.contains(newMove(h8, g6, normal)), is(true));
 	}
 	
 	@Test
@@ -114,15 +115,15 @@ public class BlackKnightMovesTest {
 		
 		assertThat(moves.size(), is(8));
 		
-		Set<Move> result = movesAsSet();
-		assertThat(result.contains(new Move(e4, d2)), is(true));
-		assertThat(result.contains(new Move(e4, c3)), is(true));
-		assertThat(result.contains(new Move(e4, c5)), is(true));
-		assertThat(result.contains(new Move(e4, d6)), is(true));
-		assertThat(result.contains(new Move(e4, f6)), is(true));
-		assertThat(result.contains(new Move(e4, g5)), is(true));
-		assertThat(result.contains(new Move(e4, g3)), is(true));
-		assertThat(result.contains(new Move(e4, f2)), is(true));
+		Set<Integer> result = movesAsSet();
+		assertThat(result.contains(newMove(e4, d2, normal)), is(true));
+		assertThat(result.contains(newMove(e4, c3, normal)), is(true));
+		assertThat(result.contains(newMove(e4, c5, normal)), is(true));
+		assertThat(result.contains(newMove(e4, d6, normal)), is(true));
+		assertThat(result.contains(newMove(e4, f6, normal)), is(true));
+		assertThat(result.contains(newMove(e4, g5, normal)), is(true));
+		assertThat(result.contains(newMove(e4, g3, normal)), is(true));
+		assertThat(result.contains(newMove(e4, f2, normal)), is(true));
 	}
 	
 	@Test
@@ -155,7 +156,7 @@ public class BlackKnightMovesTest {
 		knightMoves.generate(knight, moves);
 		
 		assertThat(moves.size(), is(8));
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(result.contains(capture(e4, d2)), is(true));
 		assertThat(result.contains(capture(e4, c3)), is(true));
 		assertThat(result.contains(capture(e4, c5)), is(true));
@@ -166,8 +167,8 @@ public class BlackKnightMovesTest {
 		assertThat(result.contains(capture(e4, f2)), is(true));
 	}
 	
-	private Move capture(int from, int to) {
-		return new Move(from, to, capture);
+	private int capture(int from, int to) {
+		return newMove(from, to, capture);
 	}
 	
 	private Piece blackPawn(int field) {
@@ -189,8 +190,8 @@ public class BlackKnightMovesTest {
 		board[knight.field()] = knight;
 	}
 	
-	private Set<Move> movesAsSet() {
-		Set<Move> result = new HashSet<Move>(moves.size());
+	private Set<Integer> movesAsSet() {
+		Set<Integer> result = new HashSet<>(moves.size());
 
 		int size = moves.size();
 		for(int i = 0; i < size; i++) 

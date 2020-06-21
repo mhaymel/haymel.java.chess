@@ -59,7 +59,7 @@ public final class Game {	//TODO unit test and refactor
 	private Piece[] board;
 	private int activeColor;
 
-	private final Move[] undos = new Move[1000];
+	private final int[] undos = new int[1000];
 	private int undosIndex = 0;
 	
 	private int enPassant;
@@ -136,17 +136,20 @@ public final class Game {	//TODO unit test and refactor
 		}
 	}
 
-	public void push(Move move) {
-		assert move != null;
+	public void push(int move) {
+		assert Move.validMove(move);
 
 		undos[undosIndex++] = move;
 		enPassantStack[enPassantStackIndex++] = enPassant;
 		enPassant = removed;
 	}
 	
-	public Move pop() {
-		Move undo = undos[--undosIndex];
+	public int pop() {
+		int undo = undos[--undosIndex];
 		enPassant = enPassantStack[--enPassantStackIndex];
+		
+		assert Move.validMove(undo);
+		
 		return undo;
 	}
 

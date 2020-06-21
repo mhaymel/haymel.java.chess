@@ -28,14 +28,13 @@ import static org.junit.Assert.assertThat;
 import org.junit.Test;
 
 import com.haymel.chess.engine.game.Game;
-import com.haymel.chess.engine.moves.Move;
 
 public class MakeWhitePawnMoveTest {
 
 	@Test
 	public void e2e3() {
 		Game game = fromFen("7k/8/8/8/8/8/4P3/7K w - - 45 30");
-		Move move = find("e2e3", game);
+		int move = find("e2e3", game);
 		
 		makeMove(move, game);
 		assertThat(game.piece(e3).type(), is(WhitePawn));
@@ -57,7 +56,7 @@ public class MakeWhitePawnMoveTest {
 	@Test
 	public void e3e4() {
 		Game game = fromFen("7k/8/8/8/8/4P3/8/7K w - - 45 30");
-		Move move = find("e3e4", game);
+		int move = find("e3e4", game);
 		
 		makeMove(move, game);
 		assertThat(game.piece(e4).type(), is(WhitePawn));
@@ -79,7 +78,7 @@ public class MakeWhitePawnMoveTest {
 	@Test
 	public void e2e3EnPassantResetted() {
 		Game game = fromFen("7k/8/8/4p3/8/8/4P3/7K w - e6 45 30");
-		Move move = find("e2e3", game);
+		int move = find("e2e3", game);
 		
 		makeMove(move, game);
 		assertThat(game.piece(e3).type(), is(WhitePawn));
@@ -101,7 +100,7 @@ public class MakeWhitePawnMoveTest {
 	@Test
 	public void e2d3Capture() {
 		Game game = fromFen("7k/8/8/8/8/3p4/4P3/7K w - - 45 30");
-		Move move = find("e2d3", game);
+		int move = find("e2d3", game);
 		
 		makeMove(move, game);
 		assertThat(game.piece(d3).type(), is(WhitePawn));

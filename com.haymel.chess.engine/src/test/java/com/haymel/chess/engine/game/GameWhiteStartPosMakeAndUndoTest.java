@@ -33,6 +33,8 @@ import static com.haymel.chess.engine.board.Field.g4;
 import static com.haymel.chess.engine.board.Field.h2;
 import static com.haymel.chess.engine.board.Field.h3;
 import static com.haymel.chess.engine.board.Field.h4;
+import static com.haymel.chess.engine.moves.Move.newMove;
+import static com.haymel.chess.engine.moves.MoveType.normal;
 import static com.haymel.chess.engine.moves.MoveType.pawn;
 import static com.haymel.chess.engine.moves.MoveType.pawnDoubleStep;
 import static java.lang.String.format;
@@ -47,6 +49,7 @@ import org.junit.Test;
 
 import com.haymel.chess.engine.fen.GameFromFEN;
 import com.haymel.chess.engine.moves.Move;
+import com.haymel.chess.engine.moves.MoveType;
 import com.haymel.chess.engine.moves.Moves;
 
 public class GameWhiteStartPosMakeAndUndoTest {
@@ -70,27 +73,27 @@ public class GameWhiteStartPosMakeAndUndoTest {
 		Moves moves = game.whiteMoves();
 		
 		assertThat(moves.size(), is(20));
-		Set<Move> result = movesAsSet(moves);
-		assertThat(result.contains(new Move(a2, a4, pawnDoubleStep)), is(true));
-		assertThat(result.contains(new Move(b2, b4, pawnDoubleStep)), is(true));
-		assertThat(result.contains(new Move(c2, c4, pawnDoubleStep)), is(true));
-		assertThat(result.contains(new Move(d2, d4, pawnDoubleStep)), is(true));
-		assertThat(result.contains(new Move(e2, e4, pawnDoubleStep)), is(true));
-		assertThat(result.contains(new Move(f2, f4, pawnDoubleStep)), is(true));
-		assertThat(result.contains(new Move(g2, g4, pawnDoubleStep)), is(true));
-		assertThat(result.contains(new Move(h2, h4, pawnDoubleStep)), is(true));
-		assertThat(result.contains(new Move(a2, a3, pawn)), is(true));
-		assertThat(result.contains(new Move(b2, b3, pawn)), is(true));
-		assertThat(result.contains(new Move(c2, c3, pawn)), is(true));
-		assertThat(result.contains(new Move(d2, d3, pawn)), is(true));
-		assertThat(result.contains(new Move(e2, e3, pawn)), is(true));
-		assertThat(result.contains(new Move(f2, f3, pawn)), is(true));
-		assertThat(result.contains(new Move(g2, g3, pawn)), is(true));
-		assertThat(result.contains(new Move(h2, h3, pawn)), is(true));
-		assertThat(result.contains(new Move(b1, a3)), is(true));
-		assertThat(result.contains(new Move(b1, c3)), is(true));
-		assertThat(result.contains(new Move(g1, f3)), is(true));
-		assertThat(result.contains(new Move(g1, h3)), is(true));
+		Set<Integer> result = movesAsSet(moves);
+		assertThat(result.contains(newMove(a2, a4, pawnDoubleStep)), is(true));
+		assertThat(result.contains(newMove(b2, b4, pawnDoubleStep)), is(true));
+		assertThat(result.contains(newMove(c2, c4, pawnDoubleStep)), is(true));
+		assertThat(result.contains(newMove(d2, d4, pawnDoubleStep)), is(true));
+		assertThat(result.contains(newMove(e2, e4, pawnDoubleStep)), is(true));
+		assertThat(result.contains(newMove(f2, f4, pawnDoubleStep)), is(true));
+		assertThat(result.contains(newMove(g2, g4, pawnDoubleStep)), is(true));
+		assertThat(result.contains(newMove(h2, h4, pawnDoubleStep)), is(true));
+		assertThat(result.contains(newMove(a2, a3, pawn)), is(true));
+		assertThat(result.contains(newMove(b2, b3, pawn)), is(true));
+		assertThat(result.contains(newMove(c2, c3, pawn)), is(true));
+		assertThat(result.contains(newMove(d2, d3, pawn)), is(true));
+		assertThat(result.contains(newMove(e2, e3, pawn)), is(true));
+		assertThat(result.contains(newMove(f2, f3, pawn)), is(true));
+		assertThat(result.contains(newMove(g2, g3, pawn)), is(true));
+		assertThat(result.contains(newMove(h2, h3, pawn)), is(true));
+		assertThat(result.contains(newMove(b1, a3, normal)), is(true));
+		assertThat(result.contains(newMove(b1, c3, normal)), is(true));
+		assertThat(result.contains(newMove(g1, f3, normal)), is(true));
+		assertThat(result.contains(newMove(g1, h3, normal)), is(true));
 	}
 
 	private void white(int depth) {
@@ -111,7 +114,7 @@ public class GameWhiteStartPosMakeAndUndoTest {
 			if (depth == 0)
 				System.out.print(format("%s:  ", size - i));
 		
-			Move move = moves.move(i);
+			int move = moves.move(i);
 			makeMove.makeMove(move);
 			black(depth + 1);
 			makeMove.undoMove();
@@ -140,7 +143,7 @@ public class GameWhiteStartPosMakeAndUndoTest {
 			if (depth == 1)
 				System.out.print(format("%s ", size - i));
 			
-			Move move = moves.move(i);
+			int move = moves.move(i);
 			makeMove.makeMove(move);
 			white(depth + 1);
 			makeMove.undoMove();
@@ -148,8 +151,8 @@ public class GameWhiteStartPosMakeAndUndoTest {
 		}
 	}
 
-	private Set<Move> movesAsSet(Moves moves) {
-		Set<Move> result = new HashSet<Move>(moves.size());
+	private Set<Integer> movesAsSet(Moves moves) {
+		Set<Integer> result = new HashSet<>(moves.size());
 
 		int size = moves.size();
 		for(int i = 0; i < size; i++) 

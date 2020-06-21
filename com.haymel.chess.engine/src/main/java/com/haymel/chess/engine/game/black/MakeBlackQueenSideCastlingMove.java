@@ -23,13 +23,13 @@ import com.haymel.chess.engine.piece.Piece;
 
 public final class MakeBlackQueenSideCastlingMove {
 
-	public static void make(Game game, Move move) {
+	public static void make(Game game, int move) {
 		assert game != null;
-		assert move != null;
+		assert Move.validMove(move);
 		assert game.assertVerify();
 		assert game.activeColor() == black;
-		assert move.from() == e8;
-		assert move.to() == c8;
+		assert Move.from(move) == e8;
+		assert Move.to(move) == c8;
 		assert game.piece(e8).type() == BlackKing;
 		assert game.piece(a8).type() == BlackRook;
 		assert game.piece(b8) == null;
@@ -69,9 +69,9 @@ public final class MakeBlackQueenSideCastlingMove {
 		assert game.assertVerify();
 	}
 
-	public static void undo(Game game, Move move) {
+	public static void undo(Game game, int move) {
 		assert game != null;
-		assert move != null;
+		assert Move.validMove(move);
 		assert game.assertVerify();
 		assert game.piece(e8) == null;
 		assert game.piece(a8) == null;

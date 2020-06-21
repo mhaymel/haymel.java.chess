@@ -25,12 +25,12 @@ public final class MakeMove {	//TODO unit test
 		this.game = game;
 	}
 	
-	public void makeMove(Move move) {
-		assert move != null;
+	public void makeMove(int move) {
+		assert Move.validMove(move);
 		assert game.assertVerify();
 		assert 
-			activeColor() == white && PieceType.white(game.piece(move.from()).type()) || 
-			activeColor() == black && PieceType.black(game.piece(move.from()).type())      : "" + activeColor() + " " + move.toString();
+			activeColor() == white && PieceType.white(game.piece(Move.from(move)).type()) || 
+			activeColor() == black && PieceType.black(game.piece(Move.from(move)).type())      : "" + activeColor() + " " + Move.asString(move);
 		
 		switch(activeColor()) {
 		case black:

@@ -20,14 +20,14 @@ import java.util.stream.Stream;
 
 public class Moves {
 	
-	private final Move[] moves;
+	private final int[] moves;
 	private int index = 0;
 	
 	public Moves() {
-		moves = new Move[200];
+		moves = new int[200];
 	}
 	
-	public Move[] moves() {
+	public int[] moves() {
 		return moves;
 	}
 	
@@ -37,10 +37,12 @@ public class Moves {
 		assert from != to;
 		assert validMoveType(type);
 	
-		moves[index++] = new Move(from, to, type);
+		moves[index++] = Move.newMove(from, to, type);
 	}
 
-	public void add(Move move) {
+	public void add(int move) {
+		Move.validMove(move);
+		
 		moves[index++] = move;
 	}
 
@@ -50,27 +52,34 @@ public class Moves {
 	
 	@Override
 	public String toString() {
-		List<String> strings = movesStream().map(Move::toString).collect(toList());		
+		List<String> strings = movesStream().map((move) -> Move.asString(move)).collect(toList());		
 		return String.format("Moves(%s)", join(", ", strings));
 	}
 	
-	private Stream<Move> movesStream() {
-		ArrayList<Move> list = new ArrayList<Move>(index);
+	private Stream<Integer> movesStream() {
+		ArrayList<Integer> list = new ArrayList<>(index);
 		for(int i = 0; i < index; i++)
 			list.add(moves[i]);
 		return list.stream();
 	}
 
-	public Move move(int index) {
+	public int move(int index) {
 		return moves[index];
 	}
 	
-	public List<Move> findMoves(int from, int to) {
+	public void swap(int i, int j) {
+		int tmp = moves[i];
+		moves[i] = moves[j];
+		moves[j] = tmp;
+		
+	}
+	
+	public List<Integer> findMoves(int from, int to) {
 		nonNull(from, "from");
 		nonNull(to, "to");
 		assert from != to;
 		
-		Predicate<Move> match = move -> (move.from() == from) && (move.to() == to);
+		Predicate<Integer> match = move -> (Move.from(move) == from) && (Move.to(move) == to);
 		return movesStream().filter(match).collect(toList());
 	}
 

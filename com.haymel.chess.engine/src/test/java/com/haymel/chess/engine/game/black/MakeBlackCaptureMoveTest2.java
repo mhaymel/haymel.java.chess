@@ -16,14 +16,13 @@ import org.junit.Test;
 
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.game.TestHelper;
-import com.haymel.chess.engine.moves.Move;
 
 public class MakeBlackCaptureMoveTest2 {
 
 	@Test
 	public void makeAndUndo() {
 		Game game = TestHelper.fromFen("r6k/8/8/8/8/8/8/R6K b - - 13 5");
-		Move move = TestHelper.find("a8a1", game);
+		int move = TestHelper.find("a8a1", game);
 		
 		makeMove(move, game);
 		assertThat(game.halfMoveClock(), is(0));

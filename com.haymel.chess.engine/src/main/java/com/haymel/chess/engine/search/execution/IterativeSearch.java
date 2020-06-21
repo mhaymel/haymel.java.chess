@@ -11,7 +11,6 @@ import static com.haymel.chess.engine.search.SearchInfo.noopSearchInfo;
 import static com.haymel.util.Require.nonNull;
 
 import com.haymel.chess.engine.game.Game;
-import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.search.BestMove;
 import com.haymel.chess.engine.search.MovesFromVariant;
 import com.haymel.chess.engine.search.NodesCalculator;
@@ -54,7 +53,7 @@ public class IterativeSearch implements Search {  	//TODO unit test
 			return bestMove;
 		
 		for(int depth = initialDepth + 1; ; depth++) {
-			Move[] pv = new MovesFromVariant(bestMove.variant()).value();
+			int[] pv = new MovesFromVariant(bestMove.variant()).value();
 			
 			try {
 				bestMove = search.execute(depth, pv, stopAt);
