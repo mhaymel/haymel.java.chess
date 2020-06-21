@@ -82,22 +82,22 @@ public class MakeBlackCapturePromotionMoveTest {
 	
 	
 	private void test(String moveString, int promotedPieceType) {
-		Move move = find(moveString, game);
+		int move = find(moveString, game);
 		makeMove(move, game);
 		
-		assertThat(game.piece(move.to()).type(), is(promotedPieceType));
-		assertThat(game.piece(move.from()), is(nullValue()));
-		assertThat(game.containsBlackPiece(game.piece(move.to())), is(true));
+		assertThat(game.piece(Move.to(move)).type(), is(promotedPieceType));
+		assertThat(game.piece(Move.from(move)), is(nullValue()));
+		assertThat(game.containsBlackPiece(game.piece(Move.to(move))), is(true));
 		assertThat(game.halfMoveClock(), is(0));
 		assertThat(game.fullMoveNumber(), is(11));
 		assertThat(game.enPassant(), is(removed));
 		assertThat(game.activeColor(), is(white));
 		
 		undoMove(game);
-		assertThat(game.piece(move.from()).type(), is(BlackPawn));
-		assertThat(game.piece(move.to()).type(), is(WhiteKnight));
-		assertThat(game.containsBlackPiece(game.piece(move.from())), is(true));
-		assertThat(game.containsWhitePiece(game.piece(move.to())), is(true));
+		assertThat(game.piece(Move.from(move)).type(), is(BlackPawn));
+		assertThat(game.piece(Move.to(move)).type(), is(WhiteKnight));
+		assertThat(game.containsBlackPiece(game.piece(Move.from(move))), is(true));
+		assertThat(game.containsWhitePiece(game.piece(Move.to(move))), is(true));
 		assertThat(game.halfMoveClock(), is(13));
 		assertThat(game.fullMoveNumber(), is(10));
 		assertThat(game.enPassant(), is(a3));

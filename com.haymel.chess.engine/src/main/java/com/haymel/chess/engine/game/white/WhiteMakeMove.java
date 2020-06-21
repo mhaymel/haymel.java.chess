@@ -21,12 +21,13 @@ import com.haymel.chess.engine.piece.PieceType;
 
 public final class WhiteMakeMove {	//TODO unit test
 
-	public static void makeMove(Game game, Move move) {
+	public static void makeMove(Game game, int move) {
 		assert game.assertVerify();
+		assert Move.validMove(move);
 		assert game.activeColor() == white;
-		assert PieceType.white(game.piece(move.from()).type());
+		assert PieceType.white(game.piece(Move.from(move)).type());
 		
-		switch(move.type()) {
+		switch(Move.type(move)) {
 		case MoveType.normal:
 			MakeWhiteMove.make(game, move);
 			break;
@@ -85,7 +86,7 @@ public final class WhiteMakeMove {	//TODO unit test
 			MakeWhitePromotionMove.make(game, move, WhiteKnight);
 			break;
 		default:
-			assert false : "unknown move type " + move.type();
+			assert false : "unknown move type " + Move.type(move);
 			break;
 		}
 		
@@ -97,9 +98,9 @@ public final class WhiteMakeMove {	//TODO unit test
 		assert game.assertVerify();
 		assert game.activeColor() == black; 
 		
-		Move move = game.pop();
+		int move = game.pop();
 		
-		switch(move.type()) {
+		switch(Move.type(move)) {
 		case MoveType.normal:
 			MakeWhiteMove.undo(game, move);
 			break;
@@ -146,7 +147,7 @@ public final class WhiteMakeMove {	//TODO unit test
 			MakeWhitePromotionMove.undo(game, move);
 			break;
 		default:
-			assert false : "unknown move type " + move.type();
+			assert false : "unknown move type " + Move.type(move);
 			break;
 		}
 		

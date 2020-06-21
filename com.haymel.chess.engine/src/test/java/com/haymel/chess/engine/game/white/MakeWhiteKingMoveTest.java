@@ -30,14 +30,14 @@ public class MakeWhiteKingMoveTest {
 	@Test
 	public void makeAndUndo() {
 		Game game = fromFen("r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 13 10");
-		Move move = find("e1e2", game);
+		int move = find("e1e2", game);
 
 		makeMove(move, game);
 		assertThat(game.castlingRight().white().kingside(), is(false));
 		assertThat(game.castlingRight().white().queenside(), is(false));
 		assertThat(game.castlingRight().black().kingside(), is(true));
 		assertThat(game.castlingRight().black().queenside(), is(true));
-		assertThat(game.piece(move.to()).type(), is(WhiteKing));
+		assertThat(game.piece(Move.to(move)).type(), is(WhiteKing));
 		assertThat(game.piece(e1), is(nullValue()));
 		assertThat(game.halfMoveClock(), is(14));
 		assertThat(game.fullMoveNumber(), is(10));
@@ -48,7 +48,7 @@ public class MakeWhiteKingMoveTest {
 		assertThat(game.castlingRight().white().queenside(), is(true));
 		assertThat(game.castlingRight().black().kingside(), is(true));
 		assertThat(game.castlingRight().black().queenside(), is(true));
-		assertThat(game.piece(move.from()).type(), is(WhiteKing));
+		assertThat(game.piece(Move.from(move)).type(), is(WhiteKing));
 		assertThat(game.piece(e2), is(nullValue()));
 		assertThat(game.halfMoveClock(), is(13));
 		assertThat(game.fullMoveNumber(), is(10));
@@ -58,14 +58,14 @@ public class MakeWhiteKingMoveTest {
 	@Test
 	public void enPassantIsSetCorrectly() {
 		Game game = fromFen("r3k2r/8/8/2p5/8/8/8/R3K2R w KQkq c6 13 10");
-		Move move = find("e1e2", game);
+		int move = find("e1e2", game);
 
 		makeMove(move, game);
 		assertThat(game.castlingRight().white().kingside(), is(false));
 		assertThat(game.castlingRight().white().queenside(), is(false));
 		assertThat(game.castlingRight().black().kingside(), is(true));
 		assertThat(game.castlingRight().black().queenside(), is(true));
-		assertThat(game.piece(move.to()).type(), is(WhiteKing));
+		assertThat(game.piece(Move.to(move)).type(), is(WhiteKing));
 		assertThat(game.piece(e1), is(nullValue()));
 		assertThat(game.halfMoveClock(), is(14));
 		assertThat(game.fullMoveNumber(), is(10));
@@ -76,7 +76,7 @@ public class MakeWhiteKingMoveTest {
 		assertThat(game.castlingRight().white().queenside(), is(true));
 		assertThat(game.castlingRight().black().kingside(), is(true));
 		assertThat(game.castlingRight().black().queenside(), is(true));
-		assertThat(game.piece(move.from()).type(), is(WhiteKing));
+		assertThat(game.piece(Move.from(move)).type(), is(WhiteKing));
 		assertThat(game.piece(e2), is(nullValue()));
 		assertThat(game.halfMoveClock(), is(13));
 		assertThat(game.fullMoveNumber(), is(10));

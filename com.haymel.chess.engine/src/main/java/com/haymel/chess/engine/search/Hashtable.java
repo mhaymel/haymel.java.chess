@@ -16,19 +16,22 @@ public class Hashtable {							//TODO unit test
 	
 //	private static final int size = 1_000_000_007;
 	private static final int size = 1;
-	private final Move[] moves = new Move[size];
+	private final int[] moves = new int[size];
 	
-	public Move get(long hash) {
+	public int get(long hash) {
 		count++;
 		
-		Move move = moves[index(hash)];
-		if (move != null)
+		int move = moves[index(hash)];
+		if (move != 0)
 			hit++;
+		
+		Move.validMove(move);
 		
 		return move;
 	}
 
-	public void put(long hash, Move move) {
+	public void put(long hash, int move) {
+		Move.validMove(move);
 		moves[index(hash)] = move;
 	}
 	

@@ -7,10 +7,8 @@
  */
 package com.haymel.chess.engine.search.movesorting;
 
-import com.haymel.chess.engine.moves.Move;
-
 public interface MoveIterator {
 
-	Move next();
+	int next();
 	
 }

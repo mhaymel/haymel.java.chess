@@ -9,6 +9,7 @@ package com.haymel.chess.engine.search.movesorting;
 
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.moves.Move;
+import com.haymel.chess.engine.moves.Moves;
 
 class PVMoveIteratorNoHistoryCreator implements MoveIteratorCreator {	//TODO unit test
 
@@ -20,12 +21,11 @@ class PVMoveIteratorNoHistoryCreator implements MoveIteratorCreator {	//TODO uni
 	}
 	
 	@Override
-	public MoveIterator create(Move[] moves, int count, Move pv, Move history) {
+	public MoveIterator create(Moves moves, int count, int pv, int history) {
 		assert moves != null;
 		assert count > 0;
-		assert count <= moves.length;
 		
-		return new PVMoveIterator(game, moves, count, pv, null);
+		return new PVMoveIterator(game, moves, count, pv, 0);
 	}
 
 }

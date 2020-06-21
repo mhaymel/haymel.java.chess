@@ -26,14 +26,13 @@ import static org.junit.Assert.assertThat;
 import org.junit.Test;
 
 import com.haymel.chess.engine.game.Game;
-import com.haymel.chess.engine.moves.Move;
 
 public class MakeBlackKingSideCastlingMoveTest {
 	
 	@Test
 	public void makeAndUndo() {
 		Game game = fromFen("r3k2r/8/8/8/8/8/8/R3K2R b KQkq - 13 10");
-		Move move = find("e8g8", game);
+		int move = find("e8g8", game);
 		
 		makeMove(move, game);
 		assertThat(game.castlingRight().black().kingside(), is(false));
@@ -65,7 +64,7 @@ public class MakeBlackKingSideCastlingMoveTest {
 	@Test
 	public void enPassantIsSetCorrectly() {
 		Game game = fromFen("r3k2r/8/8/8/4P3/8/8/R3K2R b KQkq e3 13 10");
-		Move move = find("e8g8", game);
+		int move = find("e8g8", game);
 		
 		makeMove(move, game);
 		assertThat(game.castlingRight().black().kingside(), is(false));

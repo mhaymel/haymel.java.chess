@@ -27,32 +27,32 @@ import com.haymel.chess.engine.piece.Piece;
 
 public final class MakeBlackPromotionMove {
 
-	public static void make(Game game, Move move, int pieceType) {
+	public static void make(Game game, int move, int pieceType) {
 		assert game != null;
-		assert move != null;
+		assert Move.validMove(move);
 		assert game.assertVerify();
 		assert game.activeColor() == black; 
 		assert 
-			move.type() == promotionQueen ||
-			move.type() == promotionRook ||
-			move.type() == promotionBishop ||
-			move.type() == promotionKnight;
-		assert game.piece(move.from()).type() == BlackPawn;
-		assert game.piece(move.to()) == null;
-		assert rank(move.from()) == 1;
-		assert rank(move.to()) == 0;
-		assert file(move.from()) == file(move.to());
+			Move.type(move) == promotionQueen ||
+			Move.type(move) == promotionRook ||
+			Move.type(move) == promotionBishop ||
+			Move.type(move) == promotionKnight;
+		assert game.piece(Move.from(move)).type() == BlackPawn;
+		assert game.piece(Move.to(move)) == null;
+		assert rank(Move.from(move)) == 1;
+		assert rank(Move.to(move)) == 0;
+		assert file(Move.from(move)) == file(Move.to(move));
 		assert game.halfMoveClock() >= 0;
 		assert game.fullMoveNumber() >= 1;
 		assert pieceType == BlackQueen || pieceType == BlackRook  || pieceType == BlackBishop  || pieceType == BlackKnight;
-		assert game.containsBlackPiece(game.piece(move.from()));
+		assert game.containsBlackPiece(game.piece(Move.from(move)));
 		
-		Piece piece = game.piece(move.from());
-		game.clear(move.from());
+		Piece piece = game.piece(Move.from(move));
+		game.clear(Move.from(move));
 		piece.captured(true);
 		game.removeBlack(piece);
 		piece.type(pieceType);
-		piece.field(move.to());
+		piece.field(Move.to(move));
 		piece.captured(false);
 		game.addBlack(piece);
 		game.place(piece);
@@ -63,40 +63,40 @@ public final class MakeBlackPromotionMove {
 
 		assert game.containsBlackPiece(piece);
 		assert game.activeColor() == white; 
-		assert game.piece(move.from()) == null;
-		assert game.piece(move.to()).type() == pieceType;
+		assert game.piece(Move.from(move)) == null;
+		assert game.piece(Move.to(move)).type() == pieceType;
 		assert game.halfMoveClock() == 0;
 		assert game.fullMoveNumber() >= 2;
 		assert game.assertVerify();
 	}
 
-	public static void undo(Game game, Move move) {
+	public static void undo(Game game, int move) {
 		assert game != null;
-		assert move != null;
+		assert Move.validMove(move);
 		assert game.assertVerify();
 		assert game.activeColor() == white; 
 		assert 
-			move.type() == promotionQueen ||
-			move.type() == promotionRook ||
-			move.type() == promotionBishop ||
-			move.type() == promotionKnight;
-		assert game.piece(move.from()) == null;
-		assert rank(move.from()) == 1;
-		assert rank(move.to()) == 0;
-		assert file(move.from()) == file(move.to());
+			Move.type(move) == promotionQueen ||
+			Move.type(move) == promotionRook ||
+			Move.type(move) == promotionBishop ||
+			Move.type(move) == promotionKnight;
+		assert game.piece(Move.from(move)) == null;
+		assert rank(Move.from(move)) == 1;
+		assert rank(Move.to(move)) == 0;
+		assert file(Move.from(move)) == file(Move.to(move));
 		assert game.halfMoveClock() >= 0;
 		assert game.fullMoveNumber() >= 1;
-		assert game.containsBlackPiece(game.piece(move.to()));
+		assert game.containsBlackPiece(game.piece(Move.to(move)));
 	
 		game.decFullMoveNumber();
 		game.activeColorBlack();
 		game.popHalfMoveClock();
-		Piece piece = game.piece(move.to());
-		game.clear(move.to());
+		Piece piece = game.piece(Move.to(move));
+		game.clear(Move.to(move));
 		piece.captured(true);
 		game.removeBlack(piece);
 		piece.type(BlackPawn);
-		piece.field(move.from());
+		piece.field(Move.from(move));
 		piece.captured(false);
 		game.addBlack(piece);
 		game.place(piece);
@@ -105,8 +105,8 @@ public final class MakeBlackPromotionMove {
 		assert game.halfMoveClock() >= 0;
 		assert game.fullMoveNumber() >= 1;
 		assert game.activeColor() == black; 
-		assert game.piece(move.to()) == null;
-		assert game.piece(move.from()).type() == BlackPawn;
+		assert game.piece(Move.to(move)) == null;
+		assert game.piece(Move.from(move)).type() == BlackPawn;
 		assert game.assertVerify();
 	}
 

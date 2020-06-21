@@ -66,12 +66,12 @@ public class SearchAlphaBetaTest {
 //		
 //		SearchAlphaBeta search = new SearchAlphaBeta(game, currentMoveConsumer());
 //		Move move = search.execute(1).move();
-//		String moveAsString = move.from().toString()+ move.to().toString();
+//		String moveAsString = Move.from(move).toString()+ Move.to(move).toString();
 //		System.out.println(moveAsString);
 //	}
 	
-	private static String asString(Move move) {
-		return fieldAsString(move.from()) + fieldAsString(move.to());
+	private static String asString(int move) {
+		return fieldAsString(Move.from(move)) + fieldAsString(Move.to(move));
 	}
 	
 }

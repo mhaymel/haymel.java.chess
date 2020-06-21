@@ -35,8 +35,8 @@ public class NodesRequiredToFindG1F3Test {
 		assertThat(bestMove.nodes().count(), lessThan(700L));
 	}
 	
-	private static String asString(Move move) {
-		return fieldAsString(move.from()) + fieldAsString(move.to());
+	private static String asString(int move) {
+		return fieldAsString(Move.from(move)) + fieldAsString(Move.to(move));
 	}
 
 }

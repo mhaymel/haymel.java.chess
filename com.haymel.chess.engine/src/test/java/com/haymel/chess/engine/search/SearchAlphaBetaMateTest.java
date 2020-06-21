@@ -94,8 +94,8 @@ public class SearchAlphaBetaMateTest {
 		System.out.println(String.format("%s: %s/%s", asString(move.move()), move.moveNumber(), move.numberOfPossibleMoves()));
 	}
 
-	private static String asString(Move move) {
-		return fieldAsString(move.from()) + fieldAsString(move.to());
+	private static String asString(int move) {
+		return fieldAsString(Move.from(move)) + fieldAsString(Move.to(move));
 	}
 	
 	private String asString(Variant variant) {
@@ -103,7 +103,7 @@ public class SearchAlphaBetaMateTest {
 		sb.append(asString(variant.move()));
 		
 		if (variant.moves() != null)
-			for(Move move: variant.moves()) 
+			for(int move: variant.moves()) 
 				sb.append(" ").append(asString(move));
 		
 		return sb.toString();

@@ -15,7 +15,6 @@ import org.junit.Test;
 
 import com.haymel.chess.engine.fen.GameFromFEN;
 import com.haymel.chess.engine.game.Game;
-import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.StringFromMove;
 
 public class SearchAlphaBetaAvoidStalemateTest {
@@ -30,7 +29,7 @@ public class SearchAlphaBetaAvoidStalemateTest {
 		assertThat(asString(bestMove.move()), not("e6e7"));
 	}
 	
-	private static String asString(Move move) {
+	private static String asString(int move) {
 		return new StringFromMove(move).value();
 	}
 	

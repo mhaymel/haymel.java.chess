@@ -59,7 +59,7 @@ public class Perft {
 		MakeMove makeMove = new MakeMove(game);
 		int size = moves.size();
 		for(int i = 0; i < size; i++) {
-			Move move = moves.move(i);
+			int move = moves.move(i);
 			makeMove.makeMove(move);
 			black(depth + 1);
 			makeMove.undoMove();
@@ -80,7 +80,7 @@ public class Perft {
 		MakeMove makeMove = new MakeMove(game);
 		int size = moves.size();
 		for(int i = 0; i < size; i++) {
-			Move move = moves.move(i);
+			int move = moves.move(i);
 			makeMove.makeMove(move);
 			white(depth + 1);
 			makeMove.undoMove();

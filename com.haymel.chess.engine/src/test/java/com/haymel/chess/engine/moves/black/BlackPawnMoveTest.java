@@ -41,6 +41,7 @@ import static com.haymel.chess.engine.board.Field.h5;
 import static com.haymel.chess.engine.board.Field.h6;
 import static com.haymel.chess.engine.board.Field.h7;
 import static com.haymel.chess.engine.board.Field.removed;
+import static com.haymel.chess.engine.moves.Move.newMove;
 import static com.haymel.chess.engine.moves.MoveType.capture;
 import static com.haymel.chess.engine.moves.MoveType.capturePromotionBishop;
 import static com.haymel.chess.engine.moves.MoveType.capturePromotionKnight;
@@ -66,7 +67,6 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.piece.Piece;
 
@@ -89,9 +89,9 @@ public class BlackPawnMoveTest {
 		
 		assertThat(moves.size(), is(2));
 		
-		Set<Move> result = movesAsSet();
- 		assertThat(result.contains(new Move(a7, a6, pawn)), is(true));
-		assertThat(result.contains(new Move(a7, a5, pawnDoubleStep)), is(true));
+		Set<Integer> result = movesAsSet();
+ 		assertThat(result.contains(newMove(a7, a6, pawn)), is(true));
+		assertThat(result.contains(newMove(a7, a5, pawnDoubleStep)), is(true));
 	}
 	
 	@Test
@@ -100,9 +100,9 @@ public class BlackPawnMoveTest {
 		
 		assertThat(moves.size(), is(2));
 		
-		Set<Move> result = movesAsSet();
-		assertThat(result.contains(new Move(b7, b6, pawn)), is(true));
-		assertThat(result.contains(new Move(b7, b5, pawnDoubleStep)), is(true));
+		Set<Integer> result = movesAsSet();
+		assertThat(result.contains(newMove(b7, b6, pawn)), is(true));
+		assertThat(result.contains(newMove(b7, b5, pawnDoubleStep)), is(true));
 	}
 	
 	@Test
@@ -111,9 +111,9 @@ public class BlackPawnMoveTest {
 		
 		assertThat(moves.size(), is(2));
 		
-		Set<Move> result = movesAsSet();
-		assertThat(result.contains(new Move(c7, c6, pawn)), is(true));
-		assertThat(result.contains(new Move(c7, c5, pawnDoubleStep)), is(true));
+		Set<Integer> result = movesAsSet();
+		assertThat(result.contains(newMove(c7, c6, pawn)), is(true));
+		assertThat(result.contains(newMove(c7, c5, pawnDoubleStep)), is(true));
 	}
 
 	@Test
@@ -122,9 +122,9 @@ public class BlackPawnMoveTest {
 		
 		assertThat(moves.size(), is(2));
 		
-		Set<Move> result = movesAsSet();
-		assertThat(result.contains(new Move(d7, d6, pawn)), is(true));
-		assertThat(result.contains(new Move(d7, d5, pawnDoubleStep)), is(true));
+		Set<Integer> result = movesAsSet();
+		assertThat(result.contains(newMove(d7, d6, pawn)), is(true));
+		assertThat(result.contains(newMove(d7, d5, pawnDoubleStep)), is(true));
 	}
 
 	@Test
@@ -133,9 +133,9 @@ public class BlackPawnMoveTest {
 		
 		assertThat(moves.size(), is(2));
 		
-		Set<Move> result = movesAsSet();
- 		assertThat(result.contains(new Move(e7, e6, pawn)), is(true));
-		assertThat(result.contains(new Move(e7, e5, pawnDoubleStep)), is(true));
+		Set<Integer> result = movesAsSet();
+ 		assertThat(result.contains(newMove(e7, e6, pawn)), is(true));
+		assertThat(result.contains(newMove(e7, e5, pawnDoubleStep)), is(true));
 	}
 
 	@Test
@@ -144,9 +144,9 @@ public class BlackPawnMoveTest {
 		
 		assertThat(moves.size(), is(2));
 		
-		Set<Move> result = movesAsSet();
-		assertThat(result.contains(new Move(f7, f6, pawn)), is(true));
-		assertThat(result.contains(new Move(f7, f5, pawnDoubleStep)), is(true));
+		Set<Integer> result = movesAsSet();
+		assertThat(result.contains(newMove(f7, f6, pawn)), is(true));
+		assertThat(result.contains(newMove(f7, f5, pawnDoubleStep)), is(true));
 	}
 
 	@Test
@@ -155,9 +155,9 @@ public class BlackPawnMoveTest {
 		
 		assertThat(moves.size(), is(2));
 		
-		Set<Move> result = movesAsSet();
-		assertThat(result.contains(new Move(g7, g6, pawn)), is(true));
-		assertThat(result.contains(new Move(g7, g5, pawnDoubleStep)), is(true));
+		Set<Integer> result = movesAsSet();
+		assertThat(result.contains(newMove(g7, g6, pawn)), is(true));
+		assertThat(result.contains(newMove(g7, g5, pawnDoubleStep)), is(true));
 	}
 	
 	@Test
@@ -166,9 +166,9 @@ public class BlackPawnMoveTest {
 		
 		assertThat(moves.size(), is(2));
 		
-		Set<Move> result = movesAsSet();
-		assertThat(result.contains(new Move(h7, h6, pawn)), is(true));
-		assertThat(result.contains(new Move(h7, h5, pawnDoubleStep)), is(true));
+		Set<Integer> result = movesAsSet();
+		assertThat(result.contains(newMove(h7, h6, pawn)), is(true));
+		assertThat(result.contains(newMove(h7, h5, pawnDoubleStep)), is(true));
 	}
 	
 	@Test
@@ -177,8 +177,8 @@ public class BlackPawnMoveTest {
 		
 		assertThat(moves.size(), is(1));
 		
-		Set<Move> result = movesAsSet();
-		assertThat(result.contains(new Move(e6, e5, pawn)), is(true));
+		Set<Integer> result = movesAsSet();
+		assertThat(result.contains(newMove(e6, e5, pawn)), is(true));
 	}
 	
 	@Test
@@ -202,8 +202,8 @@ public class BlackPawnMoveTest {
 		
 		assertThat(moves.size(), is(1));
 		
-		Set<Move> result = movesAsSet();
- 		assertThat(result.contains(new Move(e7, e6, pawn)), is(true));
+		Set<Integer> result = movesAsSet();
+ 		assertThat(result.contains(newMove(e7, e6, pawn)), is(true));
 	}
 
 	@Test
@@ -214,8 +214,8 @@ public class BlackPawnMoveTest {
 		
 		assertThat(moves.size(), is(1));
 		
-		Set<Move> result = movesAsSet();
-		assertThat(result.contains(new Move(e7, e6, pawn)), is(true));
+		Set<Integer> result = movesAsSet();
+		assertThat(result.contains(newMove(e7, e6, pawn)), is(true));
 	}
 	
 	@Test
@@ -227,9 +227,9 @@ public class BlackPawnMoveTest {
 		
 		assertThat(moves.size(), is(4));
 		
-		Set<Move> result = movesAsSet();
-		assertThat(result.contains(new Move(e7, e6, pawn)), is(true));
-		assertThat(result.contains(new Move(e7, e5, pawnDoubleStep)), is(true));
+		Set<Integer> result = movesAsSet();
+		assertThat(result.contains(newMove(e7, e6, pawn)), is(true));
+		assertThat(result.contains(newMove(e7, e5, pawnDoubleStep)), is(true));
 		assertThat(result.contains(capture(e7, d6)), is(true));
 		assertThat(result.contains(capture(e7, f6)), is(true));
 	}
@@ -243,9 +243,9 @@ public class BlackPawnMoveTest {
 		
 		assertThat(moves.size(), is(2));
 		
-		Set<Move> result = movesAsSet();
-		assertThat(result.contains(new Move(e7, e6, pawn)), is(true));
-		assertThat(result.contains(new Move(e7, e5, pawnDoubleStep)), is(true));
+		Set<Integer> result = movesAsSet();
+		assertThat(result.contains(newMove(e7, e6, pawn)), is(true));
+		assertThat(result.contains(newMove(e7, e5, pawnDoubleStep)), is(true));
 	}
 
 	@Test
@@ -254,11 +254,11 @@ public class BlackPawnMoveTest {
 		
 		assertThat(moves.size(), is(4));
 		
-		Set<Move> result = movesAsSet();
-		assertThat(result.contains(new Move(e2, e1, promotionQueen)), is(true));
-		assertThat(result.contains(new Move(e2, e1, promotionRook)), is(true));
-		assertThat(result.contains(new Move(e2, e1, promotionBishop)), is(true));
-		assertThat(result.contains(new Move(e2, e1, promotionKnight)), is(true));
+		Set<Integer> result = movesAsSet();
+		assertThat(result.contains(newMove(e2, e1, promotionQueen)), is(true));
+		assertThat(result.contains(newMove(e2, e1, promotionRook)), is(true));
+		assertThat(result.contains(newMove(e2, e1, promotionBishop)), is(true));
+		assertThat(result.contains(newMove(e2, e1, promotionKnight)), is(true));
 	}
 
 	@Test
@@ -285,11 +285,11 @@ public class BlackPawnMoveTest {
 		
 		assertThat(moves.size(), is(4));
 		
-		Set<Move> result = movesAsSet();
-		assertThat(result.contains(new Move(e2, d1, capturePromotionQueen)), is(true));
-		assertThat(result.contains(new Move(e2, d1, capturePromotionRook)), is(true));
-		assertThat(result.contains(new Move(e2, d1, capturePromotionBishop)), is(true));
-		assertThat(result.contains(new Move(e2, d1, capturePromotionKnight)), is(true));
+		Set<Integer> result = movesAsSet();
+		assertThat(result.contains(newMove(e2, d1, capturePromotionQueen)), is(true));
+		assertThat(result.contains(newMove(e2, d1, capturePromotionRook)), is(true));
+		assertThat(result.contains(newMove(e2, d1, capturePromotionBishop)), is(true));
+		assertThat(result.contains(newMove(e2, d1, capturePromotionKnight)), is(true));
 	}
 	
 	@Test
@@ -300,11 +300,11 @@ public class BlackPawnMoveTest {
 		
 		assertThat(moves.size(), is(4));
 		
-		Set<Move> result = movesAsSet();
-		assertThat(result.contains(new Move(e2, f1, capturePromotionQueen)), is(true));
-		assertThat(result.contains(new Move(e2, f1, capturePromotionRook)), is(true));
-		assertThat(result.contains(new Move(e2, f1, capturePromotionBishop)), is(true));
-		assertThat(result.contains(new Move(e2, f1, capturePromotionKnight)), is(true));
+		Set<Integer> result = movesAsSet();
+		assertThat(result.contains(newMove(e2, f1, capturePromotionQueen)), is(true));
+		assertThat(result.contains(newMove(e2, f1, capturePromotionRook)), is(true));
+		assertThat(result.contains(newMove(e2, f1, capturePromotionBishop)), is(true));
+		assertThat(result.contains(newMove(e2, f1, capturePromotionKnight)), is(true));
 	}
 	
 	@Test
@@ -315,19 +315,19 @@ public class BlackPawnMoveTest {
 		
 		assertThat(moves.size(), is(12));
 		
-		Set<Move> result = movesAsSet();
-		assertThat(result.contains(new Move(e2, e1, promotionQueen)), is(true));
-		assertThat(result.contains(new Move(e2, e1, promotionRook)), is(true));
-		assertThat(result.contains(new Move(e2, e1, promotionBishop)), is(true));
-		assertThat(result.contains(new Move(e2, e1, promotionKnight)), is(true));
-		assertThat(result.contains(new Move(e2, d1, capturePromotionQueen)), is(true));
-		assertThat(result.contains(new Move(e2, d1, capturePromotionRook)), is(true));
-		assertThat(result.contains(new Move(e2, d1, capturePromotionBishop)), is(true));
-		assertThat(result.contains(new Move(e2, d1, capturePromotionKnight)), is(true));
-		assertThat(result.contains(new Move(e2, f1, capturePromotionQueen)), is(true));
-		assertThat(result.contains(new Move(e2, f1, capturePromotionRook)), is(true));
-		assertThat(result.contains(new Move(e2, f1, capturePromotionBishop)), is(true));
-		assertThat(result.contains(new Move(e2, f1, capturePromotionKnight)), is(true));
+		Set<Integer> result = movesAsSet();
+		assertThat(result.contains(newMove(e2, e1, promotionQueen)), is(true));
+		assertThat(result.contains(newMove(e2, e1, promotionRook)), is(true));
+		assertThat(result.contains(newMove(e2, e1, promotionBishop)), is(true));
+		assertThat(result.contains(newMove(e2, e1, promotionKnight)), is(true));
+		assertThat(result.contains(newMove(e2, d1, capturePromotionQueen)), is(true));
+		assertThat(result.contains(newMove(e2, d1, capturePromotionRook)), is(true));
+		assertThat(result.contains(newMove(e2, d1, capturePromotionBishop)), is(true));
+		assertThat(result.contains(newMove(e2, d1, capturePromotionKnight)), is(true));
+		assertThat(result.contains(newMove(e2, f1, capturePromotionQueen)), is(true));
+		assertThat(result.contains(newMove(e2, f1, capturePromotionRook)), is(true));
+		assertThat(result.contains(newMove(e2, f1, capturePromotionBishop)), is(true));
+		assertThat(result.contains(newMove(e2, f1, capturePromotionKnight)), is(true));
 	}
 
 	@Test
@@ -337,9 +337,9 @@ public class BlackPawnMoveTest {
 		
 		assertThat(moves.size(), is(2));
 		
-		Set<Move> result = movesAsSet();
-		assertThat(result.contains(new Move(e4, e3, pawn)), is(true));
-		assertThat(result.contains(new Move(e4, d3, enpassant)), is(true));
+		Set<Integer> result = movesAsSet();
+		assertThat(result.contains(newMove(e4, e3, pawn)), is(true));
+		assertThat(result.contains(newMove(e4, d3, enpassant)), is(true));
 	}
 
 	@Test
@@ -349,13 +349,13 @@ public class BlackPawnMoveTest {
 		
 		assertThat(moves.size(), is(2));
 		
-		Set<Move> result = movesAsSet();
-		assertThat(result.contains(new Move(d4, d3, pawn)), is(true));
-		assertThat(result.contains(new Move(d4, e3, enpassant)), is(true));
+		Set<Integer> result = movesAsSet();
+		assertThat(result.contains(newMove(d4, d3, pawn)), is(true));
+		assertThat(result.contains(newMove(d4, e3, enpassant)), is(true));
 	}
 	
-	private Move capture(int from, int to) {
-		return new Move(from, to, capture);
+	private int capture(int from, int to) {
+		return newMove(from, to, capture);
 	}
 	
 	private Piece blackPawn(int field) {
@@ -368,8 +368,8 @@ public class BlackPawnMoveTest {
 		return p;
 	}
 
-	private Set<Move> movesAsSet() {
-		Set<Move> result = new HashSet<Move>(moves.size());
+	private Set<Integer> movesAsSet() {
+		Set<Integer> result = new HashSet<>(moves.size());
 
 		int size = moves.size();
 		for(int i = 0; i < size; i++) 

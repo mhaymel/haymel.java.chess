@@ -9,7 +9,6 @@ package com.haymel.chess.uciengine;
 
 import static com.haymel.util.Require.nonNull;
 
-import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.StringFromMove;
 import com.haymel.chess.engine.search.Variant;
 import com.haymel.chess.uci.moves.Moves;
@@ -27,7 +26,7 @@ public class MovesFromVariant {		//TODO unit test
 		MovesImpl moves = new MovesImpl();
 		moves.add(asString(variant.move()));
 		
-		Move[] m = variant.moves();
+		int[] m = variant.moves();
 		if (m == null)
 			return moves;
 		
@@ -37,7 +36,7 @@ public class MovesFromVariant {		//TODO unit test
 		return moves;
 	}
 
-	private String asString(Move move) {
+	private String asString(int move) {
 		return new StringFromMove(move).value();
 	}
 	

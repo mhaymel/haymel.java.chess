@@ -35,12 +35,12 @@ public class MoveFinder {
 		this.moves = moves;
 	}
 	
-	public Move find(String move) {
+	public int find(String move) {
 		FieldsFromAlgebraicMove fields = new FieldsFromAlgebraicMove(move);
-		List<Move> m = moves.findMoves(fields.from(), fields.to());
+		List<Integer> m = moves.findMoves(fields.from(), fields.to());
 
 		if (m.isEmpty())
-			return null;
+			return 0;
 
 		if (!fields.isPromotion()) 
 			return m.get(0);
@@ -48,9 +48,9 @@ public class MoveFinder {
 		return promotion(fields.promotion(), m);
 	}
 	
-	private Move promotion(Promotion promotion, List<Move> moves) {
-		for (Move move : moves) {
-			switch(move.type()) {
+	private int promotion(Promotion promotion, List<Integer> moves) {
+		for (int move : moves) {
+			switch(Move.type(move)) {
 			case promotionQueen:
 			case capturePromotionQueen:
 				if (promotion == Queen)
@@ -72,11 +72,11 @@ public class MoveFinder {
 					return move;
 				break;
 			default:
-				assert false : move.toString();
+				assert false : Move.asString(move);
 				break;
 			}
 		}
-		return null;
+		return 0;
 	}
 
 }

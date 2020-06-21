@@ -18,7 +18,6 @@ import java.util.function.IntConsumer;
 import com.haymel.chess.engine.fen.GameFromFEN;
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.game.MakeMoveFromString;
-import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.StringFromMove;
 import com.haymel.chess.engine.search.AnalyzedMove;
 import com.haymel.chess.engine.search.BestMove;
@@ -116,7 +115,7 @@ public class UciEngine extends com.haymel.chess.uci.Engine {
 				.currmove(asString(currentMove.move())));
 	}
 	
-	private static String asString(Move move) {
+	private static String asString(int move) {
 		return new StringFromMove(move).value();
 	}
 

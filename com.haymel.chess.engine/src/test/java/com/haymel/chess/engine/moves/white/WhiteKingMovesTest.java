@@ -41,6 +41,7 @@ import static com.haymel.chess.engine.board.Field.h2;
 import static com.haymel.chess.engine.board.Field.h3;
 import static com.haymel.chess.engine.board.Field.h4;
 import static com.haymel.chess.engine.board.Field.removed;
+import static com.haymel.chess.engine.moves.Move.newMove;
 import static com.haymel.chess.engine.moves.MoveType.captureKingMove;
 import static com.haymel.chess.engine.moves.MoveType.kingsideCastling;
 import static com.haymel.chess.engine.moves.MoveType.normalKingMove;
@@ -95,10 +96,10 @@ public class WhiteKingMovesTest {
 		
 		assertThat(moves.size(), is(3));
 		
-		Set<Move> result = movesAsSet();
-		assertThat(result.contains(new Move(a1, a2, normalKingMove)), is(true));
-		assertThat(result.contains(new Move(a1, b2, normalKingMove)), is(true));
-		assertThat(result.contains(new Move(a1, b1, normalKingMove)), is(true));
+		Set<Integer> result = movesAsSet();
+		assertThat(result.contains(newMove(a1, a2, normalKingMove)), is(true));
+		assertThat(result.contains(newMove(a1, b2, normalKingMove)), is(true));
+		assertThat(result.contains(newMove(a1, b1, normalKingMove)), is(true));
 	}
 
 	@Test
@@ -108,15 +109,15 @@ public class WhiteKingMovesTest {
 		
 		assertThat(moves.size(), is(8));
 		
-		Set<Move> result = movesAsSet();
-		assertThat(result.contains(new Move(e4, e5, normalKingMove)), is(true));
-		assertThat(result.contains(new Move(e4, f5, normalKingMove)), is(true));
-		assertThat(result.contains(new Move(e4, f4, normalKingMove)), is(true));
-		assertThat(result.contains(new Move(e4, f3, normalKingMove)), is(true));
-		assertThat(result.contains(new Move(e4, e3, normalKingMove)), is(true));
-		assertThat(result.contains(new Move(e4, d3, normalKingMove)), is(true));
-		assertThat(result.contains(new Move(e4, d4, normalKingMove)), is(true));
-		assertThat(result.contains(new Move(e4, d5, normalKingMove)), is(true));
+		Set<Integer> result = movesAsSet();
+		assertThat(result.contains(Move.newMove(e4, e5, normalKingMove)), is(true));
+		assertThat(result.contains(newMove(e4, f5, normalKingMove)), is(true));
+		assertThat(result.contains(newMove(e4, f4, normalKingMove)), is(true));
+		assertThat(result.contains(newMove(e4, f3, normalKingMove)), is(true));
+		assertThat(result.contains(newMove(e4, e3, normalKingMove)), is(true));
+		assertThat(result.contains(newMove(e4, d3, normalKingMove)), is(true));
+		assertThat(result.contains(newMove(e4, d4, normalKingMove)), is(true));
+		assertThat(result.contains(newMove(e4, d5, normalKingMove)), is(true));
 	}
 
 	@Test
@@ -133,7 +134,7 @@ public class WhiteKingMovesTest {
 		king(e4);
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(moves.size(), is(8));
 		assertThat(result.contains(capture(e4, e5)), is(true));
 		assertThat(result.contains(capture(e4, f5)), is(true));
@@ -145,8 +146,8 @@ public class WhiteKingMovesTest {
 		assertThat(result.contains(capture(e4, d5)), is(true));
 	}
 
-	private Move capture(int from, int to) {
-		return new Move(from, to, captureKingMove);
+	private int capture(int from, int to) {
+		return newMove(from, to, captureKingMove);
 	}
 
 	@Test
@@ -174,7 +175,7 @@ public class WhiteKingMovesTest {
 		castling.enableKingside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(moves.size(), is(6));
 		assertThat(result.contains(kingSideCastling()), is(true));
 	}
@@ -187,7 +188,7 @@ public class WhiteKingMovesTest {
 		castling.enableQueenside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(moves.size(), is(6));
 		assertThat(result.contains(queenSideCastling()), is(true));
 	}
@@ -202,7 +203,7 @@ public class WhiteKingMovesTest {
 		castling.enableQueenside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(moves.size(), is(7));
 		assertThat(result.contains(kingSideCastling()), is(true));
 		assertThat(result.contains(queenSideCastling()), is(true));
@@ -217,7 +218,7 @@ public class WhiteKingMovesTest {
 		castling.disable();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(moves.size(), is(5));
 		assertThat(result.contains(kingSideCastling()), is(false));
 		assertThat(result.contains(queenSideCastling()), is(false));
@@ -233,7 +234,7 @@ public class WhiteKingMovesTest {
 		castling.enableQueenside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(moves.size(), is(6));
 		assertThat(result.contains(kingSideCastling()), is(false));
 		assertThat(result.contains(queenSideCastling()), is(true));
@@ -249,7 +250,7 @@ public class WhiteKingMovesTest {
 		castling.disableQueenside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(moves.size(), is(6));
 		assertThat(result.contains(kingSideCastling()), is(true));
 		assertThat(result.contains(queenSideCastling()), is(false));
@@ -264,7 +265,7 @@ public class WhiteKingMovesTest {
 		castling.disable();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(moves.size(), is(5));
 		assertThat(result.contains(kingSideCastling()), is(false));
 		assertThat(result.contains(queenSideCastling()), is(false));
@@ -279,7 +280,7 @@ public class WhiteKingMovesTest {
 		castling.disable();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(moves.size(), is(5));
 		assertThat(result.contains(kingSideCastling()), is(false));
 		assertThat(result.contains(queenSideCastling()), is(false));
@@ -295,7 +296,7 @@ public class WhiteKingMovesTest {
 		castling.enableKingside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(moves.size(), is(4));
 		assertThat(result.contains(kingSideCastling()), is(false));
 	}
@@ -311,7 +312,7 @@ public class WhiteKingMovesTest {
 		castling.enableQueenside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(moves.size(), is(6));
 		assertThat(result.contains(kingSideCastling()), is(false));
 		assertThat(result.contains(queenSideCastling()), is(true));
@@ -326,7 +327,7 @@ public class WhiteKingMovesTest {
 		castling.enableKingside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(result.contains(kingSideCastling()), is(false));
 	}
 
@@ -339,7 +340,7 @@ public class WhiteKingMovesTest {
 		castling.enableKingside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(result.contains(kingSideCastling()), is(false));
 	}
 
@@ -352,7 +353,7 @@ public class WhiteKingMovesTest {
 		castling.enableKingside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(result.contains(kingSideCastling()), is(true));
 	}
 	
@@ -365,7 +366,7 @@ public class WhiteKingMovesTest {
 		castling.enableKingside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(result.contains(kingSideCastling()), is(true));
 	}
 	
@@ -379,7 +380,7 @@ public class WhiteKingMovesTest {
 		castling.enableKingside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(result.contains(kingSideCastling()), is(true));
 	}
 
@@ -392,7 +393,7 @@ public class WhiteKingMovesTest {
 		castling.enableKingside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(result.contains(kingSideCastling()), is(true));
 	}
 
@@ -405,7 +406,7 @@ public class WhiteKingMovesTest {
 		castling.enableKingside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(result.contains(kingSideCastling()), is(false));
 	}
 
@@ -418,7 +419,7 @@ public class WhiteKingMovesTest {
 		castling.enableKingside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(result.contains(kingSideCastling()), is(false));
 	}
 	
@@ -436,7 +437,7 @@ public class WhiteKingMovesTest {
 		castling.enableKingside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(result.contains(kingSideCastling()), is(true));
 	}
 	
@@ -449,7 +450,7 @@ public class WhiteKingMovesTest {
 		castling.enableKingside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(result.contains(kingSideCastling()), is(false));
 	}
 
@@ -462,7 +463,7 @@ public class WhiteKingMovesTest {
 		castling.enableKingside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(result.contains(kingSideCastling()), is(false));
 	}
 	
@@ -479,7 +480,7 @@ public class WhiteKingMovesTest {
 		castling.enableKingside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(result.contains(kingSideCastling()), is(true));
 	}
 	
@@ -492,7 +493,7 @@ public class WhiteKingMovesTest {
 		castling.enableKingside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(result.contains(kingSideCastling()), is(false));
 	}
 	
@@ -505,7 +506,7 @@ public class WhiteKingMovesTest {
 		castling.enableKingside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(result.contains(kingSideCastling()), is(false));
 	}
 	
@@ -518,7 +519,7 @@ public class WhiteKingMovesTest {
 		castling.enableKingside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(result.contains(kingSideCastling()), is(false));
 	}
 	
@@ -531,7 +532,7 @@ public class WhiteKingMovesTest {
 		castling.enableKingside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(result.contains(kingSideCastling()), is(false));
 	}
 	
@@ -544,7 +545,7 @@ public class WhiteKingMovesTest {
 		castling.enableKingside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(result.contains(kingSideCastling()), is(false));
 	}
 		
@@ -557,7 +558,7 @@ public class WhiteKingMovesTest {
 		castling.enableKingside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(result.contains(kingSideCastling()), is(false));
 	}
 
@@ -570,7 +571,7 @@ public class WhiteKingMovesTest {
 		castling.enableKingside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(result.contains(kingSideCastling()), is(false));
 	}
 	
@@ -582,7 +583,7 @@ public class WhiteKingMovesTest {
 		castling.enableKingside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(result.contains(kingSideCastling()), is(false));
 	}
 	
@@ -601,7 +602,7 @@ public class WhiteKingMovesTest {
 		castling.enableKingside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(result.contains(kingSideCastling()), is(true));
 	}
 
@@ -617,7 +618,7 @@ public class WhiteKingMovesTest {
 		castling.enableKingside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(result.contains(kingSideCastling()), is(true));
 	}
 	
@@ -634,7 +635,7 @@ public class WhiteKingMovesTest {
 		castling.enableKingside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(result.contains(kingSideCastling()), is(true));
 	}
 	
@@ -651,7 +652,7 @@ public class WhiteKingMovesTest {
 		castling.enableKingside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(result.contains(kingSideCastling()), is(true));
 	}
 	
@@ -663,7 +664,7 @@ public class WhiteKingMovesTest {
 		castling.enableKingside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(result.contains(kingSideCastling()), is(false));
 	}
 
@@ -675,7 +676,7 @@ public class WhiteKingMovesTest {
 		castling.enableKingside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(result.contains(kingSideCastling()), is(false));
 	}
 	
@@ -687,7 +688,7 @@ public class WhiteKingMovesTest {
 		castling.enableKingside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(result.contains(kingSideCastling()), is(false));
 	}
 	
@@ -699,7 +700,7 @@ public class WhiteKingMovesTest {
 		castling.enableKingside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(result.contains(kingSideCastling()), is(false));
 	}
 	
@@ -714,7 +715,7 @@ public class WhiteKingMovesTest {
 		castling.enableKingside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(result.contains(kingSideCastling()), is(true));
 	}
 
@@ -730,7 +731,7 @@ public class WhiteKingMovesTest {
 		castling.enableKingside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(result.contains(kingSideCastling()), is(true));
 	}
 	
@@ -742,7 +743,7 @@ public class WhiteKingMovesTest {
 		castling.enableKingside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(result.contains(kingSideCastling()), is(false));
 	}
 
@@ -754,7 +755,7 @@ public class WhiteKingMovesTest {
 		castling.enableKingside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(result.contains(kingSideCastling()), is(false));
 	}
 	
@@ -766,7 +767,7 @@ public class WhiteKingMovesTest {
 		castling.enableKingside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(result.contains(kingSideCastling()), is(false));
 	}
 	
@@ -782,7 +783,7 @@ public class WhiteKingMovesTest {
 		castling.enableKingside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(result.contains(kingSideCastling()), is(true));
 	}
 	
@@ -796,7 +797,7 @@ public class WhiteKingMovesTest {
 		castling.enableKingside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(result.contains(kingSideCastling()), is(true));
 	}
 	
@@ -808,7 +809,7 @@ public class WhiteKingMovesTest {
 		castling.enableQueenside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(moves.size(), is(5));
 		assertThat(result.contains(queenSideCastling()), is(false));
 	}
@@ -822,7 +823,7 @@ public class WhiteKingMovesTest {
 		castling.enableQueenside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(moves.size(), is(5));
 		assertThat(result.contains(queenSideCastling()), is(false));
 	}
@@ -836,7 +837,7 @@ public class WhiteKingMovesTest {
 		castling.enableQueenside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(moves.size(), is(6));
 		assertThat(result.contains(queenSideCastling()), is(true));
 	}
@@ -850,7 +851,7 @@ public class WhiteKingMovesTest {
 		castling.enableQueenside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(moves.size(), is(5));
 		assertThat(result.contains(queenSideCastling()), is(false));
 	}
@@ -864,7 +865,7 @@ public class WhiteKingMovesTest {
 		castling.enableQueenside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(moves.size(), is(5));
 		assertThat(result.contains(queenSideCastling()), is(false));
 	}
@@ -878,7 +879,7 @@ public class WhiteKingMovesTest {
 		castling.enableQueenside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(moves.size(), is(5));
 		assertThat(result.contains(queenSideCastling()), is(false));
 	}
@@ -892,7 +893,7 @@ public class WhiteKingMovesTest {
 		castling.enableQueenside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(moves.size(), is(5));
 		assertThat(result.contains(queenSideCastling()), is(false));
 	}
@@ -906,7 +907,7 @@ public class WhiteKingMovesTest {
 		castling.enableQueenside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(moves.size(), is(5));
 		assertThat(result.contains(queenSideCastling()), is(false));
 	}
@@ -920,7 +921,7 @@ public class WhiteKingMovesTest {
 		castling.enableQueenside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(moves.size(), is(5));
 		assertThat(result.contains(queenSideCastling()), is(false));
 	}
@@ -934,7 +935,7 @@ public class WhiteKingMovesTest {
 		castling.enableQueenside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(moves.size(), is(5));
 		assertThat(result.contains(queenSideCastling()), is(false));
 	}
@@ -948,7 +949,7 @@ public class WhiteKingMovesTest {
 		castling.enableQueenside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(moves.size(), is(5));
 		assertThat(result.contains(queenSideCastling()), is(false));
 	}
@@ -962,7 +963,7 @@ public class WhiteKingMovesTest {
 		castling.enableQueenside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(moves.size(), is(5));
 		assertThat(result.contains(queenSideCastling()), is(false));
 	}
@@ -976,7 +977,7 @@ public class WhiteKingMovesTest {
 		castling.enableQueenside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(moves.size(), is(5));
 		assertThat(result.contains(queenSideCastling()), is(false));
 	}
@@ -990,7 +991,7 @@ public class WhiteKingMovesTest {
 		castling.enableQueenside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(moves.size(), is(5));
 		assertThat(result.contains(queenSideCastling()), is(false));
 	}
@@ -1004,7 +1005,7 @@ public class WhiteKingMovesTest {
 		castling.enableQueenside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(moves.size(), is(5));
 		assertThat(result.contains(queenSideCastling()), is(false));
 	}
@@ -1020,7 +1021,7 @@ public class WhiteKingMovesTest {
 		castling.enableQueenside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(moves.size(), is(6));
 		assertThat(result.contains(queenSideCastling()), is(true));
 	}
@@ -1041,7 +1042,7 @@ public class WhiteKingMovesTest {
 		castling.enableQueenside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(moves.size(), is(4));
 		assertThat(result.contains(queenSideCastling()), is(true));
 	}
@@ -1056,7 +1057,7 @@ public class WhiteKingMovesTest {
 		castling.enableQueenside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(moves.size(), is(6));
 		assertThat(result.contains(kingSideCastling()), is(true));
 		assertThat(result.contains(queenSideCastling()), is(false));
@@ -1070,7 +1071,7 @@ public class WhiteKingMovesTest {
 		castling.enableQueenside();
 		kingMoves.generate(king, castling, moves);
 		
-		Set<Move> result = movesAsSet();
+		Set<Integer> result = movesAsSet();
 		assertThat(result.contains(queenSideCastling()), is(false));
 	}
 
@@ -1120,12 +1121,12 @@ public class WhiteKingMovesTest {
 		return p;
 	}
 	
-	private Move kingSideCastling() {
-		return new Move(e1, g1, kingsideCastling);
+	private int kingSideCastling() {
+		return newMove(e1, g1, kingsideCastling);
 	}
 
-	private Move queenSideCastling() {
-		return new Move(e1, c1, queensideCastling);
+	private int queenSideCastling() {
+		return newMove(e1, c1, queensideCastling);
 	}
 
 	private Piece king(int field) {
@@ -1140,8 +1141,8 @@ public class WhiteKingMovesTest {
 		return p;
 	}
 	
-	private Set<Move> movesAsSet() {
-		Set<Move> result = new HashSet<Move>(moves.size());
+	private Set<Integer> movesAsSet() {
+		Set<Integer> result = new HashSet<>(moves.size());
 
 		int size = moves.size();
 		for(int i = 0; i < size; i++) 

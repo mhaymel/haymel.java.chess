@@ -12,8 +12,6 @@ import static com.haymel.chess.engine.search.SearchAlphaBeta.whiteMate;
 import static com.haymel.util.Require.greaterEqualZero;
 import static com.haymel.util.Require.nonNull;
 
-import com.haymel.chess.engine.moves.Move;
-
 public class BestMove {		//TODO rename, refactor, unit test
 
 	private final Variant variant;
@@ -30,7 +28,7 @@ public class BestMove {		//TODO rename, refactor, unit test
 		this.nodes = nonNull(nodes, "nodes");
 	}
 	
-	public Move move() {
+	public int move() {
 		return variant.move();
 	}
 	

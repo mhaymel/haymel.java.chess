@@ -32,7 +32,7 @@ public class ValidMovesWhite {		//TODO unit test
 	
 	public Move[] calculate() {
 		
-		List<Move> validMoves = new ArrayList<>();
+		List<Integer> validMoves = new ArrayList<>();
 		
 		Moves moves = game.whiteMoves();
 		if (moves == null)
@@ -40,7 +40,7 @@ public class ValidMovesWhite {		//TODO unit test
 
 		MakeMove makeMove = new MakeMove(game);
 		
-		for(Move move : moves.moves()) {
+		for(int move : moves.moves()) {
 			makeMove.makeMove(move);
 			if (!isInCheck())
 				validMoves.add(move);

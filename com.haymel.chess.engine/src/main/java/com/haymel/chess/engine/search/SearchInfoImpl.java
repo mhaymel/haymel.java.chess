@@ -14,7 +14,6 @@ import static java.lang.System.out;
 import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 
-import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.StringFromMove;
 
 public class SearchInfoImpl implements SearchInfo {		//TODO rename, refactor, unit test
@@ -70,7 +69,7 @@ public class SearchInfoImpl implements SearchInfo {		//TODO rename, refactor, un
 			out.println(format("%s: %s/%s", asString(cm.move()), cm.moveNumber(), cm.numberOfPossibleMoves())); 
 	}
 	
-	private static String asString(Move move) {
+	private static String asString(int move) {
 		return new StringFromMove(move).value();
 	}
 	
@@ -79,7 +78,7 @@ public class SearchInfoImpl implements SearchInfo {		//TODO rename, refactor, un
 		sb.append(asString(variant.move()));
 		
 		if (variant.moves() != null)
-			for(Move move: variant.moves()) 
+			for(int move: variant.moves()) 
 				sb.append(" ").append(asString(move));
 		
 		return sb.toString();

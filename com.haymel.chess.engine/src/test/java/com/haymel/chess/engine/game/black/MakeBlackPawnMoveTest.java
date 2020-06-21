@@ -26,14 +26,13 @@ import static org.junit.Assert.assertThat;
 import org.junit.Test;
 
 import com.haymel.chess.engine.game.Game;
-import com.haymel.chess.engine.moves.Move;
 
 public class MakeBlackPawnMoveTest {
 
 	@Test
 	public void e7e6() {
 		Game game = fromFen("7k/4p3/8/8/8/8/8/7K b - - 45 30");
-		Move move = find("e7e6", game);
+		int move = find("e7e6", game);
 		
 		makeMove(move, game);
 		assertThat(game.piece(e6).type(), is(BlackPawn));
@@ -55,7 +54,7 @@ public class MakeBlackPawnMoveTest {
 	@Test
 	public void e6e5() {
 		Game game = fromFen("7k/8/4p3/8/8/8/8/7K b - - 45 30");
-		Move move = find("e6e5", game);
+		int move = find("e6e5", game);
 		
 		makeMove(move, game);
 		assertThat(game.piece(e5).type(), is(BlackPawn));
@@ -77,7 +76,7 @@ public class MakeBlackPawnMoveTest {
 	@Test
 	public void e6e5ResetsEnpassant() {
 		Game game = fromFen("7k/8/4p3/8/4P3/8/8/7K b - e3 45 30");
-		Move move = find("e6e5", game);
+		int move = find("e6e5", game);
 	
 		makeMove(move, game);
 		assertThat(game.piece(e5).type(), is(BlackPawn));

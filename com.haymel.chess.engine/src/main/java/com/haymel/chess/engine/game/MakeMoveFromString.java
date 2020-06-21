@@ -31,15 +31,18 @@ public class MakeMoveFromString {	//TODO unit test
 		make(find(fromString));
 	}
 
-	private void make(Move move) {
-		assert move != null;
+	private void make(int move) {
+		assert Move.validMove(move);
 		new MakeMove(game).makeMove(move);
 	}
 
-	private Move find(String moveAsString) {
-		Move move = new MoveFinder(game.moves()).find(moveAsString);
-		if (move == null)
+	private int find(String moveAsString) {
+		int move = new MoveFinder(game.moves()).find(moveAsString);
+		if (move == 0)
 			return throwIAE("cannot find move %s", moveAsString);
+		
+		Move.validMove(move);
+		
 		return move;
 	}
 
