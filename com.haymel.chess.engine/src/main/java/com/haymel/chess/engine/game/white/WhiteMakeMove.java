@@ -27,6 +27,8 @@ public final class WhiteMakeMove {	//TODO unit test
 		assert game.activeColor() == white;
 		assert PieceType.white(game.piece(Move.from(move)).type());
 		
+		game.push(move);
+		
 		switch(Move.type(move)) {
 		case MoveType.normal:
 			MakeWhiteMove.make(game, move);

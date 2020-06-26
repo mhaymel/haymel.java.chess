@@ -54,8 +54,6 @@ public final class MakeBlackQueenSideCastlingMove {
 		rook.field(d8);
 		game.place(rook);
 		
-		game.push(move);
-		
 		game.incHalfMoveClock();
 		game.incFullMoveNumber();
 		game.activeColorWhite();

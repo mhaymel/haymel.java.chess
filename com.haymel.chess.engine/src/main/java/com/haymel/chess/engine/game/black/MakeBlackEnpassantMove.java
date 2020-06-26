@@ -45,7 +45,6 @@ public final class MakeBlackEnpassantMove {
 		game.clear(victim.field());
 		victim.captured(true);
 		game.removeWhite(victim);
-		game.push(move);
 		game.pushHalfMoveClock();
 		game.incFullMoveNumber();
 		game.activeColorWhite();

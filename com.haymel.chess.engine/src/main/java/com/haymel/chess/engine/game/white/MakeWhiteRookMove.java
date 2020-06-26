@@ -40,7 +40,6 @@ public final class MakeWhiteRookMove {
 		game.clear(Move.from(move));
 		piece.field(Move.to(move));
 		game.place(piece);
-		game.push(move);
 		game.incHalfMoveClock();
 		game.activeColorBlack();
 		game.resetEnPassant();

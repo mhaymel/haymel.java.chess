@@ -55,7 +55,6 @@ public final class MakeWhiteCaptureRookMove {
 		game.place(piece);
 		victim.captured(true);
 		game.removeBlack(victim);
-		game.push(move);
 		game.pushHalfMoveClock();
 		game.activeColorBlack();
 		game.resetEnPassant();

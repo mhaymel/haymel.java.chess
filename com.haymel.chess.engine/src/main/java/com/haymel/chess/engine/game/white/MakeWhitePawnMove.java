@@ -34,7 +34,6 @@ public final class MakeWhitePawnMove {
 		game.clear(Move.from(move));
 		piece.field(Move.to(move));
 		game.place(piece);
-		game.push(move);
 		game.pushHalfMoveClock();
 		game.activeColorBlack();
 		game.resetEnPassant();

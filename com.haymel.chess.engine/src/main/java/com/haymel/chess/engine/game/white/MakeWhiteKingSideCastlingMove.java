@@ -53,7 +53,6 @@ public final class MakeWhiteKingSideCastlingMove {
 		rook.field(f1);
 		game.place(rook);
 		
-		game.push(move);
 		game.incHalfMoveClock();
 		game.activeColorBlack();
 		game.resetEnPassant();

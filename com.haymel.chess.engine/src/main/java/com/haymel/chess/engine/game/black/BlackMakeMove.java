@@ -28,6 +28,8 @@ public final class BlackMakeMove {	//TODO unit test
 		assert game.activeColor() == black; 
 		assert PieceType.black(game.piece(Move.from(move)).type());
 		
+		game.push(move);
+		
 		switch(Move.type(move)) {
 		case MoveType.normal:
 			MakeBlackMove.make(game, move);

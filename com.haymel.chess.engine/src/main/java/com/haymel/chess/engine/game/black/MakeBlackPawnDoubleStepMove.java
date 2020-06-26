@@ -36,7 +36,6 @@ public final class MakeBlackPawnDoubleStepMove {
 		game.clear(Move.from(move));
 		piece.field(Move.to(move));
 		game.place(piece);
-		game.push(move);
 		game.enPassant(down(Move.from(move)));
 		game.pushHalfMoveClock();
 		game.incFullMoveNumber();
