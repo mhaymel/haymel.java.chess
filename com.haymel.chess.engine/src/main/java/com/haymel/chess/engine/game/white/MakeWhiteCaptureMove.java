@@ -9,6 +9,7 @@ package com.haymel.chess.engine.game.white;
 
 import static com.haymel.chess.engine.board.Field.a8;
 import static com.haymel.chess.engine.board.Field.h8;
+import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
 import static com.haymel.chess.engine.moves.MoveType.capture;
@@ -53,7 +54,9 @@ public final class MakeWhiteCaptureMove {
 		game.push(move);
 		game.pushHalfMoveClock();
 		game.activeColorBlack();
+		game.resetEnPassant();
 
+		assert game.enPassant() == removed;
 		assert game.activeColor() == black; 
 		assert game.piece(Move.from(move)) == null;
 		assert PieceType.white(game.piece(Move.to(move)).type());

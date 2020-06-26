@@ -141,7 +141,6 @@ public final class Game {	//TODO unit test and refactor
 
 		undos[undosIndex++] = move;
 		enPassantStack[enPassantStackIndex++] = enPassant;
-		enPassant = removed;
 	}
 	
 	public int pop() {
@@ -205,6 +204,10 @@ public final class Game {	//TODO unit test and refactor
 		enPassant = field;
 	}
 
+	public void resetEnPassant() {
+		enPassant = removed;
+	}
+	
 	public int enPassant() {
 		return enPassant;
 	}

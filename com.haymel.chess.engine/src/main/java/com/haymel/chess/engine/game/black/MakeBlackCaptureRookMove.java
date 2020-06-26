@@ -11,6 +11,7 @@ import static com.haymel.chess.engine.board.Field.a1;
 import static com.haymel.chess.engine.board.Field.a8;
 import static com.haymel.chess.engine.board.Field.h1;
 import static com.haymel.chess.engine.board.Field.h8;
+import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
 import static com.haymel.chess.engine.moves.MoveType.captureRookMove;
@@ -61,7 +62,9 @@ public final class MakeBlackCaptureRookMove {
 		game.pushHalfMoveClock();
 		game.incFullMoveNumber();
 		game.activeColorWhite();
+		game.resetEnPassant();
 
+		assert game.enPassant() == removed;
 		assert game.piece(Move.from(move)) == null;
 		assert PieceType.black(game.piece(Move.to(move)).type());
 		assert game.piece(Move.to(move)) == piece;

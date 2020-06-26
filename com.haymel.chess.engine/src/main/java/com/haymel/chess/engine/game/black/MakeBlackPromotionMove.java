@@ -9,6 +9,7 @@ package com.haymel.chess.engine.game.black;
 
 import static com.haymel.chess.engine.board.Field.file;
 import static com.haymel.chess.engine.board.Field.rank;
+import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
 import static com.haymel.chess.engine.moves.MoveType.promotionBishop;
@@ -60,7 +61,9 @@ public final class MakeBlackPromotionMove {
 		game.pushHalfMoveClock();
 		game.incFullMoveNumber();
 		game.activeColorWhite();
+		game.resetEnPassant();
 
+		assert game.enPassant() == removed;
 		assert game.containsBlackPiece(piece);
 		assert game.activeColor() == white; 
 		assert game.piece(Move.from(move)) == null;

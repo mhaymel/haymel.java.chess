@@ -7,6 +7,7 @@
  */
 package com.haymel.chess.engine.game.white;
 
+import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
 import static com.haymel.chess.engine.moves.MoveType.normalKingMove;
@@ -36,7 +37,9 @@ public final class MakeWhiteKingMove {
 		game.push(move);
 		game.incHalfMoveClock();
 		game.activeColorBlack();
+		game.resetEnPassant();
 
+		assert game.enPassant() == removed;
 		assert game.piece(Move.from(move)) == null;
 		assert game.activeColor() == black; 
 		assert game.assertVerify();

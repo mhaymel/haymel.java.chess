@@ -11,6 +11,7 @@ import static com.haymel.chess.engine.board.Field.e8;
 import static com.haymel.chess.engine.board.Field.f8;
 import static com.haymel.chess.engine.board.Field.g8;
 import static com.haymel.chess.engine.board.Field.h8;
+import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
 import static com.haymel.chess.engine.piece.PieceType.BlackKing;
@@ -55,7 +56,9 @@ public final class MakeBlackKingSideCastlingMove {
 		game.incHalfMoveClock();
 		game.incFullMoveNumber();
 		game.activeColorWhite();
+		game.resetEnPassant();
 
+		assert game.enPassant() == removed;
 		assert game.piece(e8) == null;
 		assert game.piece(h8) == null;
 		assert game.piece(g8).type() == BlackKing;

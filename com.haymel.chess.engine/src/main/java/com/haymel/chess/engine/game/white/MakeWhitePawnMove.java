@@ -8,6 +8,7 @@
 package com.haymel.chess.engine.game.white;
 
 import static com.haymel.chess.engine.board.Field.rank;
+import static com.haymel.chess.engine.board.Field.removed;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
 import static com.haymel.chess.engine.moves.MoveType.pawn;
@@ -36,7 +37,9 @@ public final class MakeWhitePawnMove {
 		game.push(move);
 		game.pushHalfMoveClock();
 		game.activeColorBlack();
+		game.resetEnPassant();
 
+		assert game.enPassant() == removed;
 		assert game.activeColor() == black; 
 		assert game.piece(Move.from(move)) == null;
 		assert game.piece(Move.to(move)).type() == WhitePawn;

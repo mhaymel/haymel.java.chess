@@ -42,6 +42,7 @@ public final class MakeBlackPawnDoubleStepMove {
 		game.incFullMoveNumber();
 		game.activeColorWhite();
 
+		assert game.enPassant() == down(Move.from(move));
 		assert game.piece(Move.from(move)) == null;
 		assert game.piece(Move.to(move)).type() == BlackPawn;
 		assert game.activeColor() == white; 
