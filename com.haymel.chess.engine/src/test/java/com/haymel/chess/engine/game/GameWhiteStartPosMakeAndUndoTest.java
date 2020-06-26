@@ -48,8 +48,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.haymel.chess.engine.fen.GameFromFEN;
-import com.haymel.chess.engine.moves.Move;
-import com.haymel.chess.engine.moves.MoveType;
 import com.haymel.chess.engine.moves.Moves;
 
 public class GameWhiteStartPosMakeAndUndoTest {
