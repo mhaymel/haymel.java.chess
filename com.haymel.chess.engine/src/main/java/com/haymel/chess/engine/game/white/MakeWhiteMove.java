@@ -32,17 +32,19 @@ public final class MakeWhiteMove {
 		assert game.piece(Move.from(move)).type() != WhiteRook;
 		assert game.piece(Move.to(move)) == null;
 		
-		Piece piece = game.piece(Move.from(move));
-		game.whitePositionValue(piece.type(), Move.from(move), Move.to(move));
-		game.clear(Move.from(move));
-		piece.field(Move.to(move));
+		final int from = Move.from(move);
+		Piece piece = game.piece(from);
+		final int to = Move.to(move);
+		game.whitePositionValue(piece.type(), from, to);
+		game.clear(from);
+		piece.field(to);
 		game.place(piece);
 		game.incHalfMoveClock();
 		game.activeColorBlack();
 		game.resetEnPassant();
 
 		assert game.enPassant() == removed;
-		assert game.piece(Move.from(move)) == null;
+		assert game.piece(from) == null;
 		assert PieceType.white(game.piece(Move.to(move)).type());
 		assert game.piece(Move.to(move)).type() != WhitePawn;
 		assert game.piece(Move.to(move)).type() != WhiteKing;
@@ -63,11 +65,13 @@ public final class MakeWhiteMove {
 
 		game.activeColorWhite();
 		game.decHalfMoveClock();
-		Piece piece = game.piece(Move.to(move));
-		game.clear(Move.to(move));
-		piece.field(Move.from(move));
+		final int to = Move.to(move);
+		Piece piece = game.piece(to);
+		game.clear(to);
+		final int from = Move.from(move);
+		piece.field(from);
 		game.place(piece);
-		game.whitePositionValue(piece.type(), Move.to(move), Move.from(move));
+		game.whitePositionValue(piece.type(), to, from);
 		
 		assert game.halfMoveClock() >= 0;
 		assert game.piece(Move.to(move)) == null;

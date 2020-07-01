@@ -7,6 +7,9 @@
  */
 package com.haymel.chess.engine.game.white;
 
+import static com.haymel.chess.engine.board.Field.c1;
+import static com.haymel.chess.engine.board.Field.e1;
+import static com.haymel.chess.engine.board.Field.g1;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
 import static com.haymel.chess.engine.piece.PieceType.WhiteBishop;
@@ -70,10 +73,14 @@ public final class WhiteMakeMove {	//TODO unit test
 			MakeWhiteEnpassantMove.make(game, move);
 			break;
 		case MoveType.kingsideCastling:
-			MakeWhiteKingSideCastlingMove.make(game, move);
+			assert Move.from(move) == e1;
+			assert Move.to(move) == g1;
+			MakeWhiteKingSideCastlingMove.make(game);
 			break;
 		case MoveType.queensideCastling:
-			MakeWhiteQueenSideCastlingMove.make(game, move);
+			assert Move.from(move) == e1;
+			assert Move.to(move) == c1;
+			MakeWhiteQueenSideCastlingMove.make(game);
 			break;
 		case MoveType.promotionQueen:
 			MakeWhitePromotionMove.make(game, move, WhiteQueen);
@@ -137,10 +144,12 @@ public final class WhiteMakeMove {	//TODO unit test
 			MakeWhiteEnpassantMove.undo(game, move);
 			break;
 		case MoveType.kingsideCastling:
-			MakeWhiteKingSideCastlingMove.undo(game, move);
+			assert Move.from(move) == e1;
+			assert Move.to(move) == g1;
+			MakeWhiteKingSideCastlingMove.undo(game);
 			break;
 		case MoveType.queensideCastling:
-			MakeWhiteQueenSideCastlingMove.undo(game, move);
+			MakeWhiteQueenSideCastlingMove.undo(game);
 			break;
 		case MoveType.promotionQueen:
 		case MoveType.promotionRook:

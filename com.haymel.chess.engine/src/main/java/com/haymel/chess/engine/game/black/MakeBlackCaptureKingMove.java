@@ -16,7 +16,6 @@ import static com.haymel.chess.engine.moves.MoveType.captureKingMove;
 import static com.haymel.chess.engine.piece.PieceType.BlackKing;
 import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
 
-import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.piece.Piece;
@@ -32,22 +31,24 @@ public final class MakeBlackCaptureKingMove {
 		assert game.piece(Move.from(move)).type() == BlackKing;
 		assert game.containsBlackPiece(game.piece(Move.from(move)));
 
-		Piece victim = game.piece(Move.to(move));
+		final int to = Move.to(move);
+		Piece victim = game.piece(to);
 		assert PieceType.white(victim.type());
 		assert victim.type() != WhiteKing;
 		game.pushVictim(victim);
 		
 		game.pushCastlingRight();
 		game.castlingRight().black().disable();
-		switch(Move.to(move)) {
+		switch(to) {
 		case a1: game.castlingRight().white().disableQueenside(); break;
 		case h1: game.castlingRight().white().disableKingside(); break;
 		}
 		
-		Piece piece = game.piece(Move.from(move));
- 		game.blackPositionValue(piece.type(), Move.from(move), Move.to(move));
-		game.clear(Move.from(move));
-		piece.field(Move.to(move));
+		final int from = Move.from(move);
+		Piece piece = game.piece(from);
+ 		game.blackPositionValue(piece.type(), from, to);
+		game.clear(from);
+		piece.field(to);
 		game.place(piece);
 		victim.captured(true);
 		game.removeWhite(victim);
@@ -76,8 +77,10 @@ public final class MakeBlackCaptureKingMove {
 		game.decFullMoveNumber();
 		game.activeColorBlack();
 		game.popHalfMoveClock();
-		Piece piece = game.piece(Move.to(move));
-		piece.field(Move.from(move));
+		final int to = Move.to(move);
+		Piece piece = game.piece(to);
+		final int from = Move.from(move);
+		piece.field(from);
 		game.place(piece);
 		Piece victim = game.popVictim();
 	
@@ -88,7 +91,7 @@ public final class MakeBlackCaptureKingMove {
 		victim.captured(false);
 		game.addWhite(victim);
 		game.place(victim);
-		game.blackPositionValue(piece.type(), Move.to(move), Move.from(move));
+		game.blackPositionValue(piece.type(), to, from);
 		game.popCastlingRight();
 
 		assert game.halfMoveClock() >= 0;

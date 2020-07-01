@@ -7,6 +7,9 @@
  */
 package com.haymel.chess.engine.game.black;
 
+import static com.haymel.chess.engine.board.Field.c8;
+import static com.haymel.chess.engine.board.Field.e8;
+import static com.haymel.chess.engine.board.Field.g8;
 import static com.haymel.chess.engine.game.ActiveColor.black;
 import static com.haymel.chess.engine.game.ActiveColor.white;
 import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
@@ -83,10 +86,14 @@ public final class BlackMakeMove {	//TODO unit test
 			MakeBlackPromotionMove.make(game, move, BlackKnight);		
 			break;
 		case MoveType.kingsideCastling:
-			MakeBlackKingSideCastlingMove.make(game, move);
+			assert Move.from(move) == e8;
+			assert Move.to(move) == g8;
+			MakeBlackKingSideCastlingMove.make(game);
 			break;
 		case MoveType.queensideCastling:
-			MakeBlackQueenSideCastlingMove.make(game, move);
+			assert Move.from(move) == e8;
+			assert Move.to(move) == c8;
+			MakeBlackQueenSideCastlingMove.make(game);
 			break;
 		default:
 			assert false : "unknown move type " + Move.type(move);
@@ -138,10 +145,14 @@ public final class BlackMakeMove {	//TODO unit test
 			MakeBlackEnpassantMove.undo(game, move);
 			break;
 		case MoveType.kingsideCastling:
-			MakeBlackKingSideCastlingMove.undo(game, move);
+			assert Move.from(move) == e8;
+			assert Move.to(move) == g8;
+			MakeBlackKingSideCastlingMove.undo(game);
 			break;
 		case MoveType.queensideCastling:
-			MakeBlackQueenSideCastlingMove.undo(game, move);
+			assert Move.from(move) == e8;
+			assert Move.to(move) == c8;
+			MakeBlackQueenSideCastlingMove.undo(game);
 			break;
 		case MoveType.promotionQueen:
 		case MoveType.promotionRook:

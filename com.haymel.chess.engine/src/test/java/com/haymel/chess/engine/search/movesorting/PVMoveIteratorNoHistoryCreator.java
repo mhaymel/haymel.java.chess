@@ -8,7 +8,6 @@
 package com.haymel.chess.engine.search.movesorting;
 
 import com.haymel.chess.engine.game.Game;
-import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.Moves;
 
 class PVMoveIteratorNoHistoryCreator implements MoveIteratorCreator {	//TODO unit test

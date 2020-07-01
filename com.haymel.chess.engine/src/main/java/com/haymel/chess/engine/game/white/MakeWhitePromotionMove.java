@@ -48,12 +48,14 @@ public final class MakeWhitePromotionMove {
 		assert pieceType == WhiteQueen || pieceType == WhiteRook  || pieceType == WhiteBishop  || pieceType == WhiteKnight;
 		assert game.containsWhitePiece(game.piece(Move.from(move)));
 		
-		Piece piece = game.piece(Move.from(move));
-		game.clear(Move.from(move));
+		final int from = Move.from(move);
+		Piece piece = game.piece(from);
+		game.clear(from);
 		piece.captured(true);
 		game.removeWhite(piece);
 		piece.type(pieceType);
-		piece.field(Move.to(move));
+		final int to = Move.to(move);
+		piece.field(to);
 		piece.captured(false);
 		game.addWhite(piece);
 		game.place(piece);
@@ -89,12 +91,14 @@ public final class MakeWhitePromotionMove {
 	
 		game.activeColorWhite();
 		game.popHalfMoveClock();
-		Piece piece = game.piece(Move.to(move));
-		game.clear(Move.to(move));
+		final int to = Move.to(move);
+		Piece piece = game.piece(to);
+		game.clear(to);
 		piece.captured(true);
 		game.removeWhite(piece);
 		piece.type(WhitePawn);
-		piece.field(Move.from(move));
+		final int from = Move.from(move);
+		piece.field(from);
 		piece.captured(false);
 		game.addWhite(piece);
 		game.place(piece);

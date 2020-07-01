@@ -48,12 +48,14 @@ public final class MakeBlackPromotionMove {
 		assert pieceType == BlackQueen || pieceType == BlackRook  || pieceType == BlackBishop  || pieceType == BlackKnight;
 		assert game.containsBlackPiece(game.piece(Move.from(move)));
 		
-		Piece piece = game.piece(Move.from(move));
-		game.clear(Move.from(move));
+		final int from = Move.from(move);
+		Piece piece = game.piece(from);
+		game.clear(from);
 		piece.captured(true);
 		game.removeBlack(piece);
 		piece.type(pieceType);
-		piece.field(Move.to(move));
+		final int to = Move.to(move);
+		piece.field(to);
 		piece.captured(false);
 		game.addBlack(piece);
 		game.place(piece);
@@ -93,12 +95,14 @@ public final class MakeBlackPromotionMove {
 		game.decFullMoveNumber();
 		game.activeColorBlack();
 		game.popHalfMoveClock();
-		Piece piece = game.piece(Move.to(move));
-		game.clear(Move.to(move));
+		final int to = Move.to(move);
+		Piece piece = game.piece(to);
+		game.clear(to);
 		piece.captured(true);
 		game.removeBlack(piece);
 		piece.type(BlackPawn);
-		piece.field(Move.from(move));
+		final int from = Move.from(move);
+		piece.field(from);
 		piece.captured(false);
 		game.addBlack(piece);
 		game.place(piece);

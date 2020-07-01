@@ -50,24 +50,26 @@ public final class MakeBlackCapturePromotionMove {
 		assert game.fullMoveNumber() >= 1;
 		assert pieceType == BlackQueen || pieceType == BlackRook  || pieceType == BlackBishop  || pieceType == BlackKnight;
 		
-		Piece victim = game.piece(Move.to(move));
+		final int to = Move.to(move);
+		Piece victim = game.piece(to);
 		assert PieceType.white(victim.type());
 		assert victim.type() != WhiteKing;
 		assert victim.type() != WhitePawn;
 		game.pushVictim(victim);
 		
 		game.pushCastlingRight();
-		switch(Move.to(move)) {
+		switch(to) {
 		case a1: game.castlingRight().white().disableQueenside(); break;
 		case h1: game.castlingRight().white().disableKingside(); break;
 		}
 		
-		Piece piece = game.piece(Move.from(move));
-		game.clear(Move.from(move));
+		final int from = Move.from(move);
+		Piece piece = game.piece(from);
+		game.clear(from);
 		piece.captured(true);
 		game.removeBlack(piece);
 		piece.type(pieceType);
-		piece.field(Move.to(move));
+		piece.field(to);
 		piece.captured(false);
 		game.addBlack(piece);
 		game.place(piece);
@@ -108,13 +110,15 @@ public final class MakeBlackCapturePromotionMove {
 		game.decFullMoveNumber();
 		game.activeColorBlack();
 		game.popHalfMoveClock();
-		Piece piece = game.piece(Move.to(move));
+		final int to = Move.to(move);
+		Piece piece = game.piece(to);
 		piece.captured(true);
 		game.removeBlack(piece);
 		piece.type(BlackPawn);
 		piece.captured(false);
 		game.addBlack(piece);
-		piece.field(Move.from(move));
+		final int from = Move.from(move);
+		piece.field(from);
 		game.place(piece);
 		Piece victim = game.popVictim();
 	
@@ -126,7 +130,7 @@ public final class MakeBlackCapturePromotionMove {
 		game.addWhite(victim);
 		game.place(victim);
 		game.popCastlingRight();
-		game.blackPositionValue(piece.type(), Move.to(move), Move.from(move));
+		game.blackPositionValue(piece.type(), to, from);
 		
 		assert game.halfMoveClock() >= 0;
 		assert game.activeColor() == black;

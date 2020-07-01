@@ -29,17 +29,19 @@ public final class MakeWhiteKingMove {
 		
 		game.pushCastlingRight();
 		game.castlingRight().white().disable();
-		Piece piece = game.piece(Move.from(move));
-		game.whitePositionValue(piece.type(), Move.from(move), Move.to(move));
-		game.clear(Move.from(move));
-		piece.field(Move.to(move));
+		final int from = Move.from(move);
+		Piece piece = game.piece(from);
+		final int to = Move.to(move);
+		game.whitePositionValue(piece.type(), from, to);
+		game.clear(from);
+		piece.field(to);
 		game.place(piece);
 		game.incHalfMoveClock();
 		game.activeColorBlack();
 		game.resetEnPassant();
 
 		assert game.enPassant() == removed;
-		assert game.piece(Move.from(move)) == null;
+		assert game.piece(from) == null;
 		assert game.activeColor() == black; 
 		assert game.assertVerify();
 	}
@@ -53,11 +55,13 @@ public final class MakeWhiteKingMove {
 
 		game.activeColorWhite();
 		game.decHalfMoveClock();
-		Piece piece = game.piece(Move.to(move));
-		game.clear(Move.to(move));
-		piece.field(Move.from(move));
+		final int to = Move.to(move);
+		Piece piece = game.piece(to);
+		game.clear(to);
+		final int from = Move.from(move);
+		piece.field(from);
 		game.place(piece);
-		game.whitePositionValue(piece.type(), Move.to(move), Move.from(move));
+		game.whitePositionValue(piece.type(), to, from);
 		game.popCastlingRight();
 		
 		assert game.halfMoveClock() >= 0;

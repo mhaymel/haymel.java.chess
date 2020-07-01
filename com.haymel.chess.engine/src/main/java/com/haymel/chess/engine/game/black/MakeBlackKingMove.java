@@ -31,10 +31,12 @@ public final class MakeBlackKingMove {
 		
 		game.pushCastlingRight();
 		game.castlingRight().black().disable();
-		Piece piece = game.piece(Move.from(move));
-		game.blackPositionValue(piece.type(), Move.from(move), Move.to(move));
-		game.clear(Move.from(move));
-		piece.field(Move.to(move));
+		final int from = Move.from(move);
+		Piece piece = game.piece(from);
+		final int to = Move.to(move);
+		game.blackPositionValue(piece.type(), from, to);
+		game.clear(from);
+		piece.field(to);
 		game.place(piece);
 		game.incHalfMoveClock();
 		game.incFullMoveNumber();
@@ -60,11 +62,13 @@ public final class MakeBlackKingMove {
 		game.decFullMoveNumber();
 		game.activeColorBlack();
 		game.decHalfMoveClock();
-		Piece piece = game.piece(Move.to(move));
-		game.clear(Move.to(move));
-		piece.field(Move.from(move));
+		final int to = Move.to(move);
+		Piece piece = game.piece(to);
+		game.clear(to);
+		final int from = Move.from(move);
+		piece.field(from);
 		game.place(piece);
-		game.blackPositionValue(piece.type(), Move.to(move), Move.from(move));
+		game.blackPositionValue(piece.type(), to, from);
 		game.popCastlingRight();
 		
 		assert game.halfMoveClock() >= 0;

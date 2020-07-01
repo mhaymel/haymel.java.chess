@@ -34,20 +34,22 @@ public final class MakeWhiteCaptureMove {
 		assert game.piece(Move.from(move)).type() != WhiteRook;
 		assert game.containsWhitePiece(game.piece(Move.from(move)));
 		
-		Piece victim = game.piece(Move.to(move));
+		final int to = Move.to(move);
+		Piece victim = game.piece(to);
 		assert PieceType.black(victim.type());
 		assert victim.type() != BlackKing;
 		game.pushVictim(victim);
 		
 		game.pushCastlingRight();
-		switch(Move.to(move)) {
+		switch(to) {
 		case a8: game.castlingRight().black().disableQueenside(); break;
 		case h8: game.castlingRight().black().disableKingside(); break;
 		}
-		Piece piece = game.piece(Move.from(move));
- 		game.whitePositionValue(piece.type(), Move.from(move), Move.to(move));
-		game.clear(Move.from(move));
-		piece.field(Move.to(move));
+		final int from = Move.from(move);
+		Piece piece = game.piece(from);
+ 		game.whitePositionValue(piece.type(), from, to);
+		game.clear(from);
+		piece.field(to);
 		game.place(piece);
 		victim.captured(true);
 		game.removeBlack(victim);
@@ -75,8 +77,10 @@ public final class MakeWhiteCaptureMove {
 
 		game.activeColorWhite();
 		game.popHalfMoveClock();
-		Piece piece = game.piece(Move.to(move));
-		piece.field(Move.from(move));
+		final int to = Move.to(move);
+		Piece piece = game.piece(to);
+		final int from = Move.from(move);
+		piece.field(from);
 		game.place(piece);
 		Piece victim = game.popVictim();
 	
@@ -87,7 +91,7 @@ public final class MakeWhiteCaptureMove {
 		victim.captured(false);
 		game.addBlack(victim);
 		game.place(victim);
-		game.whitePositionValue(piece.type(), Move.to(move), Move.from(move));
+		game.whitePositionValue(piece.type(), to, from);
 		game.popCastlingRight();
 		
 		assert game.halfMoveClock() >= 0;

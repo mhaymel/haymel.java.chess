@@ -16,7 +16,6 @@ import java.util.concurrent.atomic.AtomicLong;
 import com.haymel.chess.engine.game.ActiveColor;
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.game.MakeMove;
-import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.Moves;
 
 public class Perft {

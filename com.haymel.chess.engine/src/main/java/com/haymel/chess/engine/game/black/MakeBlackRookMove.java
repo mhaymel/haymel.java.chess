@@ -31,15 +31,17 @@ public final class MakeBlackRookMove {
 		assert game.piece(Move.to(move)) == null;
 		
 		game.pushCastlingRight();
-		switch(Move.from(move)) {
+		final int from = Move.from(move);
+		switch(from) {
 		case a8: game.castlingRight().black().disableQueenside(); break;
 		case h8: game.castlingRight().black().disableKingside(); break;
 		}
 
-		Piece piece = game.piece(Move.from(move));
-		game.blackPositionValue(piece.type(), Move.from(move), Move.to(move));
-		game.clear(Move.from(move));
-		piece.field(Move.to(move));
+		Piece piece = game.piece(from);
+		final int to = Move.to(move);
+		game.blackPositionValue(piece.type(), from, to);
+		game.clear(from);
+		piece.field(to);
 		game.place(piece);
 		game.incHalfMoveClock();
 		game.incFullMoveNumber();
@@ -64,11 +66,13 @@ public final class MakeBlackRookMove {
 		game.decFullMoveNumber();
 		game.activeColorBlack();
 		game.decHalfMoveClock();
-		Piece piece = game.piece(Move.to(move));
-		game.clear(Move.to(move));
-		piece.field(Move.from(move));
+		final int to = Move.to(move);
+		Piece piece = game.piece(to);
+		game.clear(to);
+		final int from = Move.from(move);
+		piece.field(from);
 		game.place(piece);
-		game.blackPositionValue(piece.type(), Move.to(move), Move.from(move));
+		game.blackPositionValue(piece.type(), to, from);
 		game.popCastlingRight();
 		
 		assert game.halfMoveClock() >= 0;

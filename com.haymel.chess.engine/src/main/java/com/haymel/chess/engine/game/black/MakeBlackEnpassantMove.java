@@ -37,10 +37,12 @@ public final class MakeBlackEnpassantMove {
 		assert victim.type() == WhitePawn;
 		game.pushVictim(victim);
 		
-		Piece piece = game.piece(Move.from(move));
-		game.blackPositionValue(piece.type(), Move.from(move), Move.to(move));
-		game.clear(Move.from(move));
-		piece.field(Move.to(move));
+		final int from = Move.from(move);
+		Piece piece = game.piece(from);
+		final int to = Move.to(move);
+		game.blackPositionValue(piece.type(), from, to);
+		game.clear(from);
+		piece.field(to);
 		game.place(piece);
 		game.clear(victim.field());
 		victim.captured(true);
@@ -73,9 +75,11 @@ public final class MakeBlackEnpassantMove {
 		game.decFullMoveNumber();
 		game.activeColorBlack();
 		game.popHalfMoveClock();
-		Piece piece = game.piece(Move.to(move));
-		game.clear(Move.to(move));
-		piece.field(Move.from(move));
+		final int to = Move.to(move);
+		Piece piece = game.piece(to);
+		game.clear(to);
+		final int from = Move.from(move);
+		piece.field(from);
 		game.place(piece);
 		Piece victim = game.popVictim();
 		
@@ -86,7 +90,7 @@ public final class MakeBlackEnpassantMove {
 		victim.captured(false);
 		game.addWhite(victim);
 		game.place(victim);
-		game.blackPositionValue(piece.type(), Move.to(move), Move.from(move));
+		game.blackPositionValue(piece.type(), to, from);
 		
 		assert game.halfMoveClock() >= 0;
 		assert game.activeColor() == black; 

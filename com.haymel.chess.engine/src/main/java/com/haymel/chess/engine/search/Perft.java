@@ -13,7 +13,6 @@ import static com.haymel.util.Require.nonNull;
 
 import com.haymel.chess.engine.game.Game;
 import com.haymel.chess.engine.game.MakeMove;
-import com.haymel.chess.engine.moves.Move;
 import com.haymel.chess.engine.moves.Moves;
 
 public class Perft {
