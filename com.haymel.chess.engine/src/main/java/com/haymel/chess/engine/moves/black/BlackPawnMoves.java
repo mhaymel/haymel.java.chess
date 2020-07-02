@@ -8,29 +8,21 @@
 package com.haymel.chess.engine.moves.black;
 
 import static com.haymel.chess.engine.board.Field.a2;
-import static com.haymel.chess.engine.board.Field.a4;
 import static com.haymel.chess.engine.board.Field.a7;
 import static com.haymel.chess.engine.board.Field.b2;
-import static com.haymel.chess.engine.board.Field.b4;
 import static com.haymel.chess.engine.board.Field.b7;
 import static com.haymel.chess.engine.board.Field.c2;
-import static com.haymel.chess.engine.board.Field.c4;
 import static com.haymel.chess.engine.board.Field.c7;
 import static com.haymel.chess.engine.board.Field.d2;
-import static com.haymel.chess.engine.board.Field.d4;
 import static com.haymel.chess.engine.board.Field.d7;
 import static com.haymel.chess.engine.board.Field.down;
 import static com.haymel.chess.engine.board.Field.e2;
-import static com.haymel.chess.engine.board.Field.e4;
 import static com.haymel.chess.engine.board.Field.e7;
 import static com.haymel.chess.engine.board.Field.f2;
-import static com.haymel.chess.engine.board.Field.f4;
 import static com.haymel.chess.engine.board.Field.f7;
 import static com.haymel.chess.engine.board.Field.g2;
-import static com.haymel.chess.engine.board.Field.g4;
 import static com.haymel.chess.engine.board.Field.g7;
 import static com.haymel.chess.engine.board.Field.h2;
-import static com.haymel.chess.engine.board.Field.h4;
 import static com.haymel.chess.engine.board.Field.h7;
 import static com.haymel.chess.engine.board.Field.leftDown;
 import static com.haymel.chess.engine.board.Field.rank;
@@ -42,7 +34,6 @@ import static com.haymel.chess.engine.moves.MoveType.capturePromotionBishop;
 import static com.haymel.chess.engine.moves.MoveType.capturePromotionKnight;
 import static com.haymel.chess.engine.moves.MoveType.capturePromotionQueen;
 import static com.haymel.chess.engine.moves.MoveType.capturePromotionRook;
-import static com.haymel.chess.engine.moves.MoveType.enpassant;
 import static com.haymel.chess.engine.moves.MoveType.pawn;
 import static com.haymel.chess.engine.moves.MoveType.pawnDoubleStep;
 import static com.haymel.chess.engine.moves.MoveType.promotionBishop;
@@ -53,7 +44,6 @@ import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
 import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
 
-import com.haymel.chess.engine.board.Field;
 import com.haymel.chess.engine.moves.Moves;
 import com.haymel.chess.engine.piece.Piece;
 import com.haymel.chess.engine.piece.PieceType;
@@ -86,15 +76,6 @@ public final class BlackPawnMoves {
 		case g7:
 		case h7:
 			return doubleStepMove(piece, moves);
-		case a4:
-		case b4:
-		case c4:
-		case d4:
-		case e4:
-		case f4:
-		case g4:
-		case h4:
-			return enpassant(piece, epField, moves);
 		case a2:
 		case b2:
 		case c2:
@@ -107,29 +88,6 @@ public final class BlackPawnMoves {
 		default:
 			return normal(piece, moves);
 		}
-	}
-
-	private boolean enpassant(Piece piece, int epField, Moves moves) {
-		assert rank(piece.field()) == 3;
-		
-		int from = piece.field();
-		int to = down(from);
-		if (isFree(to)) 
-			moves.add(from, to, pawn);
-		
-		int leftDown = leftDown(from);
-		if (leftDown == epField)
-			moves.add(from, leftDown, enpassant);
-		else if (!capture(from, leftDown, moves))
-			return false;
-		
-		int rightDown = Field.rightDown(from);
-		if (rightDown == epField)
-			moves.add(from, rightDown, enpassant);
-		else if (!capture(from, rightDown, moves))
-			return false;
-		
-		return true;
 	}
 
 	private boolean promotion(Piece piece, Moves moves) {
@@ -170,6 +128,7 @@ public final class BlackPawnMoves {
 	private boolean normal(Piece piece, Moves moves) {
 		assert 
 			rank(piece.field()) == 2 || 
+			rank(piece.field()) == 3 || 
 			rank(piece.field()) == 4 || 
 			rank(piece.field()) == 5;
 		

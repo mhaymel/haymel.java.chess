@@ -18,15 +18,11 @@ import static com.haymel.chess.engine.board.Field.c5;
 import static com.haymel.chess.engine.board.Field.c6;
 import static com.haymel.chess.engine.board.Field.c7;
 import static com.haymel.chess.engine.board.Field.d1;
-import static com.haymel.chess.engine.board.Field.d3;
-import static com.haymel.chess.engine.board.Field.d4;
 import static com.haymel.chess.engine.board.Field.d5;
 import static com.haymel.chess.engine.board.Field.d6;
 import static com.haymel.chess.engine.board.Field.d7;
 import static com.haymel.chess.engine.board.Field.e1;
 import static com.haymel.chess.engine.board.Field.e2;
-import static com.haymel.chess.engine.board.Field.e3;
-import static com.haymel.chess.engine.board.Field.e4;
 import static com.haymel.chess.engine.board.Field.e5;
 import static com.haymel.chess.engine.board.Field.e6;
 import static com.haymel.chess.engine.board.Field.e7;
@@ -47,7 +43,6 @@ import static com.haymel.chess.engine.moves.MoveType.capturePromotionBishop;
 import static com.haymel.chess.engine.moves.MoveType.capturePromotionKnight;
 import static com.haymel.chess.engine.moves.MoveType.capturePromotionQueen;
 import static com.haymel.chess.engine.moves.MoveType.capturePromotionRook;
-import static com.haymel.chess.engine.moves.MoveType.enpassant;
 import static com.haymel.chess.engine.moves.MoveType.pawn;
 import static com.haymel.chess.engine.moves.MoveType.pawnDoubleStep;
 import static com.haymel.chess.engine.moves.MoveType.promotionBishop;
@@ -57,7 +52,6 @@ import static com.haymel.chess.engine.moves.MoveType.promotionRook;
 import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 import static com.haymel.chess.engine.piece.PieceType.WhiteBishop;
-import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -330,30 +324,6 @@ public class BlackPawnMoveTest {
 		assertThat(result.contains(newMove(e2, f1, capturePromotionKnight)), is(true));
 	}
 
-	@Test
-	public void testEnPassantLeft() {
-		piece(d4, WhitePawn);
-		pawnMoves.generate(blackPawn(e4), d3, moves);
-		
-		assertThat(moves.size(), is(2));
-		
-		Set<Integer> result = movesAsSet();
-		assertThat(result.contains(newMove(e4, e3, pawn)), is(true));
-		assertThat(result.contains(newMove(e4, d3, enpassant)), is(true));
-	}
-
-	@Test
-	public void testEnPassantRight() {
-		piece(e4, WhitePawn);
-		pawnMoves.generate(blackPawn(d4), e3, moves);
-		
-		assertThat(moves.size(), is(2));
-		
-		Set<Integer> result = movesAsSet();
-		assertThat(result.contains(newMove(d4, d3, pawn)), is(true));
-		assertThat(result.contains(newMove(d4, e3, enpassant)), is(true));
-	}
-	
 	private int capture(int from, int to) {
 		return newMove(from, to, capture);
 	}

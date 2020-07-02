@@ -7,7 +7,10 @@
  */
 package com.haymel.chess.engine.moves.black;
 
+import static com.haymel.chess.engine.board.Field.leftUp;
 import static com.haymel.chess.engine.board.Field.removed;
+import static com.haymel.chess.engine.board.Field.rightUp;
+import static com.haymel.chess.engine.moves.MoveType.enpassant;
 import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
 import static com.haymel.chess.engine.piece.PieceType.BlackKing;
 import static com.haymel.chess.engine.piece.PieceType.BlackKnight;
@@ -24,6 +27,7 @@ import com.haymel.chess.engine.piece.PieceType;
 
 public final class BlackMoves {		//TODO unit test
 
+	private final Piece[] pieces;
 	private final BlackKingMoves kingMoves;
 	private final BlackRookMoves rookMoves;
 	private final BlackKnightMoves knightMoves;
@@ -34,6 +38,7 @@ public final class BlackMoves {		//TODO unit test
 	public BlackMoves(Piece[] pieces) {
 		assert pieces != null;
 		
+		this.pieces = pieces;
 		this.kingMoves = new BlackKingMoves(pieces);
 		this.rookMoves = new BlackRookMoves(pieces);
 		this.knightMoves = new BlackKnightMoves(pieces);
@@ -53,9 +58,28 @@ public final class BlackMoves {		//TODO unit test
 			if (!generate(pieces.piece(i), castling, epField, moves))
 				return false;
 		
+		if (epField != removed)
+			enpassant(epField, moves);
+
 		return true;
 	}
 
+	private void enpassant(int epField, Moves moves) {
+		assert epField != removed;
+		
+		int leftUp = leftUp(epField);
+		if (blackPawn(pieces[leftUp]))
+			moves.add(leftUp, epField, enpassant);
+			
+		int rightUp = rightUp(epField);
+		if (blackPawn(pieces[rightUp]))
+			moves.add(rightUp, epField, enpassant);
+	}
+
+	private static boolean blackPawn(Piece piece) {
+		return piece != null && piece.type() == BlackPawn;
+	}
+	
 	private boolean generate(Piece piece, CastlingRight castling, int epField, Moves moves) {
 		assert piece != null;
 		assert PieceType.black(piece.type());

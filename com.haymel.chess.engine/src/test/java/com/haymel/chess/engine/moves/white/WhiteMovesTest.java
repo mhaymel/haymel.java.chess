@@ -33,6 +33,7 @@ import static com.haymel.chess.engine.board.Field.g4;
 import static com.haymel.chess.engine.board.Field.h2;
 import static com.haymel.chess.engine.board.Field.h3;
 import static com.haymel.chess.engine.board.Field.h4;
+import static com.haymel.chess.engine.game.TestHelper.fromFen;
 import static com.haymel.chess.engine.moves.Move.newMove;
 import static com.haymel.chess.engine.moves.MoveType.normal;
 import static com.haymel.chess.engine.moves.MoveType.pawn;
@@ -47,7 +48,10 @@ import org.junit.Test;
 
 import com.haymel.chess.engine.fen.GameFromFEN;
 import com.haymel.chess.engine.game.Game;
+import com.haymel.chess.engine.moves.Move;
+import com.haymel.chess.engine.moves.MoveType;
 import com.haymel.chess.engine.moves.Moves;
+import com.haymel.chess.engine.moves.algebraic.MoveFinder;
 
 public class WhiteMovesTest {
 
@@ -80,6 +84,40 @@ public class WhiteMovesTest {
 		assertThat(result.contains(newMove(g1, h3, normal)), is(true));
 	}
 
+	@Test
+	public void testEnPassantLeft() {
+		Game game = fromFen("7k/8/8/4pP2/8/8/8/7K w - e6 0 1");
+		Moves moves = game.whiteMoves();
+		int move = new MoveFinder(moves).find("f5e6");
+		assertThat(Move.type(move), is(MoveType.enpassant));
+
+		move = new MoveFinder(moves).find("d5e6");
+		assertThat(move, is(0));
+	}
+
+	@Test
+	public void testEnPassantRight() {
+		Game game = fromFen("7k/8/8/3Pp3/8/8/8/7K w - e6 0 1");
+		Moves moves = game.whiteMoves();
+		int move = new MoveFinder(moves).find("d5e6");
+		assertThat(Move.type(move), is(MoveType.enpassant));
+
+		move = new MoveFinder(moves).find("f5e6");
+		assertThat(move, is(0));
+	}
+
+	@Test
+	public void testEnPassantLeftAndRight() {
+		Game game = fromFen("7k/8/8/3PpP2/8/8/8/7K w - e6 0 1 ");
+		Moves moves = game.whiteMoves();
+		
+		int move = new MoveFinder(moves).find("f5e6");
+		assertThat(Move.type(move), is(MoveType.enpassant));
+
+		move = new MoveFinder(moves).find("d5e6");
+		assertThat(Move.type(move), is(MoveType.enpassant));
+	}
+	
 	private static Set<Integer> movesAsSet(Moves moves) {
 		Set<Integer> result = new HashSet<>(moves.size());
 

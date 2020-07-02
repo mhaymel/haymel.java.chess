@@ -20,21 +20,15 @@ import static com.haymel.chess.engine.board.Field.c4;
 import static com.haymel.chess.engine.board.Field.d2;
 import static com.haymel.chess.engine.board.Field.d3;
 import static com.haymel.chess.engine.board.Field.d4;
-import static com.haymel.chess.engine.board.Field.d5;
-import static com.haymel.chess.engine.board.Field.d6;
 import static com.haymel.chess.engine.board.Field.d8;
 import static com.haymel.chess.engine.board.Field.e2;
 import static com.haymel.chess.engine.board.Field.e3;
 import static com.haymel.chess.engine.board.Field.e4;
-import static com.haymel.chess.engine.board.Field.e5;
-import static com.haymel.chess.engine.board.Field.e6;
 import static com.haymel.chess.engine.board.Field.e7;
 import static com.haymel.chess.engine.board.Field.e8;
 import static com.haymel.chess.engine.board.Field.f2;
 import static com.haymel.chess.engine.board.Field.f3;
 import static com.haymel.chess.engine.board.Field.f4;
-import static com.haymel.chess.engine.board.Field.f5;
-import static com.haymel.chess.engine.board.Field.f6;
 import static com.haymel.chess.engine.board.Field.f8;
 import static com.haymel.chess.engine.board.Field.g2;
 import static com.haymel.chess.engine.board.Field.g3;
@@ -49,7 +43,6 @@ import static com.haymel.chess.engine.moves.MoveType.capturePromotionBishop;
 import static com.haymel.chess.engine.moves.MoveType.capturePromotionKnight;
 import static com.haymel.chess.engine.moves.MoveType.capturePromotionQueen;
 import static com.haymel.chess.engine.moves.MoveType.capturePromotionRook;
-import static com.haymel.chess.engine.moves.MoveType.enpassant;
 import static com.haymel.chess.engine.moves.MoveType.pawn;
 import static com.haymel.chess.engine.moves.MoveType.pawnDoubleStep;
 import static com.haymel.chess.engine.moves.MoveType.promotionBishop;
@@ -57,7 +50,6 @@ import static com.haymel.chess.engine.moves.MoveType.promotionKnight;
 import static com.haymel.chess.engine.moves.MoveType.promotionQueen;
 import static com.haymel.chess.engine.moves.MoveType.promotionRook;
 import static com.haymel.chess.engine.piece.PieceType.BlackBishop;
-import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 import static com.haymel.chess.engine.piece.PieceType.WhiteBishop;
 import static com.haymel.chess.engine.piece.PieceType.WhitePawn;
 import static org.hamcrest.CoreMatchers.is;
@@ -333,30 +325,6 @@ public class WhitePawnMoveTest {
 		assertThat(result.contains(newMove(e7, f8, capturePromotionKnight)), is(true));
 	}
 
-	@Test
-	public void testEnPassantLeft() {
-		piece(d5, BlackPawn);
-		pawnMoves.generate(whitePawn(e5), d6, moves);
-		
-		assertThat(moves.size(), is(2));
-		
-		Set<Integer> result = movesAsSet();
-		assertThat(result.contains(newMove(e5, e6, pawn)), is(true));
-		assertThat(result.contains(newMove(e5, d6, enpassant)), is(true));
-	}
-
-	@Test
-	public void testEnPassantRight() {
-		piece(f5, BlackPawn);
-		pawnMoves.generate(whitePawn(e5), f6, moves);
-		
-		assertThat(moves.size(), is(2));
-		
-		Set<Integer> result = movesAsSet();
-		assertThat(result.contains(newMove(e5, e6, pawn)), is(true));
-		assertThat(result.contains(newMove(e5, f6, enpassant)), is(true));
-	}
-	
 	private int capture(int from, int to) {
 		return newMove(from, to, capture);
 	}

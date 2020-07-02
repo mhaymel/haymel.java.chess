@@ -7,8 +7,11 @@
  */
 package com.haymel.chess.engine.moves.white.capture;
 
+import static com.haymel.chess.engine.board.Field.leftDown;
 import static com.haymel.chess.engine.board.Field.rank;
 import static com.haymel.chess.engine.board.Field.removed;
+import static com.haymel.chess.engine.board.Field.rightDown;
+import static com.haymel.chess.engine.moves.MoveType.enpassant;
 import static com.haymel.chess.engine.piece.PieceType.WhiteBishop;
 import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
 import static com.haymel.chess.engine.piece.PieceType.WhiteKnight;
@@ -23,6 +26,7 @@ import com.haymel.chess.engine.piece.PieceType;
 
 public final class WhiteCaptureMoves {		//TODO unit test
 
+	private final Piece[] pieces;
 	private final WhiteKingCaptureMoves kingMoves;
 	private final WhiteRookCaptureMoves rookMoves;
 	private final WhiteKnightCaptureMoves knightMoves;
@@ -33,6 +37,7 @@ public final class WhiteCaptureMoves {		//TODO unit test
 	public WhiteCaptureMoves(Piece[] pieces) {
 		assert pieces != null;
 		
+		this.pieces = pieces;
 		this.kingMoves = new WhiteKingCaptureMoves(pieces);
 		this.rookMoves = new WhiteRookCaptureMoves(pieces);
 		this.knightMoves = new WhiteKnightCaptureMoves(pieces);
@@ -52,7 +57,26 @@ public final class WhiteCaptureMoves {		//TODO unit test
 			if (!generate(pieces.piece(i), epField, moves))
 				return false;
 		
+		if (epField != removed)
+			enpassant(epField, moves);
+
 		return true;
+	}
+
+	private void enpassant(int epField, Moves moves) {
+		assert epField != removed;
+		
+		int leftDown = leftDown(epField);
+		if (whitePawn(pieces[leftDown]))
+			moves.add(leftDown, epField, enpassant);
+			
+		int rightDown = rightDown(epField);
+		if (whitePawn(pieces[rightDown]))
+			moves.add(rightDown, epField, enpassant);
+	}
+
+	private static boolean whitePawn(Piece piece) {
+		return piece != null && piece.type() == WhitePawn;
 	}
 
 	private boolean generate(Piece piece, int epField, Moves moves) {

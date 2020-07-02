@@ -7,21 +7,13 @@
  */
 package com.haymel.chess.engine.moves.white.capture;
 
-import static com.haymel.chess.engine.board.Field.a5;
 import static com.haymel.chess.engine.board.Field.a7;
-import static com.haymel.chess.engine.board.Field.b5;
 import static com.haymel.chess.engine.board.Field.b7;
-import static com.haymel.chess.engine.board.Field.c5;
 import static com.haymel.chess.engine.board.Field.c7;
-import static com.haymel.chess.engine.board.Field.d5;
 import static com.haymel.chess.engine.board.Field.d7;
-import static com.haymel.chess.engine.board.Field.e5;
 import static com.haymel.chess.engine.board.Field.e7;
-import static com.haymel.chess.engine.board.Field.f5;
 import static com.haymel.chess.engine.board.Field.f7;
-import static com.haymel.chess.engine.board.Field.g5;
 import static com.haymel.chess.engine.board.Field.g7;
-import static com.haymel.chess.engine.board.Field.h5;
 import static com.haymel.chess.engine.board.Field.h7;
 import static com.haymel.chess.engine.board.Field.leftUp;
 import static com.haymel.chess.engine.board.Field.rank;
@@ -32,7 +24,6 @@ import static com.haymel.chess.engine.moves.MoveType.capturePromotionBishop;
 import static com.haymel.chess.engine.moves.MoveType.capturePromotionKnight;
 import static com.haymel.chess.engine.moves.MoveType.capturePromotionQueen;
 import static com.haymel.chess.engine.moves.MoveType.capturePromotionRook;
-import static com.haymel.chess.engine.moves.MoveType.enpassant;
 import static com.haymel.chess.engine.piece.PieceType.BlackKing;
 import static com.haymel.chess.engine.piece.PieceType.BlackPawn;
 
@@ -60,15 +51,6 @@ public final class WhitePawnCaptureMoves {	//TODO unit test
 		assert piece.type() == PieceType.WhitePawn;
 		
 		switch(piece.field()) {
-		case a5:
-		case b5:
-		case c5:
-		case d5:
-		case e5:
-		case f5:
-		case g5:
-		case h5:
-			return enpassant(piece, epField, moves);
 		case a7:
 		case b7:
 		case c7:
@@ -81,26 +63,6 @@ public final class WhitePawnCaptureMoves {	//TODO unit test
 		default:
 			return capture(piece, moves);
 		}
-	}
-
-	private boolean enpassant(Piece piece, int epField, Moves moves) {
-		assert rank(piece.field()) == 4;
-		
-		int from = piece.field();
-		
-		int leftUp = leftUp(from);
-		if (leftUp == epField)
-			moves.add(from, leftUp, enpassant);
-		else if (!capture(from, leftUp, moves))
-			return false;
-		
-		int rightUp = Field.rightUp(from);
-		if (rightUp == epField)
-			moves.add(from, rightUp, enpassant);
-		else if (!capture(from, rightUp, moves))
-			return false;
-		
-		return true;
 	}
 
 	private boolean capturePromotion(Piece piece, Moves moves) {
@@ -131,6 +93,7 @@ public final class WhitePawnCaptureMoves {	//TODO unit test
 			rank(piece.field()) == 1 || 
 			rank(piece.field()) == 2 || 
 			rank(piece.field()) == 3 || 
+			rank(piece.field()) == 4 || 
 			rank(piece.field()) == 5;
 		
 		int from = piece.field();

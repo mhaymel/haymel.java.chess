@@ -33,6 +33,7 @@ import static com.haymel.chess.engine.board.Field.g8;
 import static com.haymel.chess.engine.board.Field.h5;
 import static com.haymel.chess.engine.board.Field.h6;
 import static com.haymel.chess.engine.board.Field.h7;
+import static com.haymel.chess.engine.game.TestHelper.fromFen;
 import static com.haymel.chess.engine.moves.Move.newMove;
 import static com.haymel.chess.engine.moves.MoveType.normal;
 import static com.haymel.chess.engine.moves.MoveType.pawn;
@@ -47,7 +48,10 @@ import org.junit.Test;
 
 import com.haymel.chess.engine.fen.GameFromFEN;
 import com.haymel.chess.engine.game.Game;
+import com.haymel.chess.engine.moves.Move;
+import com.haymel.chess.engine.moves.MoveType;
 import com.haymel.chess.engine.moves.Moves;
+import com.haymel.chess.engine.moves.algebraic.MoveFinder;
 
 public class BlackMovesTest {
 
@@ -80,6 +84,41 @@ public class BlackMovesTest {
 		assertThat(result.contains(newMove(g8, h6, normal)), is(true));
 	}
 
+	
+	@Test
+	public void testEnPassantLeft() {
+		Game game = fromFen("7k/8/8/8/3Pp3/8/8/7K b - d3 0 1");
+		Moves moves = game.blackMoves();
+		int move = new MoveFinder(moves).find("e4d3");
+		assertThat(Move.type(move), is(MoveType.enpassant));
+
+		move = new MoveFinder(moves).find("c4d3");
+		assertThat(move, is(0));
+	}
+
+	@Test
+	public void testEnPassantRight() {
+		Game game = fromFen("7k/8/8/8/2pP4/8/8/7K b - d3 0 1");
+		Moves moves = game.blackMoves();
+		int move = new MoveFinder(moves).find("c4d3");
+		assertThat(Move.type(move), is(MoveType.enpassant));
+
+		move = new MoveFinder(moves).find("e4d3");
+		assertThat(move, is(0));
+	}
+
+	@Test
+	public void testEnPassantLeftAndRight() {
+		Game game = fromFen("7k/8/8/8/2pPp3/8/8/7K b - d3 0 1");
+		Moves moves = game.blackMoves();
+		
+		int move = new MoveFinder(moves).find("e4d3");
+		assertThat(Move.type(move), is(MoveType.enpassant));
+
+		move = new MoveFinder(moves).find("c4d3");
+		assertThat(Move.type(move), is(MoveType.enpassant));
+	}
+	
 	private static Set<Integer> movesAsSet(Moves moves) {
 		Set<Integer> result = new HashSet<>(moves.size());
 
