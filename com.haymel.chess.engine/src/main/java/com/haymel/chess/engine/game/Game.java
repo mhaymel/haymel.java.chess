@@ -570,4 +570,15 @@ public final class Game {	//TODO unit test and refactor
 		return h;
 	}
 
+	public boolean repetition() {
+		if (undosIndex < 4)
+			return false;
+		
+		return 
+			Move.to(undos[undosIndex-1]) == Move.from(undos[undosIndex-3]) &&
+			Move.from(undos[undosIndex-1]) == Move.to(undos[undosIndex-3]) &&
+			Move.to(undos[undosIndex-2]) == Move.from(undos[undosIndex-4]) &&
+			Move.from(undos[undosIndex-2]) == Move.to(undos[undosIndex-4]);
+	}
+	
 }
