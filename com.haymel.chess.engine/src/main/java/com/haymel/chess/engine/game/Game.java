@@ -585,4 +585,8 @@ public final class Game {	//TODO unit test and refactor
 		return whitePieces;
 	}
 	
+	public PieceList blackPieces() {
+		return blackPieces;
+	}
+
 }
