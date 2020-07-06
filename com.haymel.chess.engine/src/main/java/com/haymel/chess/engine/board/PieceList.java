@@ -7,7 +7,9 @@
  */
 package com.haymel.chess.engine.board;
 
+import static com.haymel.chess.engine.piece.PieceType.BlackKing;
 import static com.haymel.chess.engine.piece.PieceType.Border;
+import static com.haymel.chess.engine.piece.PieceType.WhiteKing;
 
 import com.haymel.chess.engine.piece.Piece;
 
@@ -59,4 +61,12 @@ public final class PieceList {	//TODO unit test
 		return false;
 	}
 	
+	public Piece king() {
+		for(int i = 0; i < index; i++)
+			if (pieces[i].type() == BlackKing || pieces[i].type() == WhiteKing)
+				return pieces[i];
+		
+		assert false;
+		return null;
+	}
 }

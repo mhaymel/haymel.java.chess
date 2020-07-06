@@ -128,9 +128,9 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 			Variant v = new Variant(move);
 			WhiteMakeMove.makeMove(game, move);
 			
-			Moves blackMoves = (depth + 1) < maxDepth ? game.blackMoves() : game.blackCaptureMoves();
-			if (blackMoves != null) {
-				int score = black(blackMoves, depth + 1, alpha, MAX_VALUE, v);
+			
+			if (!whiteIsInCheck()) {
+				int score = black(depth + 1, alpha, MAX_VALUE, v);
 				if (score > alpha) {
 					alpha = score;
 					bestMove = newBestMove(v, score);
@@ -163,10 +163,9 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 			Variant v = new Variant(move);
 			WhiteMakeMove.makeMove(game, move);
 
-			Moves blackMoves = (depth + 1) < maxDepth ? game.blackMoves() : game.blackCaptureMoves();
-			if (blackMoves != null) {
+			if (!whiteIsInCheck()) {
 				validMovesCount++;
-				int score = black(blackMoves, depth + 1, alpha, beta, v);
+				int score = black(depth + 1, alpha, beta, v);
 				WhiteMakeMove.undoMove(game);
 				
 				if (score >= beta) {
@@ -225,10 +224,9 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 				Variant v = new Variant(move);
 				WhiteMakeMove.makeMove(game, move);
 				
-				Moves blackMoves = game.blackCaptureMoves();
-				if (blackMoves != null) {
+				if (!whiteIsInCheck()) {
 					validMovesCount++;
-					int score = blackQuiet(blackMoves, depth + 1, alpha, beta, v);
+					int score = blackQuiet(depth + 1, alpha, beta, v);
 					WhiteMakeMove.undoMove(game);
 						
 					if (score >= beta) 
@@ -307,16 +305,17 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 		return blackIsInCheck() ? blackIsMate() : stalemate();
 	}
 	
-	private int black(Moves moves, int depth, int alpha, int beta, Variant variant) {
+	private int black(int depth, int alpha, int beta, Variant variant) {
 		assert depth > 0: format("depth: %s, maxDepth: %s", depth, maxDepth);
 		assert game.blackMoves() != null;
 
 		if (depth >= maxDepth)
-			return blackQuiet(moves, depth, alpha, beta, variant);
+			return blackQuiet(depth, alpha, beta, variant);
 		
 		if (depth >= maxDepth || stop)
 			return evaluate();
 		
+		Moves moves = game.blackMoves();
 		MoveIterator moveIter = moveIteratorCreator.create(moves, moves.size(), principal(depth), history[depth]);
 
 		int validMovesCount = 0;
@@ -356,7 +355,7 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 					: 0;	//stalemate
 	}
 
-	private int blackQuiet(Moves moves, int depth, int alpha, int beta, Variant variant) {
+	private int blackQuiet(int depth, int alpha, int beta, Variant variant) {
 		assert depth >= maxDepth;
 		assert game.blackMoves() != null;
 		
@@ -375,6 +374,7 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 	
 		int validMovesCount = 0;
 
+		Moves moves = game.blackCaptureMoves();
 		if (moves.size() > 0) {
 		    MoveIterator moveIter = moveIteratorCreator.create(moves, moves.size(), principal(depth), 0);
 			int move;
@@ -484,11 +484,18 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 	}
 	
 	private boolean whiteIsInCheck() {
-		return game.blackMoves() == null;
+		assert 
+			!WhiteInCheck.whiteIsInCheck(game.whitePieces().king().field(), game.pieces()) 
+			|| 
+				(game.blackCaptureMoves() == null 
+				 && 
+				 game.blackMoves() == null);
+
+		return WhiteInCheck.whiteIsInCheck(game.whitePieces().king().field(), game.pieces());
 	}
 	
 	private boolean blackIsInCheck() {
-		return game.whiteMoves() == null;
+		return game.whiteCaptureMoves() == null;
 	}
 
 	public static int blackMate() {
