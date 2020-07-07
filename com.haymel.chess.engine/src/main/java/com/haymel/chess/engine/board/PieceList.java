@@ -17,6 +17,7 @@ public final class PieceList {	//TODO unit test
 
 	private int index = 0;
 	private final Piece[] pieces = new Piece[16];
+	private Piece king = null;
 	
 	public void init(Piece piece) {
 		assert piece != null;
@@ -29,6 +30,11 @@ public final class PieceList {	//TODO unit test
 		piece.index(index);
 		pieces[index] = piece;
 		index++;
+		
+		if (piece.type() == BlackKing || piece.type() == WhiteKing) {
+			assert king == null;
+			king = piece;
+		}
 	}
 
 	public int index() {
@@ -62,11 +68,7 @@ public final class PieceList {	//TODO unit test
 	}
 	
 	public Piece king() {
-		for(int i = 0; i < index; i++)
-			if (pieces[i].type() == BlackKing || pieces[i].type() == WhiteKing)
-				return pieces[i];
-		
-		assert false;
-		return null;
+		assert king != null;
+		return king;
 	}
 }
