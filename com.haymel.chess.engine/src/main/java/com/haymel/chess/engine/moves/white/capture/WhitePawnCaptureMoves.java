@@ -41,7 +41,7 @@ public final class WhitePawnCaptureMoves {	//TODO unit test
 		this.pieces = pieces;
 	}
 	
-	public boolean generate(Piece piece, int epField, Moves moves) {
+	public void generate(Piece piece, int epField, Moves moves) {
 		assert piece != null;
 		assert moves != null;
 		assert epField == Field.removed || rank(epField) == 5;
@@ -59,36 +59,35 @@ public final class WhitePawnCaptureMoves {	//TODO unit test
 		case f7:
 		case g7:
 		case h7:
-			return capturePromotion(piece, moves);
+			capturePromotion(piece, moves);
+			break;
 		default:
-			return capture(piece, moves);
+			capture(piece, moves);
+			break;
 		}
 	}
 
-	private boolean capturePromotion(Piece piece, Moves moves) {
+	private void capturePromotion(Piece piece, Moves moves) {
 		assert rank(piece.field()) == 6;
 
 		int from = piece.field();
-		return 
-			capturePromotion(from, leftUp(from), moves) &&
-			capturePromotion(from, rightUp(from), moves);
+		capturePromotion(from, leftUp(from), moves);
+		capturePromotion(from, rightUp(from), moves);
 	}
 
-	private boolean capturePromotion(int from, int to, Moves moves) {
+	private void capturePromotion(int from, int to, Moves moves) {
 		Piece piece = pieces[to];
 		if (black(piece)) {
-			if (piece.type() == BlackKing)
-				return false;
+			assert piece.type() != BlackKing;
 			
 			moves.add(from, to, capturePromotionQueen);
 			moves.add(from, to, capturePromotionRook);
 			moves.add(from, to, capturePromotionBishop);
 			moves.add(from, to, capturePromotionKnight);
 		}
-		return true;
 	}
 
-	private boolean capture(Piece piece, Moves moves) {
+	private void capture(Piece piece, Moves moves) {
 		assert 
 			rank(piece.field()) == 1 || 
 			rank(piece.field()) == 2 || 
@@ -97,23 +96,19 @@ public final class WhitePawnCaptureMoves {	//TODO unit test
 			rank(piece.field()) == 5;
 		
 		int from = piece.field();
-		return
-			capture(from, leftUp(from), moves) &&
-			capture(from, rightUp(from), moves);
+		capture(from, leftUp(from), moves);
+		capture(from, rightUp(from), moves);
 	}
 
-	private boolean capture(int from, int to, Moves moves) {
+	private void capture(int from, int to, Moves moves) {
 		Piece piece = pieces[to];
 		
 		if (!black(piece))
-			return true;
+			return;
 
-		if (piece.type() == BlackKing)
-			return false;
+		assert piece.type() != BlackKing;
 		
 		moves.add(from, to, capture);
-		
-		return true;
 	}
 
 	private static boolean black(Piece piece) {

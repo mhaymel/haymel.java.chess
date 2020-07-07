@@ -26,7 +26,7 @@ public final class BlackKnightCaptureMoves {	//TODO unit test
 		this.pieces = pieces;
 	}
 	
-	public boolean generate(Piece piece, Moves moves) {
+	public void generate(Piece piece, Moves moves) {
 		assert piece != null;
 		assert moves != null;
 		assert piece.field() != removed;
@@ -35,29 +35,25 @@ public final class BlackKnightCaptureMoves {	//TODO unit test
 
 		int from = piece.field();
 		
-		return
-			add(from, Field.leftLeftUp(from), moves) &&
-			add(from, Field.leftDownDown(from), moves) &&
-			add(from, Field.rightRightUp(from), moves) &&
-			add(from, Field.rightRightDown(from), moves) &&
-			add(from, Field.rightDownDown(from), moves) &&
-			add(from, Field.leftUpUp(from), moves) &&
-			add(from, Field.rightUpUp(from), moves) &&
-			add(from, Field.leftLeftDown(from), moves);
+		add(from, Field.leftLeftUp(from), moves);
+		add(from, Field.leftDownDown(from), moves);
+		add(from, Field.rightRightUp(from), moves);
+		add(from, Field.rightRightDown(from), moves);
+		add(from, Field.rightDownDown(from), moves);
+		add(from, Field.leftUpUp(from), moves);
+		add(from, Field.rightUpUp(from), moves);
+		add(from, Field.leftLeftDown(from), moves);
 	}
 
-	private boolean add(int from, int to, Moves moves) {
+	private void add(int from, int to, Moves moves) {
 		Piece piece = pieces[to];
 		
 		if (!white(piece))
-			return true;
+			return;
 
-		if (piece.type() == WhiteKing)
-			return false;
+		assert piece.type() != WhiteKing;
 
 		moves.add(from, to, capture);
-		
-		return true;
 	}
 
 	private static boolean white(Piece piece) {

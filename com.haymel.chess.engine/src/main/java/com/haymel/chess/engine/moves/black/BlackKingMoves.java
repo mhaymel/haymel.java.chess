@@ -43,7 +43,7 @@ public final class BlackKingMoves {
 		this.pieces = pieces;
 	}
 	
-	public boolean generate(Piece king, CastlingRight castling, Moves moves) {
+	public void generate(Piece king, CastlingRight castling, Moves moves) {
 		assert king != null;
 		assert castling != null;
 		assert moves != null;
@@ -53,26 +53,23 @@ public final class BlackKingMoves {
 
 		int from = king.field();
 		
-		return
-			add(from, Field.left(from), moves) &&
-			add(from, Field.right(from), moves) &&
-			add(from, Field.up(from), moves) &&
-			add(from, Field.down(from), moves) &&
-			add(from, Field.leftUp(from), moves) &&
-			add(from, Field.leftDown(from), moves) &&
-			add(from, Field.rightUp(from), moves) &&
-			add(from, Field.rightDown(from), moves) &&
-			castling(king, castling, moves);
+		add(from, Field.left(from), moves);
+		add(from, Field.right(from), moves);
+		add(from, Field.up(from), moves);
+		add(from, Field.down(from), moves);
+		add(from, Field.leftUp(from), moves);
+		add(from, Field.leftDown(from), moves);
+		add(from, Field.rightUp(from), moves);
+		add(from, Field.rightDown(from), moves);
+		castling(king, castling, moves);
 	}
 
-	private boolean castling(Piece king, CastlingRight castling, Moves moves) {
+	private void castling(Piece king, CastlingRight castling, Moves moves) {
 		if (castling.kingside())
 			kingSidecasteling(king, moves);
 		
 		if (castling.queenside())
 			queenSidecasteling(king, moves);
-		
-		return true;
 	}
 
 	private void kingSidecasteling(Piece king, Moves moves) {
@@ -120,20 +117,17 @@ public final class BlackKingMoves {
 		return pieces[field] != null && pieces[field].type() == BlackRook;
 	}
 
-	private boolean add(int from, int to, Moves moves) {
+	private void add(int from, int to, Moves moves) {
 		Piece piece = pieces[to];
 		
 		if (piece == null) {
 			moves.add(from, to, normalKingMove);
 		}
 		else if (white(piece.type())) { 
-			if (piece.type() == WhiteKing)
-				return false;
+			assert piece.type() != WhiteKing;
 	
 			moves.add(from, to, captureKingMove);
 		}
-		
-		return true;
 	}
 
 	private boolean isFree(int field) {

@@ -26,7 +26,7 @@ public final class WhiteBishopCaptureMoves {	//TODO unit test
 		this.pieces = pieces;
 	}
 	
-	public boolean generate(Piece piece, Moves moves) {
+	public void generate(Piece piece, Moves moves) {
 		assert piece != null;
 		assert moves != null;
 		assert piece.field() != removed;
@@ -34,14 +34,13 @@ public final class WhiteBishopCaptureMoves {	//TODO unit test
 		assert piece.type() == WhiteBishop;
 
 		int from = piece.field();
-		return 
-			leftUp(from, moves) &&
-			leftDown(from, moves) &&
-			rightUp(from, moves) &&
-			rightDown(from, moves);
+		leftUp(from, moves);
+		leftDown(from, moves);
+		rightUp(from, moves);
+		rightDown(from, moves);
 	}
 
-	private boolean leftUp(int from, Moves moves) {
+	private void leftUp(int from, Moves moves) {
 		int to = Field.leftUp(from);
 		Piece piece = pieces[to];
 		while(piece == null) {
@@ -49,16 +48,13 @@ public final class WhiteBishopCaptureMoves {	//TODO unit test
 			piece = pieces[to];
 		}
 		
-		if (piece.type() == BlackKing)
-			return false;
+		assert piece.type() != BlackKing;
 		
 		if (black(piece.type())) 
 			moves.add(from, to, capture);
-		
-		return true;
 	}
 
-	private boolean leftDown(int from, Moves moves) {
+	private void leftDown(int from, Moves moves) {
 		int to = Field.leftDown(from);
 		Piece piece = pieces[to];
 		while(piece == null) {
@@ -66,16 +62,13 @@ public final class WhiteBishopCaptureMoves {	//TODO unit test
 			piece = pieces[to];
 		}
 		
-		if (piece.type() == BlackKing)
-			return false;
+		assert piece.type() != BlackKing;
 		
 		if (black(piece.type())) 
 			moves.add(from, to, capture);
-		
-		return true;
 	}
 
-	private boolean rightUp(int from, Moves moves) {
+	private void rightUp(int from, Moves moves) {
 		int to = Field.rightUp(from);
 		Piece piece = pieces[to];
 		while(piece == null) {
@@ -83,16 +76,13 @@ public final class WhiteBishopCaptureMoves {	//TODO unit test
 			piece = pieces[to];
 		}
 		
-		if (piece.type() == BlackKing)
-			return false;
+		assert piece.type() != BlackKing;
 		
 		if (black(piece.type())) 
 			moves.add(from, to, capture);
-		
-		return true;
 	}
 
-	private boolean rightDown(int from, Moves moves) {
+	private void rightDown(int from, Moves moves) {
 		int to = Field.rightDown(from);
 		Piece piece = pieces[to];
 		while(piece == null) {
@@ -100,13 +90,10 @@ public final class WhiteBishopCaptureMoves {	//TODO unit test
 			piece = pieces[to];
 		}
 		
-		if (piece.type() == BlackKing)
-			return false;
+		assert piece.type() != BlackKing;
 		
 		if (black(piece.type())) 
 			moves.add(from, to, capture);
-		
-		return true;
 	}
 	
 }

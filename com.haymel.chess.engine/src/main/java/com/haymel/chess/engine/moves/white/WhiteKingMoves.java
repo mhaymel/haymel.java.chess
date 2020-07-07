@@ -50,7 +50,7 @@ public final class WhiteKingMoves {
 		this.pieces = pieces;
 	}
 	
-	public boolean generate(Piece king, CastlingRight castling, Moves moves) {
+	public void generate(Piece king, CastlingRight castling, Moves moves) {
 		assert king != null;
 		assert castling != null;
 		assert moves != null;
@@ -60,26 +60,23 @@ public final class WhiteKingMoves {
 
 		int from = king.field();
 		
-		return
-			add(from, left(from), moves) &&
-			add(from, right(from), moves) &&
-			add(from, up(from), moves) &&
-			add(from, down(from), moves) &&
-			add(from, leftUp(from), moves) &&
-			add(from, leftDown(from), moves) &&
-			add(from, rightUp(from), moves) &&
-			add(from, rightDown(from), moves) &&
-			castling(king, castling, moves);
+		add(from, left(from), moves);
+		add(from, right(from), moves);
+		add(from, up(from), moves);
+		add(from, down(from), moves);
+		add(from, leftUp(from), moves);
+		add(from, leftDown(from), moves);
+		add(from, rightUp(from), moves);
+		add(from, rightDown(from), moves);
+		castling(king, castling, moves);
 	}
 
-	private boolean castling(Piece king, CastlingRight castling, Moves moves) {
+	private void castling(Piece king, CastlingRight castling, Moves moves) {
 		if (castling.kingside())
 			kingSidecasteling(king, moves);
 		
 		if (castling.queenside())
 			queenSidecasteling(king, moves);
-		
-		return true;
 	}
 
 	private void kingSidecasteling(Piece king, Moves moves) {
@@ -131,19 +128,16 @@ public final class WhiteKingMoves {
 		return piece != null && piece.type() == WhiteRook;
 	}
 
-	private boolean add(int from, int to, Moves moves) {
+	private void add(int from, int to, Moves moves) {
 		Piece piece = pieces[to];
 		
 		if (piece == null) {
 			moves.add(from, to, normalKingMove);
 		}
 		else if (PieceType.black(piece.type())) {
-			if (piece.type() == BlackKing)
-				return false;
-		
+			assert piece.type() != BlackKing;
 			moves.add(from, to, captureKingMove);
 		}
-		return true;
 	}
 
 	private final boolean isFree(int field) {

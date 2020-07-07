@@ -39,7 +39,7 @@ public final class BlackPawnCaptureMoves {
 		this.pieces = pieces;
 	}
 	
-	public boolean generate(Piece piece, int epField, Moves moves) {
+	public void generate(Piece piece, int epField, Moves moves) {
 		assert piece != null;
 		assert moves != null;
 		assert epField == removed || Field.rank(epField) == 2;
@@ -57,36 +57,35 @@ public final class BlackPawnCaptureMoves {
 		case f2:
 		case g2:
 		case h2:
-			return capturePromotion(piece, moves);
+			capturePromotion(piece, moves);
+			break;
 		default:
-			return capture(piece, moves);
+			capture(piece, moves);
+			break;
 		}
 	}
 
-	private boolean capturePromotion(Piece piece, Moves moves) {
+	private void capturePromotion(Piece piece, Moves moves) {
 		assert Field.rank(piece.field()) == 1;
 
 		int from = piece.field();
-		return 
-			capturePromotion(from, Field.leftDown(from), moves) &&
-			capturePromotion(from, Field.rightDown(from), moves);
+		capturePromotion(from, Field.leftDown(from), moves);
+		capturePromotion(from, Field.rightDown(from), moves);
 	}
 	
-	private boolean capturePromotion(int from, int to, Moves moves) {
+	private void capturePromotion(int from, int to, Moves moves) {
 		Piece piece = pieces[to];
 		if (white(piece)) {
-			if (piece.type() == WhiteKing)
-				return false;
+			assert piece.type() != WhiteKing;
 			
 			moves.add(from, to, capturePromotionQueen);
 			moves.add(from, to, capturePromotionRook);
 			moves.add(from, to, capturePromotionBishop);
 			moves.add(from, to, capturePromotionKnight);
 		}
-		return true;
 	}
 
-	private boolean capture(Piece piece, Moves moves) {
+	private void capture(Piece piece, Moves moves) {
 		assert 
 			Field.rank(piece.field()) == 2 || 
 			Field.rank(piece.field()) == 3 || 
@@ -95,20 +94,17 @@ public final class BlackPawnCaptureMoves {
 			Field.rank(piece.field()) == 6;
 		
 		int from = piece.field();
-		return 
-			capture(from, Field.leftDown(from), moves) &&
-			capture(from, Field.rightDown(from), moves);
+		capture(from, Field.leftDown(from), moves);
+		capture(from, Field.rightDown(from), moves);
 	}
 
-	private boolean capture(int from, int to, Moves moves) {
+	private void capture(int from, int to, Moves moves) {
 		Piece piece = pieces[to];
 		if (white(piece)) {
-			if (piece.type() == WhiteKing)
-				return false;
+			assert piece.type() != WhiteKing;
 			
 			moves.add(from, to, capture);
 		}
-		return true;
 	}
 
 	private static boolean white(Piece piece) {

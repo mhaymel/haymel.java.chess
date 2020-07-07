@@ -49,6 +49,8 @@ import org.junit.Test;
 
 import com.haymel.chess.engine.fen.GameFromFEN;
 import com.haymel.chess.engine.moves.Moves;
+import com.haymel.chess.engine.search.BlackInCheck;
+import com.haymel.chess.engine.search.WhiteInCheck;
 
 public class GameWhiteStartPosMakeAndUndoTest {
 
@@ -114,7 +116,8 @@ public class GameWhiteStartPosMakeAndUndoTest {
 		
 			int move = moves.move(i);
 			makeMove.makeMove(move);
-			black(depth + 1);
+			if (!whiteIsInCheck())
+				black(depth + 1);
 			makeMove.undoMove();
 			assert enPassant == game.enPassant();
 			
@@ -143,7 +146,8 @@ public class GameWhiteStartPosMakeAndUndoTest {
 			
 			int move = moves.move(i);
 			makeMove.makeMove(move);
-			white(depth + 1);
+			if (!blackIsInCheck())
+				white(depth + 1);
 			makeMove.undoMove();
 			assert enPassant == game.enPassant();
 		}
@@ -157,6 +161,14 @@ public class GameWhiteStartPosMakeAndUndoTest {
 			result.add(moves.move(i));
 		
 		return result;
+	}
+	
+	private boolean whiteIsInCheck() {
+		return WhiteInCheck.whiteIsInCheck(game.whitePieces().king().field(), game.pieces());
+	}
+
+	private boolean blackIsInCheck() {
+		return BlackInCheck.blackIsInCheck(game.blackPieces().king().field(), game.pieces());
 	}
 	
 }

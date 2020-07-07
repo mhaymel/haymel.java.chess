@@ -60,7 +60,8 @@ public class Perft {
 		for(int i = 0; i < size; i++) {
 			int move = moves.move(i);
 			makeMove.makeMove(move);
-			black(depth + 1);
+			if (!whiteIsInCheck())
+				black(depth + 1);
 			makeMove.undoMove();
 		}
 	}
@@ -81,9 +82,18 @@ public class Perft {
 		for(int i = 0; i < size; i++) {
 			int move = moves.move(i);
 			makeMove.makeMove(move);
-			white(depth + 1);
+			if (!blackIsInCheck())
+				white(depth + 1);
 			makeMove.undoMove();
 		}
+	}
+
+	private boolean whiteIsInCheck() {
+		return WhiteInCheck.whiteIsInCheck(game.whitePieces().king().field(), game.pieces());
+	}
+
+	private boolean blackIsInCheck() {
+		return BlackInCheck.blackIsInCheck(game.blackPieces().king().field(), game.pieces());
 	}
 	
 }

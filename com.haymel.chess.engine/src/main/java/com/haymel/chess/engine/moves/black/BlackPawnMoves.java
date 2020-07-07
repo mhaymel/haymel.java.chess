@@ -57,7 +57,7 @@ public final class BlackPawnMoves {
 		this.pieces = pieces;
 	}
 	
-	public boolean generate(Piece piece, int epField, Moves moves) {
+	public void generate(Piece piece, int epField, Moves moves) {
 		assert piece != null;
 		assert moves != null;
 		assert epField == removed || rank(epField) == 2;
@@ -75,7 +75,8 @@ public final class BlackPawnMoves {
 		case f7:
 		case g7:
 		case h7:
-			return doubleStepMove(piece, moves);
+			doubleStepMove(piece, moves);
+			break;
 		case a2:
 		case b2:
 		case c2:
@@ -84,13 +85,15 @@ public final class BlackPawnMoves {
 		case f2:
 		case g2:
 		case h2:
-			return promotion(piece, moves);
+			promotion(piece, moves);
+			break;
 		default:
-			return normal(piece, moves);
+			normal(piece, moves);
+			break;
 		}
 	}
 
-	private boolean promotion(Piece piece, Moves moves) {
+	private void promotion(Piece piece, Moves moves) {
 		assert rank(piece.field()) == 1;
 
 		int from = piece.field();
@@ -102,30 +105,27 @@ public final class BlackPawnMoves {
 			moves.add(from, to, promotionKnight);
 		}
 		
-		return capturePromotion(from, moves);
+		capturePromotion(from, moves);
 	}
 
-	private boolean capturePromotion(int from, Moves moves) {
-		return 
-			capturePromotion(from, leftDown(from), moves) &&
-			capturePromotion(from, rightDown(from), moves);
+	private void capturePromotion(int from, Moves moves) {
+		capturePromotion(from, leftDown(from), moves);
+		capturePromotion(from, rightDown(from), moves);
 	}
 	
-	private boolean capturePromotion(int from, int to, Moves moves) {
+	private void capturePromotion(int from, int to, Moves moves) {
 		Piece piece = pieces[to];
 		if (white(piece)) {
-			if (piece.type() == WhiteKing)
-				return false;
+			assert piece.type() != WhiteKing;
 			
 			moves.add(from, to, capturePromotionQueen);
 			moves.add(from, to, capturePromotionRook);
 			moves.add(from, to, capturePromotionBishop);
 			moves.add(from, to, capturePromotionKnight);
 		}
-		return true;
 	}
 
-	private boolean normal(Piece piece, Moves moves) {
+	private void normal(Piece piece, Moves moves) {
 		assert 
 			rank(piece.field()) == 2 || 
 			rank(piece.field()) == 3 || 
@@ -137,10 +137,10 @@ public final class BlackPawnMoves {
 		if (isFree(to)) 
 			moves.add(from, to, pawn);
 		
-		return capture(from, moves);
+		capture(from, moves);
 	}
 
-	private boolean doubleStepMove(Piece piece, Moves moves) {
+	private void doubleStepMove(Piece piece, Moves moves) {
 		assert rank(piece.field()) == 6;
 		
 		int from = piece.field();
@@ -152,24 +152,21 @@ public final class BlackPawnMoves {
 				moves.add(from, doubleTo, pawnDoubleStep);		
 		}
 		
-		return capture(from, moves);
+		capture(from, moves);
 	}
 
-	private boolean capture(int from, Moves moves) {
-		return 
-			capture(from, leftDown(from), moves) &&
-			capture(from, rightDown(from), moves);
+	private void capture(int from, Moves moves) {
+		capture(from, leftDown(from), moves);
+		capture(from, rightDown(from), moves);
 	}
 	
-	private boolean capture(int from, int to, Moves moves) {
+	private void capture(int from, int to, Moves moves) {
 		Piece piece = pieces[to];
 		if (white(piece)) {
-			if (piece.type() == WhiteKing)
-				return false;
+			assert piece.type() != WhiteKing;
 			
 			moves.add(from, to, capture);
 		}
-		return true;
 	}
 
 	private static boolean white(Piece piece) {

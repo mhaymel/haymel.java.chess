@@ -27,7 +27,7 @@ public final class BlackRookCaptureMoves {		//TODO unit test
 		this.pieces = pieces;
 	}
 	
-	public boolean generate(Piece piece, Moves moves) {
+	public void generate(Piece piece, Moves moves) {
 		assert piece != null;
 		assert moves != null;
 		assert piece.field() != removed;
@@ -35,14 +35,13 @@ public final class BlackRookCaptureMoves {		//TODO unit test
 		assert piece.type() == BlackRook : format("piece must be black rook but is %s", piece);
 
 		int from = piece.field();
-		return
-			up(from, moves) &&
-			down(from, moves) &&
-			left(from, moves) &&
-			right(from, moves);
+		up(from, moves);
+		down(from, moves);
+		left(from, moves);
+		right(from, moves);
 	}
 
-	private boolean up(int from, Moves moves) {
+	private void up(int from, Moves moves) {
 		int to = Field.up(from);
 		Piece piece = pieces[to];
 		while(piece == null) {
@@ -50,16 +49,13 @@ public final class BlackRookCaptureMoves {		//TODO unit test
 			piece = pieces[to];
 		}
 
-		if (piece.type() == WhiteKing)
-			return false;
+		assert piece.type() != WhiteKing;
 		
 		if (white(piece.type())) 
 			moves.add(from, to, captureRookMove);
-		
-		return true;
 	}
 
-	private boolean down(int from, Moves moves) {
+	private void down(int from, Moves moves) {
 		int to = Field.down(from);
 		Piece piece = pieces[to];
 		while(piece == null) {
@@ -67,16 +63,13 @@ public final class BlackRookCaptureMoves {		//TODO unit test
 			piece = pieces[to];		
 		}
 
-		if (piece.type() == WhiteKing)
-			return false;
+		assert piece.type() != WhiteKing;
 		
 		if (white(piece.type())) 
 			moves.add(from, to, captureRookMove);
-		
-		return true;
 	}
 
-	private boolean left(int from, Moves moves) {
+	private void left(int from, Moves moves) {
 		int to = Field.left(from);
 		Piece piece = pieces[to];
 		while(piece == null) {
@@ -84,16 +77,13 @@ public final class BlackRookCaptureMoves {		//TODO unit test
 			piece = pieces[to];
 		}
 
-		if (piece.type() == WhiteKing)
-			return false;
+		assert piece.type() != WhiteKing;
 		
 		if (white(piece.type())) 
 			moves.add(from, to, captureRookMove);
-		
-		return true;
 	}
 
-	private boolean right(int from, Moves moves) {
+	private void right(int from, Moves moves) {
 		int to = Field.right(from);
 		Piece piece = pieces[to];
 		while(piece == null) {
@@ -101,13 +91,10 @@ public final class BlackRookCaptureMoves {		//TODO unit test
 			piece = pieces[to];
 		}
 
-		if (piece.type() == WhiteKing)
-			return false;
+		assert piece.type() != WhiteKing;
 		
 		if (white(piece.type())) 
 			moves.add(from, to, captureRookMove);
-		
-		return true;
 	}
 	
 }

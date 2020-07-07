@@ -111,12 +111,12 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 		int alpha = MIN_VALUE;
 		BestMove bestMove = null;
 		
-		Moves moves = game.whiteMoves();			
-		if (moves == null)		
+		if (blackIsInCheck())		
 			return blackIsMate();
 		
 		final int depth = 0;
 		
+		Moves moves = game.whiteMoves();			
 		MoveIterator moveIter = moveIteratorCreator.create(moves, moves.size(), principal(depth), 0);
 		
 		int move;
@@ -270,12 +270,12 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 		int beta = MAX_VALUE;
 		BestMove bestMove = null;
 		
-		Moves moves = game.blackMoves();
-		if (moves == null)
+		if (whiteIsInCheck())
 			return whiteIsMate();
 
 		final int depth = 0;
 
+		Moves moves = game.blackMoves();
 		MoveIterator moveIter = moveIteratorCreator.create(moves, moves.size(), principal(depth), 0);
 		
 		int move;
@@ -483,24 +483,10 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 	}
 	
 	private boolean whiteIsInCheck() {
-		assert 
-			!WhiteInCheck.whiteIsInCheck(game.whitePieces().king().field(), game.pieces()) 
-			|| 
-				(game.blackCaptureMoves() == null 
-				 && 
-				 game.blackMoves() == null);
-
 		return WhiteInCheck.whiteIsInCheck(game.whitePieces().king().field(), game.pieces());
 	}
 	
 	private boolean blackIsInCheck() {
-		assert 
-		!BlackInCheck.blackIsInCheck(game.blackPieces().king().field(), game.pieces()) 
-		|| 
-			(game.whiteCaptureMoves() == null 
-			 && 
-			 game.whiteMoves() == null);
-
 		return BlackInCheck.blackIsInCheck(game.blackPieces().king().field(), game.pieces());
 	}
 

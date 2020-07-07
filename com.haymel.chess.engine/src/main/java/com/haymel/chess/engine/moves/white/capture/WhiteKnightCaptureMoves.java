@@ -32,37 +32,32 @@ public final class WhiteKnightCaptureMoves {
 		this.pieces = pieces;
 	}
 	
-	public boolean generate(Piece knight, Moves moves) {
+	public void generate(Piece knight, Moves moves) {
 		assert knight != null;
 		assert moves != null;
 		assert knight.field() != removed;
 		assert pieces[knight.field()] == knight;
 
 		int from = knight.field();
-		
-		return
-			add(from, leftLeftUp(from), moves) &&
-			add(from, leftDownDown(from), moves) &&
-			add(from, rightRightUp(from), moves) &&
-			add(from, rightRightDown(from), moves) &&
-			add(from, rightDownDown(from), moves) &&
-			add(from, leftUpUp(from), moves) &&
-			add(from, rightUpUp(from), moves) &&
-			add(from, leftLeftDown(from), moves);
+		add(from, leftLeftUp(from), moves);
+		add(from, leftDownDown(from), moves);
+		add(from, rightRightUp(from), moves);
+		add(from, rightRightDown(from), moves);
+		add(from, rightDownDown(from), moves);
+		add(from, leftUpUp(from), moves);
+		add(from, rightUpUp(from), moves);
+		add(from, leftLeftDown(from), moves);
 	}
 
-	private boolean add(int from, int to, Moves moves) {
+	private void add(int from, int to, Moves moves) {
 		Piece piece = pieces[to];
 		
 		if (!black(piece))
-			return true;
+			return;
 
-		if (piece.type() == BlackKing)
-			return false;
+		assert piece.type() != BlackKing;
 
 		moves.add(from, to, capture);
-		
-		return true;
 	}
 
 	private static boolean black(Piece piece) {

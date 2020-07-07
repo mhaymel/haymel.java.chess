@@ -47,7 +47,7 @@ public final class BlackMoves {		//TODO unit test
 		this.pawnMoves = new BlackPawnMoves(pieces);
 	}
 	
-	public boolean generate(PieceList pieces, CastlingRight castling, int epField, Moves moves) {
+	public void generate(PieceList pieces, CastlingRight castling, int epField, Moves moves) {
 		assert pieces != null;
 		assert moves != null;
 		assert pieces.verify();
@@ -55,13 +55,10 @@ public final class BlackMoves {		//TODO unit test
 		
 		int size = pieces.index();
 		for(int i = 0; i < size; i++)
-			if (!generate(pieces.piece(i), castling, epField, moves))
-				return false;
+			generate(pieces.piece(i), castling, epField, moves);
 		
 		if (epField != removed)
 			enpassant(epField, moves);
-
-		return true;
 	}
 
 	private void enpassant(int epField, Moves moves) {
@@ -80,23 +77,35 @@ public final class BlackMoves {		//TODO unit test
 		return piece != null && piece.type() == BlackPawn;
 	}
 	
-	private boolean generate(Piece piece, CastlingRight castling, int epField, Moves moves) {
+	private void generate(Piece piece, CastlingRight castling, int epField, Moves moves) {
 		assert piece != null;
 		assert PieceType.black(piece.type());
 	
 		if (piece.captured())
-			return true;
+			return;
 		
 		switch(piece.type()) {
-		case BlackPawn: 	return pawnMoves.generate(piece, epField, moves);
-		case BlackRook: 	return rookMoves.generate(piece, moves);
-		case BlackKnight:	return knightMoves.generate(piece, moves);
-		case BlackBishop:	return bishopMoves.generate(piece, moves);
-		case BlackQueen:	return queenMoves.generate(piece, moves);
-		case BlackKing:		return kingMoves.generate(piece, castling, moves);
+		case BlackPawn: 	
+			pawnMoves.generate(piece, epField, moves);
+			break;
+		case BlackRook: 	
+			rookMoves.generate(piece, moves);
+			break;
+		case BlackKnight:	
+			knightMoves.generate(piece, moves);
+			break;
+		case BlackBishop:	
+			bishopMoves.generate(piece, moves);
+			break;
+		case BlackQueen:	
+			queenMoves.generate(piece, moves);
+			break;
+		case BlackKing:		
+			kingMoves.generate(piece, castling, moves);
+			break;
 		default:
 			assert false;
-			return false;
+			break;
 		}
 	}
 	
