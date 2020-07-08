@@ -70,6 +70,7 @@ public final class Game {	//TODO unit test and refactor
 	private final int[] halfMoveClockStack = new int[(15+8*6)*2 + 100];
 	private int halfMoveClockStackIndex = 0;
 
+	private Piece[] victimStack = new Piece[30];
 	private int victimIndex = 0;
 	
 	private int fullMoveNumber;
@@ -84,7 +85,6 @@ public final class Game {	//TODO unit test and refactor
 	private int whitePositionValue;
 	private int blackPositionValue;
 	private Hash hash = new Hash();
-	private Piece[] victimStack = new Piece[30];
 	
 	public Game(Position position) {
 		this(position, new WhitePiecesPositionValue(), new BlackPiecesPositionValue());
@@ -567,10 +567,8 @@ public final class Game {	//TODO unit test and refactor
 	}
 
 	public boolean repetition() {
-		if (undosIndex < 4)
-			return false;
-		
 		return 
+			undosIndex >= 4 &&
 			Move.to(undos[undosIndex-1]) == Move.from(undos[undosIndex-3]) &&
 			Move.from(undos[undosIndex-1]) == Move.to(undos[undosIndex-3]) &&
 			Move.to(undos[undosIndex-2]) == Move.from(undos[undosIndex-4]) &&

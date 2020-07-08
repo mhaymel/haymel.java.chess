@@ -128,7 +128,6 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 			Variant v = new Variant(move);
 			WhiteMakeMove.makeMove(game, move);
 			
-			
 			if (!whiteIsInCheck()) {
 				int score = black(depth + 1, alpha, MAX_VALUE, v);
 				if (score > alpha) {
@@ -152,6 +151,9 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 		assert depth >= 1: format("depth: %s, maxDepth: %s", depth, maxDepth);
 		assert game.whiteMoves() != null;
 		
+		if (game.repetition())
+			return 0;
+
 		if (depth >= maxDepth)
 			return whiteQuiet(depth, alpha, beta, variant);
 		
@@ -310,6 +312,9 @@ public class SearchAlphaBeta {		//TODO refactor, unit test
 		assert depth > 0: format("depth: %s, maxDepth: %s", depth, maxDepth);
 		assert game.blackMoves() != null;
 
+		if (game.repetition())
+			return 0;
+		
 		if (depth >= maxDepth)
 			return blackQuiet(depth, alpha, beta, variant);
 		

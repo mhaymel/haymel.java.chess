@@ -9,6 +9,7 @@ package com.haymel.chess.engine.search;
 
 import static com.haymel.chess.engine.board.Field.fieldAsString;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
@@ -38,12 +39,13 @@ public class SearchAlphaBetaRepetitionTest {
 		assertThat(game.repetition(), is(false));
 		
 		SearchAlphaBeta search = new SearchAlphaBeta(game);
-		BestMove move = search.execute(1);
+		BestMove move = search.execute(3);
 		
 		System.out.println("nodes: " + move.nodes().count());
 		System.out.println("play: " + asString(move.move()));
 		System.out.println("value: " + move.value());
 		
+		assertThat(asString(move.move()), not("e2c3"));
 		WhiteMakeMove.makeMove(game, move.move());
 	}
 	

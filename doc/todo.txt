@@ -1,3 +1,6 @@
+- compacting piece list after position was set via uci interface to minimize iteration
+  be careful to keep the moves already made so that repetition check still works
+  
 - remove Game.containsWhitePiece(), Game.containsBlackPiece(), PieceList.contains()
 - MoveFinderTest: add capturePromotionTests
 - create class FenFromPosition and use it in unit tests
@@ -6,7 +9,6 @@
 - improve time management
 - improve stopping of search
 - implement 3 malige stellungswiederholung
-
 - unit tests
 - refactor IterativeSearch
 - refactor SearchAlphaBeta
@@ -23,13 +25,5 @@
 
 - use StringFromMove instead of static methods in unit tests
 
-- optimize "null"	
-	public Move(int from, int to, MoveType type) {
-		this(from, to, type, null, Free);
-	}	
-	public Move(int from, int to, PieceType pieceType) {
-		this(from, to, promotion, null, pieceType);
-	}
-	
 - MakeBlackQueenSideCastlingMoveTest.java   	public void enPassantIsSetCorrectly() 
 
